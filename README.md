@@ -1,0 +1,1 @@
+# spa-vite-template
