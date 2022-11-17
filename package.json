@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "test": "vitest",
     "preview": "vite preview",
     "lint": "CI=true eslint --ignore-pattern '*.d.ts' --ignore-pattern '*.test.*' --ext ts,tsx --max-warnings 0 src",
     "prepare": "husky install"
@@ -27,6 +28,7 @@
     "typescript": "^4.9.3",
     "vite": "^3.2.3",
     "vite-plugin-checker": "^0.5.1",
-    "vite-tsconfig-paths": "^3.5.2"
+    "vite-tsconfig-paths": "^3.5.2",
+    "vitest": "^0.25.2"
   }
 }
