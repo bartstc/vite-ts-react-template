@@ -1,19 +1,24 @@
-import React from "react";
-
 import { expect } from "@storybook/jest";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 import { userEvent, within } from "@storybook/testing-library";
 
 import App from "./App";
 
-export default {
-  title: "demo/App",
+const meta: Meta<typeof App> = {
+  title: "Demo/App",
   component: App,
-} as ComponentMeta<typeof App>;
+  tags: ["docsPage"],
+  parameters: {
+    layout: "centered",
+  },
+};
 
-export const Default: ComponentStory<typeof App> = () => <App />;
+export default meta;
+type Story = StoryObj<typeof App>;
 
-export const Interactive: ComponentStory<typeof App> = () => <App />;
+export const Default: Story = {};
+
+export const Interactive: Story = {};
 Interactive.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
   const incrementButton = canvas.getByRole("button");
