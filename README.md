@@ -14,7 +14,7 @@ This project provides the basic dev configuration designated for developing a Si
 Clone this repo.
 
 ```
-git clone https://github.com/bartstc/spa-vite-template.git [project_name]
+git clone -b main --depth 1 --single-branch https://github.com/bartstc/spa-vite-template.git [project_name]
 ```
 
 Link cloned repo with your own remote repository.
