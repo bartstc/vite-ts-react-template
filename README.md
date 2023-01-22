@@ -11,7 +11,9 @@ This project provides the basic dev configuration designated for developing a Si
 
 # How to use
 
-Clone this repo.
+_You may simply download a ZIP Directory and start with a clean git repository using a command_ `git init`...
+
+... or clone this repo through git CLI.
 
 ```
 git clone -b main --depth 1 --single-branch https://github.com/bartstc/spa-vite-template.git [project_name]
@@ -32,3 +34,5 @@ git checkout -b [branch_name]
 ```
 git push --set-upstream origin [branch_name]
 ```
+
+Set your newly created and pushed branch as default. You may do this in `Settings` -> `Branches` -> `Default Branch`.
