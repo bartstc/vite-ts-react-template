@@ -8,6 +8,7 @@ This project provides the basic dev configuration designated for developing a Si
 - Testing environment based on [Vitest](https://vitest.dev/) and [Storybook](https://storybook.js.org/)
 - Static code analysis: eslint, prettier, husky.
 - TypeScript support.
+- [Devcontainer](https://code.visualstudio.com/docs/devcontainers/containers) config for VS Code.
 
 # How to use
 
