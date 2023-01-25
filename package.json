@@ -33,7 +33,7 @@
     "@trivago/prettier-plugin-sort-imports": "^3.4.0",
     "@types/react": "^18.0.24",
     "@types/react-dom": "^18.0.8",
-    "@vitejs/plugin-react": "^2.2.0",
+    "@vitejs/plugin-react-swc": "^3.0.1",
     "babel-loader": "^8.3.0",
     "eslint": "^8.27.0",
     "eslint-config-react-app": "^7.0.1",
@@ -45,9 +45,9 @@
     "storybook": "^7.0.0-beta.12",
     "storybook-dark-mode": "^2.0.4",
     "typescript": "^4.9.3",
-    "vite": "^3.2.3",
-    "vite-plugin-checker": "^0.5.1",
-    "vite-tsconfig-paths": "^3.5.2",
-    "vitest": "^0.25.2"
+    "vite": "^4.0.4",
+    "vite-plugin-checker": "^0.5.4",
+    "vite-tsconfig-paths": "^4.0.5",
+    "vitest": "^0.27.3"
   }
 }
