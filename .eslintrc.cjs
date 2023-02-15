@@ -39,8 +39,30 @@ module.exports = {
       },
     ],
     "no-restricted-imports": [
-      "warn",
+      "error",
       {
+        paths: [
+          {
+            message: `Please use import { method } from "lodash-es" instead.`,
+            name: "lodash",
+          },
+          {
+            importNames: ["chain"],
+            message:
+              "Avoid using chain since it is non tree-shakable. Try out flow instead.",
+            name: "lodash-es",
+          },
+          {
+            importNames: ["default"],
+            message: `Instead of default import, please use import { method } from "lodash-es" instead.`,
+            name: "lodash-es",
+          },
+          {
+            message:
+              "Avoid using chain since it is non tree-shakable. Try out flow instead.",
+            name: "lodash-es/chain",
+          },
+        ],
         patterns: [
           "shared/*/*",
           "*/**/shared/*",
@@ -48,8 +70,8 @@ module.exports = {
           "*/**/utils/*",
           "modules/*/*/*",
           "*/**/modules/*/*",
-          "dayjs",
-          "react-router-dom",
+          "lodash/**",
+          "lodash/fp/**",
         ],
       },
     ],
