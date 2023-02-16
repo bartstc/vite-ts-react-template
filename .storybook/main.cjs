@@ -12,6 +12,9 @@ module.exports = {
     name: "@storybook/react-vite",
     options: {},
   },
+  // core: {
+  //   builder: "@storybook/builder-vite",
+  // },
   features: {
     storyStoreV7: true,
     interactionsDebugger: true,
@@ -25,4 +28,8 @@ module.exports = {
   docs: {
     docsPage: "automatic",
   },
+  env: (config) => ({
+    ...config,
+    STORYBOOK: true,
+  }),
 };

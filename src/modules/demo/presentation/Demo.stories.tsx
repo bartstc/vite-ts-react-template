@@ -2,11 +2,11 @@ import { expect } from "@storybook/jest";
 import type { Meta, StoryObj } from "@storybook/react";
 import { userEvent, within } from "@storybook/testing-library";
 
-import App from "./App";
+import { Demo } from "./Demo";
 
-const meta: Meta<typeof App> = {
-  title: "Demo/App",
-  component: App,
+const meta: Meta<typeof Demo> = {
+  title: "modules/Demo",
+  component: Demo,
   tags: ["docsPage"],
   parameters: {
     layout: "centered",
@@ -14,7 +14,7 @@ const meta: Meta<typeof App> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof App>;
+type Story = StoryObj<typeof Demo>;
 
 export const Default: Story = {};
 
