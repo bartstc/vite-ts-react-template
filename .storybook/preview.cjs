@@ -3,6 +3,7 @@ import React from "react";
 import { ChakraProvider } from "@chakra-ui/react";
 
 import { theme } from "../src/theme";
+import { withReactQuery } from "../src/utils";
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
@@ -17,4 +18,5 @@ export const parameters = {
 
 export const decorators = [
   (story) => React.createElement(ChakraProvider, { children: story(), theme }),
+  withReactQuery(),
 ];
