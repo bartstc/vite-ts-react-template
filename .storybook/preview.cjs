@@ -8,4 +8,5 @@ export const parameters = {
       date: /Date$/,
     },
   },
+  a11y: { disable: true },
 };
