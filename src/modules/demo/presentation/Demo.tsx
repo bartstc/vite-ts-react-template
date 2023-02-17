@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { VStack, Text, Heading, Center, Button } from "@chakra-ui/react";
 
-import { Number, t } from "utils";
+import { Date, Number, t } from "utils";
 
 const Demo = () => {
   const [count, setCount] = useState(0);
@@ -22,16 +22,25 @@ const Demo = () => {
           </Text>
         </VStack>
         <Text fontWeight="400">
-          {t("Vite had {number} weekly downloads on NPM in {date}", {
+          {t("Vite had {number} weekly downloads on NPM on {date}", {
             number: Number.format("2696684.12"),
-            date: new Date(2023, 2, 17, 10, 44, 0).toJSON(),
+            date: Date.formatDate(new window.Date(2023, 1, 17, 10, 44, 0)),
           })}
         </Text>
         <Text fontWeight="400">
-          {t("{bitcoinNumber} bitcoins were worth {currencyNumber} in {date}", {
+          {t("{bitcoinNumber} bitcoins were worth {currencyNumber} on {date}", {
             bitcoinNumber: Number.format(1000),
             currencyNumber: Number.formatCurrency(23753382.63),
-            date: new Date(2023, 2, 17, 10, 44, 0).toJSON(),
+            date: Date.formatDateTime(new window.Date(2023, 1, 17, 12, 44, 0)),
+          })}
+        </Text>{" "}
+        <Text fontWeight="400">
+          {t("Storybook conference: {date}", {
+            bitcoinNumber: Number.format(1000),
+            currencyNumber: Number.formatCurrency(23753382.63),
+            date: Date.formatRelativeTime(
+              new window.Date(2023, 2, 14, 10, 0, 0)
+            ),
           })}
         </Text>
       </VStack>

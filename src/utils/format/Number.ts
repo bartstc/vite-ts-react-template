@@ -1,4 +1,4 @@
-import { locale } from "./locale";
+import { getLocale, locale } from "./locale";
 import { t } from "./message";
 
 export class Number {
@@ -15,7 +15,10 @@ export class Number {
     return new Intl.NumberFormat(locale, options).format(numberValue);
   }
 
-  static formatCurrency(value: number | string, currency = "USD"): string {
+  static formatCurrency(
+    value: number | string,
+    currency = getLocale().defaultCurrency
+  ): string {
     const numberValue = typeof value === "string" ? parseFloat(value) : value;
 
     if (isNaN(numberValue)) {
