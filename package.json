@@ -23,6 +23,7 @@
     "@fontsource/inter": "^4.5.15",
     "@tanstack/react-query": "^4.24.6",
     "framer-motion": "^9.0.3",
+    "intl-messageformat": "^10.3.0",
     "lodash-es": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
