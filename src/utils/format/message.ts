@@ -3,6 +3,8 @@ import IntlMessageFormat, {
   FormatXMLElementFn,
 } from "intl-messageformat";
 
+import { locale } from "./locale";
+
 type Format<T> =
   | Record<
       string,
@@ -11,5 +13,5 @@ type Format<T> =
   | undefined;
 
 export function t<T = void>(message: string, values?: Format<T>) {
-  return new IntlMessageFormat(message).format(values);
+  return new IntlMessageFormat(message, locale).format(values);
 }
