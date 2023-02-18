@@ -1,10 +1,10 @@
 import { ReactNode } from "react";
 
 import { ChakraProvider } from "@chakra-ui/react";
-import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
 import { theme } from "theme";
 
-const queryClient = new QueryClient();
+import { queryClient } from "utils";
 
 interface IProps {
   children: ReactNode;
