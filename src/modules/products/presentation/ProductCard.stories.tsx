@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { withRouter } from "storybook-addon-react-router-v6";
 
 import { ProductFixture } from "utils/fixtures";
 
@@ -7,6 +8,7 @@ import { ProductCard } from "./ProductCard";
 const meta: Meta<typeof ProductCard> = {
   title: "Modules/Products/ProductCard",
   component: ProductCard,
+  decorators: [withRouter],
   parameters: {
     layout: "centered",
   },
