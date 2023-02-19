@@ -20,6 +20,9 @@ export const router = createBrowserRouter([
   {
     path: "products",
     element: <Products />,
+    loader: () => {
+      return productsLoader();
+    },
     // todo: error screen
     errorElement: <h1>Error (todo)</h1>,
   },
