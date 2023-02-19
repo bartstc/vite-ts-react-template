@@ -1,5 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 
+import { productsLoader } from "modules/products/infrastructure";
+
 import { Cart } from "./Cart";
 import { Home } from "./Home";
 import { Products } from "./Products";
@@ -9,6 +11,9 @@ export const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
+    loader: () => {
+      return productsLoader();
+    },
     // todo: error screen
     errorElement: <h1>Error (todo)</h1>,
   },
