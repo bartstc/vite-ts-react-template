@@ -17,10 +17,10 @@ This project provides the basic dev configuration designated for developing a Si
 - Everything that included in the `basic` version.
 - Access to simple, modular and accessible components based on [Chakra UI](https://chakra-ui.com/).
 - Data fetching and external state synchronization based on [React Query](https://tanstack.com/query/v4/).
-- Routing based on [React Router 6](https://reactrouter.com/en/main/start/overview). [todo]
+- Routing based on [React Router 6](https://reactrouter.com/en/main/start/overview).
 - Date formatting based on [DayJS](https://day.js.org/).
 - State management with [Zustand](https://docs.pmnd.rs/zustand/getting-started/introduction). [todo]
-- A demo app. [todo]
+- A demo app.
 
 # Guideline
 
