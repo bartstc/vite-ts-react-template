@@ -5,6 +5,7 @@ export {
 } from "./productsQuery";
 export {
   getProductQueryKey,
-  getProductQuery,
   useProductQuery,
-} from "./useProductQuery";
+  productLoader,
+  getProductQuery,
+} from "./productQuery";

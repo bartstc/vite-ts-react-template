@@ -19,7 +19,7 @@ export const getCartProductsQuery = async (
   const cart = await httpService.get<ICartDto>(`carts/${cartId}`);
 
   const productPromises = cart.products.map((product) =>
-    getProductQuery(product.productId.toString())
+    getProductQuery(product.productId.toString()).queryFn()
   );
 
   const products = await Promise.all(productPromises);
