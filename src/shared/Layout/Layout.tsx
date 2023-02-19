@@ -18,7 +18,8 @@ export const Layout = ({ children, maxW = "1000px" }: IProps) => {
         px={{ base: 3, md: 4 }}
         maxW={maxW}
         m="0 auto"
-        py={{ base: 4, md: 6 }}
+        pt={{ base: 20, md: 24 }}
+        pb={{ base: 4, md: 6 }}
       >
         {children}
       </Box>

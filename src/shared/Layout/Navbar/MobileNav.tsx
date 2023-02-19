@@ -1,9 +1,11 @@
+import { Link } from "react-router-dom";
+
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import {
   Collapse,
   Flex,
   Icon,
-  Link,
+  Link as ChLink,
   Stack,
   Text,
   useColorModeValue,
@@ -14,8 +16,17 @@ import { INavItem } from "./INavItem";
 import { NAV_ITEMS } from "./navItems";
 
 export const MobileNav = () => {
+  const bg = useColorModeValue("white", "gray.800");
+
   return (
-    <Stack p={4} display={{ md: "none" }}>
+    <Stack
+      p={4}
+      display={{ md: "none" }}
+      bg={bg}
+      borderBottom={1}
+      borderStyle="solid"
+      borderColor={useColorModeValue("gray.200", "gray.900")}
+    >
       {NAV_ITEMS.map((navItem) => (
         <MobileNavItem key={navItem.label} {...navItem} />
       ))}
@@ -32,7 +43,7 @@ const MobileNavItem = ({ label, children, href }: INavItem) => {
       <Flex
         py={2}
         as={Link}
-        href={href}
+        to={href ?? ""}
         justify="space-between"
         align="center"
         _hover={{
@@ -65,7 +76,7 @@ const MobileNavItem = ({ label, children, href }: INavItem) => {
         >
           {children &&
             children.map((child) => (
-              <Link
+              <ChLink
                 key={child.label}
                 py={2}
                 href={child.href}
@@ -73,7 +84,7 @@ const MobileNavItem = ({ label, children, href }: INavItem) => {
                 rel="noreferrer noopener"
               >
                 {child.label}
-              </Link>
+              </ChLink>
             ))}
         </Stack>
       </Collapse>

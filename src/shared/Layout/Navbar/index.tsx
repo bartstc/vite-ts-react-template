@@ -16,21 +16,25 @@ import {
 
 import { ToggleModeButton } from "../ToggleModeButton";
 import { DesktopNav } from "./DesktopNav";
+import { LoaderBar } from "./LoaderBar";
 import { MobileNav } from "./MobileNav";
 
 export const Navbar = () => {
   const { isOpen, onToggle } = useDisclosure();
+  const bg = useColorModeValue("white", "gray.800");
 
   return (
-    <Box>
+    <Box w="100%" position="fixed" zIndex="10">
       <Flex
+        w="100%"
         minH="60px"
         py={2}
         px={4}
         borderBottom={1}
         borderStyle="solid"
         borderColor={useColorModeValue("gray.200", "gray.900")}
-        align={"center"}
+        align="center"
+        bg={bg}
       >
         <Flex
           flex={{ base: 1, md: "auto" }}
@@ -71,6 +75,7 @@ export const Navbar = () => {
           <ToggleModeButton />
         </HStack>
       </Flex>
+      <LoaderBar />
       <Collapse in={isOpen} animateOpacity>
         <MobileNav />
       </Collapse>

@@ -25,7 +25,7 @@ const HeroSection = ({ productNumber }: IProps) => {
       <Stack
         textAlign="center"
         spacing={{ base: 8, md: 14 }}
-        pt={{ base: 24, md: 36 }}
+        pt={{ base: 20, md: 36 }}
         pb={{ base: 16, md: 20 }}
       >
         <Heading
