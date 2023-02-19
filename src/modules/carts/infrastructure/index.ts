@@ -1,7 +1,6 @@
-export { getCartQueryKey, useCartQuery, getCartQuery } from "./useCartQuery";
 export {
   getCartProductsQueryKey,
   useCartProductsQuery,
-  getCartProductsQuery,
+  cartProductsLoader,
 } from "./useCartProductsQuery";
 export { useClearCart } from "./useClearCart";

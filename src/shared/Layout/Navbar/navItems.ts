@@ -38,6 +38,6 @@ export const NAV_ITEMS: Array<INavItem> = [
   },
   {
     label: "Cart",
-    href: "/cart",
+    href: "/cart/1",
   },
 ];

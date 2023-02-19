@@ -19,7 +19,7 @@ import { useClearCart } from "../../infrastructure";
 import { useClearCartNotifications } from "./useClearCartNotifications";
 
 interface IProps {
-  cartId: number;
+  cartId: string;
 }
 
 const ClearCartButton = ({ cartId }: IProps) => {

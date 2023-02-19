@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 
+import { cartProductsLoader } from "modules/carts/infrastructure";
 import { productLoader, productsLoader } from "modules/products/infrastructure";
 
 import { Cart } from "./Cart";
@@ -37,8 +38,11 @@ export const router = createBrowserRouter([
     errorElement: <h1>Error (todo)</h1>,
   },
   {
-    path: "cart",
+    path: "cart/:cartId",
     element: <Cart />,
+    loader: ({ params }) => {
+      return cartProductsLoader((params as { cartId: string }).cartId);
+    },
     // todo: error screen
     errorElement: <h1>Error (todo)</h1>,
   },
