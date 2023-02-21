@@ -10,10 +10,11 @@ export const useClearCart = (cartId: string) => {
   const handler = () => {
     return mutateAsync()
       .then(async () => {
-        // todo: optionally mutate related data
+        // optionally mutate related data
       })
       .catch((e) => {
-        // todo: notify backend about the error
+        // listen for a specific error and act respectively (e.g. throwing a specific error and catch it later)
+        // or notify backend about the error if needed
         throw e;
       });
   };

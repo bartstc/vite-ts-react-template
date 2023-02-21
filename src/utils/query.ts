@@ -1,4 +1,4 @@
-import { QueryClient, useQuery } from "@tanstack/react-query";
+import { QueryClient } from "@tanstack/react-query";
 
 export const queryClient = new QueryClient();
 
@@ -8,12 +8,6 @@ type QueryFactory<R> = {
   queryKey: Array<string | Record<string, unknown> | any>;
   queryFn(...args: any[]): Promise<R>;
 };
-
-export function createQuery<R>(queryConf: QueryFactory<R>) {
-  return () => {
-    return useQuery(queryConf);
-  };
-}
 
 export async function createLoader<R>(query: QueryFactory<R>) {
   return (
