@@ -1,3 +1,5 @@
+import { Dayjs } from "dayjs";
+
 import { dayjs } from "./dayjs";
 import { getLocale } from "./locale";
 
@@ -33,6 +35,17 @@ class DateObject {
     }
 
     return dayjs().to(date);
+  }
+
+  static generateDate(
+    date: string | Dayjs | Date = new Date(),
+    format?: string
+  ): string {
+    return dayjs(date).format(format);
+  }
+
+  static buildDate(date: string | Dayjs | Date = new Date()): Dayjs {
+    return dayjs(date);
   }
 }
 
