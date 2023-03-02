@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 
 import { VStack } from "@chakra-ui/react";
 
-import { t } from "utils";
+import { Date, t } from "utils";
 
 import { Layout, PageHeader } from "shared/Layout";
 
@@ -23,12 +23,17 @@ const Cart = () => {
       <VStack display="stretch" spacing={10}>
         <PageHeader
           title={t("List of selected products")}
-          description={t("These are all products that you yet chose.")}
+          description={t(
+            "These are all products that you yet chose (updated {time}).",
+            {
+              time: Date.formatRelativeTime(data.date),
+            }
+          )}
         >
           <ClearCartButton cartId={params.cartId as string} />
         </PageHeader>
         <CartsList
-          cartProducts={data.map((product) => ({
+          cartProducts={data.products.map((product) => ({
             id: product.id,
             title: product.title,
             price: product.price,

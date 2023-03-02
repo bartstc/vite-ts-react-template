@@ -8,6 +8,11 @@ import { getProductQuery } from "modules/products/infrastructure";
 import { ICartProduct } from "../types";
 import { ICartDto } from "./types";
 
+interface IResponse {
+  date: string;
+  products: ICartProduct[];
+}
+
 export const getCartProductsQueryKey = (cartId: string) => [
   "carts",
   "products",
@@ -16,7 +21,7 @@ export const getCartProductsQueryKey = (cartId: string) => [
 
 const getCartProductsQuery = (cartId: string) => ({
   queryKey: getCartProductsQueryKey(cartId),
-  queryFn: async (): Promise<ICartProduct[]> => {
+  queryFn: async (): Promise<IResponse> => {
     const cart = await httpService.get<ICartDto>(`carts/${cartId}`);
 
     const productPromises = cart.products.map((product) =>
@@ -25,19 +30,22 @@ const getCartProductsQuery = (cartId: string) => ({
 
     const products = await Promise.all(productPromises);
 
-    return products.map((product) => ({
-      ...product,
-      quantity:
-        cart.products.find(
-          (cartProduct) => cartProduct.productId === product.id
-        )?.quantity ?? 0,
-    }));
+    return {
+      date: cart.date,
+      products: products.map((product) => ({
+        ...product,
+        quantity:
+          cart.products.find(
+            (cartProduct) => cartProduct.productId === product.id
+          )?.quantity ?? 0,
+      })),
+    };
   },
 });
 
 export const useCartProductsQuery = (
   cartId: string,
-  options?: UseQueryOptions<ICartProduct[]>
+  options?: UseQueryOptions<IResponse>
 ) => {
   return useQuery({
     ...getCartProductsQuery(cartId),
