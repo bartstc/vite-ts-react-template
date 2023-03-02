@@ -1,7 +1,7 @@
 import { getLocale, locale } from "./locale";
 import { t } from "./message";
 
-export class Number {
+export class NumberVO {
   static format(
     value: number | string,
     options: Pick<Intl.NumberFormatOptions, "minimumFractionDigits"> = {}

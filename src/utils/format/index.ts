@@ -1,3 +1,3 @@
 export { t } from "./message";
-export { Number } from "./Number";
-export { Date } from "./Date";
+export { NumberVO } from "./Number";
+export { DateVO } from "./Date";

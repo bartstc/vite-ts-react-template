@@ -3,7 +3,7 @@ import { Dayjs } from "dayjs";
 import { dayjs } from "./dayjs";
 import { getLocale } from "./locale";
 
-class DateObject {
+export class DateVO {
   static formatDate(
     date: string | Date,
     format = getLocale().dateFormat
@@ -48,5 +48,3 @@ class DateObject {
     return dayjs(date);
   }
 }
-
-export { DateObject as Date };

@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 
 import { VStack } from "@chakra-ui/react";
 
-import { Date, t } from "utils";
+import { DateVO, t } from "utils";
 
 import { Layout, PageHeader } from "shared/Layout";
 
@@ -26,7 +26,7 @@ const Cart = () => {
           description={t(
             "These are all products that you yet chose (updated {time}).",
             {
-              time: Date.formatRelativeTime(data.date),
+              time: DateVO.formatRelativeTime(data.date),
             }
           )}
         >
