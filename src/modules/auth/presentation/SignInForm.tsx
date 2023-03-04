@@ -14,6 +14,8 @@ import {
 } from "@chakra-ui/react";
 import { useSecondaryTextColor } from "theme";
 
+import { t } from "utils";
+
 export const SignInForm = () => {
   const secondaryColor = useSecondaryTextColor();
 
@@ -21,10 +23,12 @@ export const SignInForm = () => {
     <VStack align="stretch" spacing={8} w="100%" maxW="lg">
       <VStack textAlign="center">
         <Heading fontSize={{ base: "2xl", md: "4xl" }}>
-          Sign in to your account
+          {t("Sign in to your account")}
         </Heading>
         <Text fontSize={{ base: "md", md: "lg" }} color={secondaryColor}>
-          to enjoy all of our cool <Link color={"blue.400"}>features</Link> ✌️
+          {t("to enjoy all of our cool {link} ✌️", {
+            link: <Link color={"blue.400"}>{t("features")}</Link>,
+          })}
         </Text>
       </VStack>
       <Box
@@ -35,11 +39,11 @@ export const SignInForm = () => {
       >
         <VStack spacing={4}>
           <FormControl id="email">
-            <FormLabel>Email address</FormLabel>
+            <FormLabel>{t("Email address")}</FormLabel>
             <Input type="email" />
           </FormControl>
           <FormControl id="password">
-            <FormLabel>Password</FormLabel>
+            <FormLabel>{t("Password")}</FormLabel>
             <Input type="password" />
           </FormControl>
           <VStack w="100%" spacing={10}>
@@ -49,8 +53,8 @@ export const SignInForm = () => {
               align="start"
               justify="space-between"
             >
-              <Checkbox>Remember me</Checkbox>
-              <Link color="blue.400">Forgot password?</Link>
+              <Checkbox>{t("Remember me")}</Checkbox>
+              <Link color="blue.400">{t("Forgot password?")}</Link>
             </Stack>
             <Button
               bg="blue.400"
@@ -60,7 +64,7 @@ export const SignInForm = () => {
                 bg: "blue.500",
               }}
             >
-              Sign in
+              {t("Sign in")}
             </Button>
           </VStack>
         </VStack>
