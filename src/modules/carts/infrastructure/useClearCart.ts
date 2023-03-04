@@ -2,13 +2,13 @@ import { useMutation } from "@tanstack/react-query";
 
 import { httpService } from "utils/http";
 
-export const useClearCart = (cartId: string) => {
-  const { mutateAsync, isLoading } = useMutation(() =>
-    httpService.delete(`carts/${cartId}`)
+export const useClearCart = () => {
+  const { mutateAsync, isLoading } = useMutation<void, unknown, string>(
+    (cartId) => httpService.delete(`carts/${cartId}`)
   );
 
-  const handler = () => {
-    return mutateAsync()
+  const handler = (cartId: string) => {
+    return mutateAsync(cartId)
       .then(async () => {
         // optionally mutate related data
       })
