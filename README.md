@@ -1,26 +1,26 @@
-# What is SPA Template
+# What is SPA Vite Template
 
-This project provides the basic dev configuration designated for developing a Single Page Application (SPA) app. It contains crucial tooling and settings allowing for a quick start with suitable developer experience (DX).
+This project provides a basic dev setup intended for Single Page Application (SPA) development. It contains key tools and settings to get you started quickly with the right developer experience (DX).
 
 # Main features
 
 ## Basic version - `basic`
 
-- Dev environment based on [ViteJS](https://vitejs.dev/) toolkit.
-- Testing environment based on [Vitest](https://vitest.dev/) and [Storybook](https://storybook.js.org/).
+- Dev environment based on [ViteJS 4](https://vitejs.dev/) toolkit.
+- Testing environment based on [Vitest](https://vitest.dev/) and [Storybook 7](https://storybook.js.org/).
 - Static code analysis: eslint, prettier, husky.
 - TypeScript support.
 - [Devcontainer](https://code.visualstudio.com/docs/devcontainers/containers) config for VS Code.
 
 ## Extended version - `core`
 
-- Everything that included in the `basic` version.
-- Access to simple, modular and accessible components based on [Chakra UI](https://chakra-ui.com/).
+- Everything that's included in the `basic` version.
+- Simple, modular, and accessible components based on [Chakra UI](https://chakra-ui.com/).
 - Data fetching and external state synchronization based on [React Query](https://tanstack.com/query/v4/).
 - Routing based on [React Router 6](https://reactrouter.com/en/main/start/overview).
 - Date formatting based on [DayJS](https://day.js.org/).
 - State management with [Zustand](https://docs.pmnd.rs/zustand/getting-started/introduction). [todo]
-- A demo app.
+- A demo app using [Fake Store API](https://fakestoreapi.com/docs).
 
 # Guideline
 
