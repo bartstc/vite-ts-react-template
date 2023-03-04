@@ -11,7 +11,10 @@ import {
   AlertDialogContent,
   AlertDialogOverlay,
   useDisclosure,
+  VStack,
+  Text,
 } from "@chakra-ui/react";
+import { useSecondaryTextColor } from "theme";
 
 import { t } from "utils";
 
@@ -25,6 +28,7 @@ interface IProps {
 const ClearCartButton = ({ cartId }: IProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = useRef();
+  const secondaryColor = useSecondaryTextColor();
 
   const [clear, isLoading] = useClearCart(cartId);
   const [notifySuccess, notifyFailure] = useClearCartNotifications();
@@ -46,9 +50,16 @@ const ClearCartButton = ({ cartId }: IProps) => {
             </AlertDialogHeader>
 
             <AlertDialogBody>
-              {t(
-                "Are you sure? You can't undo this action afterwards. (because this app uses a fake API, this delete request will be mocked and won't affect the cart)"
-              )}
+              <VStack align="stretch">
+                <Text>
+                  {t("Are you sure? You can't undo this action afterwards.")}
+                </Text>
+                <Text fontSize="xs" color={secondaryColor}>
+                  {t(
+                    "(because this app uses a fake API, this delete request will be mocked and won't affect the cart)"
+                  )}
+                </Text>
+              </VStack>
             </AlertDialogBody>
             <AlertDialogFooter>
               <Button ref={cancelRef as any} onClick={onClose}>
