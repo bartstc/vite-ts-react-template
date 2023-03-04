@@ -19,8 +19,6 @@ interface IStore {
 }
 
 export const useAuthStore = create<IStore>((set) => {
-  //   const auth = JSON.parse(localStorage.getItem("auth"))
-
   if (isLoggedIn()) {
     getUser()
       .then((user) => {
@@ -52,13 +50,22 @@ export const useAuthStore = create<IStore>((set) => {
         isLoading: true,
       });
 
-      return loginUser(credentials).then(() => {
-        localStorage.setItem(AUTH_KEY, "true");
-        set({
-          isAuthenticated: true,
-          isLoading: false,
+      return loginUser(credentials)
+        .then(() => {
+          localStorage.setItem(AUTH_KEY, "true");
+          set({
+            isAuthenticated: true,
+            isLoading: false,
+          });
+        })
+        .catch((e) => {
+          localStorage.setItem(AUTH_KEY, "false");
+          set({
+            isAuthenticated: false,
+            isLoading: false,
+          });
+          throw e;
         });
-      });
     },
     logout: async () => {
       set({

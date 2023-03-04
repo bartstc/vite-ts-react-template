@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import {
   Box,
   FormControl,
@@ -11,13 +13,25 @@ import {
   Text,
   useColorModeValue,
   VStack,
+  FormErrorMessage,
 } from "@chakra-ui/react";
 import { useSecondaryTextColor } from "theme";
 
 import { t } from "utils";
 
+import { useAuthStore } from "../application";
+import { useSignInNotifications } from "./useSignInNotifications";
+
 export const SignInForm = () => {
   const secondaryColor = useSecondaryTextColor();
+  const [username, setUsername] = useState("mor_2314");
+  const [password, setPassword] = useState("83r5^_");
+
+  const [notifySuccess, notifyFailure] = useSignInNotifications();
+  const login = useAuthStore((store) => store.login);
+
+  const isUsernameError = username === "";
+  const isPasswordError = password === "";
 
   return (
     <VStack align="stretch" spacing={8} w="100%" maxW="lg">
@@ -37,14 +51,36 @@ export const SignInForm = () => {
         boxShadow="lg"
         p={{ base: 6, md: 8 }}
       >
-        <VStack spacing={4}>
-          <FormControl id="email">
-            <FormLabel>{t("Email address")}</FormLabel>
-            <Input type="email" />
+        <VStack
+          as="form"
+          spacing={4}
+          onSubmit={(e) => {
+            e.preventDefault();
+            login({ username, password })
+              .then(() => notifySuccess())
+              .catch(() => notifyFailure());
+          }}
+        >
+          <FormControl id="username" isRequired isInvalid={isUsernameError}>
+            <FormLabel>{t("User login")}</FormLabel>
+            <Input
+              value={username}
+              onChange={(e) => setUsername(e.currentTarget.value)}
+            />
+            {isUsernameError && (
+              <FormErrorMessage>{t("Login is required.")}</FormErrorMessage>
+            )}
           </FormControl>
-          <FormControl id="password">
+          <FormControl id="password" isRequired isInvalid={isPasswordError}>
             <FormLabel>{t("Password")}</FormLabel>
-            <Input type="password" />
+            <Input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.currentTarget.value)}
+            />
+            {isPasswordError && (
+              <FormErrorMessage>{t("Password is required.")}</FormErrorMessage>
+            )}
           </FormControl>
           <VStack w="100%" spacing={10}>
             <Stack
@@ -56,14 +92,7 @@ export const SignInForm = () => {
               <Checkbox>{t("Remember me")}</Checkbox>
               <Link color="blue.400">{t("Forgot password?")}</Link>
             </Stack>
-            <Button
-              bg="blue.400"
-              color="white"
-              w="100%"
-              _hover={{
-                bg: "blue.500",
-              }}
-            >
+            <Button type="submit" colorScheme="blue" w="100%">
               {t("Sign in")}
             </Button>
           </VStack>
