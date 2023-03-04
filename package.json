@@ -29,7 +29,8 @@
     "query-string": "^8.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.8.1"
+    "react-router-dom": "^6.8.1",
+    "zustand": "^4.3.5"
   },
   "devDependencies": {
     "@babel/core": "^7.20.5",
