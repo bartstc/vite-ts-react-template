@@ -11,8 +11,8 @@ const isLoggedIn = () => localStorage.getItem(AUTH_KEY) === "true";
 
 interface IStore {
   isAuthenticated: boolean;
-  isLoading: boolean;
   isError: boolean;
+  state: "idle" | "loading" | "finished";
   user: IUser;
   login: (credentials: ICredentials) => Promise<void>;
   logout: () => Promise<void>;
@@ -20,63 +20,60 @@ interface IStore {
 
 export const useAuthStore = create<IStore>((set) => {
   if (isLoggedIn()) {
+    set({ state: "loading" });
     getUser()
       .then((user) => {
         set({
           user,
           isAuthenticated: true,
-          isLoading: false,
+          state: "finished",
         });
       })
       .catch(() => {
         set({
           isError: true,
-          isLoading: false,
+          state: "finished",
         });
       });
   } else {
-    set({
-      isLoading: false,
-    });
+    set({ state: "finished" });
   }
 
   return {
     isAuthenticated: false,
-    isLoading: true,
     isError: false,
+    state: isLoggedIn() ? "idle" : "finished",
     user: null as unknown as IUser,
     login: async (credentials: ICredentials) => {
-      set({
-        isLoading: true,
-      });
+      set({ state: "loading" });
 
       return loginUser(credentials)
         .then(() => {
           localStorage.setItem(AUTH_KEY, "true");
           set({
             isAuthenticated: true,
-            isLoading: false,
+            state: "finished",
           });
         })
         .catch((e) => {
           localStorage.setItem(AUTH_KEY, "false");
           set({
             isAuthenticated: false,
-            isLoading: false,
+            state: "finished",
           });
           throw e;
         });
     },
     logout: async () => {
       set({
-        isLoading: true,
+        state: "loading",
       });
 
       return Promise.resolve().then(() => {
         localStorage.setItem(AUTH_KEY, "false");
         set({
           isAuthenticated: false,
-          isLoading: false,
+          state: "finished",
         });
       });
     },

@@ -16,10 +16,11 @@ import {
 import { useBrandColor } from "theme";
 
 import { INavItem } from "./INavItem";
-import { NAV_ITEMS } from "./navItems";
+import { useNavItems } from "./useNavItems";
 
 export const DesktopNav = () => {
   const { pathname } = useLocation();
+  const navItems = useNavItems();
 
   const linkColor = useColorModeValue("gray.600", "gray.200");
   const popoverContentBgColor = useColorModeValue("white", "gray.800");
@@ -27,7 +28,7 @@ export const DesktopNav = () => {
 
   return (
     <Stack direction="row" spacing={4}>
-      {NAV_ITEMS.map((navItem) => (
+      {navItems.map((navItem) => (
         <Box key={navItem.label}>
           <Popover trigger="hover" placement="bottom-start">
             <PopoverTrigger>

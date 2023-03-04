@@ -13,10 +13,11 @@ import {
 } from "@chakra-ui/react";
 
 import { INavItem } from "./INavItem";
-import { NAV_ITEMS } from "./navItems";
+import { useNavItems } from "./useNavItems";
 
 export const MobileNav = () => {
   const bg = useColorModeValue("white", "gray.800");
+  const navItems = useNavItems();
 
   return (
     <Stack
@@ -27,7 +28,7 @@ export const MobileNav = () => {
       borderStyle="solid"
       borderColor={useColorModeValue("gray.200", "gray.900")}
     >
-      {NAV_ITEMS.map((navItem) => (
+      {navItems.map((navItem) => (
         <MobileNavItem key={navItem.label} {...navItem} />
       ))}
     </Stack>

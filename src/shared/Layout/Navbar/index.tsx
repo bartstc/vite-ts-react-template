@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import {
@@ -13,6 +13,10 @@ import {
   useBreakpointValue,
   useDisclosure,
 } from "@chakra-ui/react";
+
+import { useNotImplementedYetToast } from "shared/Toast";
+
+import { useAuthStore } from "modules/auth/application";
 
 import { ToggleModeButton } from "../ToggleModeButton";
 import { DesktopNav } from "./DesktopNav";
@@ -63,15 +67,9 @@ export const Navbar = () => {
           </Flex>
         </Flex>
         <HStack direction={"row"} spacing={4}>
-          <Button fontWeight={400} variant="link" as={Link} to="sign-in">
-            Sign In
-          </Button>
-          <Button
-            display={{ base: "none", md: "inline-flex" }}
-            colorScheme="orange"
-          >
-            Sign Up
-          </Button>
+          <SignInButton />
+          <SignUpButton />
+          <LogoutButton />
           <ToggleModeButton />
         </HStack>
       </Flex>
@@ -80,5 +78,59 @@ export const Navbar = () => {
         <MobileNav />
       </Collapse>
     </Box>
+  );
+};
+
+const SignInButton = () => {
+  const isAuthenticated = useAuthStore((store) => store.isAuthenticated);
+
+  if (isAuthenticated) {
+    return null;
+  }
+
+  return (
+    <Button fontWeight={400} variant="link" as={Link} to="/sign-in">
+      Sign In
+    </Button>
+  );
+};
+
+const SignUpButton = () => {
+  const notImplemented = useNotImplementedYetToast();
+  const isAuthenticated = useAuthStore((store) => store.isAuthenticated);
+
+  if (isAuthenticated) {
+    return null;
+  }
+
+  return (
+    <Button
+      display={{ base: "none", md: "inline-flex" }}
+      colorScheme="orange"
+      onClick={notImplemented}
+    >
+      Sign Up
+    </Button>
+  );
+};
+
+const LogoutButton = () => {
+  const navigate = useNavigate();
+
+  const isAuthenticated = useAuthStore((store) => store.isAuthenticated);
+  const logout = useAuthStore((store) => store.logout);
+
+  if (!isAuthenticated) {
+    return null;
+  }
+
+  return (
+    <Button
+      fontWeight={400}
+      variant="link"
+      onClick={() => logout().then(() => navigate("/"))}
+    >
+      Logout
+    </Button>
   );
 };
