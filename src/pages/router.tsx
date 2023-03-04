@@ -7,6 +7,7 @@ import { Cart } from "./Cart";
 import { Home } from "./Home";
 import { Product } from "./Product";
 import { Products } from "./Products";
+import { SignIn } from "./SignIn";
 
 // todo: code-splitting
 export const router = createBrowserRouter([
@@ -17,6 +18,11 @@ export const router = createBrowserRouter([
       return productsLoader();
     },
     // todo: error screen
+    errorElement: <h1>Error (todo)</h1>,
+  },
+  {
+    path: "sign-in",
+    element: <SignIn />,
     errorElement: <h1>Error (todo)</h1>,
   },
   {

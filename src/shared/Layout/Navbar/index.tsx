@@ -63,7 +63,7 @@ export const Navbar = () => {
           </Flex>
         </Flex>
         <HStack direction={"row"} spacing={4}>
-          <Button fontWeight={400} variant="link">
+          <Button fontWeight={400} variant="link" as={Link} to="sign-in">
             Sign In
           </Button>
           <Button
