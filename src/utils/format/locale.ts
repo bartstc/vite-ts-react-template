@@ -4,7 +4,7 @@ const Locale = {
   en: {
     defaultCurrency: "USD",
     dateFormat: "MMMM D, YYYY",
-    dateTimeFormat: "MMMM D, YYYY h:mm A",
+    dateTimeFormat: "MMMM D, YYYY h:mm",
   },
   pl: {
     defaultCurrency: "PLN",
