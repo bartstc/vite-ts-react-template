@@ -14,7 +14,7 @@ The most basic config of the dev environment. It provides seamless DX and assure
 
 ### When to use
 
-This version is free of any libraries. If the `core` version doesn't suppose to match your preferences and expectations, the `basic` version will be perfect as a base for your personalized project setup.
+This version is free of any libraries. If the `core` version doesn't match your preferences and expectations, the `basic` version will be perfect as a basis for your personalized project setup.
 
 ### Key features
 
