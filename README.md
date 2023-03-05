@@ -19,8 +19,9 @@ This project provides a basic dev setup intended for Single Page Application (SP
 - Data fetching and external state synchronization based on [React Query](https://tanstack.com/query/v4/).
 - Routing based on [React Router 6](https://reactrouter.com/en/main/start/overview).
 - Date formatting based on [DayJS](https://day.js.org/).
-- State management with [Zustand](https://docs.pmnd.rs/zustand/getting-started/introduction). [todo]
-- A demo app using [Fake Store API](https://fakestoreapi.com/docs).
+- State management with [Zustand](https://docs.pmnd.rs/zustand/getting-started/introduction).
+- API mocking with [MSW](https://mswjs.io/). [todo]
+- A demo app with authentication using [Fake Store API](https://fakestoreapi.com/docs).
 
 # Guideline
 
