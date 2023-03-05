@@ -41,7 +41,7 @@ If configured tools and overall setup meet your requirements, you should definit
 - Date formatting based on [DayJS](https://day.js.org/).
 - State management with [Zustand](https://docs.pmnd.rs/zustand/getting-started/introduction).
 - API mocking with [MSW](https://mswjs.io/).
-- A demo app with authentication presenting project structure, good practices, and used tooling in action (with a litle help of [Fake Store API](https://fakestoreapi.com/docs)).
+- A demo app with authentication presenting project structure, good practices, and used tooling in action (with a little help of [Fake Store API](https://fakestoreapi.com/docs)).
 
 # Guideline
 
