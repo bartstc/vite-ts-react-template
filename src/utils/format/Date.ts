@@ -3,11 +3,10 @@ import { Dayjs } from "dayjs";
 import { dayjs } from "./dayjs";
 import { getLocale } from "./locale";
 
+type DateType = string | Date | Dayjs;
+
 export class DateVO {
-  static formatDate(
-    date: string | Date,
-    format = getLocale().dateFormat
-  ): string {
+  static formatDate(date: DateType, format = getLocale().dateFormat): string {
     if (!date) {
       return "---";
     }
@@ -16,7 +15,7 @@ export class DateVO {
   }
 
   static formatDateTime(
-    date: string | Date,
+    date: DateType,
     format = getLocale().dateTimeFormat
   ): string {
     if (!date) {
@@ -27,7 +26,7 @@ export class DateVO {
   }
 
   static formatRelativeTime(
-    date: string | Date,
+    date: DateType,
     format = getLocale().dateTimeFormat
   ): string {
     if (!date) {
@@ -37,14 +36,11 @@ export class DateVO {
     return dayjs().to(date);
   }
 
-  static generateDate(
-    date: string | Dayjs | Date = new Date(),
-    format?: string
-  ): string {
+  static generateDate(date: DateType = new Date(), format?: string): string {
     return dayjs(date).format(format);
   }
 
-  static buildDate(date: string | Dayjs | Date = new Date()): Dayjs {
+  static buildDate(date: DateType = new Date()): Dayjs {
     return dayjs(date);
   }
 }
