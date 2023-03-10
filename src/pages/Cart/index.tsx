@@ -4,7 +4,7 @@ import { VStack } from "@chakra-ui/react";
 
 import { DateVO, t } from "utils";
 
-import { Layout, PageHeader } from "shared/Layout";
+import { Page, PageHeader } from "shared/Layout";
 
 import { useCartProductsQuery } from "modules/carts/infrastructure";
 import { CartsList, ClearCartButton } from "modules/carts/presentation";
@@ -19,7 +19,7 @@ const CartPage = () => {
   }
 
   return (
-    <Layout>
+    <Page>
       <VStack display="stretch" spacing={10}>
         <PageHeader
           title={t("List of selected products")}
@@ -43,7 +43,7 @@ const CartPage = () => {
           }))}
         />
       </VStack>
-    </Layout>
+    </Page>
   );
 };
 

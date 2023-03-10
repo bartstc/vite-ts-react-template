@@ -7,7 +7,7 @@ import { IQueryParams } from "types";
 
 import { t } from "utils";
 
-import { Layout, PageHeader } from "shared/Layout";
+import { Page, PageHeader } from "shared/Layout";
 import { useNotImplementedYetToast } from "shared/Toast";
 
 import { useProductsQuery } from "modules/products/infrastructure";
@@ -31,7 +31,7 @@ const ProductsPage = () => {
   const noMoreProducts = data.meta.total <= params.limit;
 
   return (
-    <Layout>
+    <Page>
       <VStack display="stretch" spacing={10}>
         <PageHeader
           title={t("Products list")}
@@ -56,7 +56,7 @@ const ProductsPage = () => {
           {noMoreProducts ? t("No more products") : t("Show more products")}
         </Button>
       </VStack>
-    </Layout>
+    </Page>
   );
 };
 

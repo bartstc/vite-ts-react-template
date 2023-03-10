@@ -1,6 +1,6 @@
 import { VStack } from "@chakra-ui/react";
 
-import { Layout } from "shared/Layout";
+import { Page } from "shared/Layout";
 
 import {
   HeroSection,
@@ -17,7 +17,7 @@ const HomePage = ({ fallbackProductsNumber }: IProps) => {
   const { data } = useProductsQuery();
 
   return (
-    <Layout maxW="1340px">
+    <Page maxW="1340px">
       <VStack display="stretch" spacing={{ base: 8, lg: 20 }}>
         <HeroSection
           productNumber={fallbackProductsNumber ?? data?.meta.total ?? 0}
@@ -25,7 +25,7 @@ const HomePage = ({ fallbackProductsNumber }: IProps) => {
         <FeatureSection />
         <PricingSection />
       </VStack>
-    </Layout>
+    </Page>
   );
 };
 

@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 
+import { Layout } from "shared/Layout";
 import { ErrorPageStrategy } from "shared/Result";
 
 import { RequireAuth, RequirePub } from "modules/auth/application";
@@ -15,48 +16,53 @@ import { SignInPage } from "./SignIn";
 
 export const router = createBrowserRouter([
   {
-    path: "/",
-    element: <HomePage />,
-    loader: () => {
-      return productsLoader();
-    },
-    errorElement: <HomePageError />,
-  },
-  {
-    path: "/sign-in",
-    element: (
-      <RequirePub to="/products">
-        <SignInPage />
-      </RequirePub>
-    ),
-    errorElement: <ErrorPageStrategy />,
-  },
-  {
-    path: "/products",
-    element: <ProductsPage />,
-    loader: () => {
-      return productsLoader();
-    },
-    errorElement: <ErrorPageStrategy />,
-  },
-  {
-    path: "/products/:productId",
-    element: <ProductPage />,
-    loader: ({ params }) => {
-      return productLoader((params as { productId: string }).productId);
-    },
-    errorElement: <ErrorPageStrategy />,
-  },
-  {
-    path: "/cart/:cartId",
-    element: (
-      <RequireAuth to="/sign-in">
-        <CartPage />
-      </RequireAuth>
-    ),
-    loader: ({ params }) => {
-      return cartProductsLoader((params as { cartId: string }).cartId);
-    },
-    errorElement: <ErrorPageStrategy />,
+    element: <Layout />,
+    children: [
+      {
+        path: "/",
+        element: <HomePage />,
+        loader: () => {
+          return productsLoader();
+        },
+        errorElement: <HomePageError />,
+      },
+      {
+        path: "/sign-in",
+        element: (
+          <RequirePub to="/products">
+            <SignInPage />
+          </RequirePub>
+        ),
+        errorElement: <ErrorPageStrategy />,
+      },
+      {
+        path: "/products",
+        element: <ProductsPage />,
+        loader: () => {
+          return productsLoader();
+        },
+        errorElement: <ErrorPageStrategy />,
+      },
+      {
+        path: "/products/:productId",
+        element: <ProductPage />,
+        loader: ({ params }) => {
+          return productLoader((params as { productId: string }).productId);
+        },
+        errorElement: <ErrorPageStrategy />,
+      },
+      {
+        path: "/cart/:cartId",
+        element: (
+          <RequireAuth to="/sign-in">
+            <CartPage />
+          </RequireAuth>
+        ),
+        loader: ({ params }) => {
+          return cartProductsLoader((params as { cartId: string }).cartId);
+        },
+        errorElement: <ErrorPageStrategy />,
+      },
+    ],
   },
 ]);

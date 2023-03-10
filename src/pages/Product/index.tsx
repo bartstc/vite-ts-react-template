@@ -5,7 +5,7 @@ import { VStack, Button } from "@chakra-ui/react";
 
 import { t } from "utils";
 
-import { Layout } from "shared/Layout";
+import { Page } from "shared/Layout";
 
 import { useProductQuery } from "modules/products/infrastructure";
 import { ProductDetails } from "modules/products/presentation";
@@ -21,7 +21,7 @@ const ProductPage = () => {
   }
 
   return (
-    <Layout>
+    <Page>
       <VStack display="stretch" spacing={6}>
         <Button
           leftIcon={<ArrowBackIcon />}
@@ -32,7 +32,7 @@ const ProductPage = () => {
         </Button>
         <ProductDetails product={data!} onBack={() => navigate("/products")} />
       </VStack>
-    </Layout>
+    </Page>
   );
 };
 

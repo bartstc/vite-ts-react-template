@@ -2,7 +2,7 @@ import { Navigate } from "react-router-dom";
 
 import { Center } from "@chakra-ui/react";
 
-import { Layout } from "shared/Layout";
+import { Page } from "shared/Layout";
 
 import { useAuthStore } from "modules/auth/application";
 import { SignInForm } from "modules/auth/presentation";
@@ -15,11 +15,11 @@ const SignInPage = () => {
   }
 
   return (
-    <Layout maxW="1340px">
+    <Page maxW="1340px">
       <Center py={{ base: 10, md: 12 }}>
         <SignInForm />
       </Center>
-    </Layout>
+    </Page>
   );
 };
 
