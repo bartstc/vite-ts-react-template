@@ -1,64 +1,62 @@
 import { createBrowserRouter } from "react-router-dom";
 
+import { ErrorPageStrategy } from "shared/Result";
+
 import { RequireAuth, RequirePub } from "modules/auth/application";
 import { cartProductsLoader } from "modules/carts/infrastructure";
 import { productLoader, productsLoader } from "modules/products/infrastructure";
 
 // todo: code-splitting
-import { Cart } from "./Cart";
-import { Home } from "./Home";
-import { Product } from "./Product";
-import { Products } from "./Products";
-import { SignIn } from "./SignIn";
+import { CartPage } from "./Cart";
+import { HomePage, HomePageError } from "./Home";
+import { ProductPage } from "./Product";
+import { ProductsPage } from "./Products";
+import { SignInPage } from "./SignIn";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: <HomePage />,
     loader: () => {
       return productsLoader();
     },
-    // todo: error screen
-    errorElement: <h1>Error (todo)</h1>,
+    errorElement: <HomePageError />,
   },
   {
     path: "/sign-in",
     element: (
       <RequirePub to="/products">
-        <SignIn />
+        <SignInPage />
       </RequirePub>
     ),
-    errorElement: <h1>Error (todo)</h1>,
+    errorElement: <ErrorPageStrategy />,
   },
   {
     path: "/products",
-    element: <Products />,
+    element: <ProductsPage />,
     loader: () => {
       return productsLoader();
     },
-    // todo: error screen
-    errorElement: <h1>Error (todo)</h1>,
+    errorElement: <ErrorPageStrategy />,
   },
   {
     path: "/products/:productId",
-    element: <Product />,
+    element: <ProductPage />,
     loader: ({ params }) => {
       return productLoader((params as { productId: string }).productId);
     },
-    // todo: error screen
-    errorElement: <h1>Error (todo)</h1>,
+    errorElement: <ErrorPageStrategy />,
   },
   {
     path: "/cart/:cartId",
     element: (
       <RequireAuth to="/sign-in">
-        <Cart />
+        <CartPage />
       </RequireAuth>
     ),
     loader: ({ params }) => {
       return cartProductsLoader((params as { cartId: string }).cartId);
     },
-    // todo: error screen
-    errorElement: <h1>Error (todo)</h1>,
+    errorElement: <ErrorPageStrategy />,
   },
 ]);

@@ -9,13 +9,19 @@ import {
 } from "modules/marketing/presentation";
 import { useProductsQuery } from "modules/products/infrastructure";
 
-const Home = () => {
+interface IProps {
+  fallbackProductsNumber?: number;
+}
+
+const HomePage = ({ fallbackProductsNumber }: IProps) => {
   const { data } = useProductsQuery();
 
   return (
     <Layout maxW="1340px">
       <VStack display="stretch" spacing={{ base: 8, lg: 20 }}>
-        <HeroSection productNumber={data?.meta.total ?? 0} />
+        <HeroSection
+          productNumber={fallbackProductsNumber ?? data?.meta.total ?? 0}
+        />
         <FeatureSection />
         <PricingSection />
       </VStack>
@@ -23,4 +29,4 @@ const Home = () => {
   );
 };
 
-export { Home };
+export { HomePage };

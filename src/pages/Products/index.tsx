@@ -15,7 +15,7 @@ import { ProductsList } from "modules/products/presentation";
 
 const defaultParams: IQueryParams = { limit: 10, sort: "asc" };
 
-const Products = () => {
+const ProductsPage = () => {
   const notImplemented = useNotImplementedYetToast();
 
   const [params, setParams] = useState<IQueryParams>(defaultParams);
@@ -60,4 +60,4 @@ const Products = () => {
   );
 };
 
-export { Products };
+export { ProductsPage };

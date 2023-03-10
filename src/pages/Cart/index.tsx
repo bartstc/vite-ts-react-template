@@ -9,7 +9,7 @@ import { Layout, PageHeader } from "shared/Layout";
 import { useCartProductsQuery } from "modules/carts/infrastructure";
 import { CartsList, ClearCartButton } from "modules/carts/presentation";
 
-const Cart = () => {
+const CartPage = () => {
   const params = useParams<{ cartId: string }>();
   const { data, isLoading } = useCartProductsQuery(params.cartId as string);
 
@@ -47,4 +47,4 @@ const Cart = () => {
   );
 };
 
-export { Cart };
+export { CartPage };

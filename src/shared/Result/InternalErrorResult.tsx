@@ -25,15 +25,15 @@ const InternalErrorResult = ({ children }: IProps) => {
   const notImplemented = useNotImplementedYetToast();
 
   return (
-    <Center as={VStack} textAlign="center" spacing={6}>
+    <Center minH="100vh" as={VStack} textAlign="center" spacing={6}>
       <ErrorIcon />
       <VStack maxW="2xl">
         <Heading as="h2" size={{ base: "lg", md: "xl" }}>
-          {t("Something went seriously wrong")}
+          {t("Something went wrong")}
         </Heading>
         <Text size={{ base: "md", md: "lg" }} color={secondaryColor}>
           {t(
-            "It sounds like something unexpected happened right now. Please, inform our support team about this issue ASAP!"
+            "It sounds like something unexpected happened right now. Please, give it a try later or, if it's urgent, contact our support team."
           )}
         </Text>
       </VStack>

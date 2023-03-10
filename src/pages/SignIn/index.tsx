@@ -7,7 +7,7 @@ import { Layout } from "shared/Layout";
 import { useAuthStore } from "modules/auth/application";
 import { SignInForm } from "modules/auth/presentation";
 
-const SignIn = () => {
+const SignInPage = () => {
   const isAuthenticated = useAuthStore((store) => store.isAuthenticated);
 
   if (isAuthenticated) {
@@ -23,4 +23,4 @@ const SignIn = () => {
   );
 };
 
-export { SignIn };
+export { SignInPage };

@@ -14,26 +14,26 @@ import { t } from "utils";
 
 import { useNotImplementedYetToast } from "shared/Toast";
 
-import { WarningIcon } from "./Icons";
+import { ErrorIcon } from "./Icons";
 
 interface IProps {
   children?: ReactNode;
 }
 
-const NotFoundResult = ({ children }: IProps) => {
+const InternalServerErrorResult = ({ children }: IProps) => {
   const secondaryColor = useSecondaryTextColor();
   const notImplemented = useNotImplementedYetToast();
 
   return (
     <Center minH="100vh" as={VStack} textAlign="center" spacing={6}>
-      <WarningIcon />
+      <ErrorIcon />
       <VStack maxW="2xl">
         <Heading as="h2" size={{ base: "lg", md: "xl" }}>
-          {t("Page doesn't exist")}
+          {t("Something went seriously wrong")}
         </Heading>
         <Text size={{ base: "md", md: "lg" }} color={secondaryColor}>
           {t(
-            "Probably you got here by accident. If you think there is something wrong on our side, please contact us!"
+            "It sounds like something unexpected happened right now. Please, inform our support team about this issue ASAP!"
           )}
         </Text>
       </VStack>
@@ -45,4 +45,4 @@ const NotFoundResult = ({ children }: IProps) => {
   );
 };
 
-export { NotFoundResult };
+export { InternalServerErrorResult };

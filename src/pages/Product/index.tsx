@@ -10,7 +10,7 @@ import { Layout } from "shared/Layout";
 import { useProductQuery } from "modules/products/infrastructure";
 import { ProductDetails } from "modules/products/presentation";
 
-const Product = () => {
+const ProductPage = () => {
   const params = useParams<{ productId: string }>();
   const navigate = useNavigate();
   const { data, isLoading } = useProductQuery(params.productId as string);
@@ -36,4 +36,4 @@ const Product = () => {
   );
 };
 
-export { Product };
+export { ProductPage };
