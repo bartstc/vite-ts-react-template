@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-imports */
 import { Dayjs } from "dayjs";
 
 import { dayjs } from "./dayjs";

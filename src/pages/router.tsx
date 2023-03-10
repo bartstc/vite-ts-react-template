@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-restricted-imports
 import { createBrowserRouter } from "react-router-dom";
 
 import { Layout } from "shared/Layout";

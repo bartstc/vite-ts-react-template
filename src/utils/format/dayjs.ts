@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-imports */
 import day from "dayjs";
 import "dayjs/locale/en";
 import "dayjs/locale/pl";

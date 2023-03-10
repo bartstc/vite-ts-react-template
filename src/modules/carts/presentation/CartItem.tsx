@@ -1,11 +1,10 @@
-import { useNavigate } from "react-router-dom";
-
 import { CheckIcon } from "@chakra-ui/icons";
 import { Box, Text, VStack, HStack, Button, Stack } from "@chakra-ui/react";
 import { useSecondaryTextColor } from "theme";
 
 import { t } from "utils";
 
+import { useNavigate } from "shared/Router";
 import { useNotImplementedYetToast } from "shared/Toast";
 
 import { useCategoryLabel } from "modules/products/presentation";

@@ -1,5 +1,3 @@
-import { Link, useLocation } from "react-router-dom";
-
 import { ChevronRightIcon } from "@chakra-ui/icons";
 import {
   Box,
@@ -14,6 +12,8 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { useBrandColor } from "theme";
+
+import { Link, useLocation } from "shared/Router";
 
 import { INavItem } from "./INavItem";
 import { useNavItems } from "./useNavItems";

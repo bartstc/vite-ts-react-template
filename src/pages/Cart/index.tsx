@@ -1,10 +1,9 @@
-import { useParams } from "react-router-dom";
-
 import { VStack } from "@chakra-ui/react";
 
 import { DateVO, t } from "utils";
 
 import { Page, PageHeader } from "shared/Layout";
+import { useParams } from "shared/Router";
 
 import { useCartProductsQuery } from "modules/carts/infrastructure";
 import { CartsList, ClearCartButton } from "modules/carts/presentation";

@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import {
   Collapse,
@@ -11,6 +9,8 @@ import {
   useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
+
+import { Link } from "shared/Router";
 
 import { INavItem } from "./INavItem";
 import { useNavItems } from "./useNavItems";

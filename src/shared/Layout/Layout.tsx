@@ -1,6 +1,6 @@
-import { Outlet } from "react-router-dom";
-
 import { chakra } from "@chakra-ui/react";
+
+import { Outlet } from "shared/Router";
 
 import { Footer } from "./Footer";
 import { Navbar } from "./Navbar";

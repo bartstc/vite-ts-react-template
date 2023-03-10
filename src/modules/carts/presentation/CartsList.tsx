@@ -1,5 +1,4 @@
 import { ComponentProps, Fragment } from "react";
-import { useNavigate } from "react-router-dom";
 
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { VStack, HStack, Button, Text, Divider } from "@chakra-ui/react";
@@ -7,6 +6,7 @@ import { useSecondaryTextColor } from "theme";
 
 import { t } from "utils";
 
+import { useNavigate } from "shared/Router";
 import { useNotImplementedYetToast } from "shared/Toast";
 
 import { CartItem } from "./CartItem";

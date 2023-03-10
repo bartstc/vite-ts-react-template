@@ -1,11 +1,10 @@
-import { useNavigate, useParams } from "react-router-dom";
-
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import { VStack, Button } from "@chakra-ui/react";
 
 import { t } from "utils";
 
 import { Page } from "shared/Layout";
+import { useNavigate, useParams } from "shared/Router";
 
 import { useProductQuery } from "modules/products/infrastructure";
 import { ProductDetails } from "modules/products/presentation";

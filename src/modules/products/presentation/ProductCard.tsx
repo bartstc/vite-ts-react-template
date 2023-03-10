@@ -1,10 +1,9 @@
-import { useNavigate } from "react-router-dom";
-
 import { Box, Text, VStack, HStack, Button } from "@chakra-ui/react";
 import { useSecondaryTextColor } from "theme";
 
 import { t } from "utils";
 
+import { useNavigate } from "shared/Router";
 import { useNotImplementedYetToast } from "shared/Toast";
 
 import { Category } from "../types";

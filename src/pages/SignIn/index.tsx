@@ -1,8 +1,7 @@
-import { Navigate } from "react-router-dom";
-
 import { Center } from "@chakra-ui/react";
 
 import { Page } from "shared/Layout";
+import { Navigate } from "shared/Router";
 
 import { useAuthStore } from "modules/auth/application";
 import { SignInForm } from "modules/auth/presentation";

@@ -72,6 +72,8 @@ module.exports = {
           "*/**/modules/*/*",
           "lodash/**",
           "lodash/fp/**",
+          "react-router-dom",
+          "dayjs",
         ],
       },
     ],

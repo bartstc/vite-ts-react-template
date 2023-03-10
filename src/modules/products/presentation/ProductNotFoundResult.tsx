@@ -1,10 +1,9 @@
-import { useNavigate } from "react-router-dom";
-
 import { Button, ButtonGroup } from "@chakra-ui/react";
 
 import { t } from "utils";
 
 import { ContactUsButton, Result, WarningIcon } from "shared/Result";
+import { useNavigate } from "shared/Router";
 
 const ProductNotFoundResult = () => {
   const navigate = useNavigate();

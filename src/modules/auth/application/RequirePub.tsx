@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+// eslint-disable-next-line no-restricted-imports
 import { Navigate } from "react-router-dom";
 
 import { useAuthStore } from "./authStore";

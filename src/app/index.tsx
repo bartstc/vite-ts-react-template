@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-restricted-imports
 import { RouterProvider } from "react-router-dom";
 
 import { Center, Spinner } from "@chakra-ui/react";

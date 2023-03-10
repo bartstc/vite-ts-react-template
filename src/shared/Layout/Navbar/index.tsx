@@ -1,5 +1,3 @@
-import { Link, useNavigate } from "react-router-dom";
-
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import {
   Box,
@@ -14,6 +12,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 
+import { Link, useNavigate } from "shared/Router";
 import { useNotImplementedYetToast } from "shared/Toast";
 
 import { useAuthStore } from "modules/auth/application";
