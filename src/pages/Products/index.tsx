@@ -19,14 +19,9 @@ const ProductsPage = () => {
   const notImplemented = useNotImplementedYetToast();
 
   const [params, setParams] = useState<IQueryParams>(defaultParams);
-  const { data, isLoading, isFetching } = useProductsQuery(params, {
+  const { data, isFetching } = useProductsQuery(params, {
     keepPreviousData: true,
   });
-
-  // todo: loading case...
-  if (isLoading || !data) {
-    return <h1>Loading ...</h1>;
-  }
 
   const noMoreProducts = data.meta.total <= params.limit;
 

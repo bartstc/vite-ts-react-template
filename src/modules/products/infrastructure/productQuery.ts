@@ -1,6 +1,11 @@
-import { useQuery, UseQueryOptions } from "@tanstack/react-query";
+import { UseQueryOptions } from "@tanstack/react-query";
 
-import { createLoader, httpService, ResourceNotFoundException } from "utils";
+import {
+  createLoader,
+  httpService,
+  useQuery,
+  ResourceNotFoundException,
+} from "utils";
 import { AjaxError } from "utils/http";
 
 import { IProduct } from "../types";

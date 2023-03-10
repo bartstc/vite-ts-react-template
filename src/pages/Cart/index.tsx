@@ -10,12 +10,7 @@ import { CartsList, ClearCartButton } from "modules/carts/presentation";
 
 const CartPage = () => {
   const params = useParams<{ cartId: string }>();
-  const { data, isLoading } = useCartProductsQuery(params.cartId as string);
-
-  // todo: loading case...
-  if (isLoading || !data) {
-    return <h1>Loading ...</h1>;
-  }
+  const { data } = useCartProductsQuery(params.cartId as string);
 
   return (
     <Page>

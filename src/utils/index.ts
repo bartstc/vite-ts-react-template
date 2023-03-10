@@ -1,6 +1,6 @@
 export * from "./storybook";
 export * from "./format";
-export { createLoader, queryClient } from "./query";
+export { createLoader, queryClient, useQuery } from "./query";
 export {
   AjaxError,
   httpService,

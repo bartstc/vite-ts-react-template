@@ -1,7 +1,6 @@
-import { useQuery, UseQueryOptions } from "@tanstack/react-query";
+import { UseQueryOptions } from "@tanstack/react-query";
 
-import { createLoader } from "utils";
-import { httpService } from "utils/http";
+import { createLoader, useQuery, httpService } from "utils";
 
 import { getProductQuery } from "modules/products/infrastructure";
 

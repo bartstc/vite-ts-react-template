@@ -1,8 +1,8 @@
-import { useQuery, UseQueryOptions } from "@tanstack/react-query";
+import { UseQueryOptions } from "@tanstack/react-query";
 
 import { IQueryParams, IMeta } from "types";
 
-import { buildUrl, createLoader, httpService } from "utils";
+import { buildUrl, createLoader, httpService, useQuery } from "utils";
 
 import { IProduct } from "../types";
 import { IProductDto } from "./types";

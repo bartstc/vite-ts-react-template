@@ -12,12 +12,7 @@ import { ProductDetails } from "modules/products/presentation";
 const ProductPage = () => {
   const params = useParams<{ productId: string }>();
   const navigate = useNavigate();
-  const { data, isLoading } = useProductQuery(params.productId as string);
-
-  // todo: loading case...
-  if (isLoading || !data) {
-    return <h1>Loading ...</h1>;
-  }
+  const { data } = useProductQuery(params.productId as string);
 
   return (
     <Page>
