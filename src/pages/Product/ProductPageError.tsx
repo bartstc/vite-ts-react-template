@@ -1,17 +1,18 @@
 import { ResourceNotFoundException } from "utils";
 
-import { InternalErrorResult, NotFoundResult } from "shared/Result";
+import { InternalErrorResult } from "shared/Result";
 import { useRouteError } from "shared/Router";
 
-const HomePageError = () => {
+import { ProductNotFoundResult } from "modules/products/presentation";
+
+const ProductPageError = () => {
   const error = useRouteError();
 
   if (error instanceof ResourceNotFoundException) {
-    // todo: a proper result page
-    return <NotFoundResult />;
+    return <ProductNotFoundResult />;
   }
 
   return <InternalErrorResult />;
 };
 
-export { HomePageError };
+export { ProductPageError };

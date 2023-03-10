@@ -10,6 +10,7 @@ import { productLoader, productsLoader } from "modules/products/infrastructure";
 // todo: code-splitting
 import { CartPage } from "./Cart";
 import { HomePage, HomePageError } from "./Home";
+import { ProductPageError } from "./Product";
 import { ProductPage } from "./Product/ProductPage";
 import { ProductsPage } from "./Products";
 import { SignInPage } from "./SignIn";
@@ -49,7 +50,7 @@ export const router = createBrowserRouter([
         loader: ({ params }) => {
           return productLoader((params as { productId: string }).productId);
         },
-        errorElement: <ErrorPageStrategy />,
+        errorElement: <ProductPageError />,
       },
       {
         path: "/cart/:cartId",
