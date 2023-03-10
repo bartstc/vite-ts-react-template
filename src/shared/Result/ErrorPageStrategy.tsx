@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AjaxError } from "utils/http";
 
-import { useNavigate } from "shared/Router";
-import { useRouteError } from "shared/Router";
+import { useNavigate, useRouteError } from "shared/Router";
 
 import { useAuthStore } from "modules/auth/application";
 

@@ -1,4 +1,5 @@
 export { InternalErrorResult } from "./InternalErrorResult";
+export { InternalServerErrorResult } from "./InternalServerErrorResult";
 export { NotFoundResult } from "./NotFoundResult";
 export { ErrorPageStrategy } from "./ErrorPageStrategy";
 export { Result } from "./Result";
