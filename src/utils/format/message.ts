@@ -13,5 +13,5 @@ type Format<T> =
   | undefined;
 
 export function t<T = void>(message: string, values?: Format<T>) {
-  return new IntlMessageFormat(message, locale).format(values);
+  return new IntlMessageFormat(message, locale).format(values) as string;
 }
