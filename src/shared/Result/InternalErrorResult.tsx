@@ -25,7 +25,7 @@ const InternalErrorResult = ({ children }: IProps) => {
   const notImplemented = useNotImplementedYetToast();
 
   return (
-    <Center minH="100vh" as={VStack} textAlign="center" spacing={6}>
+    <Center minH="75vh" as={VStack} textAlign="center" spacing={6}>
       <ErrorIcon />
       <VStack maxW="2xl">
         <Heading as="h2" size={{ base: "lg", md: "xl" }}>
