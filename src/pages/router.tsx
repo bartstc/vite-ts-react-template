@@ -10,7 +10,7 @@ import { productLoader, productsLoader } from "modules/products/infrastructure";
 // todo: code-splitting
 import { CartPage } from "./Cart";
 import { HomePage, HomePageError } from "./Home";
-import { ProductPage } from "./Product";
+import { ProductPage } from "./Product/ProductPage";
 import { ProductsPage } from "./Products";
 import { SignInPage } from "./SignIn";
 

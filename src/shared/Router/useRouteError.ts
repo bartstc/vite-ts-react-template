@@ -1,7 +1,6 @@
 import { useRouteError as useReactRouterError } from "react-router-dom";
 
-// eslint-disable-next-line no-restricted-imports
-import { AjaxError } from "utils/http/AjaxError";
+import { AjaxError } from "utils/http";
 
 export const useRouteError = <Response = unknown>() => {
   return useReactRouterError() as AjaxError<Response>;

@@ -1,6 +1,7 @@
 import { useQuery, UseQueryOptions } from "@tanstack/react-query";
 
-import { createLoader, httpService } from "utils";
+import { createLoader, httpService, ResourceNotFoundException } from "utils";
+import { AjaxError } from "utils/http";
 
 import { IProduct } from "../types";
 import { IProductDto } from "./types";
@@ -10,7 +11,15 @@ export const getProductQueryKey = (productId: string) => ["product", productId];
 export const getProductQuery = (productId: string) => ({
   queryKey: getProductQueryKey(productId),
   queryFn: (): Promise<IProduct> =>
-    httpService.get<IProductDto>(`products/${productId}`),
+    httpService
+      .get<IProductDto>(`products/${productId}`)
+      .catch((e: AjaxError) => {
+        if (e.status === 404) {
+          throw new ResourceNotFoundException();
+        }
+
+        throw e;
+      }),
 });
 
 export const useProductQuery = (

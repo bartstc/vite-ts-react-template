@@ -15,3 +15,4 @@ export {
   InternalServerException,
   ResourceNotFoundException,
 } from "./exceptions";
+export { AjaxError } from "./AjaxError";

@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useNavigate } from "react-router-dom";
 
-// eslint-disable-next-line no-restricted-imports
-import { AjaxError } from "utils/http/AjaxError";
+import { AjaxError } from "utils/http";
 
 import { useRouteError } from "shared/Router";
 
