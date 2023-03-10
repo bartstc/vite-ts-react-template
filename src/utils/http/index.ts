@@ -10,3 +10,8 @@ export const httpService = new HttpService({
   host,
   headers,
 });
+
+export {
+  InternalServerException,
+  ResourceNotFoundException,
+} from "./exceptions";
