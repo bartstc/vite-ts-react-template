@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-restricted-imports
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, ScrollRestoration } from "react-router-dom";
 
 import { Layout } from "shared/Layout";
 import { ErrorPageStrategy } from "shared/Result";
@@ -15,7 +15,12 @@ import { SignInPage } from "./SignIn";
 
 export const router = createBrowserRouter([
   {
-    element: <Layout />,
+    element: (
+      <>
+        <ScrollRestoration getKey={(location) => location.pathname} />
+        <Layout />
+      </>
+    ),
     children: [
       {
         path: "/",
