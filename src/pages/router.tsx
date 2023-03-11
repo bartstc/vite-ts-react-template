@@ -5,15 +5,12 @@ import { Layout } from "shared/Layout";
 import { ErrorPageStrategy } from "shared/Result";
 
 import { RequireAuth, RequirePub } from "modules/auth/application";
-import { cartProductsLoader } from "modules/carts/infrastructure";
-import { productLoader, productsLoader } from "modules/products/infrastructure";
 
 // todo: code-splitting
-import { CartPage } from "./Cart";
-import { HomePage, HomePageError } from "./Home";
-import { ProductPageError } from "./Product";
-import { ProductPage } from "./Product/ProductPage";
-import { ProductsPage } from "./Products";
+import { CartPage, cartPageLoader } from "./Cart";
+import { HomePage, HomePageError, homePageLoader } from "./Home";
+import { ProductPage, ProductPageError, productPageLoader } from "./Product";
+import { ProductsPage, productsPageLoader } from "./Products";
 import { SignInPage } from "./SignIn";
 
 export const router = createBrowserRouter([
@@ -23,9 +20,7 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <HomePage />,
-        loader: () => {
-          return productsLoader();
-        },
+        loader: homePageLoader,
         errorElement: <HomePageError />,
       },
       {
@@ -40,17 +35,14 @@ export const router = createBrowserRouter([
       {
         path: "/products",
         element: <ProductsPage />,
-        loader: () => {
-          return productsLoader();
-        },
+        loader: productsPageLoader,
         errorElement: <ErrorPageStrategy />,
       },
       {
         path: "/products/:productId",
         element: <ProductPage />,
-        loader: ({ params }) => {
-          return productLoader((params as { productId: string }).productId);
-        },
+        loader: ({ params }) =>
+          productPageLoader((params as { productId: string }).productId),
         errorElement: <ProductPageError />,
       },
       {
@@ -60,9 +52,8 @@ export const router = createBrowserRouter([
             <CartPage />
           </RequireAuth>
         ),
-        loader: ({ params }) => {
-          return cartProductsLoader((params as { cartId: string }).cartId);
-        },
+        loader: ({ params }) =>
+          cartPageLoader((params as { cartId: string }).cartId),
         errorElement: <ErrorPageStrategy />,
       },
     ],
