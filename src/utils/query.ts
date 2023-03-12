@@ -28,7 +28,8 @@ export function useQuery<
   TData = TQueryFnData,
   TQueryKey extends QueryKey = QueryKey
 >(options: UseQueryOptions<TQueryFnData, TError, TData, TQueryKey>) {
-  return useReactQuery<TQueryFnData, TError, TData, TQueryKey>(
-    options
-  ) as DefinedQueryObserverResult<TData, TError>;
+  return useReactQuery<TQueryFnData, TError, TData, TQueryKey>({
+    staleTime: 2000,
+    ...options,
+  }) as DefinedQueryObserverResult<TData, TError>;
 }
