@@ -1,13 +1,18 @@
 import { ReactNode } from "react";
-// eslint-disable-next-line no-restricted-imports
-import { Navigate } from "react-router-dom";
+
+import { Navigate } from "shared/Router";
 
 import { useAuthStore } from "./authStore";
 
-const RequireAuth = ({ children, to }: { children: ReactNode; to: string }) => {
+export interface IRequireAuthProps {
+  children: ReactNode;
+  to?: string;
+}
+
+const RequireAuth = ({ children, to }: IRequireAuthProps) => {
   const isAuthenticated = useAuthStore((store) => store.isAuthenticated);
 
-  return isAuthenticated ? <>{children}</> : <Navigate to={to} />;
+  return isAuthenticated ? <>{children}</> : <Navigate to={to ?? "/"} />;
 };
 
 export { RequireAuth };

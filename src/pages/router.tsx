@@ -2,16 +2,11 @@
 import { createBrowserRouter, ScrollRestoration } from "react-router-dom";
 
 import { Layout } from "shared/Layout";
-import { ErrorPageStrategy } from "shared/Result";
 
-import { RequireAuth, RequirePub } from "modules/auth/application";
-
-// todo: code-splitting
-import { CartPage, cartPageLoader } from "./Cart";
-import { HomePage, HomePageError, homePageLoader } from "./Home";
-import { ProductPage, ProductPageError, productPageLoader } from "./Product";
-import { ProductsPage, productsPageLoader } from "./Products";
-import { SignInPage } from "./SignIn";
+import { cartPageLoader } from "./Cart/loader";
+import { homePageLoader } from "./Home/loader";
+import { productPageLoader } from "./Product/loader";
+import { productsPageLoader } from "./Products/loader";
 
 export const router = createBrowserRouter([
   {
@@ -24,42 +19,27 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <HomePage />,
         loader: homePageLoader,
-        errorElement: <HomePageError />,
+        lazy: () => import("./Home"),
       },
       {
         path: "/sign-in",
-        element: (
-          <RequirePub to="/products">
-            <SignInPage />
-          </RequirePub>
-        ),
-        errorElement: <ErrorPageStrategy />,
+        lazy: () => import("./SignIn"),
       },
       {
         path: "/products",
-        element: <ProductsPage />,
         loader: productsPageLoader,
-        errorElement: <ErrorPageStrategy />,
+        lazy: () => import("./Products"),
       },
       {
         path: "/products/:productId",
-        element: <ProductPage />,
-        loader: ({ params }) =>
-          productPageLoader((params as { productId: string }).productId),
-        errorElement: <ProductPageError />,
+        loader: productPageLoader,
+        lazy: () => import("./Product"),
       },
       {
         path: "/cart/:cartId",
-        element: (
-          <RequireAuth to="/sign-in">
-            <CartPage />
-          </RequireAuth>
-        ),
-        loader: ({ params }) =>
-          cartPageLoader((params as { cartId: string }).cartId),
-        errorElement: <ErrorPageStrategy />,
+        loader: cartPageLoader,
+        lazy: () => import("./Cart"),
       },
     ],
   },

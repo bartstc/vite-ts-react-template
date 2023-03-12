@@ -2,12 +2,15 @@ import { ArrowBackIcon } from "@chakra-ui/icons";
 import { VStack, Button } from "@chakra-ui/react";
 
 import { t } from "utils";
+import { ResourceNotFoundException } from "utils";
 
 import { Page } from "shared/Layout";
-import { useNavigate, useParams } from "shared/Router";
+import { InternalErrorResult } from "shared/Result";
+import { useNavigate, useParams, useRouteError } from "shared/Router";
 
 import { useProductQuery } from "modules/products/infrastructure";
 import { ProductDetails } from "modules/products/presentation";
+import { ProductNotFoundResult } from "modules/products/presentation";
 
 const ProductPage = () => {
   const params = useParams<{ productId: string }>();
@@ -30,4 +33,14 @@ const ProductPage = () => {
   );
 };
 
-export { ProductPage };
+export const Component = ProductPage;
+
+export const ErrorBoundary = () => {
+  const error = useRouteError();
+
+  if (error instanceof ResourceNotFoundException) {
+    return <ProductNotFoundResult />;
+  }
+
+  return <InternalErrorResult />;
+};

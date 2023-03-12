@@ -3,8 +3,10 @@ import { VStack } from "@chakra-ui/react";
 import { DateVO, t } from "utils";
 
 import { Page, PageHeader } from "shared/Layout";
+import { ErrorPageStrategy } from "shared/Result";
 import { useParams } from "shared/Router";
 
+import { withRequireAuth } from "modules/auth/application";
 import { useCartProductsQuery } from "modules/carts/infrastructure";
 import { CartsList, ClearCartButton } from "modules/carts/presentation";
 
@@ -41,4 +43,6 @@ const CartPage = () => {
   );
 };
 
-export { CartPage };
+export const Component = withRequireAuth(CartPage, { to: "/sign-in" });
+
+export const ErrorBoundary = ErrorPageStrategy;

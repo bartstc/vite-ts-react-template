@@ -1,5 +1,5 @@
+/* eslint-disable no-restricted-imports */
 export { useRouteError } from "./useRouteError";
-// eslint-disable-next-line no-restricted-imports
 export {
   useNavigate,
   useNavigation,
@@ -9,3 +9,4 @@ export {
   Outlet,
   Navigate,
 } from "react-router-dom";
+export type { LoaderFunctionArgs } from "react-router-dom";

@@ -8,6 +8,7 @@ import { IQueryParams } from "types";
 import { t } from "utils";
 
 import { Page, PageHeader } from "shared/Layout";
+import { ErrorPageStrategy } from "shared/Result";
 import { useNotImplementedYetToast } from "shared/Toast";
 
 import { useProductsQuery } from "modules/products/infrastructure";
@@ -55,4 +56,6 @@ const ProductsPage = () => {
   );
 };
 
-export { ProductsPage };
+export const Component = ProductsPage;
+
+export const ErrorBoundary = ErrorPageStrategy;

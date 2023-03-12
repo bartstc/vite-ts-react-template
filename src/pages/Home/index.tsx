@@ -1,6 +1,8 @@
 import { VStack } from "@chakra-ui/react";
 
 import { Page } from "shared/Layout";
+import { InternalErrorResult } from "shared/Result";
+import { useRouteError } from "shared/Router";
 
 import {
   HeroSection,
@@ -29,4 +31,14 @@ const HomePage = ({ fallbackProductsNumber }: IProps) => {
   );
 };
 
-export { HomePage };
+export const Component = HomePage;
+
+export const ErrorBoundary = () => {
+  const error = useRouteError();
+
+  if (error.status === 404) {
+    return <HomePage fallbackProductsNumber={20} />;
+  }
+
+  return <InternalErrorResult />;
+};

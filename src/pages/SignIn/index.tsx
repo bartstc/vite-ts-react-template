@@ -1,9 +1,10 @@
 import { Center } from "@chakra-ui/react";
 
 import { Page } from "shared/Layout";
+import { ErrorPageStrategy } from "shared/Result";
 import { Navigate } from "shared/Router";
 
-import { useAuthStore } from "modules/auth/application";
+import { useAuthStore, withRequirePub } from "modules/auth/application";
 import { SignInForm } from "modules/auth/presentation";
 
 const SignInPage = () => {
@@ -22,4 +23,6 @@ const SignInPage = () => {
   );
 };
 
-export { SignInPage };
+export const Component = withRequirePub(SignInPage, { to: "/products" });
+
+export const ErrorBoundary = ErrorPageStrategy;
