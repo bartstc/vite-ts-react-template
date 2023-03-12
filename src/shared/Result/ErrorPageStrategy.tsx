@@ -9,11 +9,13 @@ import { InternalErrorResult } from "./InternalErrorResult";
 import { InternalServerErrorResult } from "./InternalServerErrorResult";
 import { NotFoundResult } from "./NotFoundResult";
 
-interface IProps<Response = any> {
+interface IProps<Response extends AjaxError["response"] = any> {
   error?: AjaxError<Response>;
 }
 
-export function ErrorPageStrategy<Response = any>(props: IProps<Response>) {
+export function ErrorPageStrategy<Response extends AjaxError["response"] = any>(
+  props: IProps<Response>
+) {
   const navigate = useNavigate();
   const logout = useAuthStore((store) => store.logout);
   const routeError = useRouteError();

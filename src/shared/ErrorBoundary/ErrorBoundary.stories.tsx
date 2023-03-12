@@ -32,7 +32,8 @@ const withRouter = (story: any) => {
 };
 
 const Throw500Error = () => {
-  throw new AjaxError(500, {}, {});
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  throw new AjaxError<any, any>(500, {}, {}, {} as any);
 };
 
 const TestableErrorBoundary = ({

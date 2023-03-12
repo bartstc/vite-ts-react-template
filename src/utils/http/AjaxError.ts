@@ -1,28 +1,33 @@
-interface IAjaxError<R> extends Error {
+import { HTTPError } from "ky";
+
+interface IAjaxError extends Error {
   message: string;
   status: number;
-  response: R;
-  request: RequestInit;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export class AjaxError<R = any> implements IAjaxError<R> {
+export class AjaxError<
+    Response extends HTTPError["response"] = HTTPError["response"],
+    Request extends HTTPError["request"] = HTTPError["request"]
+  >
+  extends HTTPError
+  implements IAjaxError
+{
   message: string;
   status: number;
-  response: R;
   name: string;
-  request: RequestInit;
 
   constructor(
-    errorStatus: number,
-    response: R,
-    request: IAjaxError<R>["request"]
+    status: number,
+    response: Response,
+    request: Request,
+    options: HTTPError["options"],
+    message?: string
   ) {
-    this.status = errorStatus;
+    super(response, request, options);
+    this.status = status;
     // @ts-ignore
-    this.message = response?.message ?? "Ajax Error Message";
-    this.response = response;
-    this.name = "Ajax Error";
-    this.request = request;
+    this.message = message ?? response?.body?.message ?? "Ajax error message";
+    this.name = "AjaxError";
   }
 }
