@@ -9,7 +9,7 @@ const meta: Meta<typeof ProductDetails> = {
   title: "Modules/Products/ProductDetails",
   component: ProductDetails,
   parameters: {
-    layout: "padded",
+    layout: "centered",
   },
 };
 
