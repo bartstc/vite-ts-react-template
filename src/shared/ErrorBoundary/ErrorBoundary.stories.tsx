@@ -75,14 +75,14 @@ const TestableErrorBoundary = ({
   );
 };
 
-const meta: Meta<typeof TestableErrorBoundary> = {
-  title: "Shared/ErrorBoundary",
+const meta = {
+  title: "shared/ErrorBoundary",
   component: TestableErrorBoundary,
   decorators: [withRouter],
   parameters: {
     layout: "centered",
   },
-};
+} satisfies Meta<typeof TestableErrorBoundary>;
 
 export default meta;
 type Story = StoryObj<typeof TestableErrorBoundary>;
