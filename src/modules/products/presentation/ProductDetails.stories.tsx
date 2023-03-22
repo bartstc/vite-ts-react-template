@@ -5,16 +5,16 @@ import { ProductFixture } from "utils/fixtures";
 
 import { ProductDetails } from "./ProductDetails";
 
-const meta: Meta<typeof ProductDetails> = {
-  title: "Modules/Products/ProductDetails",
+const meta = {
+  title: "modules/Products/ProductDetails",
   component: ProductDetails,
   parameters: {
     layout: "centered",
   },
-};
+} satisfies Meta<typeof ProductDetails>;
 
 export default meta;
-type Story = StoryObj<typeof ProductDetails>;
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {

@@ -5,19 +5,19 @@ import { ProductFixture } from "utils/fixtures";
 
 import { ProductCard } from "./ProductCard";
 
-const meta: Meta<typeof ProductCard> = {
-  title: "Modules/Products/ProductCard",
+const meta = {
+  title: "modules/Products/ProductCard",
   component: ProductCard,
   decorators: [withRouter],
   parameters: {
     layout: "centered",
   },
-};
+} satisfies Meta<typeof ProductCard>;
 
 const product = ProductFixture.toStructure();
 
 export default meta;
-type Story = StoryObj<typeof ProductCard>;
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {

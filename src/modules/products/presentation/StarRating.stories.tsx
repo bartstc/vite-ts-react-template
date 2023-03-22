@@ -2,16 +2,16 @@ import type { Meta, StoryObj } from "@storybook/react";
 
 import { StarRating } from "./StarRating";
 
-const meta: Meta<typeof StarRating> = {
-  title: "Modules/Products/StarRating",
+const meta = {
+  title: "modules/Products/StarRating",
   component: StarRating,
   parameters: {
     layout: "centered",
   },
-};
+} satisfies Meta<typeof StarRating>;
 
 export default meta;
-type Story = StoryObj<typeof StarRating>;
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {

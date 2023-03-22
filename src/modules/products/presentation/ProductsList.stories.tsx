@@ -5,17 +5,17 @@ import { ProductFixture } from "utils/fixtures";
 
 import { ProductsList } from "./ProductsList";
 
-const meta: Meta<typeof ProductsList> = {
-  title: "Modules/Products/ProductsList",
+const meta = {
+  title: "modules/Products/ProductsList",
   component: ProductsList,
   decorators: [withRouter],
   parameters: {
     layout: "centered",
   },
-};
+} satisfies Meta<typeof ProductsList>;
 
 export default meta;
-type Story = StoryObj<typeof ProductsList>;
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {

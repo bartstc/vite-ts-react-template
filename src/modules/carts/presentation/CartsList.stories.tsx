@@ -5,14 +5,14 @@ import { ProductFixture } from "utils/fixtures";
 
 import { CartsList } from "./CartsList";
 
-const meta: Meta<typeof CartsList> = {
-  title: "Modules/Carts/CartsList",
+const meta = {
+  title: "modules/Carts/CartsList",
   component: CartsList,
   decorators: [withRouter],
   parameters: {
     layout: "centered",
   },
-};
+} satisfies Meta<typeof CartsList>;
 
 const products = ProductFixture.createCollection([
   {
@@ -27,7 +27,7 @@ const products = ProductFixture.createCollection([
 ]);
 
 export default meta;
-type Story = StoryObj<typeof CartsList>;
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {

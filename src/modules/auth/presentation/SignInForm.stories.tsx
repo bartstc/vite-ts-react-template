@@ -5,8 +5,8 @@ import { host } from "utils/http";
 
 import { SignInForm } from "./SignInForm";
 
-const meta: Meta<typeof SignInForm> = {
-  title: "Modules/Auth/SignInForm",
+const meta = {
+  title: "modules/Auth/SignInForm",
   component: SignInForm,
   parameters: {
     layout: "centered",
@@ -18,9 +18,9 @@ const meta: Meta<typeof SignInForm> = {
       ],
     },
   },
-};
+} satisfies Meta<typeof SignInForm>;
 
 export default meta;
-type Story = StoryObj<typeof SignInForm>;
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
