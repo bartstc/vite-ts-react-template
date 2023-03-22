@@ -4,17 +4,17 @@ import { userEvent, within } from "@storybook/testing-library";
 
 import App from "./App";
 
-const meta: Meta<typeof App> = {
+const meta = {
   title: "Demo/App",
   component: App,
-  tags: ["docsPage"],
+  // tags: ["docsPage"],
   parameters: {
     layout: "centered",
   },
-};
+} satisfies Meta<typeof App>;
 
 export default meta;
-type Story = StoryObj<typeof App>;
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
 
