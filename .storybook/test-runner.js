@@ -9,7 +9,7 @@ module.exports = {
     const storyContext = await getStoryContext(page, context);
 
     if (!storyContext.parameters?.a11y?.disable) {
-      await checkA11y(page, "#root", {
+      await checkA11y(page, "#storybook-root", {
         detailedReport: true,
         detailedReportOptions: {
           html: true,
