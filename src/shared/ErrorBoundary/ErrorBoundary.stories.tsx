@@ -85,7 +85,7 @@ const meta = {
 } satisfies Meta<typeof TestableErrorBoundary>;
 
 export default meta;
-type Story = StoryObj<typeof TestableErrorBoundary>;
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
 

@@ -3,16 +3,15 @@ import type { Meta, StoryObj } from "@storybook/react";
 
 import { NotFoundResult } from "./NotFoundResult";
 
-const meta: Meta<typeof NotFoundResult> = {
-  title: "Shared/Result/NotFoundResult",
+const meta = {
   component: NotFoundResult,
   parameters: {
     layout: "centered",
   },
-};
+} satisfies Meta<typeof NotFoundResult>;
 
 export default meta;
-type Story = StoryObj<typeof NotFoundResult>;
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
 

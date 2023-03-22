@@ -4,17 +4,16 @@ import type { Meta, StoryObj } from "@storybook/react";
 
 import { PageHeader } from "./index";
 
-const meta: Meta<typeof PageHeader> = {
-  title: "Components/Layout/PageHeader",
+const meta = {
   component: PageHeader,
-  tags: ["docsPage"],
+  // tags: ["docsPage"],
   parameters: {
     layout: "padded",
   },
-};
+} satisfies Meta<typeof PageHeader>;
 
 export default meta;
-type Story = StoryObj<typeof PageHeader>;
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {

@@ -3,16 +3,15 @@ import type { Meta, StoryObj } from "@storybook/react";
 
 import { InternalServerErrorResult } from "./InternalServerErrorResult";
 
-const meta: Meta<typeof InternalServerErrorResult> = {
-  title: "Shared/Result/InternalServerErrorResult",
+const meta = {
   component: InternalServerErrorResult,
   parameters: {
     layout: "centered",
   },
-};
+} satisfies Meta<typeof InternalServerErrorResult>;
 
 export default meta;
-type Story = StoryObj<typeof InternalServerErrorResult>;
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
 
