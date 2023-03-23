@@ -72,6 +72,16 @@
     "vite-tsconfig-paths": "^4.0.5",
     "vitest": "^0.27.3"
   },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "last 2 versions"
+    ],
+    "development": [
+      "last 1 version"
+    ]
+  },
   "msw": {
     "workerDirectory": "public"
   }
