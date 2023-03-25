@@ -9,6 +9,7 @@ module.exports = {
     "storybook-addon-react-router-v6",
     "storybook-dark-mode",
     "@storybook/addon-mdx-gfm",
+    "@storybook/addon-styling",
   ],
   framework: {
     name: "@storybook/react-vite",
