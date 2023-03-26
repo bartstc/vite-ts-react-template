@@ -1,5 +1,5 @@
 import { ArrowBackIcon } from "@chakra-ui/icons";
-import { VStack, Button } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 
 import { t } from "utils";
 import { ResourceNotFoundException } from "utils";
@@ -18,17 +18,15 @@ const ProductPage = () => {
   const { data } = useProductQuery(params.productId as string);
 
   return (
-    <Page>
-      <VStack display="stretch" spacing={6}>
-        <Button
-          leftIcon={<ArrowBackIcon />}
-          variant="link"
-          onClick={() => navigate("/products")}
-        >
-          {t("Back to products' list")}
-        </Button>
-        <ProductDetails product={data!} onBack={() => navigate("/products")} />
-      </VStack>
+    <Page spacing={6}>
+      <Button
+        leftIcon={<ArrowBackIcon />}
+        variant="link"
+        onClick={() => navigate("/products")}
+      >
+        {t("Back to products' list")}
+      </Button>
+      <ProductDetails product={data!} onBack={() => navigate("/products")} />
     </Page>
   );
 };

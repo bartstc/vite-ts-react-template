@@ -2,11 +2,11 @@ import { EmailIcon, ExternalLinkIcon } from "@chakra-ui/icons";
 import { Button } from "@chakra-ui/react";
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { PageHeader } from "./index";
+import { PageHeader } from "./PageHeader";
 
 const meta = {
   component: PageHeader,
-  // tags: ["docsPage"],
+  tags: ["autodocs"],
   parameters: {
     layout: "padded",
   },

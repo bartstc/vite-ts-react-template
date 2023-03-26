@@ -1,5 +1,3 @@
-import { VStack } from "@chakra-ui/react";
-
 import { DateVO, t } from "utils";
 
 import { Page, PageHeader } from "shared/Layout";
@@ -16,29 +14,27 @@ const CartPage = () => {
 
   return (
     <Page>
-      <VStack display="stretch" spacing={10}>
-        <PageHeader
-          title={t("List of selected products")}
-          description={t(
-            "These are all products that you yet chose (updated {time}).",
-            {
-              time: DateVO.formatRelativeTime(data.date),
-            }
-          )}
-        >
-          <ClearCartButton cartId={params.cartId as string} />
-        </PageHeader>
-        <CartsList
-          cartProducts={data.products.map((product) => ({
-            id: product.id,
-            title: product.title,
-            price: product.price,
-            imageUrl: product.image,
-            category: product.category,
-            quantity: product.quantity,
-          }))}
-        />
-      </VStack>
+      <PageHeader
+        title={t("List of selected products")}
+        description={t(
+          "These are all products that you yet chose (updated {time}).",
+          {
+            time: DateVO.formatRelativeTime(data.date),
+          }
+        )}
+      >
+        <ClearCartButton cartId={params.cartId as string} />
+      </PageHeader>
+      <CartsList
+        cartProducts={data.products.map((product) => ({
+          id: product.id,
+          title: product.title,
+          price: product.price,
+          imageUrl: product.image,
+          category: product.category,
+          quantity: product.quantity,
+        }))}
+      />
     </Page>
   );
 };

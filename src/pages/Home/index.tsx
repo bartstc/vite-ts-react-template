@@ -1,5 +1,3 @@
-import { VStack } from "@chakra-ui/react";
-
 import { Page } from "shared/Layout";
 import { InternalErrorResult } from "shared/Result";
 import { useRouteError } from "shared/Router";
@@ -19,14 +17,12 @@ const HomePage = ({ fallbackProductsNumber }: IProps) => {
   const { data } = useProductsQuery();
 
   return (
-    <Page maxW="1340px">
-      <VStack display="stretch" spacing={{ base: 8, lg: 20 }}>
-        <HeroSection
-          productNumber={fallbackProductsNumber ?? data?.meta.total ?? 0}
-        />
-        <FeatureSection />
-        <PricingSection />
-      </VStack>
+    <Page maxW="1340px" spacing={{ base: 8, lg: 20 }}>
+      <HeroSection
+        productNumber={fallbackProductsNumber ?? data?.meta.total ?? 0}
+      />
+      <FeatureSection />
+      <PricingSection />
     </Page>
   );
 };

@@ -29,7 +29,7 @@ module.exports = {
     };
   },
   docs: {
-    autodocs: false,
+    autodocs: "tag",
   },
   env: (config) => ({
     ...config,

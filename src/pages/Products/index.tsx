@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import { SettingsIcon } from "@chakra-ui/icons";
-import { Button, VStack } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 
 import { IQueryParams } from "types";
 
@@ -28,30 +28,28 @@ const ProductsPage = () => {
 
   return (
     <Page>
-      <VStack display="stretch" spacing={10}>
-        <PageHeader
-          title={t("Products list")}
-          description={t("Explore what we have in the store for you.")}
-        >
-          <Button leftIcon={<SettingsIcon />} onClick={notImplemented}>
-            {t("More filters")}
-          </Button>
-        </PageHeader>
-        <ProductsList products={data.products} />
-        <Button
-          w="100%"
-          onClick={() =>
-            setParams((params) => ({
-              ...params,
-              limit: (params?.limit ?? 10) + 10,
-            }))
-          }
-          isLoading={isFetching}
-          isDisabled={noMoreProducts}
-        >
-          {noMoreProducts ? t("No more products") : t("Show more products")}
+      <PageHeader
+        title={t("Products list")}
+        description={t("Explore what we have in the store for you.")}
+      >
+        <Button leftIcon={<SettingsIcon />} onClick={notImplemented}>
+          {t("More filters")}
         </Button>
-      </VStack>
+      </PageHeader>
+      <ProductsList products={data.products} />
+      <Button
+        w="100%"
+        onClick={() =>
+          setParams((params) => ({
+            ...params,
+            limit: (params?.limit ?? 10) + 10,
+          }))
+        }
+        isLoading={isFetching}
+        isDisabled={noMoreProducts}
+      >
+        {noMoreProducts ? t("No more products") : t("Show more products")}
+      </Button>
     </Page>
   );
 };
