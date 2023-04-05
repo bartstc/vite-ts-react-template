@@ -1,4 +1,4 @@
-import { ApiService } from "./ApiService";
+import { HttpService } from "./HttpService";
 
 const headers = {
   "Content-Type": "application/json",
@@ -6,7 +6,7 @@ const headers = {
 
 export const host = import.meta.env.VITE_FAKE_STORE_API_HOST;
 
-export const httpService = new ApiService({
+export const httpService = new HttpService({
   host,
   headers,
 });

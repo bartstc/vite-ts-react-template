@@ -9,9 +9,9 @@ import {
 
 type HttpMethod = "GET" | "POST" | "DELETE" | "PUT" | "PATCH";
 
-interface IApiServiceOptions extends FetchOptions {}
+interface IHttpServiceOptions extends FetchOptions {}
 
-interface IApiService<Options extends IApiServiceOptions> {
+interface IHttpService<Options extends IHttpServiceOptions> {
   get<R = unknown>(url: string, options?: Options): Promise<R>;
   post<R = unknown, B = unknown>(
     url: string,
@@ -35,14 +35,14 @@ interface IApiService<Options extends IApiServiceOptions> {
   ): Promise<R>;
 }
 
-export class ApiService<Options extends IApiServiceOptions>
-  implements IApiService<Options>
+export class HttpService<Options extends IHttpServiceOptions>
+  implements IHttpService<Options>
 {
-  private api: ReturnType<(typeof ky)["create"]>;
+  private http: ReturnType<(typeof ky)["create"]>;
 
   constructor(private readonly options: Options) {
     this.options = options;
-    this.api = ky.create({
+    this.http = ky.create({
       prefixUrl: options.host,
       ...options,
       hooks: {
@@ -123,15 +123,15 @@ export class ApiService<Options extends IApiServiceOptions>
 
     switch (method) {
       case "GET":
-        return this.api.get(url, options).json();
+        return this.http.get(url, options).json();
       case "POST":
-        return this.api.post(url, options).json();
+        return this.http.post(url, options).json();
       case "PUT":
-        return this.api.put(url, options).json();
+        return this.http.put(url, options).json();
       case "PATCH":
-        return this.api.patch(url, options).json();
+        return this.http.patch(url, options).json();
       case "DELETE":
-        return this.api.delete(url, options).json();
+        return this.http.delete(url, options).json();
       default:
         throw new Error("Unknown http method");
     }
