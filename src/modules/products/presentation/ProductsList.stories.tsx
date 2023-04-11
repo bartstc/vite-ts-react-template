@@ -44,3 +44,9 @@ export const Default: Story = {
     ]),
   },
 };
+
+export const WithoutProducts: Story = {
+  args: {
+    products: [],
+  },
+};
