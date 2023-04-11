@@ -1,6 +1,6 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import { withThemeFromJSXProvider } from "@storybook/addon-styling";
-import { initialize, mswDecorator } from "msw-storybook-addon";
+import { initialize, mswLoader } from "msw-storybook-addon";
 
 import { theme } from "../src/theme";
 import { withReactQuery } from "../src/utils";
@@ -37,5 +37,6 @@ export const decorators = [
     defaultTheme: "light",
   }),
   withReactQuery(),
-  mswDecorator,
 ];
+
+export const loaders = [mswLoader];
