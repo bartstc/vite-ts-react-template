@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import { SettingsIcon } from "@chakra-ui/icons";
-import { Button } from "@chakra-ui/react";
+import { Button, Spinner } from "@chakra-ui/react";
 
 import { IQueryParams } from "types";
 
@@ -24,6 +24,11 @@ const ProductsPage = () => {
     keepPreviousData: true,
   });
 
+  // todo: handle globally
+  if (isFetching) {
+    return <Spinner />;
+  }
+
   const noMoreProducts = data.meta.total <= params.limit;
 
   return (
@@ -37,19 +42,21 @@ const ProductsPage = () => {
         </Button>
       </PageHeader>
       <ProductsList products={data.products} />
-      <Button
-        w="100%"
-        onClick={() =>
-          setParams((params) => ({
-            ...params,
-            limit: (params?.limit ?? 10) + 10,
-          }))
-        }
-        isLoading={isFetching}
-        isDisabled={noMoreProducts}
-      >
-        {noMoreProducts ? t("No more products") : t("Show more products")}
-      </Button>
+      {data.products.length > 0 && (
+        <Button
+          w="100%"
+          onClick={() =>
+            setParams((params) => ({
+              ...params,
+              limit: (params?.limit ?? 10) + 10,
+            }))
+          }
+          isLoading={isFetching}
+          isDisabled={noMoreProducts}
+        >
+          {noMoreProducts ? t("No more products") : t("Show more products")}
+        </Button>
+      )}
     </Page>
   );
 };
