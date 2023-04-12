@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import { SettingsIcon } from "@chakra-ui/icons";
-import { Button, Spinner } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 
 import { IQueryParams } from "types";
 
@@ -23,11 +23,6 @@ const ProductsPage = () => {
   const { data, isFetching } = useProductsQuery(params, {
     keepPreviousData: true,
   });
-
-  // todo: handle globally
-  if (isFetching) {
-    return <Spinner />;
-  }
 
   const noMoreProducts = data.meta.total <= params.limit;
 

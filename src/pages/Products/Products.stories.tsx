@@ -7,12 +7,16 @@ import { ProductFixture } from "utils/fixtures";
 import { host } from "utils/http";
 
 import { Component } from "./index";
+import { productsPageLoader } from "./loader";
 
 const meta = {
   title: "pages/Products",
   component: Component,
   parameters: {
     layout: "centered",
+    reactRouter: {
+      loader: productsPageLoader,
+    },
   },
   decorators: [withRouter],
 } satisfies Meta<typeof Component>;
