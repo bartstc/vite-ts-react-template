@@ -6,6 +6,7 @@ import { getLocale } from "./locale";
 
 type DateType = string | Date | Dayjs;
 
+/** @deprecated */
 export class DateVO {
   static formatDate(date: DateType, format = getLocale().dateFormat): string {
     if (!date) {

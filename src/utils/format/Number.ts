@@ -1,45 +1,39 @@
-import { getLocale, locale } from "./locale";
-import { t } from "./message";
+import { locale } from "./locale";
 
-export class NumberVO {
-  static format(
-    value: number | string,
-    options: Pick<Intl.NumberFormatOptions, "minimumFractionDigits"> = {}
-  ): string {
-    const numberValue = typeof value === "string" ? parseFloat(value) : value;
+interface INumberVO {
+  format(value: number | string, options?: Intl.NumberFormatOptions): string;
+}
 
-    if (isNaN(numberValue)) {
-      return "---";
-    }
+interface INumberVOOptions {
+  locale: string;
+  fallback?: string;
+}
 
-    return new Intl.NumberFormat(locale, options).format(numberValue);
+class NumberVO implements INumberVO {
+  readonly locale: string;
+  readonly fallback: string;
+
+  constructor({ locale, fallback }: INumberVOOptions) {
+    this.locale = locale;
+    this.fallback = fallback ?? "---";
   }
 
-  static formatCurrency(
+  public format(
     value: number | string,
-    currency = getLocale().defaultCurrency
+    options: Intl.NumberFormatOptions = {}
   ): string {
-    const numberValue = typeof value === "string" ? parseFloat(value) : value;
+    if (!this.isValid(value)) return this.fallback;
 
-    if (isNaN(numberValue)) {
-      return "---";
+    return new Intl.NumberFormat(this.locale, options).format(Number(value));
+  }
+
+  private isValid(value: number | string): boolean {
+    if (!value || Number.isNaN(value) || Number.isNaN(Number(value))) {
+      return false;
     }
 
-    try {
-      return new Intl.NumberFormat(locale, {
-        style: "currency",
-        currency,
-        minimumFractionDigits: 2,
-        currencyDisplay: "symbol",
-      }).format(numberValue);
-    } catch (e) {
-      if (e instanceof Error && e.message.includes("Invalid currency code")) {
-        return `${new Intl.NumberFormat(locale, {
-          minimumFractionDigits: 2,
-        }).format(numberValue)} ${t("(unknown currency)")}`;
-      }
-
-      return "---";
-    }
+    return true;
   }
 }
+
+export const numberVO = new NumberVO({ locale });
