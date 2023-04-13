@@ -1,7 +1,7 @@
 import { Box, Text, VStack, HStack, Button } from "@chakra-ui/react";
 import { useSecondaryTextColor } from "theme";
 
-import { t } from "utils";
+import { moneyVO, t } from "utils";
 
 import { useNavigate } from "shared/Router";
 import { useNotImplementedYetToast } from "shared/Toast";
@@ -51,7 +51,7 @@ const ProductCard = ({ title, category, price, imageUrl, id }: IProps) => {
           >
             {title}
           </Text>
-          <Text>${price}</Text>
+          <Text>{moneyVO.format(price)}</Text>
         </HStack>
         <Text
           fontStyle="italic"

@@ -4,7 +4,7 @@ import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { VStack, HStack, Button, Text, Divider } from "@chakra-ui/react";
 import { useSecondaryTextColor } from "theme";
 
-import { t } from "utils";
+import { moneyVO, t } from "utils";
 
 import { useNavigate } from "shared/Router";
 import { useNotImplementedYetToast } from "shared/Toast";
@@ -21,6 +21,7 @@ const CartsList = ({ cartProducts }: IProps) => {
 
   const secondaryColor = useSecondaryTextColor();
 
+  // todo: moneyVo.sum()
   const subtotal = cartProducts
     .map((cart) => cart.price)
     .reduce((a, b) => a + b, 0);
@@ -42,7 +43,7 @@ const CartsList = ({ cartProducts }: IProps) => {
           fontWeight="semibold"
         >
           <Text>{t("Subtotal")}</Text>
-          <Text>${subtotal}</Text>
+          <Text>{moneyVO.format(subtotal)}</Text>
         </HStack>
         <Text fontSize="sm" color={secondaryColor}>
           {t("Shipping and taxes will be calculated at checkout.")}

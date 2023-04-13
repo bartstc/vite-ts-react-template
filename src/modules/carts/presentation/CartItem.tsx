@@ -2,7 +2,7 @@ import { CheckIcon } from "@chakra-ui/icons";
 import { Box, Text, VStack, HStack, Button, Stack } from "@chakra-ui/react";
 import { useSecondaryTextColor } from "theme";
 
-import { t } from "utils";
+import { moneyVO, t } from "utils";
 
 import { useNavigate } from "shared/Router";
 import { useNotImplementedYetToast } from "shared/Toast";
@@ -105,7 +105,7 @@ const CartItem = ({
         h={{ base: "auto", md: 40 }}
       >
         <Text fontSize="md" fontWeight="semibold">
-          ${price}
+          {moneyVO.format(price)}
         </Text>
         <Button variant="link" colorScheme="blue" onClick={notImplemented}>
           {t("Remove")}

@@ -16,7 +16,7 @@ import {
 } from "@chakra-ui/react";
 import { useSecondaryTextColor } from "theme";
 
-import { t } from "utils";
+import { moneyVO, t } from "utils";
 
 import { PageHeader } from "shared/Layout";
 import { useNotImplementedYetToast } from "shared/Toast";
@@ -67,7 +67,7 @@ const ProductDetails = ({ product, onBack }: IProps) => {
           />
           <HStack w="100%" height="24px" spacing={4}>
             <Text fontWeight="semibold" fontSize={{ base: "lg", md: "xl" }}>
-              ${product.price}
+              {moneyVO.format(product.price)}
             </Text>
             <Divider orientation="vertical" />
             <StarRating rating={product.rating.rate} />
