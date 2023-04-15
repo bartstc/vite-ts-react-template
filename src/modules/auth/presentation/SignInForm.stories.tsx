@@ -1,4 +1,6 @@
+import { expect } from "@storybook/jest";
 import type { Meta, StoryObj } from "@storybook/react";
+import { userEvent, within, screen } from "@storybook/testing-library";
 import { rest } from "msw";
 
 import { host } from "utils/http";
@@ -23,11 +25,30 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const EmptyForm: Story = {};
 
-export const WithFilledFormByDefault: Story = {
+export const WithCredentialsFilledByDefault: Story = {
   args: {
     initialUsername: "johndoe",
     initialPassword: "supersecret",
+  },
+};
+
+export const SigningIn: Story = {
+  play: async ({ canvasElement, step }) => {
+    const canvas = within(canvasElement);
+
+    await step("Enter credentials", async () => {
+      await userEvent.type(canvas.getByLabelText(/Username/), "johndoe");
+      await userEvent.type(canvas.getByLabelText(/Password/), "supersecret");
+    });
+
+    await step("Submit form", async () => {
+      await userEvent.click(canvas.getByRole("button", { name: "Sign in" }));
+    });
+
+    expect(
+      await screen.findByText("Logged in successfully.")
+    ).toBeInTheDocument();
   },
 };

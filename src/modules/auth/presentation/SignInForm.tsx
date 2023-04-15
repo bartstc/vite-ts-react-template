@@ -73,7 +73,7 @@ export const SignInForm = ({ initialUsername, initialPassword }: IProps) => {
           }}
         >
           <FormControl id="username" isRequired isInvalid={isUsernameError}>
-            <FormLabel>{t("User login")}</FormLabel>
+            <FormLabel>{t("Username")}</FormLabel>
             <Input
               value={username}
               onChange={(e) => setUsername(e.currentTarget.value)}
