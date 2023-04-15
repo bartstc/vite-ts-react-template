@@ -2,18 +2,11 @@ import { Center } from "@chakra-ui/react";
 
 import { Page } from "shared/Layout";
 import { ErrorPageStrategy } from "shared/Result";
-import { Navigate } from "shared/Router";
 
-import { useAuthStore, withRequirePub } from "modules/auth/application";
+import { withRequirePub } from "modules/auth/application";
 import { SignInForm } from "modules/auth/presentation";
 
-const SignInPage = () => {
-  const isAuthenticated = useAuthStore((store) => store.isAuthenticated);
-
-  if (isAuthenticated) {
-    return <Navigate to="/products" replace />;
-  }
-
+export const SignInPage = () => {
   return (
     <Page maxW="container.xl">
       <Center py={{ base: 10, md: 12 }}>
