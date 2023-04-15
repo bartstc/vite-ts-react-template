@@ -22,11 +22,16 @@ import { t } from "utils";
 import { useAuthStore } from "../application";
 import { useSignInNotifications } from "./useSignInNotifications";
 
-export const SignInForm = () => {
+interface IProps {
+  initialUsername?: string;
+  initialPassword?: string;
+}
+
+export const SignInForm = ({ initialUsername, initialPassword }: IProps) => {
   const secondaryColor = useSecondaryTextColor();
 
-  const [username, setUsername] = useState("mor_2314");
-  const [password, setPassword] = useState("83r5^_");
+  const [username, setUsername] = useState(initialUsername);
+  const [password, setPassword] = useState(initialPassword);
 
   const [notifySuccess, notifyFailure] = useSignInNotifications();
   const login = useAuthStore((store) => store.login);
@@ -57,6 +62,11 @@ export const SignInForm = () => {
           spacing={4}
           onSubmit={(e) => {
             e.preventDefault();
+
+            if (!username || !password) {
+              return;
+            }
+
             login({ username, password })
               .then(() => notifySuccess())
               .catch(() => notifyFailure());
