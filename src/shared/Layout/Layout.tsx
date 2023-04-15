@@ -9,7 +9,9 @@ export const Layout = () => {
   return (
     <chakra.main>
       <Navbar />
-      <Outlet />
+      <chakra.div pt={{ base: 20, md: 24 }} pb={{ base: 4, md: 6 }}>
+        <Outlet />
+      </chakra.div>
       <Footer />
     </chakra.main>
   );

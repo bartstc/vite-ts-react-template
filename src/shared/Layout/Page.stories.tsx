@@ -40,6 +40,6 @@ export const Default: Story = {
 export const WithCustomWidth: Story = {
   args: {
     ...Default.args,
-    maxW: "600px",
+    maxW: "container.md",
   },
 };

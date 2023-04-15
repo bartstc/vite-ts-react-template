@@ -15,7 +15,7 @@ const SignInPage = () => {
   }
 
   return (
-    <Page maxW="1340px">
+    <Page maxW="container.xl">
       <Center py={{ base: 10, md: 12 }}>
         <SignInForm />
       </Center>
