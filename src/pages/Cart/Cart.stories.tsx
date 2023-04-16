@@ -1,9 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { rest } from "msw";
 import { withRouter } from "storybook-addon-react-router-v6";
 
-import { CartFixture, ProductFixture } from "utils/fixtures";
-import { host } from "utils/http";
+import { getClearCartHandler, getCartHandler, getProductHandler } from "utils";
+import { CartFixture } from "utils/fixtures";
 
 import { Component } from "./index";
 import { cartPageLoader } from "./loader";
@@ -33,7 +32,7 @@ export const Default: Story = {
   parameters: {
     msw: {
       handlers: [
-        rest.get(`${host}/carts/:cartId`, (req, res, ctx) => {
+        getCartHandler((_, res, ctx) => {
           return res(
             ctx.json(
               CartFixture.createPermutation({
@@ -46,9 +45,8 @@ export const Default: Story = {
             )
           );
         }),
-        rest.get(`${host}/products/:productId`, (req, res, ctx) => {
-          return res(ctx.json(ProductFixture.toStructure()));
-        }),
+        getProductHandler(),
+        getClearCartHandler(),
       ],
     },
   },

@@ -6,11 +6,10 @@ import {
   screen,
   waitForElementToBeRemoved,
 } from "@storybook/testing-library";
-import { rest } from "msw";
 import { withRouter } from "storybook-addon-react-router-v6";
 
 import { sleep } from "utils";
-import { host } from "utils/http";
+import { getAddToCartHandler } from "utils/handlers";
 
 import { AddToCartButton } from "./index";
 
@@ -21,11 +20,7 @@ const meta = {
   parameters: {
     layout: "centered",
     msw: {
-      handlers: [
-        rest.put(`${host}/carts/:cartId`, (req, res, ctx) => {
-          return res(ctx.json({}));
-        }),
-      ],
+      handlers: [getAddToCartHandler()],
     },
   },
 } satisfies Meta<typeof AddToCartButton>;
@@ -35,14 +30,12 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    productId: 3,
+    productId: 1,
   },
 };
 
 export const AddingProductToCart: Story = {
-  args: {
-    productId: 3,
-  },
+  ...Default,
   play: async ({ canvasElement, step }) => {
     within(canvasElement);
 

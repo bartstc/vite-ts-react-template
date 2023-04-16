@@ -1,10 +1,8 @@
 import { expect } from "@storybook/jest";
 import type { Meta, StoryObj } from "@storybook/react";
 import { userEvent, within, screen } from "@storybook/testing-library";
-import { rest } from "msw";
 
-import { sleep } from "utils";
-import { host } from "utils/http";
+import { getSignInHandler, sleep } from "utils";
 
 import { SignInForm } from "./SignInForm";
 
@@ -14,11 +12,7 @@ const meta = {
   parameters: {
     layout: "centered",
     msw: {
-      handlers: [
-        rest.post(`${host}/auth/login`, (req, res, ctx) => {
-          return res(ctx.json({ token: "token" }));
-        }),
-      ],
+      handlers: [getSignInHandler()],
     },
   },
 } satisfies Meta<typeof SignInForm>;
