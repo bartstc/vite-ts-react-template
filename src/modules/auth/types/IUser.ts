@@ -8,6 +8,7 @@ export interface IUser {
   };
   phone: string;
   address: IAddress;
+  cartId: number;
 }
 
 interface IAddress {
