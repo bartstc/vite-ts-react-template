@@ -23,7 +23,7 @@ const CartPage = () => {
           }
         )}
       >
-        <ClearCartButton cartId={params.cartId as string} />
+        <ClearCartButton />
       </PageHeader>
       <CartsList
         cartProducts={data.products.map((product) => ({

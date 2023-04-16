@@ -8,16 +8,12 @@ import {
   useConfirmClearCartDialogStore,
 } from "./ConfirmClearCartDialog";
 
-interface IProps {
-  cartId: string;
-}
-
-const ClearCartButton = ({ cartId }: IProps) => {
+const ClearCartButton = () => {
   const onOpen = useConfirmClearCartDialogStore((state) => state.onOpen);
 
   return (
     <>
-      <Button leftIcon={<DeleteIcon />} onClick={() => onOpen(cartId)}>
+      <Button leftIcon={<DeleteIcon />} onClick={() => onOpen()}>
         {t("Clear cart")}
       </Button>
       <ConfirmClearCartDialog />

@@ -8,8 +8,6 @@ import { host } from "utils/http";
 
 import { ClearCartButton } from "./index";
 
-const CART_ID = "1";
-
 const meta = {
   title: "modules/Carts/ClearCartButton",
   component: ClearCartButton,
@@ -22,9 +20,6 @@ const meta = {
         }),
       ],
     },
-  },
-  args: {
-    cartId: CART_ID,
   },
 } satisfies Meta<typeof ClearCartButton>;
 

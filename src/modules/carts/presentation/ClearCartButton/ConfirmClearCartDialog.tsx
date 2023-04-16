@@ -22,19 +22,18 @@ import { useClearCart } from "modules/carts/infrastructure";
 
 import { useClearCartNotifications } from "./useClearCartNotifications";
 
-export const useConfirmClearCartDialogStore = createModalStore<string>();
+export const useConfirmClearCartDialogStore = createModalStore<number>();
 
 const ConfirmClearCartDialog = () => {
   const cancelRef = useRef();
   const secondaryColor = useSecondaryTextColor();
   const [clear, isLoading] = useClearCart();
-  const { isOpen, onClose, cartId } = useConfirmClearCartDialogStore(
-    (state) => ({
-      isOpen: state.isOpen,
-      onClose: state.onClose,
-      cartId: state.selectedItem,
-    })
-  );
+
+  const { isOpen, onClose } = useConfirmClearCartDialogStore((state) => ({
+    isOpen: state.isOpen,
+    onClose: state.onClose,
+  }));
+
   const [notifySuccess, notifyFailure] = useClearCartNotifications();
 
   return (
@@ -69,7 +68,7 @@ const ConfirmClearCartDialog = () => {
               colorScheme="red"
               onClick={async () => {
                 try {
-                  await clear(cartId!);
+                  await clear();
                   notifySuccess();
                 } catch {
                   notifyFailure();

@@ -2,13 +2,17 @@ import { useMutation } from "@tanstack/react-query";
 
 import { httpService } from "utils/http";
 
+import { useAuthStore } from "modules/auth/application";
+
 export const useClearCart = () => {
-  const { mutateAsync, isLoading } = useMutation<void, unknown, string>(
-    (cartId) => httpService.delete(`carts/${cartId}`)
+  const cartId = useAuthStore((store) => store.user.cartId);
+
+  const { mutateAsync, isLoading } = useMutation(() =>
+    httpService.delete(`carts/${cartId}`)
   );
 
-  const handler = (cartId: string) => {
-    return mutateAsync(cartId)
+  const handler = () => {
+    return mutateAsync()
       .then(async () => {
         // optionally mutate related data
       })
