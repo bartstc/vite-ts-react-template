@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { userEvent, within, screen } from "@storybook/testing-library";
 import { rest } from "msw";
 
+import { sleep } from "utils";
 import { host } from "utils/http";
 
 import { ClearCartButton } from "./index";
@@ -42,6 +43,8 @@ export const ClearingCart: Story = {
     });
 
     await step("Confirm", async () => {
+      await sleep(500);
+
       await userEvent.click(screen.getByRole("button", { name: /Confirm/ }));
     });
 
