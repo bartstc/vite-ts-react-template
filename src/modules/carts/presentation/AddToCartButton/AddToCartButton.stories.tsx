@@ -9,7 +9,7 @@ import {
 import { rest } from "msw";
 import { withRouter } from "storybook-addon-react-router-v6";
 
-import { withAuth, sleep } from "utils";
+import { sleep } from "utils";
 import { host } from "utils/http";
 
 import { AddToCartButton } from "./index";
@@ -17,7 +17,7 @@ import { AddToCartButton } from "./index";
 const meta = {
   title: "modules/Carts/AddToCartButton",
   component: AddToCartButton,
-  decorators: [withRouter, withAuth],
+  decorators: [withRouter],
   parameters: {
     layout: "centered",
     msw: {

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { withRouter } from "storybook-addon-react-router-v6";
 
-import { withAuth } from "utils";
+import { withoutAuth } from "utils";
 
 import { Navbar } from "./index";
 
@@ -17,5 +17,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  decorators: [withAuth],
+  decorators: [withoutAuth],
 };
+
+export const WithAuthentication: Story = {};

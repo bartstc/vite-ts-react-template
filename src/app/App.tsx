@@ -9,26 +9,18 @@ import { router } from "pages/router";
 
 import { useAuthStore } from "modules/auth/application";
 
-import { Providers } from "./Providers";
-
 function App() {
   const state = useAuthStore((store) => store.state);
 
   if (state === "finished") {
-    return (
-      <Providers>
-        <RouterProvider router={router} />
-      </Providers>
-    );
+    return <RouterProvider router={router} />;
   }
 
   return (
-    <Providers>
-      <Center h="95vh">
-        <Spinner color="orange.400" size="xl" />
-      </Center>
-    </Providers>
+    <Center h="95vh">
+      <Spinner color="orange.400" size="xl" />
+    </Center>
   );
 }
 
-export default App;
+export { App };

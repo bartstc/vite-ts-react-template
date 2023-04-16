@@ -1,4 +1,6 @@
-import { create } from "zustand";
+import { createContext, useContext } from "react";
+
+import { createStore, useStore } from "zustand";
 
 import { getUser, loginUser } from "../infrastructure";
 import { ICredentials } from "../infrastructure/loginUser";
@@ -18,64 +20,81 @@ interface IStore {
   logout: () => Promise<void>;
 }
 
-export const useAuthStore = create<IStore>((set) => {
-  if (isLoggedIn() && !process.env.STORYBOOK) {
-    set({ state: "loading" });
-    getUser()
-      .then((user) => {
-        set({
-          user,
-          isAuthenticated: true,
-          state: "finished",
-        });
-      })
-      .catch(() => {
-        set({
-          isError: true,
-          state: "finished",
-        });
-      });
-  } else {
-    set({ state: "finished" });
-  }
+export type AuthStore = ReturnType<typeof initializeAuthStore>;
 
-  return {
-    isAuthenticated: false,
-    isError: false,
-    state: isLoggedIn() ? "idle" : "finished",
-    user: null as unknown as IUser,
-    login: async (credentials: ICredentials) => {
+const zustandContext = createContext<AuthStore | null>(null);
+
+export const Provider = zustandContext.Provider;
+
+export const useAuthStore = <T>(selector: (state: IStore) => T) => {
+  const store = useContext(zustandContext);
+
+  if (!store) throw new Error("AuthStore is missing the provider");
+
+  return useStore(store, selector);
+};
+
+export const initializeAuthStore = (preloadedState: Partial<IStore> = {}) => {
+  return createStore<IStore>((set) => {
+    if (isLoggedIn()) {
       set({ state: "loading" });
-
-      return loginUser(credentials)
-        .then(() => {
-          localStorage.setItem(AUTH_KEY, "true");
+      getUser()
+        .then((user) => {
           set({
+            user,
             isAuthenticated: true,
             state: "finished",
           });
         })
-        .catch((e) => {
+        .catch(() => {
+          set({
+            isError: true,
+            state: "finished",
+          });
+        });
+    } else {
+      set({ state: "finished" });
+    }
+
+    return {
+      isAuthenticated: false,
+      isError: false,
+      state: isLoggedIn() ? "idle" : "finished",
+      user: null as unknown as IUser,
+      ...preloadedState,
+      login: async (credentials: ICredentials) => {
+        set({ state: "loading" });
+
+        return loginUser(credentials)
+          .then(() => {
+            localStorage.setItem(AUTH_KEY, "true");
+            set({
+              isAuthenticated: true,
+              state: "finished",
+            });
+          })
+          .catch((e) => {
+            localStorage.setItem(AUTH_KEY, "false");
+            set({
+              isAuthenticated: false,
+              state: "finished",
+            });
+            throw e;
+          });
+      },
+      logout: async () => {
+        set({
+          state: "loading",
+        });
+
+        return Promise.resolve().then(() => {
           localStorage.setItem(AUTH_KEY, "false");
           set({
             isAuthenticated: false,
             state: "finished",
           });
-          throw e;
         });
-    },
-    logout: async () => {
-      set({
-        state: "loading",
-      });
-
-      return Promise.resolve().then(() => {
-        localStorage.setItem(AUTH_KEY, "false");
-        set({
-          isAuthenticated: false,
-          state: "finished",
-        });
-      });
-    },
-  };
-});
+      },
+    };
+  });
+};

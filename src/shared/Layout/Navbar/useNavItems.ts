@@ -4,13 +4,12 @@ import { INavItem } from "./INavItem";
 
 export const useNavItems = () => {
   const isAuthenticated = useAuthStore((store) => store.isAuthenticated);
-  const cartId = useAuthStore((store) => store.user?.cartId);
 
-  return isAuthenticated ? getPrivateNavItems(cartId) : getPublicNavItems();
+  return isAuthenticated ? NAV_ITEMS : NAV_ITEMS.slice(0, NAV_ITEMS.length - 1);
 };
 
 // todo: translations
-const getPublicNavItems = (): Array<INavItem> => [
+export const NAV_ITEMS: Array<INavItem> = [
   {
     label: "Inspiration",
     children: [
@@ -45,12 +44,8 @@ const getPublicNavItems = (): Array<INavItem> => [
     label: "Our Products",
     href: "/products",
   },
-];
-
-const getPrivateNavItems = (cartId: number): Array<INavItem> => [
-  ...getPublicNavItems(),
   {
     label: "Cart",
-    href: `/cart/${cartId}`,
+    href: "/cart/1",
   },
 ];

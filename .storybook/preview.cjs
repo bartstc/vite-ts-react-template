@@ -3,7 +3,7 @@ import { withThemeFromJSXProvider } from "@storybook/addon-styling";
 import { initialize, mswLoader } from "msw-storybook-addon";
 
 import { theme } from "../src/theme";
-import { withReactQuery } from "../src/utils";
+import { withAuth, withReactQuery } from "../src/utils";
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
@@ -36,7 +36,8 @@ export const decorators = [
     Provider: ChakraProvider,
     defaultTheme: "light",
   }),
-  withReactQuery(),
+  withReactQuery,
+  withAuth,
 ];
 
 export const loaders = [mswLoader];

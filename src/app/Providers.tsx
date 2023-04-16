@@ -6,6 +6,8 @@ import { theme } from "theme";
 
 import { queryClient } from "utils";
 
+import { AuthProvider } from "modules/auth/application";
+
 interface IProps {
   children: ReactNode;
 }
@@ -13,7 +15,9 @@ interface IProps {
 const Providers = ({ children }: IProps) => {
   return (
     <QueryClientProvider client={queryClient}>
-      <ChakraProvider theme={theme}>{children}</ChakraProvider>
+      <ChakraProvider theme={theme}>
+        <AuthProvider>{children}</AuthProvider>
+      </ChakraProvider>
     </QueryClientProvider>
   );
 };

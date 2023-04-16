@@ -24,16 +24,10 @@ module.exports = {
     interactionsDebugger: true,
   },
   async viteFinal(config) {
-    const customConfig = {
+    return {
       ...config,
       plugins: [...config.plugins, tsconfigPaths.default()],
     };
-
-    return mergeConfig(customConfig, {
-      define: {
-        "process.env.STORYBOOK": true,
-      },
-    });
   },
   docs: {
     autodocs: "tag",
