@@ -16,7 +16,7 @@ const meta = {
     layout: "centered",
     msw: {
       handlers: [
-        rest.delete(`${host}/carts/${CART_ID}`, (req, res, ctx) => {
+        rest.delete(`${host}/carts/:cartId`, (req, res, ctx) => {
           return res(ctx.json({}));
         }),
       ],

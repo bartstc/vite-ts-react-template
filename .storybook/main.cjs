@@ -1,3 +1,4 @@
+const { mergeConfig } = require("vite");
 const tsconfigPaths = require("vite-tsconfig-paths");
 module.exports = {
   stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|ts|tsx)"],
@@ -23,6 +24,17 @@ module.exports = {
     interactionsDebugger: true,
   },
   async viteFinal(config) {
+    const customConfig = {
+      ...config,
+      plugins: [...config.plugins, tsconfigPaths.default()],
+    };
+
+    return mergeConfig(customConfig, {
+      define: {
+        "process.env.STORYBOOK": true,
+      },
+    });
+
     return {
       ...config,
       plugins: [...config.plugins, tsconfigPaths.default()],
@@ -31,8 +43,8 @@ module.exports = {
   docs: {
     autodocs: "tag",
   },
-  env: (config) => ({
-    ...config,
-    STORYBOOK: true,
-  }),
+  // env: (config) => ({
+  //   ...config,
+  //   STORYBOOK: true,
+  // }),
 };
