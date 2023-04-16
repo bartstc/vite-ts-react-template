@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { userEvent, within, screen } from "@storybook/testing-library";
 import { rest } from "msw";
 
+import { sleep } from "utils";
 import { host } from "utils/http";
 
 import { SignInForm } from "./SignInForm";
@@ -44,6 +45,8 @@ export const SigningIn: Story = {
     });
 
     await step("Submit form", async () => {
+      await sleep(500);
+
       await userEvent.click(canvas.getByRole("button", { name: "Sign in" }));
     });
 
