@@ -34,17 +34,8 @@ module.exports = {
         "process.env.STORYBOOK": true,
       },
     });
-
-    return {
-      ...config,
-      plugins: [...config.plugins, tsconfigPaths.default()],
-    };
   },
   docs: {
     autodocs: "tag",
   },
-  // env: (config) => ({
-  //   ...config,
-  //   STORYBOOK: true,
-  // }),
 };

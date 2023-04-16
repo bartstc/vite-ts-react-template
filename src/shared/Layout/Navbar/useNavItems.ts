@@ -4,7 +4,7 @@ import { INavItem } from "./INavItem";
 
 export const useNavItems = () => {
   const isAuthenticated = useAuthStore((store) => store.isAuthenticated);
-  const cartId = useAuthStore((store) => store.user.cartId);
+  const cartId = useAuthStore((store) => store.user?.cartId);
 
   return isAuthenticated ? getPrivateNavItems(cartId) : getPublicNavItems();
 };

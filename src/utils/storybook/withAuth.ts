@@ -1,8 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useAuthStore } from "modules/auth/application";
 
-export const withUser = (story: any) => {
+export const withAuth = (story: any) => {
   useAuthStore.setState({
+    isAuthenticated: true,
+    isError: false,
+    state: "finished",
     user: {
       id: 1,
       cartId: 2,

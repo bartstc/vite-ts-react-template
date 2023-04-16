@@ -64,11 +64,11 @@ const ProductAddedDialog = () => {
               {t("Continue shopping")}
             </Button>
             <Button
-              colorScheme="red"
+              colorScheme="orange"
               onClick={() => navigate(`/cart/${cartId}`)}
               ml={3}
             >
-              {t("Confirm")}
+              {t("Go to cart")}
             </Button>
           </AlertDialogFooter>
         </AlertDialogContent>

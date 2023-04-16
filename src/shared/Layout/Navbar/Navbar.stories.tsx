@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { withRouter } from "storybook-addon-react-router-v6";
 
+import { withAuth } from "utils";
+
 import { Navbar } from "./index";
 
 const meta = {
@@ -14,4 +16,6 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const Default: Story = {
+  decorators: [withAuth],
+};

@@ -18,10 +18,8 @@ interface IStore {
   logout: () => Promise<void>;
 }
 
-export const useAuthStore = create<IStore>((set, get) => {
-  if (isLoggedIn()) {
-    if (process.env.STORYBOOK) return get();
-
+export const useAuthStore = create<IStore>((set) => {
+  if (isLoggedIn() && !process.env.STORYBOOK) {
     set({ state: "loading" });
     getUser()
       .then((user) => {

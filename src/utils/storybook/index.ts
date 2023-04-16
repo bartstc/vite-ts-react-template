@@ -1,2 +1,3 @@
 export { withReactQuery } from "./withReactQuery";
-export { withUser } from "./withUser";
+export { withAuth } from "./withAuth";
+export { sleep } from "./sleep";
