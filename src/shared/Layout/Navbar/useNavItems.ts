@@ -23,15 +23,20 @@ export const NAV_ITEMS: Array<INavItem> = [
         subLabel: "Set of opensource prebuilt components",
         href: "https://chakra-templates.dev/",
       },
+      {
+        label: "Tailwind UI",
+        subLabel: "Prebuilt e-commerce components",
+        href: "https://tailwindui.com/components#product-ecommerce",
+      },
     ],
   },
   {
     label: "Demo Providers",
     children: [
       {
-        label: "Vercel Next.js",
-        subLabel: "The React framework for production",
-        href: "https://nextjs.org/",
+        label: "Vite.js",
+        subLabel: "Next generation Frontend Tooling",
+        href: "https://vitejs.dev/",
       },
       {
         label: "Fake Store API",
