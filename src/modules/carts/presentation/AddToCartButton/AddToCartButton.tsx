@@ -5,10 +5,7 @@ import { t } from "utils";
 import { useAuthStore } from "modules/auth/application";
 import { useAddToCart } from "modules/carts/infrastructure";
 
-import {
-  ProductAddedDialog,
-  useProductAddedDialogStore,
-} from "./ProductAddedDialog";
+import { useProductAddedDialogStore } from "./ProductAddedDialog";
 import { useAddToCartNotifications } from "./useAddToCartNotifications";
 
 interface IProps {
@@ -24,25 +21,22 @@ const AddToCartButton = ({ productId, colorScheme = "gray" }: IProps) => {
   const onOpen = useProductAddedDialogStore((store) => store.onOpen);
 
   return (
-    <>
-      <Button
-        w="100%"
-        colorScheme={colorScheme}
-        isLoading={isLoading}
-        onClick={async () => {
-          try {
-            add({ productId });
-            notifySuccess();
-            onOpen(cartId);
-          } catch {
-            notifyFailure();
-          }
-        }}
-      >
-        {t("Add to cart")}
-      </Button>
-      <ProductAddedDialog />
-    </>
+    <Button
+      w="100%"
+      colorScheme={colorScheme}
+      isLoading={isLoading}
+      onClick={async () => {
+        try {
+          add({ productId });
+          notifySuccess();
+          onOpen(cartId);
+        } catch {
+          notifyFailure();
+        }
+      }}
+    >
+      {t("Add to cart")}
+    </Button>
   );
 };
 

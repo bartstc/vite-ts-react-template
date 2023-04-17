@@ -2,6 +2,8 @@ import { SimpleGrid, GridItem } from "@chakra-ui/react";
 
 import { EmptyStateResult } from "shared/Result";
 
+import { ProductAddedDialog } from "modules/carts/presentation";
+
 import { IProduct } from "../types";
 import { ProductCard } from "./ProductCard";
 
@@ -16,6 +18,7 @@ const ProductsList = ({ products }: IProps) => {
 
   return (
     <SimpleGrid columns={{ base: 1, md: 2 }} spacingY={16} spacingX={10}>
+      <ProductAddedDialog />
       {products.map((product) => (
         <GridItem key={product.id} colSpan={1}>
           <ProductCard

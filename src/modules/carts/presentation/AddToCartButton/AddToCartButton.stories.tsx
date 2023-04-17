@@ -11,12 +11,23 @@ import { withRouter } from "storybook-addon-react-router-v6";
 import { sleep } from "utils";
 import { getAddToCartHandler } from "utils/handlers";
 
-import { AddToCartButton } from "./index";
+import { AddToCartButton } from "./AddToCartButton";
+import { ProductAddedDialog } from "./ProductAddedDialog";
 
 const meta = {
   title: "modules/Carts/AddToCartButton",
   component: AddToCartButton,
-  decorators: [withRouter],
+  decorators: [
+    (story) => {
+      return (
+        <>
+          {story()}
+          <ProductAddedDialog />
+        </>
+      );
+    },
+    withRouter,
+  ],
   parameters: {
     layout: "centered",
     msw: {

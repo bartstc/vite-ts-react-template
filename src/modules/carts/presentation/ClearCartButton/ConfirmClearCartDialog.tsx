@@ -55,7 +55,7 @@ const ConfirmClearCartDialog = () => {
               </Text>
               <Text fontSize="xs" color={secondaryColor}>
                 {t(
-                  "(because this app uses a fake API, this delete request will be mocked and won't affect the cart)"
+                  "(because this app uses a fake API, the request will be mocked and won't affect the app's data)"
                 )}
               </Text>
             </VStack>

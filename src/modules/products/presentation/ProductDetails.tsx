@@ -20,7 +20,10 @@ import { moneyVO, t } from "utils";
 
 import { PageHeader } from "shared/Layout";
 
-import { AddToCartButton } from "modules/carts/presentation";
+import {
+  AddToCartButton,
+  ProductAddedDialog,
+} from "modules/carts/presentation";
 
 import { IProduct } from "../types";
 import { StarRating } from "./StarRating";
@@ -42,6 +45,7 @@ const ProductDetails = ({ product, onBack }: IProps) => {
       columns={{ base: 1, lg: 2 }}
       gap={{ base: 6, md: 8 }}
     >
+      <ProductAddedDialog />
       <GridItem colSpan={1}>
         <Box overflow="hidden" rounded="xl">
           <Box
