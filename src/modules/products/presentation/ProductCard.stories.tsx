@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { withRouter } from "storybook-addon-react-router-v6";
 
+import { getAddToCartHandler } from "utils";
 import { ProductFixture } from "utils/fixtures";
 
 import { ProductCard } from "./ProductCard";
@@ -11,6 +12,9 @@ const meta = {
   decorators: [withRouter],
   parameters: {
     layout: "centered",
+    msw: {
+      handlers: [getAddToCartHandler()],
+    },
   },
 } satisfies Meta<typeof ProductCard>;
 

@@ -19,7 +19,8 @@ import { useSecondaryTextColor } from "theme";
 import { moneyVO, t } from "utils";
 
 import { PageHeader } from "shared/Layout";
-import { useNotImplementedYetToast } from "shared/Toast";
+
+import { AddToCartButton } from "modules/carts/presentation";
 
 import { IProduct } from "../types";
 import { StarRating } from "./StarRating";
@@ -33,7 +34,6 @@ interface IProps {
 const ProductDetails = ({ product, onBack }: IProps) => {
   const categoryLabel = useCategoryLabel(product.category);
   const secondaryColor = useSecondaryTextColor();
-  const notImplemented = useNotImplementedYetToast();
 
   return (
     <SimpleGrid
@@ -83,9 +83,7 @@ const ProductDetails = ({ product, onBack }: IProps) => {
             {product.description}
           </Text>
           <VStack w="100%">
-            <Button w="100%" colorScheme="orange" onClick={notImplemented}>
-              {t("Add to cart")}
-            </Button>
+            <AddToCartButton productId={product.id} colorScheme="orange" />
             <Button w="100%" variant="outline" onClick={onBack}>
               {t("Back to products' list")}
             </Button>

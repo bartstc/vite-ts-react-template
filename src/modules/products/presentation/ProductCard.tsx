@@ -1,10 +1,11 @@
-import { Box, Text, VStack, HStack, Button } from "@chakra-ui/react";
+import { Box, Text, VStack, HStack } from "@chakra-ui/react";
 import { useSecondaryTextColor } from "theme";
 
-import { moneyVO, t } from "utils";
+import { moneyVO } from "utils";
 
 import { useNavigate } from "shared/Router";
-import { useNotImplementedYetToast } from "shared/Toast";
+
+import { AddToCartButton } from "modules/carts/presentation";
 
 import { Category } from "../types";
 import { useCategoryLabel } from "./useCategoryLabel";
@@ -21,7 +22,6 @@ const ProductCard = ({ title, category, price, imageUrl, id }: IProps) => {
   const navigate = useNavigate();
   const categoryLabel = useCategoryLabel(category);
   const categoryColor = useSecondaryTextColor();
-  const notImplemented = useNotImplementedYetToast();
 
   return (
     <VStack spacing={3} overflow="hidden" rounded="lg">
@@ -61,9 +61,7 @@ const ProductCard = ({ title, category, price, imageUrl, id }: IProps) => {
           {categoryLabel}
         </Text>
       </VStack>
-      <Button w="100%" onClick={notImplemented}>
-        {t("Add to cart")}
-      </Button>
+      <AddToCartButton productId={id} />
     </VStack>
   );
 };

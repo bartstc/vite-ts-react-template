@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { withRouter } from "storybook-addon-react-router-v6";
 
-import { getProductsHandler } from "utils";
+import { getAddToCartHandler, getProductsHandler } from "utils";
 
 import { Component } from "./index";
 import { productsPageLoader } from "./loader";
@@ -24,7 +24,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   parameters: {
     msw: {
-      handlers: [getProductsHandler()],
+      handlers: [getProductsHandler(), getAddToCartHandler()],
     },
   },
 };

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { withRouter } from "storybook-addon-react-router-v6";
 
-import { getProductHandler } from "utils";
+import { getAddToCartHandler, getProductHandler } from "utils";
 
 import { Component } from "./index";
 import { productPageLoader } from "./loader";
@@ -19,6 +19,9 @@ const meta = {
       initialEntries: ["/products/:productId", "/products"],
       loader: productPageLoader,
     },
+    msw: {
+      handlers: [getAddToCartHandler(), getProductHandler()],
+    },
   },
   decorators: [withRouter],
 } satisfies Meta<typeof Component>;
@@ -26,10 +29,4 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
-  parameters: {
-    msw: {
-      handlers: [getProductHandler()],
-    },
-  },
-};
+export const Default: Story = {};
