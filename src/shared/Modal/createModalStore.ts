@@ -1,4 +1,4 @@
-import create from "zustand";
+import { create } from "zustand";
 
 type IModalStore<Item> = {
   selectedItem: Item | null;
