@@ -9,7 +9,7 @@ export const usePurchaseNotifications = () => {
     toast({
       status: "success",
       title: t("Checkout"),
-      description: t("You successfully purchased all selected products."),
+      description: t("You have successfully purchased all selected products."),
     });
 
   const failure = () =>

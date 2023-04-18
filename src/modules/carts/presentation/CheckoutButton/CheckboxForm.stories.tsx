@@ -1,4 +1,8 @@
+import { expect } from "@storybook/jest";
 import type { Meta, StoryObj } from "@storybook/react";
+import { userEvent, within, screen } from "@storybook/testing-library";
+
+import { sleep } from "utils";
 
 import { CheckoutForm } from "./CheckoutForm";
 
@@ -13,6 +17,34 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
-  args: {},
+export const Default: Story = {};
+
+export const Purchasing: Story = {
+  play: async ({ canvasElement, step }) => {
+    const canvas = within(canvasElement);
+
+    await step("Enter credentials", async () => {
+      await userEvent.type(canvas.getByLabelText(/Full Name/), "John Doe");
+      await userEvent.type(
+        canvas.getByLabelText(/Your address/),
+        "NYC Groove Street"
+      );
+      await userEvent.selectOptions(
+        canvas.getByRole("combobox"),
+        canvas.getByRole("option", { name: "PayPal" })
+      );
+    });
+
+    await step("Submit form", async () => {
+      await sleep(500);
+
+      await userEvent.click(canvas.getByRole("button", { name: "Purchase" }));
+    });
+
+    expect(
+      await screen.findByText(
+        "You have successfully purchased all selected products."
+      )
+    ).toBeInTheDocument();
+  },
 };
