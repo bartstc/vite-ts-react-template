@@ -35,6 +35,12 @@ export const Purchasing: Story = {
       );
     });
 
+    // https://cathalmacdonnacha.com/how-to-test-a-select-element-with-react-testing-library
+    expect(
+      await canvas.getByRole<HTMLOptionElement>("option", { name: "PayPal" })
+        .selected
+    ).toBeTruthy();
+
     await step("Submit form", async () => {
       await sleep(500);
 
