@@ -5,17 +5,34 @@ import { Button, VStack } from "@chakra-ui/react";
 import { t } from "utils";
 
 import { TextInput, Select } from "shared/Form";
-import { useNotImplementedYetToast } from "shared/Toast";
+
+import { usePurchase } from "modules/carts/infrastructure";
+
+import { usePurchaseNotifications } from "./useCheckoutNotifications";
 
 const CheckoutForm = () => {
-  const notImplemented = useNotImplementedYetToast();
-
   const [fullName, setFullName] = useState<string>();
   const [address, setAddress] = useState<string>();
   const [method, setMethod] = useState<string>("blik");
 
+  const [purchase, isLoading] = usePurchase();
+  const [notifySuccess, notifyFailure] = usePurchaseNotifications();
+
   return (
-    <VStack as="form" spacing={4} onSubmit={notImplemented}>
+    <VStack
+      as="form"
+      spacing={4}
+      onSubmit={async (e) => {
+        e.preventDefault();
+
+        try {
+          await purchase();
+          notifySuccess();
+        } catch {
+          notifyFailure();
+        }
+      }}
+    >
       <TextInput
         id="fullname"
         value={fullName}
@@ -48,7 +65,12 @@ const CheckoutForm = () => {
         {t("Payment method")}
       </Select>
       <VStack w="100%" pt={6}>
-        <Button type="submit" colorScheme="orange" w="100%">
+        <Button
+          isLoading={isLoading}
+          type="submit"
+          colorScheme="orange"
+          w="100%"
+        >
           {t("Purchase")}
         </Button>
       </VStack>
