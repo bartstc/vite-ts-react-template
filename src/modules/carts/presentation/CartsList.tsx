@@ -7,9 +7,9 @@ import { useSecondaryTextColor } from "theme";
 import { moneyVO, t } from "utils";
 
 import { useNavigate } from "shared/Router";
-import { useNotImplementedYetToast } from "shared/Toast";
 
 import { CartItem } from "./CartItem";
+import { CheckoutButton } from "./CheckoutButton";
 
 interface IProps {
   cartProducts: ComponentProps<typeof CartItem>[];
@@ -17,7 +17,6 @@ interface IProps {
 
 const CartsList = ({ cartProducts }: IProps) => {
   const navigate = useNavigate();
-  const notImplemented = useNotImplementedYetToast();
 
   const secondaryColor = useSecondaryTextColor();
 
@@ -50,9 +49,7 @@ const CartsList = ({ cartProducts }: IProps) => {
         </Text>
       </VStack>
       <VStack w="100%">
-        <Button w="100%" colorScheme="orange" onClick={notImplemented}>
-          {t("Checkout")}
-        </Button>
+        <CheckoutButton />
         <HStack>
           <Text fontSize="sm">{t("or")}</Text>
           <Button

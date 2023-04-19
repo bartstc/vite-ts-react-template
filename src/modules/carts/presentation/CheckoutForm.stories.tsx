@@ -7,7 +7,7 @@ import { sleep } from "utils";
 import { CheckoutForm } from "./CheckoutForm";
 
 const meta = {
-  title: "modules/Carts/CheckboxForm",
+  title: "modules/Carts/CheckoutForm",
   component: CheckoutForm,
   parameters: {
     layout: "centered",
@@ -21,30 +21,30 @@ export const Default: Story = {};
 
 export const Purchasing: Story = {
   play: async ({ canvasElement, step }) => {
-    const canvas = within(canvasElement);
+    within(canvasElement);
 
     await step("Enter credentials", async () => {
-      await userEvent.type(canvas.getByLabelText(/Full Name/), "John Doe");
+      await userEvent.type(screen.getByLabelText(/Full Name/), "John Doe");
       await userEvent.type(
-        canvas.getByLabelText(/Your address/),
+        screen.getByLabelText(/Your address/),
         "NYC Groove Street"
       );
       await userEvent.selectOptions(
-        canvas.getByRole("combobox"),
-        canvas.getByRole("option", { name: "PayPal" })
+        screen.getByRole("combobox"),
+        screen.getByRole("option", { name: "PayPal" })
       );
     });
 
     // https://cathalmacdonnacha.com/how-to-test-a-select-element-with-react-testing-library
     expect(
-      await canvas.getByRole<HTMLOptionElement>("option", { name: "PayPal" })
+      await screen.getByRole<HTMLOptionElement>("option", { name: "PayPal" })
         .selected
     ).toBeTruthy();
 
     await step("Submit form", async () => {
       await sleep(500);
 
-      await userEvent.click(canvas.getByRole("button", { name: "Purchase" }));
+      await userEvent.click(screen.getByRole("button", { name: "Purchase" }));
     });
 
     expect(

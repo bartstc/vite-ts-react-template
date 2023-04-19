@@ -10,7 +10,11 @@ import { usePurchase } from "modules/carts/infrastructure";
 
 import { usePurchaseNotifications } from "./useCheckoutNotifications";
 
-const CheckoutForm = () => {
+interface IProps {
+  onSuccess?: () => void;
+}
+
+const CheckoutForm = ({ onSuccess }: IProps) => {
   const [fullName, setFullName] = useState<string>();
   const [address, setAddress] = useState<string>();
   const [method, setMethod] = useState<string>("blik");
@@ -28,6 +32,7 @@ const CheckoutForm = () => {
         try {
           await purchase();
           notifySuccess();
+          onSuccess?.();
         } catch {
           notifyFailure();
         }
