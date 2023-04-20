@@ -38,6 +38,7 @@ export const initializeAuthStore = (preloadedState: Partial<IStore> = {}) => {
   return createStore<IStore>((set) => {
     if (isLoggedIn()) {
       set({ state: "loading" });
+
       getUser()
         .then((user) => {
           set({
@@ -60,38 +61,45 @@ export const initializeAuthStore = (preloadedState: Partial<IStore> = {}) => {
       isAuthenticated: false,
       isError: false,
       state: isLoggedIn() ? "idle" : "finished",
-      user: null as unknown as IUser,
+      user: undefined as unknown as IUser,
       ...preloadedState,
       login: async (credentials: ICredentials) => {
         set({ state: "loading" });
 
-        return loginUser(credentials)
-          .then(() => {
-            localStorage.setItem(AUTH_KEY, "true");
-            set({
-              isAuthenticated: true,
-              state: "finished",
-            });
-          })
-          .catch((e) => {
-            localStorage.setItem(AUTH_KEY, "false");
-            set({
-              isAuthenticated: false,
-              state: "finished",
-            });
-            throw e;
+        try {
+          await loginUser(credentials);
+          const user = await getUser();
+
+          localStorage.setItem(AUTH_KEY, "true");
+
+          set({
+            isAuthenticated: true,
+            state: "finished",
+            user,
           });
+        } catch (e) {
+          localStorage.setItem(AUTH_KEY, "false");
+
+          set({
+            isAuthenticated: false,
+            state: "finished",
+            user: undefined,
+          });
+
+          throw e;
+        }
       },
       logout: async () => {
         set({
           state: "loading",
         });
 
-        return Promise.resolve().then(() => {
+        return new Promise((resolve) => setTimeout(resolve, 500)).then(() => {
           localStorage.setItem(AUTH_KEY, "false");
           set({
             isAuthenticated: false,
             state: "finished",
+            user: undefined,
           });
         });
       },
