@@ -11,6 +11,7 @@ import {
   AlertDialogOverlay,
   VStack,
   Text,
+  AlertDialogCloseButton,
 } from "@chakra-ui/react";
 import { useSecondaryTextColor } from "theme";
 
@@ -44,7 +45,7 @@ const ProductAddedDialog = () => {
           <AlertDialogHeader fontSize="lg" fontWeight="bold">
             {t("New product in the cart")}
           </AlertDialogHeader>
-
+          <AlertDialogCloseButton />
           <AlertDialogBody>
             <VStack align="stretch">
               <Text>

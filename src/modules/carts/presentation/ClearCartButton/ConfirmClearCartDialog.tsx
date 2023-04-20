@@ -9,6 +9,7 @@ import {
   AlertDialogHeader,
   AlertDialogContent,
   AlertDialogOverlay,
+  AlertDialogCloseButton,
   VStack,
   Text,
 } from "@chakra-ui/react";
@@ -47,7 +48,7 @@ const ConfirmClearCartDialog = () => {
           <AlertDialogHeader fontSize="lg" fontWeight="bold">
             {t("Clear cart")}
           </AlertDialogHeader>
-
+          <AlertDialogCloseButton />
           <AlertDialogBody>
             <VStack align="stretch">
               <Text>

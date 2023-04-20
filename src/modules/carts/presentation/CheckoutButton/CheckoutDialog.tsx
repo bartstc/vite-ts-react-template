@@ -6,6 +6,7 @@ import {
   AlertDialogHeader,
   AlertDialogContent,
   AlertDialogOverlay,
+  AlertDialogCloseButton,
 } from "@chakra-ui/react";
 
 import { t } from "utils";
@@ -36,6 +37,7 @@ const CheckoutDialog = () => {
           <AlertDialogHeader fontSize="lg" fontWeight="bold">
             {t("Checkout")}
           </AlertDialogHeader>
+          <AlertDialogCloseButton />
           <AlertDialogBody>
             <CheckoutForm onSuccess={onClose} />
           </AlertDialogBody>
