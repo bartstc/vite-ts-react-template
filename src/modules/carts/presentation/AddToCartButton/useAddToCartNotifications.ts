@@ -5,14 +5,14 @@ import { useToast } from "shared/Toast";
 export const useAddToCartNotifications = () => {
   const toast = useToast();
 
-  const success = () =>
+  const notifySuccess = () =>
     toast({
       status: "success",
       title: t("New product"),
       description: t("A product has been successfully added to your cart."),
     });
 
-  const failure = () =>
+  const notifyFailure = () =>
     toast({
       status: "error",
       title: t("New product"),
@@ -21,5 +21,12 @@ export const useAddToCartNotifications = () => {
       ),
     });
 
-  return [success, failure] as const;
+  const notifyNotAuthenticated = () =>
+    toast({
+      status: "warning",
+      title: t("New product"),
+      description: t("Please log in in order to add products."),
+    });
+
+  return { notifySuccess, notifyFailure, notifyNotAuthenticated } as const;
 };

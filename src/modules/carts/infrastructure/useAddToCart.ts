@@ -17,8 +17,8 @@ interface IAddToCartDto {
 }
 
 export const useAddToCart = () => {
-  const cartId = useAuthStore((store) => store.user.cartId);
-  const userId = useAuthStore((store) => store.user.id);
+  const cartId = useAuthStore((store) => store.user?.cartId);
+  const userId = useAuthStore((store) => store.user?.id);
 
   const { mutateAsync, isLoading } = useMutation<
     void,

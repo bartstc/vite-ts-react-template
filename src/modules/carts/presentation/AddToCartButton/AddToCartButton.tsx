@@ -14,10 +14,12 @@ interface IProps {
 }
 
 const AddToCartButton = ({ productId, colorScheme = "gray" }: IProps) => {
-  const cartId = useAuthStore((store) => store.user.cartId);
+  const cartId = useAuthStore((store) => store.user?.cartId);
+  const isAuthenticated = useAuthStore((store) => store.isAuthenticated);
 
   const [add, isLoading] = useAddToCart();
-  const [notifySuccess, notifyFailure] = useAddToCartNotifications();
+  const { notifyFailure, notifySuccess, notifyNotAuthenticated } =
+    useAddToCartNotifications();
   const onOpen = useProductAddedDialogStore((store) => store.onOpen);
 
   return (
@@ -26,6 +28,10 @@ const AddToCartButton = ({ productId, colorScheme = "gray" }: IProps) => {
       colorScheme={colorScheme}
       isLoading={isLoading}
       onClick={async () => {
+        if (!isAuthenticated) {
+          return notifyNotAuthenticated();
+        }
+
         try {
           add({ productId });
           notifySuccess();
