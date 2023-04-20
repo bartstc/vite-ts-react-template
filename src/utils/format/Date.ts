@@ -6,6 +6,8 @@ import { getLocale } from "./locale";
 
 type DateType = string | Date | Dayjs;
 
+// todo: remove dayjs, use the native browser's API
+// todo: replace static class with a singleton
 /** @deprecated */
 export class DateVO {
   static formatDate(date: DateType, format = getLocale().dateFormat): string {
