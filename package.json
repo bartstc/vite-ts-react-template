@@ -21,7 +21,6 @@
     "@emotion/styled": "^11.10.5",
     "@fontsource/inter": "^4.5.15",
     "@tanstack/react-query": "^4.24.6",
-    "dayjs": "^1.11.7",
     "framer-motion": "^9.0.3",
     "intl-messageformat": "^10.3.0",
     "ky": "^0.33.2",

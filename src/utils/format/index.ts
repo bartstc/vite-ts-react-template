@@ -1,4 +1,4 @@
 export { t } from "./message";
 export { numberVO } from "./Number";
 export { moneyVO } from "./Money";
-export { dateVO } from "./DateVO";
+export { dateVO } from "./Date";
