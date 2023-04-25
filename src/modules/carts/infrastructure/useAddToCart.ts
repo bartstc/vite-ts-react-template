@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 
-import { DateVO } from "utils";
+import { dateVO } from "utils";
 import { httpService } from "utils/http";
 
 import { useAuthStore } from "modules/auth/application";
@@ -27,7 +27,7 @@ export const useAddToCart = () => {
   >((body) =>
     httpService.put<void, IAddToCartDto>(`carts/${cartId}`, {
       userId,
-      date: DateVO.generateDate(),
+      date: dateVO.now(),
       products: [{ productId: body.productId, quantity: body.quantity ?? 1 }],
     })
   );

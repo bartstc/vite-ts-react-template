@@ -1,4 +1,4 @@
-import { DateVO, t } from "utils";
+import { dateVO, t } from "utils";
 
 import { Page, PageHeader } from "shared/Layout";
 import { ErrorPageStrategy } from "shared/Result";
@@ -19,7 +19,7 @@ const CartPage = () => {
         description={t(
           "These are all products that you yet chose (updated {time}).",
           {
-            time: DateVO.formatRelativeTime(data.date),
+            time: dateVO.formatRelativeTime(data.date),
           }
         )}
       >
