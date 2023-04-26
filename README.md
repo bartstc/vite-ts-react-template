@@ -38,7 +38,8 @@ If configured tools and overall setup meet your requirements, you should definit
 - Simple, modular, and accessible components based on [Chakra UI](https://chakra-ui.com/).
 - Data fetching and external state synchronization based on [React Query](https://tanstack.com/query/v4/).
 - Routing based on [React Router 6](https://reactrouter.com/en/main/start/overview).
-- Date formatting based on [DayJS](https://day.js.org/).
+- ~~Date formatting based on [DayJS](https://day.js.org/).~~
+- Formatting tools for numbers, monetary values, and dates (easily extendable with any date library like [DayJS](https://day.js.org/)).
 - State management with [Zustand](https://docs.pmnd.rs/zustand/getting-started/introduction).
 - API mocking with [MSW](https://mswjs.io/).
 - A demo app with authentication presenting project structure, good practices, and used tooling in action (with a little help of [Fake Store API](https://fakestoreapi.com/docs)).
