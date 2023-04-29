@@ -1,18 +1,18 @@
-import { useState } from "react";
-
 import { VStack, Text, Heading, Center, Button } from "@chakra-ui/react";
 
 import { numberVO, moneyVO, t, dateVO } from "utils";
 
+import { useCounter } from "../application";
+
 const Demo = () => {
-  const [count, setCount] = useState(0);
+  const { count, increment } = useCounter();
 
   return (
     <Center>
       <VStack>
         <Heading fontWeight="900">{t("Vite + React")}</Heading>
         <VStack>
-          <Button onClick={() => setCount((count) => count + 1)}>
+          <Button onClick={() => increment()}>
             {t(`count is {count}`, { count })}
           </Button>
           <Text fontWeight="700">
