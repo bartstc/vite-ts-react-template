@@ -42,6 +42,7 @@ export const SigningIn: Story = {
       await sleep(500);
 
       await userEvent.click(canvas.getByRole("button", { name: "Sign in" }));
+      await sleep(500);
     });
 
     expect(
