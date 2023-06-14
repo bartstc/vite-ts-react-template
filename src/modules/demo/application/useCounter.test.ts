@@ -8,7 +8,8 @@ it("should increment the count", () => {
 
   act(() => {
     result.current.increment();
+    result.current.increment();
   });
 
-  expect(result.current.count).toBe(1);
+  expect(result.current.count).toBe(2);
 });
