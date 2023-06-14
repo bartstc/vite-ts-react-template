@@ -2,6 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 
 import { dateVO } from "utils";
 import { httpService } from "utils/http";
+import { Logger } from "utils/logger";
 
 import { useAuthStore } from "modules/auth/application";
 
@@ -39,7 +40,10 @@ export const useAddToCart = () => {
       })
       .catch((e) => {
         // listen for a specific error and act respectively (e.g. throwing a specific error and catch it later)
-        // or notify backend about the error if needed
+
+        // notify backend about the error if needed
+        Logger.error("An error occurred during adding an item to the cart", e);
+
         throw e;
       });
   };

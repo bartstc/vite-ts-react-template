@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 
 import { httpService } from "utils/http";
+import { Logger } from "utils/logger";
 
 import { useAuthStore } from "modules/auth/application";
 
@@ -18,7 +19,10 @@ export const useClearCart = () => {
       })
       .catch((e) => {
         // listen for a specific error and act respectively (e.g. throwing a specific error and catch it later)
-        // or notify backend about the error if needed
+
+        // notify backend about the error if needed
+        Logger.error("An error occurred during clearing the cart", e);
+
         throw e;
       });
   };
