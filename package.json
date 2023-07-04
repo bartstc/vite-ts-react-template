@@ -11,7 +11,7 @@
     "lint": "CI=true eslint --ignore-pattern '*.d.ts' --ignore-pattern '*.test.*' --ext ts,tsx --max-warnings 0 src",
     "prepare": "husky install",
     "storybook": "storybook dev -p 6006 -s public",
-    "test-storybook": "test-storybook --watch",
+    "test-storybook": "pnpm exec test-storybook --watch",
     "build-storybook": "storybook build"
   },
   "dependencies": {
@@ -52,6 +52,7 @@
     "@types/lodash-es": "^4.17.6",
     "@types/react": "^18.0.24",
     "@types/react-dom": "^18.0.8",
+    "@types/testing-library__jest-dom": "^5.14.6",
     "@vitejs/plugin-react-swc": "^3.3.0",
     "axe-playwright": "^1.2.3",
     "babel-loader": "^8.3.0",
@@ -63,6 +64,7 @@
     "jsdom": "^21.1.1",
     "msw": "^1.1.0",
     "msw-storybook-addon": "^1.8.0",
+    "playwright": "^1.35.1",
     "prettier": "2.8.6",
     "pretty-quick": "^3.1.3",
     "storybook": "^7.0.4",
@@ -86,5 +88,6 @@
   },
   "msw": {
     "workerDirectory": "public"
-  }
+  },
+  "packageManager": "pnpm@8.6.6"
 }

@@ -2,8 +2,7 @@ import { useState } from "react";
 // eslint-disable-next-line no-restricted-imports
 import { createMemoryRouter, RouterProvider } from "react-router-dom";
 
-import { useBoolean } from "@chakra-ui/hooks";
-import { Button, VStack } from "@chakra-ui/react";
+import { Button, VStack, useBoolean } from "@chakra-ui/react";
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { AjaxError } from "utils";
