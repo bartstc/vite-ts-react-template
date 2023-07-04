@@ -23,6 +23,7 @@ This version is free of any libraries. If the `core` version doesn't match your 
 - Static code analysis: eslint, prettier, husky.
 - TypeScript support.
 - [Devcontainer](https://code.visualstudio.com/docs/devcontainers/containers) config for VS Code.
+- [PNPM](https://pnpm.io/) as a package manager.
 
 ## Extended version - `core`
 
@@ -80,7 +81,7 @@ Set your newly created and pushed branch as default. You may do this in `Setting
 
 ## Starting the dev environment
 
-It's recommended to run the dev server and tests in a docker container. Containerized environment assures compatibility and cohesion regarding launching and developing your project. Because of that, you don't need to worry about unexpected errors or undesired mismatches of locally installed dependencies e. g. Node or Yarn.
+It's recommended to run the dev server and tests in a docker container. Containerized environment assures compatibility and cohesion regarding launching and developing your project. Because of that, you don't need to worry about unexpected errors or undesired mismatches of locally installed dependencies e. g. Node or Pnpm.
 
 If you are using [VS Code](https://code.visualstudio.com/) as your IDE, I personally recommend using already configured in this template [devcontainer env](https://code.visualstudio.com/docs/devcontainers/containers).
 
@@ -90,12 +91,12 @@ Learn more about using this template in practice below.
 
 | Command                | Description                                                                                                                                                |
 | ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `yarn dev`             | Runs dev server with the HMR locally on port `5173`                                                                                                        |
-| `yarn build`           | Builds optimized app package                                                                                                                               |
-| `yarn test`            | Runs unit tests                                                                                                                                            |
-| `yarn storybook`       | Runs a Storybook locally on port `6006`                                                                                                                    |
-| `yarn test-storybook`  | Runs integration tests (requires a running Storybook on port `6006` - more info [here](https://storybook.js.org/blog/interaction-testing-with-storybook/)) |
-| `yarn build-storybook` | Builds static app with [a Storybook's content](https://storybook.js.org/docs/react/sharing/publish-storybook)                                              |
+| `pnpm dev`             | Runs dev server with the HMR locally on port `5173`                                                                                                        |
+| `pnpm build`           | Builds optimized app package                                                                                                                               |
+| `pnpm test`            | Runs unit tests                                                                                                                                            |
+| `pnpm storybook`       | Runs a Storybook locally on port `6006`                                                                                                                    |
+| `pnpm test-storybook`  | Runs integration tests (requires a running Storybook on port `6006` - more info [here](https://storybook.js.org/blog/interaction-testing-with-storybook/)) |
+| `pnpm build-storybook` | Builds static app with [a Storybook's content](https://storybook.js.org/docs/react/sharing/publish-storybook)                                              |
 
 # Contributing
 
