@@ -25,5 +25,5 @@ Interactive.play = async ({ canvasElement }) => {
 
   await userEvent.click(incrementButton);
 
-  await expect(incrementButton).toHaveTextContent("count is 1");
+  await expect(incrementButton.textContent).toContain("count is 1");
 };
