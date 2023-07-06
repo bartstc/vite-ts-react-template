@@ -48,7 +48,13 @@ jobs:
         run: pnpm install
 
       - name: Run unit tests
-        run: pnpm test
+        run: pnpm test:ci
+
+      - name: Upload junit report artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: unit-report
+          path: unit-report.xml
 
   lint-tests:
     runs-on: ubuntu-latest
