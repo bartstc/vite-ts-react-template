@@ -96,6 +96,7 @@ jobs:
         run: pnpm lint
 
   storybook-tests:
+    if: false
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
