@@ -96,7 +96,6 @@ jobs:
         run: pnpm lint
 
   storybook-tests:
-    if: false
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -136,7 +135,7 @@ jobs:
         run: pnpm test-storybook:ci
 
   build:
-    needs: [lint-tests, unit-tests]
+    needs: [lint-tests, unit-tests, storybook-tests]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

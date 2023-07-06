@@ -16,7 +16,7 @@
     "test-storybook": "pnpm exec test-storybook --watch",
     "build-storybook": "storybook build",
     "preview-storybook": "http-server storybook-static --port 6006 --silent",
-    "test-storybook:ci": "concurrently -k -s first -n \"SB,TEST\" -c \"magenta,blue\" \"pnpm build-storybook --quiet && pnpm exec http-server storybook-static --port 6006 --silent\" \"wait-on tcp:6006 && pnpm test-storybook\""
+    "test-storybook:ci": "concurrently -k -s first -n \"SB,TEST\" -c \"magenta,blue\" \"pnpm build-storybook --quiet && pnpm exec http-server storybook-static --port 6006 --silent\" \"wait-on tcp:127.0.0.1:6006 && pnpm test-storybook\""
   },
   "dependencies": {
     "lodash-es": "^4.17.21",
