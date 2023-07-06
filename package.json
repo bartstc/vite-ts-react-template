@@ -16,7 +16,7 @@
     "test-storybook": "pnpm exec test-storybook --watch",
     "build-storybook": "storybook build",
     "preview-storybook": "http-server storybook-static --port 6006 --silent",
-    "test-storybook:ci": "NODE_OPTIONS=--max_old_space_size=8192 start-server-and-test \"preview-storybook\" http://localhost:6006 \"pnpm exec test-storybook --junit\""
+    "test-storybook:ci": "concurrently -k -s first -n \"SB,TEST\" -c \"magenta,blue\" \"pnpm build-storybook --quiet && pnpm exec http-server storybook-static --port 6006 --silent\" \"wait-on tcp:6006 && pnpm test-storybook\""
   },
   "dependencies": {
     "lodash-es": "^4.17.21",
@@ -44,6 +44,7 @@
     "@vitejs/plugin-react-swc": "^3.1.0",
     "axe-playwright": "^1.2.3",
     "babel-loader": "^8.3.0",
+    "concurrently": "^8.2.0",
     "eslint": "^8.27.0",
     "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-storybook": "^0.6.11",
@@ -62,7 +63,8 @@
     "vite": "^4.0.4",
     "vite-plugin-checker": "^0.5.4",
     "vite-tsconfig-paths": "^4.0.5",
-    "vitest": "^0.27.3"
+    "vitest": "^0.27.3",
+    "wait-on": "^7.0.1"
   },
   "browserslist": {
     "production": [
