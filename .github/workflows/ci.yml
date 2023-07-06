@@ -33,6 +33,9 @@ jobs:
         run: |
           echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
 
+      # Cache step executes also at the end of the job in order to update the cache
+      # If new dependencies were installed in the "Install dependencies", new dependencies will be stored at the end of a job
+      # Created cache will be available in other jobs and other workflow execution cycles
       - name: Setup pnpm cache
         uses: actions/cache@v3
         with:
@@ -87,7 +90,7 @@ jobs:
         run: pnpm lint
 
   build:
-    needs: [unit-tests, lint-tests]
+    needs: [lint-tests, unit-tests]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -126,16 +129,24 @@ jobs:
       - name: Build an application
         run: pnpm build
 
-      - name: Upload artifacts
+      - name: Upload build artifacts
         uses: actions/upload-artifact@v3
         with:
           name: build
-          path: |
-            dist
+          path: dist
+          # path: |
+          #   dist
+          #   package.json
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - name: Get build artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: build # will download a zipped build and unzip it
+      - name: Outputs content
+        run: ls
       - name: Deploy
         run: echo "Deploying..."
