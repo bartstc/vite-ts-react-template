@@ -110,15 +110,6 @@ jobs:
           version: 8
           run_install: false
 
-      - name: Output node version
-        run: node -v
-
-      # - name: Install Node.js
-      #   uses: actions/setup-node@v3
-      #   with:
-      #     node-version: "18.x"
-      #     cache: "pnpm"
-
       - name: Get pnpm store directory
         id: pnpm-cache
         shell: bash
@@ -138,6 +129,12 @@ jobs:
 
       - name: Run storybook tests
         run: pnpm test-storybook:ci
+
+      - name: Upload json report artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: storybook-report
+          path: storybook-report.json
 
   build:
     needs: [lint-tests, unit-tests, storybook-tests]
@@ -184,9 +181,6 @@ jobs:
         with:
           name: build
           path: dist
-          # path: |
-          #   dist
-          #   package.json
 
   deploy:
     needs: build
