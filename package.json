@@ -16,8 +16,7 @@
     "test-storybook": "pnpm exec test-storybook --watch",
     "build-storybook": "storybook build",
     "preview-storybook": "http-server storybook-static --port 6006 --silent",
-    "test-storybook:ci": "pnpm exec playwright install && pnpm exec playwright install-deps && concurrently -k -s first -n \"SB,TEST\" -c \"magenta,blue\" \"pnpm build-storybook --quiet && pnpm exec http-server storybook-static --port 6006 --silent\" \"wait-on tcp:127.0.0.1:6006 && pnpm exec test-storybook --json --outputFile storybook-report.json a\"",
-    "test-storybook:ci:legacy2": "concurrently -k -s first -n \"SB,TEST\" -c \"magenta,blue\" \"pnpm build-storybook --quiet && pnpm preview-storybook\" \"wait-on tcp:127.0.0.1:6006 && pnpm exec test-storybook --json --outputFile storybook-report.json a\""
+    "test-storybook:ci": "concurrently -k -s first -n \"SB,TEST\" -c \"magenta,blue\" \"pnpm build-storybook --quiet && pnpm preview-storybook\" \"wait-on tcp:127.0.0.1:6006 && pnpm exec test-storybook --json --outputFile storybook-report.json a\""
   },
   "dependencies": {
     "lodash-es": "^4.17.21",

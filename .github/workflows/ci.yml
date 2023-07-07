@@ -97,8 +97,8 @@ jobs:
 
   storybook-tests:
     runs-on: ubuntu-latest
-    # container:
-    #   image: mcr.microsoft.com/playwright:v1.35.0-jammy
+    container:
+      image: mcr.microsoft.com/playwright:v1.35.0-jammy
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -109,12 +109,6 @@ jobs:
         with:
           version: 8
           run_install: false
-
-      - name: Install Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: "18.x"
-          cache: "pnpm"
 
       - name: Get pnpm store directory
         id: pnpm-cache
@@ -136,11 +130,11 @@ jobs:
       - name: Run storybook tests
         run: pnpm test-storybook:ci
 
-      # - name: Upload json report artifacts
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     name: storybook-report
-      #     path: storybook-report.json
+      - name: Upload json report artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: storybook-report
+          path: storybook-report.json
 
   build:
     needs: [lint-tests, unit-tests, storybook-tests]
