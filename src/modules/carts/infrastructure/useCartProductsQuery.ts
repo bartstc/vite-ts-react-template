@@ -1,6 +1,6 @@
 import { UseQueryOptions } from "@tanstack/react-query";
 
-import { createLoader, useQuery, httpService } from "utils";
+import { useQuery, httpService, queryClient } from "utils";
 
 import { getProductQuery } from "modules/products/infrastructure";
 
@@ -53,4 +53,4 @@ export const useCartProductsQuery = (
 };
 
 export const cartProductsLoader = async (cartId: string) =>
-  createLoader(getCartProductsQuery(cartId));
+  queryClient.ensureQueryData(getCartProductsQuery(cartId));

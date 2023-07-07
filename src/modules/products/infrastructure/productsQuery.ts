@@ -2,7 +2,7 @@ import { UseQueryOptions } from "@tanstack/react-query";
 
 import { IQueryParams, IMeta } from "types";
 
-import { buildUrl, createLoader, httpService, useQuery } from "utils";
+import { buildUrl, httpService, queryClient, useQuery } from "utils";
 
 import { IProduct } from "../types";
 import { IProductDto } from "./types";
@@ -44,4 +44,4 @@ export const useProductsQuery = (
 };
 
 export const productsLoader = async (params: IQueryParams = defaultParams) =>
-  createLoader(getProductsQuery(params));
+  queryClient.ensureQueryData(getProductsQuery(params));

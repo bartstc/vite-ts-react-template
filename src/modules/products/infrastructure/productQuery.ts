@@ -1,6 +1,6 @@
 import { UseQueryOptions } from "@tanstack/react-query";
 
-import { createLoader, httpService, useQuery } from "utils";
+import { httpService, queryClient, useQuery } from "utils";
 
 import { IProduct } from "../types";
 import { IProductDto } from "./types";
@@ -24,4 +24,4 @@ export const useProductQuery = (
 };
 
 export const productLoader = async (productId: string) =>
-  createLoader(getProductQuery(productId));
+  queryClient.ensureQueryData(getProductQuery(productId));
