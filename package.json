@@ -13,10 +13,11 @@
     "prepare": "husky install",
     "storybook": "storybook dev -p 6006",
     "storybook-latest-node": "export NODE_OPTIONS=--openssl-legacy-provider; storybook dev -p 6006",
-    "test-storybook": "pnpm exec test-storybook --watch",
+    "test-storybook": "pnpm exec test-storybook a",
     "build-storybook": "storybook build",
     "preview-storybook": "http-server storybook-static --port 6006 --silent",
-    "test-storybook:ci": "concurrently -k -s first -n \"SB,TEST\" -c \"magenta,blue\" \"pnpm build-storybook --quiet && pnpm preview-storybook\" \"wait-on tcp:127.0.0.1:6006 && pnpm exec test-storybook --json --outputFile storybook-report.json a\""
+    "test-storybook:ci": "concurrently -k -s first -n \"SB,TEST\" -c \"magenta,blue\" \"pnpm build-storybook --quiet && pnpm exec http-server storybook-static --port 6006 --silent\" \"wait-on tcp:127.0.0.1:6006 && pnpm test-storybook\"",
+    "test-storybook:ci:legacy": "concurrently -k -s first -n \"SB,TEST\" -c \"magenta,blue\" \"pnpm build-storybook --quiet && pnpm preview-storybook\" \"wait-on tcp:127.0.0.1:6006 && pnpm exec test-storybook --json --outputFile storybook-report.json a\""
   },
   "dependencies": {
     "lodash-es": "^4.17.21",
