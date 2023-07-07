@@ -110,11 +110,14 @@ jobs:
           version: 8
           run_install: false
 
-      - name: Install Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: "18.x"
-          cache: "pnpm"
+      - name: Output node version
+        run: node -v
+
+      # - name: Install Node.js
+      #   uses: actions/setup-node@v3
+      #   with:
+      #     node-version: "18.x"
+      #     cache: "pnpm"
 
       - name: Get pnpm store directory
         id: pnpm-cache
