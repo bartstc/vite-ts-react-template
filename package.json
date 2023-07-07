@@ -13,11 +13,10 @@
     "prepare": "husky install",
     "storybook": "storybook dev -p 6006",
     "storybook-latest-node": "export NODE_OPTIONS=--openssl-legacy-provider; storybook dev -p 6006",
-    "test-storybook": "pnpm exec test-storybook a",
+    "test-storybook": "pnpm exec test-storybook --watch",
     "build-storybook": "storybook build",
     "preview-storybook": "http-server storybook-static --port 6006 --silent",
-    "test-storybook:ci": "start-server-and-test \"preview-storybook\" http://127.0.0.1:6006 \"pnpm exec test-storybook --junit\"",
-    "test-storybook:ci:legacy": "concurrently -k -s first -n \"SB,TEST\" -c \"magenta,blue\" \"pnpm build-storybook --quiet && pnpm exec http-server storybook-static --port 6006 --silent\" \"wait-on tcp:127.0.0.1:6006 && pnpm test-storybook\"",
+    "test-storybook:ci": "concurrently -k -s first -n \"SB,TEST\" -c \"magenta,blue\" \"pnpm build-storybook --quiet && pnpm exec http-server storybook-static --port 6006 --silent\" \"wait-on tcp:127.0.0.1:6006 && pnpm test-storybook\"",
     "test-storybook:ci:legacy2": "concurrently -k -s first -n \"SB,TEST\" -c \"magenta,blue\" \"pnpm build-storybook --quiet && pnpm preview-storybook\" \"wait-on tcp:127.0.0.1:6006 && pnpm exec test-storybook --json --outputFile storybook-report.json a\""
   },
   "dependencies": {
@@ -78,5 +77,10 @@
       "last 1 version"
     ]
   },
-  "packageManager": "pnpm@8.6.6"
+  "packageManager": "pnpm@8.6.6",
+  "pnpm": {
+    "overrides": {
+      "@storybook/test-runner@0.11.0<playwright": "1.35.0"
+    }
+  }
 }
