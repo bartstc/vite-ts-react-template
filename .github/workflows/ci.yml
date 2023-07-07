@@ -130,11 +130,11 @@ jobs:
       - name: Run storybook tests
         run: pnpm test-storybook:ci
 
-      - name: Upload json report artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: storybook-report
-          path: storybook-report.json
+      # - name: Upload json report artifacts
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: storybook-report
+      #     path: storybook-report.json
 
   build:
     needs: [lint-tests, unit-tests, storybook-tests]
