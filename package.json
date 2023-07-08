@@ -62,7 +62,8 @@
     "vite": "~4.3.3",
     "vite-plugin-checker": "^0.5.4",
     "vite-tsconfig-paths": "^4.0.5",
-    "vitest": "^0.27.3"
+    "vitest": "^0.27.3",
+    "wait-on": "^7.0.1"
   },
   "browserslist": {
     "production": [
