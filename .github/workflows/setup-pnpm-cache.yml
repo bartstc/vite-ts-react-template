@@ -1,6 +1,7 @@
 name: Setup pnpm cache
 
-on: workflow_call
+on:
+  workflow_call:
 
 jobs:
   pnpm-setup:
