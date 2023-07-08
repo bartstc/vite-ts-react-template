@@ -15,47 +15,11 @@ jobs:
       test-command: pnpm lint
 
   unit-tests:
-    runs-on: ubuntu-latest
+    uses: ./.github/workflows/run-tests.yml
+    with:
+      test-type: unit
+      test-command: pnpm test:ci
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2
-        id: pnpm-install
-        with:
-          version: 8
-          run_install: false
-
-      - name: Install Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: "18.x"
-          cache: "pnpm"
-
-      - name: Get pnpm store directory
-        id: pnpm-cache
-        shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
-
-      # Cache step executes also at the end of the job in order to update the cache
-      # If new dependencies were installed in the "Install dependencies", new dependencies will be stored at the end of a job
-      # Created cache will be available in other jobs and other workflow execution cycles
-      - name: Setup pnpm cache
-        uses: actions/cache@v3
-        with:
-          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
-
-      - name: Install dependencies
-        run: pnpm install --no-frozen-lockfile --ignore-scripts
-
-      - name: Run unit tests
-        run: pnpm test:ci
-
       - name: Upload junit report artifacts
         uses: actions/upload-artifact@v3
         with:
