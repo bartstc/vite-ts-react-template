@@ -19,12 +19,6 @@ jobs:
     with:
       test-type: unit
       test-command: pnpm test:ci
-    steps:
-      - name: Upload junit report artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: unit-report
-          path: unit-report.xml
 
   storybook-tests:
     runs-on: ubuntu-latest
