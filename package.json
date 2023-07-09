@@ -15,7 +15,7 @@
     "test-storybook": "pnpm exec test-storybook --watch",
     "build-storybook": "storybook build",
     "preview-storybook": "http-server storybook-static --port 6006 --silent",
-    "test-storybook:ci": "NODE_OPTIONS=--max_old_space_size=8192 start-server-and-test \"storybook\" http://localhost:6006 \"pnpm exec test-storybook --json --outputFile storybook-report.json\""
+    "test-storybook:ci": "start-server-and-test \"storybook\" http://localhost:6006 \"pnpm exec test-storybook --json --outputFile storybook-report.json\""
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.0.17",

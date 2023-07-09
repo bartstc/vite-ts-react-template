@@ -44,7 +44,7 @@ export const Purchasing: Story = {
     await step("Submit form", async () => {
       await sleep(500);
 
-      // await userEvent.click(screen.getByRole("button", { name: "Purchase" }));
+      await userEvent.click(screen.getByRole("button", { name: "Purchase" }));
     });
 
     expect(
