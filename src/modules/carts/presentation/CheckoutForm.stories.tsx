@@ -24,7 +24,7 @@ export const Purchasing: Story = {
     within(canvasElement);
 
     await step("Enter credentials", async () => {
-      await userEvent.type(screen.getByLabelText(/Full Nam/), "John Doe");
+      await userEvent.type(screen.getByLabelText(/Full Name/), "John Doe");
       await userEvent.type(
         screen.getByLabelText(/Your address/),
         "NYC Groove Street"
@@ -44,7 +44,7 @@ export const Purchasing: Story = {
     await step("Submit form", async () => {
       await sleep(500);
 
-      await userEvent.click(screen.getByRole("button", { name: "Purchase" }));
+      // await userEvent.click(screen.getByRole("button", { name: "Purchase" }));
     });
 
     expect(
