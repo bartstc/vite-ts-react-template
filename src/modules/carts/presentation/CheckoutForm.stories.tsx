@@ -24,7 +24,7 @@ export const Purchasing: Story = {
     within(canvasElement);
 
     await step("Enter credentials", async () => {
-      await userEvent.type(screen.getByLabelText(/Full Name/), "John Doe");
+      await userEvent.type(screen.getByLabelText(/Full Nam/), "John Doe");
       await userEvent.type(
         screen.getByLabelText(/Your address/),
         "NYC Groove Street"
