@@ -28,6 +28,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "16.x"
+
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         id: pnpm-install
@@ -56,7 +60,7 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: Build Storybook
-        run: yarn build-storybook --quiet
+        run: pnpm build-storybook --quiet
 
       - name: Serve Storybook and run tests
         run: |
