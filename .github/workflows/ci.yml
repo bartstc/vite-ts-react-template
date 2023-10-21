@@ -22,8 +22,6 @@ jobs:
 
   storybook-tests:
     runs-on: ubuntu-latest
-    container:
-      image: mcr.microsoft.com/playwright:v1.35.0-jammy
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -34,6 +32,12 @@ jobs:
         with:
           version: 8
           run_install: false
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16.x"
+          cache: "pnpm"
 
       - name: Get pnpm store directory
         id: pnpm-cache
@@ -52,8 +56,17 @@ jobs:
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile --ignore-scripts
 
-      - name: Run storybook tests
-        run: pnpm test-storybook:ci
+      - name: Install Playwright
+        run: npx playwright install --with-deps
+
+      - name: Build Storybook
+        run: pnpm build-storybook --quiet
+
+      - name: Serve Storybook and run tests
+        run: |
+          pnpm exec concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
+            "pnpm exec http-server storybook-static --port 6006 --silent" \
+            "pnpm exec wait-on tcp:6006 && pnpm exec test-storybook --json --outputFile storybook-report.json a"
 
       - name: Upload json report artifacts
         uses: actions/upload-artifact@v3
