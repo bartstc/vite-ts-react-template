@@ -18,9 +18,7 @@ export const parameters = {
 
 initialize({
   onUnhandledRequest: (req, print) => {
-    const pathsToIgnore = ["/node_modules/.cache", "/src", "/iframe.html"];
-
-    if (pathsToIgnore.some((path) => req.url.pathname.startsWith(path))) {
+    if (!req.url.pathname.includes("fakestoreapi")) {
       return;
     }
 
