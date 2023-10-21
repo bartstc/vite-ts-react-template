@@ -28,9 +28,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - uses: actions/setup-node@v2
-        with:
-          node-version: "16.x"
+      # - uses: actions/setup-node@v2
+      #   with:
+      #     node-version: "16.x"
+      - name: Log Node.js version
+        run: |
+          echo "Node.js Version: $(node -v)"
 
       - name: Install pnpm
         uses: pnpm/action-setup@v2
