@@ -16,15 +16,7 @@ export const parameters = {
   a11y: { disable: true },
 };
 
-initialize({
-  onUnhandledRequest: (req, print) => {
-    if (!req.url.pathname.includes("fakestoreapi")) {
-      return;
-    }
-
-    print.warning();
-  },
-});
+initialize();
 
 export const decorators = [
   // (story) => React.createElement(ChakraProvider, { children: story(), theme }),
