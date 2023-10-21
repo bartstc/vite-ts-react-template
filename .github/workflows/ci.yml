@@ -3,10 +3,10 @@ name: CI
 on:
   push:
     branches:
-      - basic
+      - core
   pull_request:
     branches:
-      - basic
+      - core
 
 jobs:
   lint-tests:
