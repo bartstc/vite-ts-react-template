@@ -22,8 +22,8 @@ jobs:
 
   storybook-tests:
     runs-on: ubuntu-latest
-    container:
-      image: mcr.microsoft.com/playwright:v1.35.0-jammy
+    # container:
+    #   image: mcr.microsoft.com/playwright:v1.35.0-jammy
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -52,7 +52,13 @@ jobs:
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile --ignore-scripts
 
-      - name: Run storybook tests
+      - name: Install Playwright
+        run: npx playwright install --with-deps
+
+      - name: Build Storybook
+        run: yarn build-storybook --quiet
+
+      - name: Serve Storybook and run tests
         run: |
           npx concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
             "npx http-server storybook-static --port 6006 --silent" \
