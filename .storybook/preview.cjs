@@ -3,7 +3,7 @@ import { withThemeFromJSXProvider } from "@storybook/addon-styling";
 import { initialize, mswLoader } from "msw-storybook-addon";
 
 import { theme } from "../src/theme";
-import { withAuth, withReactQuery } from "../src/utils";
+import { getUserHandler, withAuth, withReactQuery } from "../src/utils";
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
@@ -16,7 +16,18 @@ export const parameters = {
   a11y: { disable: true },
 };
 
-initialize();
+initialize(
+  {
+    onUnhandledRequest: (req, print) => {
+      if (!req.url.host.includes("api")) {
+        return;
+      }
+
+      print.warning();
+    },
+  },
+  [getUserHandler()]
+);
 
 export const decorators = [
   // (story) => React.createElement(ChakraProvider, { children: story(), theme }),
