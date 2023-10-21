@@ -12,9 +12,7 @@
     "lint": "CI=true eslint --ignore-pattern '*.d.ts' --ignore-pattern '*.test.*' --ext ts,tsx --max-warnings 0 src",
     "prepare": "husky install",
     "storybook": "storybook dev -p 6006",
-    "storybook-latest-node": "export NODE_OPTIONS=--openssl-legacy-provider; storybook dev -p 6006",
     "test-storybook": "pnpm exec test-storybook --watch",
-    "test-storybook:ci": "pnpm exec test-storybook --json --outputFile storybook-report.json a",
     "build-storybook": "storybook build"
   },
   "dependencies": {

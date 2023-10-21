@@ -66,8 +66,7 @@ jobs:
         run: |
           npx concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
             "npx http-server storybook-static --port 6006 --silent" \
-            "npx wait-on tcp:6006 && pnpm test-storybook:ci"
-        # run: pnpm test-storybook:ci
+            "npx wait-on tcp:6006 && pnpm exec test-storybook --json --outputFile storybook-report.json a"
 
       - name: Upload json report artifacts
         uses: actions/upload-artifact@v3
