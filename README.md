@@ -24,6 +24,7 @@ This version is free of any libraries. If the `core` version doesn't match your 
 - TypeScript support.
 - [Devcontainer](https://code.visualstudio.com/docs/devcontainers/containers) config for VS Code.
 - [PNPM](https://pnpm.io/) as a package manager.
+- CI setup (automate tests, build, deploy draft) with [GitHub Actions](https://docs.github.com/en/actions).
 
 ## Extended version - `core`
 
