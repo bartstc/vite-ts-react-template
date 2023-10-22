@@ -1,0 +1,136 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - core
+  pull_request:
+    branches:
+      - core
+
+jobs:
+  lint-tests:
+    uses: ./.github/workflows/run-tests.yml
+    with:
+      test-type: lint
+      test-command: pnpm lint
+
+  unit-tests:
+    uses: ./.github/workflows/run-tests.yml
+    with:
+      test-type: unit
+      test-command: pnpm test:ci
+
+  storybook-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        id: pnpm-install
+        with:
+          version: 8
+          run_install: false
+
+      # https://github.com/storybookjs/test-runner/issues/301
+      # - name: Install Node.js
+      #   uses: actions/setup-node@v3
+      #   with:
+      #     node-version: "16.x"
+      #     cache: "pnpm"
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - name: Setup pnpm cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile --ignore-scripts
+
+      - name: Install Playwright
+        run: pnpm exec playwright install --with-deps
+
+      - name: Build Storybook
+        run: pnpm build-storybook --quiet
+
+      - name: Serve Storybook and run tests
+        run: |
+          pnpm exec concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
+            "pnpm exec http-server storybook-static --port 6006 --silent" \
+            "pnpm exec wait-on tcp:127.0.0.1:6006 && pnpm exec test-storybook --json --outputFile storybook-report.json a"
+
+      - name: Upload json report artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: storybook-report
+          path: storybook-report.json
+
+  build:
+    needs: [lint-tests, unit-tests, storybook-tests]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        id: pnpm-install
+        with:
+          version: 8
+          run_install: false
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18.x"
+          cache: "pnpm"
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - name: Setup pnpm cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile --ignore-scripts
+
+      - name: Build an application
+        run: pnpm build
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get build artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: build
+      - name: Outputs content
+        run: ls
+      - name: Deploy
+        run: echo "Deploying..."
