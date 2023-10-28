@@ -42,7 +42,6 @@
     "@storybook/addon-interactions": "^7.5.1",
     "@storybook/addon-links": "^7.5.1",
     "@storybook/addon-mdx-gfm": "^7.5.1",
-    "@storybook/addon-styling": "^1.3.7",
     "@storybook/jest": "^0.2.3",
     "@storybook/react": "^7.5.1",
     "@storybook/react-vite": "^7.5.1",

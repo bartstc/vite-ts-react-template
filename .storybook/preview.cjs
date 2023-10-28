@@ -1,5 +1,5 @@
+import { createElement } from "react";
 import { ChakraProvider } from "@chakra-ui/react";
-import { withThemeFromJSXProvider } from "@storybook/addon-styling";
 import { initialize, mswLoader } from "msw-storybook-addon";
 
 import { theme } from "../src/theme";
@@ -30,13 +30,7 @@ initialize(
 );
 
 export const decorators = [
-  // (story) => React.createElement(ChakraProvider, { children: story(), theme }),
-  // todo: handle modes switch
-  withThemeFromJSXProvider({
-    themes: { light: theme, dark: theme },
-    Provider: ChakraProvider,
-    defaultTheme: "light",
-  }),
+  (story) => createElement(ChakraProvider, { children: story(), theme }),
   withReactQuery,
   withAuth,
 ];
