@@ -15,4 +15,5 @@ export default defineConfig({
       },
     }),
   ],
+  assetsInclude: ["/sb-preview/runtime.js"],
 });
