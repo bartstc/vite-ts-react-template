@@ -1,3 +1,3 @@
-FROM mcr.microsoft.com/devcontainers/typescript-node:0-18
+FROM mcr.microsoft.com/devcontainers/typescript-node:dev-20
 
-RUN corepack enable && corepack prepare pnpm@8.6.6 --activate
+RUN corepack enable && corepack prepare pnpm@8.14.1 --activate
