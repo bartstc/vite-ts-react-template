@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "test": "vitest",
-    "test:ci": "vitest run && vitest --reporter junit --outputFile unit-report.xml",
+    "test:ci": "vitest run --reporter verbose --reporter=junit --outputFile=./unit-report.xml",
     "preview": "vite preview",
     "lint": "CI=true eslint --ignore-pattern '*.d.ts' --ignore-pattern '*.test.*' --ext ts,tsx --max-warnings 0 src",
     "prepare": "husky install",
