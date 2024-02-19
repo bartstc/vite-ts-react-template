@@ -5,6 +5,9 @@
   // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
   // "image": "mcr.microsoft.com/devcontainers/typescript-node:0-18",
   "build": { "dockerfile": "Dockerfile" },
+  "mounts": [
+    "source=${localEnv:HOME}/.ssh,target=/home/node/.ssh,type=bind,consistency=cached"
+  ],
 
   // Configure tool-specific properties.
   "customizations": {
