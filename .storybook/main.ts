@@ -2,7 +2,6 @@ import * as tsconfigPaths from "vite-tsconfig-paths";
 
 export default {
   stories: ["../src/**/*.stories.@(js|jsx|ts|tsx)"],
-
   addons: [
     "@storybook/addon-links",
     "@storybook/addon-essentials",
@@ -11,25 +10,22 @@ export default {
     "storybook-dark-mode",
     "@chromatic-com/storybook",
   ],
-
   framework: {
     name: "@storybook/react-vite",
     options: {},
   },
-
   features: {
     interactionsDebugger: true,
   },
-
   async viteFinal(config) {
     return {
       ...config,
       plugins: [...config.plugins, tsconfigPaths.default()],
     };
   },
-
-  docs: {},
-
+  docs: {
+    autodocs: "tag",
+  },
   typescript: {
     reactDocgen: "react-docgen-typescript",
   },
