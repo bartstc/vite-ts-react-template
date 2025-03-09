@@ -18,8 +18,8 @@ This version is free of any libraries. If the `core` version doesn't match your 
 
 ### Key features
 
-- Dev environment based on [ViteJS 5](https://vitejs.dev/) toolkit.
-- Testing environment based on [Vitest](https://vitest.dev/) and [Storybook 8](https://storybook.js.org/).
+- Dev environment based on [Vite 6](https://vitejs.dev/) toolkit.
+- Testing environment based on [Vitest 3](https://vitest.dev/) and [Storybook 8](https://storybook.js.org/).
 - Static code analysis: eslint, prettier, husky.
 - TypeScript support.
 - [Devcontainer](https://code.visualstudio.com/docs/devcontainers/containers) config for VS Code.
@@ -43,7 +43,7 @@ If configured tools and overall setup meet your requirements, you should definit
 - ~~Date formatting based on [DayJS](https://day.js.org/).~~
 - Formatting tools for numbers, monetary values, and dates (easily extendable with any date library like [DayJS](https://day.js.org/)).
 - State management with [Zustand](https://docs.pmnd.rs/zustand/getting-started/introduction).
-- API mocking with [MSW](https://mswjs.io/).
+- API mocking with [MSW 2](https://mswjs.io/).
 - A demo app with authentication presenting project structure, good practices, and used tooling in action (with a little help of [Fake Store API](https://fakestoreapi.com/docs)).
 
 # Guideline
