@@ -105,3 +105,7 @@ It is publicly open for any contribution. Bugfixes, new features, and extra modu
 
 - To contribute to code: Fork the repo, push your changes to your fork, and submit a pull request.
 - To report a bug: If something does not work, please report it using [GitHub Issues](https://github.com/bartstc/spa-vite-template/issues).
+
+# License
+
+This project is licensed under the terms of the [MIT license](https://github.com/bartstc/vite-ts-react-template/blob/core/LICENSE).
