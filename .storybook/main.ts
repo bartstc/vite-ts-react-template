@@ -1,6 +1,7 @@
 import * as tsconfigPaths from "vite-tsconfig-paths";
+import type { StorybookConfig } from "@storybook/react-vite";
 
-export default {
+const config: StorybookConfig = {
   stories: ["../src/**/*.stories.@(js|jsx|ts|tsx)"],
   addons: [
     "@storybook/addon-links",
@@ -14,13 +15,10 @@ export default {
     name: "@storybook/react-vite",
     options: {},
   },
-  features: {
-    interactionsDebugger: true,
-  },
-  async viteFinal(config) {
+  viteFinal(config) {
     return {
       ...config,
-      plugins: [...config.plugins, tsconfigPaths.default()],
+      plugins: [...(config.plugins ?? []), tsconfigPaths.default()],
     };
   },
   docs: {
@@ -30,3 +28,5 @@ export default {
     reactDocgen: "react-docgen-typescript",
   },
 };
+
+export default config;
