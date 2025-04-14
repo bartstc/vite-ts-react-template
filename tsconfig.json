@@ -15,7 +15,6 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "preserve",
-    // "jsx": "react-jsx",
 
     /* Linting */
     "strict": true,
@@ -29,13 +28,7 @@
     "incremental": true,
     "baseUrl": "./src"
   },
-  "include": [
-    "src/**/*",
-    "vite.config.ts",
-    "vitest.config.ts",
-    "eslint.config.mjs",
-    ".storybook/**/*.ts"
-  ],
+  "include": ["src/**/*", ".storybook/**/*.ts"],
   "references": [
     {
       "path": "./tsconfig.node.json"

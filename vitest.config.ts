@@ -1,12 +1,17 @@
+import { mergeConfig } from "vite";
 import { defineConfig } from "vitest/config";
-import tsconfigPaths from "vite-tsconfig-paths";
 
-export default defineConfig({
-  plugins: [tsconfigPaths()],
-  test: {
-    globals: true,
-    coverage: {
-      include: ["src/**/*"],
+import viteConfig from "./vite.config";
+
+export default mergeConfig(
+  viteConfig,
+  defineConfig({
+    test: {
+      globals: true,
+      coverage: {
+        provider: "v8",
+        include: ["src/**/*"],
+      },
     },
-  },
-});
+  })
+);
