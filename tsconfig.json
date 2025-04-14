@@ -28,7 +28,7 @@
     "incremental": true,
     "baseUrl": "./src"
   },
-  "include": ["src/**/*", ".storybook/**/*.ts"],
+  "include": ["src/**/*", ".storybook/**/*.ts", "eslint.config.mjs"],
   "references": [
     {
       "path": "./tsconfig.node.json"
