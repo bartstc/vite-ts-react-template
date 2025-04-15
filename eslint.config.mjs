@@ -113,16 +113,7 @@ export default tseslint.config(
       "no-restricted-imports": [
         "error",
         {
-          patterns: [
-            "shared/*/*",
-            "*/**/shared/*",
-            "utils/*/*",
-            "*/**/utils/*",
-            "modules/*/*/*",
-            "*/**/modules/*/*",
-            "lodash/**",
-            "lodash/fp/**",
-          ],
+          patterns: ["lodash/**", "lodash/fp/**"],
           paths: [
             {
               message: `Please use import { method } from "lodash-es" instead.`,
