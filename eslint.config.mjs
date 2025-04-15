@@ -1,23 +1,24 @@
-import tseslint from "typescript-eslint";
+import { config, configs as tsConfigs } from "typescript-eslint";
 import js from "@eslint/js";
-import reactHooks from "eslint-plugin-react-hooks";
+import { configs } from "eslint-plugin-react-hooks";
 import reactPlugin from "eslint-plugin-react";
 import prettierPluginRecommended from "eslint-plugin-prettier/recommended";
-// import importPlugin from "eslint-plugin-import";
+import importPlugin from "eslint-plugin-import";
 import storybookPlugin from "eslint-plugin-storybook";
 import vitest from "eslint-plugin-vitest";
+import reactRefresh from "eslint-plugin-react-refresh";
 
-export default tseslint.config(
-  { ignores: ["**/dist", "**/*.typegen.ts"] },
+export default config(
+  { ignores: ["**/dist", "**/*.typegen.ts", "**/public/mockServiceWorker.js"] },
   js.configs.recommended,
-  tseslint.configs.recommendedTypeChecked,
-  tseslint.configs.stylisticTypeChecked,
-  reactHooks.configs["recommended-latest"],
+  tsConfigs.recommendedTypeChecked,
+  tsConfigs.stylisticTypeChecked,
+  configs["recommended-latest"],
   reactPlugin.configs.flat.recommended,
   reactPlugin.configs.flat["jsx-runtime"],
   prettierPluginRecommended,
-  //   importPlugin.flatConfigs.recommended,
   ...storybookPlugin.configs["flat/recommended"],
+
   {
     languageOptions: {
       parserOptions: {
@@ -41,19 +42,36 @@ export default tseslint.config(
   },
   {
     files: ["**/*.{ts,tsx}"],
-    // settings: {
-    //   "import/resolver": {
-    //     typescript: true,
-    //   },
-    //   "import/ignore": [
-    //     "node_modules",
-    //     ".json$",
-    //     ".(css|scss)$",
-    //     ".(jpg|png|gif|svg|html|txt|md|woff|woff2|ttf|eot)$",
-    //   ],
-    //   "import/external-module-folders": ["node_modules", ".pnpm-store"],
-    // },
+    plugins: { import: importPlugin, "react-refresh": reactRefresh },
+    settings: {
+      "import/resolver": { typescript: { alwaysTryTypes: true } },
+      "import/ignore": [
+        "node_modules",
+        ".json$",
+        ".(css|scss)$",
+        ".(jpg|png|gif|svg|html|txt|md|woff|woff2|ttf|eot)$",
+      ],
+      "import/external-module-folders": ["node_modules", ".pnpm-store"],
+    },
     rules: {
+      ...importPlugin.configs.recommended.rules,
+      ...importPlugin.configs.typescript.rules,
+      "import/no-dynamic-require": "error",
+      "import/no-useless-path-segments": "error",
+      "import/no-extraneous-dependencies": "error",
+      "import/newline-after-import": "error",
+      "import/no-commonjs": "error",
+      "import/no-amd": "error",
+      "import/order": [
+        "error",
+        {
+          alphabetize: { caseInsensitive: true, order: "asc" },
+          groups: ["builtin", "external", "internal", "parent", "sibling"],
+          "newlines-between": "always",
+        },
+      ],
+      "react-refresh/only-export-components": "error",
+      "no-unused-vars": "off",
       "prettier/prettier": [
         "error",
         {
@@ -74,7 +92,6 @@ export default tseslint.config(
           propElementValues: "always",
         },
       ],
-      "no-unused-vars": "off",
       "no-void": [
         "error",
         {
@@ -94,6 +111,8 @@ export default tseslint.config(
       "@typescript-eslint/no-unsafe-member-access": "error",
       "@typescript-eslint/no-unsafe-argument": "error",
       "@typescript-eslint/no-base-to-string": "error",
+      "@typescript-eslint/no-empty-object-type": "off",
+      "@typescript-eslint/unbound-method": "off",
       "@typescript-eslint/no-floating-promises": [
         "error",
         {
@@ -138,12 +157,6 @@ export default tseslint.config(
           ],
         },
       ],
-      //   "import/no-dynamic-require": "error",
-      //   "import/no-useless-path-segments": "error",
-      //   "import/no-extraneous-dependencies": "error",
-      //   "import/newline-after-import": "error",
-      //   "import/no-commonjs": "error",
-      //   "import/no-amd": "error",
     },
   },
   {
@@ -167,6 +180,9 @@ export default tseslint.config(
       strict: "off",
       "import/no-commonjs": "off",
       "@typescript-eslint/prefer-nullish-coalescing": "off",
+      "@typescript-eslint/no-unsafe-assignment": "off",
+      "@typescript-eslint/no-unsafe-member-access": "off",
+      "@typescript-eslint/no-unsafe-spread": "off",
     },
   }
 );
