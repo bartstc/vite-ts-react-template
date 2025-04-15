@@ -28,7 +28,8 @@
     "incremental": true,
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "typeRoots": ["./node_modules/@types"]
   },
   "include": ["src/**/*", ".storybook/**/*.ts", "eslint.config.mjs"],
   "references": [
