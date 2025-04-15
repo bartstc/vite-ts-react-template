@@ -5,12 +5,10 @@
   "singleQuote": false,
   "importOrder": [
     "^react",
-    "^(?!(hooks|types|utils|shared|modules|[./])).+",
-    "^hooks",
-    "^types",
-    "^utils",
-    "^shared",
-    "modules",
+    "^(?!(types|lib|features|[./])).+",
+    "^@/types",
+    "^@/lib",
+    "@/features",
     "^[./]"
   ],
   "importOrderSeparation": true

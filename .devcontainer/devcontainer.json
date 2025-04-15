@@ -18,7 +18,6 @@
         "esbenp.prettier-vscode",
         "riccardoforina.storybook-helper",
         "styled-components.vscode-styled-components",
-        "wallabyjs.console-ninja",
         "tabnine.tabnine-vscode"
       ]
     }
