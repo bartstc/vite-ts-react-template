@@ -26,12 +26,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2
-        id: pnpm-install
-        with:
-          version: 10.6.1
-          run_install: false
+      - name: Enable corepack
+        run: corepack enable
 
       # https://github.com/storybookjs/test-runner/issues/301
       # - name: Install Node.js
