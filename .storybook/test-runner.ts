@@ -3,10 +3,10 @@ import { getStoryContext } from "@storybook/test-runner";
 import { injectAxe, checkA11y } from "axe-playwright";
 
 const config: TestRunnerConfig = {
-  async preRender(page) {
+  async preVisit(page) {
     await injectAxe(page);
   },
-  async postRender(page, context) {
+  async postVisit(page, context) {
     const storyContext = await getStoryContext(page, context);
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
