@@ -39,7 +39,7 @@ If configured tools and overall setup meet your requirements, you should definit
 - Everything that's included in the `basic` version.
 - Simple, modular, and accessible components based on [Chakra UI](https://chakra-ui.com/).
 - Data fetching and external state synchronization based on [React Query](https://tanstack.com/query/v4/).
-- Routing based on [React Router 6](https://reactrouter.com/en/main/start/overview).
+- Routing based on [React Router 7](https://reactrouter.com/home).
 - ~~Date formatting based on [DayJS](https://day.js.org/).~~
 - Formatting tools for numbers, monetary values, and dates (easily extendable with any date library like [DayJS](https://day.js.org/)).
 - State management with [Zustand](https://docs.pmnd.rs/zustand/getting-started/introduction).
