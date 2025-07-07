@@ -11,9 +11,13 @@ node_modules
 dist
 dist-ssr
 *.local
+storybook-static
+coverage
+storybook-report.json
 
 # Editor directories and files
 .vscode/*
+!.vscode/custom.code-snippets
 !.vscode/settings.json
 !.vscode/extensions.json
 .idea

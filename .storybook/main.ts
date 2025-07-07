@@ -18,6 +18,9 @@ const config: StorybookConfig = {
   viteFinal(config) {
     return {
       ...config,
+      // Ensure that the vite-tsconfig-paths plugin is included in the Storybook config as well.
+      // This plugin is necessary for resolving TypeScript path mappings, which allows the
+      // coverage addon to instrument the code correctly.
       plugins: [...(config.plugins ?? []), tsconfigPaths.default()],
     };
   },
