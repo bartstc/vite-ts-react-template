@@ -31,7 +31,12 @@
     },
     "typeRoots": ["./node_modules/@types"]
   },
-  "include": ["src/**/*", ".storybook/**/*.ts", "eslint.config.mjs"],
+  "include": [
+    "test-setup.ts",
+    "src/**/*",
+    ".storybook/**/*.ts",
+    "eslint.config.mjs"
+  ],
   "references": [
     {
       "path": "./tsconfig.node.json"

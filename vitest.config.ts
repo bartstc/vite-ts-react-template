@@ -1,17 +1,33 @@
 import { mergeConfig } from "vite";
-import { defineConfig } from "vitest/config";
+import { coverageConfigDefaults, defineConfig } from "vitest/config";
 
 import viteConfig from "./vite.config";
 
-export default mergeConfig(
-  viteConfig,
-  defineConfig({
-    test: {
-      globals: true,
-      coverage: {
-        provider: "v8",
-        include: ["src/**/*"],
+export default defineConfig((env) =>
+  mergeConfig(
+    viteConfig(env),
+    defineConfig({
+      test: {
+        globals: true,
+        environment: "jsdom",
+        setupFiles: "./test-setup.ts",
+        coverage: {
+          provider: "istanbul",
+          reporter: [
+            "text",
+            "html",
+            "json",
+            ["lcov", { projectRoot: "./src" }],
+          ],
+          include: ["src/**/*.ts", "src/**/*.tsx"],
+          exclude: [
+            "**/test-lib/*",
+            "**/*{.,-}stories.?(c|m)[jt]s?(x)",
+            ...coverageConfigDefaults.exclude,
+          ],
+          reportsDirectory: "./reports",
+        },
       },
-    },
-  })
+    })
+  )
 );

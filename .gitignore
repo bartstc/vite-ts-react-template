@@ -29,3 +29,6 @@ storybook-report.json
 *.sw?
 
 .pnpm-store
+.pnpm-store
+tsconfig.tsbuildinfo
+reports
