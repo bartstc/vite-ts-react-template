@@ -24,7 +24,7 @@ This version is free of any libraries. If the `core` version doesn't match your 
 - TypeScript support.
 - [Devcontainer](https://code.visualstudio.com/docs/devcontainers/containers) config for VS Code.
 - [PNPM](https://pnpm.io/) as a package manager.
-- CI setup (automate tests, build, deploy draft) with [GitHub Actions](https://docs.github.com/en/actions).
+- CI setup (tests, build, tests coverage report, deploy draft) with [GitHub Actions](https://docs.github.com/en/actions).
 - [Github Copilot](https://github.com/features/copilot) instructions configured for efficient chat and agent usage.
 
 ## Extended version - `core`
@@ -91,14 +91,17 @@ Learn more about using this template in practice below.
 
 ## Basic commands
 
-| Command                | Description                                                                                                                                                |
-| ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `pnpm dev`             | Runs dev server with the HMR locally on port `5173`                                                                                                        |
-| `pnpm build`           | Builds optimized app package                                                                                                                               |
-| `pnpm test`            | Runs unit tests                                                                                                                                            |
-| `pnpm storybook`       | Runs a Storybook locally on port `6006`                                                                                                                    |
-| `pnpm test-storybook`  | Runs integration tests (requires a running Storybook on port `6006` - more info [here](https://storybook.js.org/blog/interaction-testing-with-storybook/)) |
-| `pnpm build-storybook` | Builds static app with [a Storybook's content](https://storybook.js.org/docs/react/sharing/publish-storybook)                                              |
+| Command                        | Description                                                                                                                                                |
+| ------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `pnpm dev`                     | Runs dev server with the HMR locally on port `5173`                                                                                                        |
+| `pnpm lint`                    | Checks for lint errors                                                                                                                                     |
+| `pnpm build`                   | Builds optimized app package                                                                                                                               |
+| `pnpm test`                    | Runs unit tests                                                                                                                                            |
+| `pnpm test:coverage`           | Runs unit tests with coverage                                                                                                                              |
+| `pnpm storybook`               | Runs a Storybook locally on port `6006`                                                                                                                    |
+| `pnpm test-storybook`          | Runs integration tests (requires a running Storybook on port `6006` - more info [here](https://storybook.js.org/blog/interaction-testing-with-storybook/)) |
+| `pnpm test-storybook:coverage` | Runs integration tests with coverage                                                                                                                       |
+| `pnpm build-storybook`         | Builds static app with [a Storybook's content](https://storybook.js.org/docs/react/sharing/publish-storybook)                                              |
 
 # Contributing
 

@@ -7,12 +7,14 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "test": "vitest",
-    "test:ci": "vitest run --reporter verbose --reporter=junit --outputFile=./unit-report.xml",
+    "test:ci": "vitest run --reporter verbose --reporter=junit --outputFile=./reports/unit-report.xml --coverage --coverage.reporter=lcov --coverage.reportsDirectory=./coverage",
+    "test:coverage": "vitest run --coverage",
     "preview": "vite preview",
     "lint": "CI=true eslint . --ext ts,tsx --ignore-pattern '*.d.ts' --report-unused-disable-directives --max-warnings 0",
     "prepare": "husky install",
     "storybook": "storybook dev -p 6006",
     "test-storybook": "test-storybook --watch",
+    "test-storybook:coverage": "test-storybook --coverage",
     "build-storybook": "storybook build"
   },
   "dependencies": {
@@ -23,6 +25,7 @@
   "devDependencies": {
     "@eslint/js": "9.24.0",
     "@storybook/addon-a11y": "9.0.15",
+    "@storybook/addon-coverage": "2.0.0",
     "@storybook/addon-docs": "9.0.15",
     "@storybook/addon-links": "9.0.15",
     "@storybook/react-vite": "9.0.15",
