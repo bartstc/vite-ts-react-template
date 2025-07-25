@@ -129,34 +129,6 @@ export default config(
         },
       ],
       "@typescript-eslint/no-unsafe-enum-comparison": "error",
-      "no-restricted-imports": [
-        "error",
-        {
-          patterns: ["lodash/**", "lodash/fp/**"],
-          paths: [
-            {
-              message: `Please use import { method } from "lodash-es" instead.`,
-              name: "lodash",
-            },
-            {
-              importNames: ["chain"],
-              message:
-                "Avoid using chain since it is non tree-shakable. Try out flow instead.",
-              name: "lodash-es",
-            },
-            {
-              importNames: ["default"],
-              message: `Instead of default import, please use import { method } from "lodash-es" instead.`,
-              name: "lodash-es",
-            },
-            {
-              message:
-                "Avoid using chain since it is non tree-shakable. Try out flow instead.",
-              name: "lodash-es/chain",
-            },
-          ],
-        },
-      ],
     },
   },
   {
