@@ -1,4 +1,3 @@
-import type { AddonOptionsVite } from "@storybook/addon-coverage";
 import type { StorybookConfig } from "@storybook/react-vite";
 import * as tsconfigPaths from "vite-tsconfig-paths";
 
@@ -7,17 +6,8 @@ const config: StorybookConfig = {
 
   addons: [
     "@storybook/addon-links",
-    "@storybook/addon-a11y",
-    {
-      name: "@storybook/addon-coverage",
-      options: {
-        istanbul: {
-          include: ["src/**/*.tsx"],
-          exclude: ["src/**/*.ts", "src/test-lib/*.tsx"],
-        },
-      } satisfies AddonOptionsVite,
-    },
     "@storybook/addon-docs",
+    "@storybook/addon-vitest",
   ],
 
   framework: {

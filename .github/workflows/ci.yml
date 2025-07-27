@@ -55,11 +55,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile --ignore-scripts
 
-      - name: Run coverage
-        run: pnpm test:coverage
-
       - name: Run unit tests
-        run: pnpm test:ci
+        run: pnpm test:unit:ci
 
       - name: Upload test results
         if: success() || failure()
@@ -132,14 +129,8 @@ jobs:
         if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: pnpm exec playwright install chromium --with-deps --only-shell
 
-      - name: Build Storybook
-        run: pnpm build-storybook --quiet
-
-      - name: Serve Storybook and run tests
-        run: |
-          pnpm exec concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
-            "pnpm exec http-server storybook-static --port 6006 --silent" \
-            "pnpm exec wait-on tcp:6006 && pnpm exec test-storybook --coverage --coverageDirectory=coverage --excludeTags=\"!test\" --junit --outputFile reports/storybook-report.json"
+      - name: Run storybook tests
+        run: pnpm test:storybook:ci
 
       - name: Upload test results
         if: success() || failure()
