@@ -91,17 +91,16 @@ Learn more about using this template in practice below.
 
 ## Basic commands
 
-| Command                        | Description                                                                                                                                                |
-| ------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `pnpm dev`                     | Runs dev server with the HMR locally on port `5173`                                                                                                        |
-| `pnpm lint`                    | Checks for lint errors                                                                                                                                     |
-| `pnpm build`                   | Builds optimized app package                                                                                                                               |
-| `pnpm test`                    | Runs unit tests                                                                                                                                            |
-| `pnpm test:coverage`           | Runs unit tests with coverage                                                                                                                              |
-| `pnpm storybook`               | Runs a Storybook locally on port `6006`                                                                                                                    |
-| `pnpm test-storybook`          | Runs integration tests (requires a running Storybook on port `6006` - more info [here](https://storybook.js.org/blog/interaction-testing-with-storybook/)) |
-| `pnpm test-storybook:coverage` | Runs integration tests with coverage                                                                                                                       |
-| `pnpm build-storybook`         | Builds static app with [a Storybook's content](https://storybook.js.org/docs/react/sharing/publish-storybook)                                              |
+| Command               | Description                                         |
+| --------------------- | --------------------------------------------------- |
+| `pnpm dev`            | Runs dev server with the HMR locally on port `5173` |
+| `pnpm lint`           | Checks for lint errors                              |
+| `pnpm build`          | Builds optimized app package                        |
+| `pnpm test`           | Runs all tests                                      |
+| `pnpm test:unit`      | Runs unit tests                                     |
+| `pnpm test:storybook` | Runs storybook tests                                |
+| `pnpm test:coverage`  | Runs all tests with coverage                        |
+| `pnpm storybook`      | Runs a Storybook locally on port `6006`             |
 
 # Contributing
 
