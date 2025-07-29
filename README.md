@@ -25,7 +25,8 @@ This version is free of any libraries. If the `core` version doesn't match your 
 - [Devcontainer](https://code.visualstudio.com/docs/devcontainers/containers) config for VS Code.
 - [PNPM](https://pnpm.io/) as a package manager.
 - CI setup (tests, build, tests coverage report, deploy draft) with [GitHub Actions](https://docs.github.com/en/actions).
-- [Github Copilot](https://github.com/features/copilot) instructions configured for efficient chat and agent usage.
+- [Github Copilot](https://github.com/features/copilot) configuration (instructions).
+- [Claude Code](https://docs.anthropic.com/en/docs/claude-code/overview) configuration (`CLAUDE.md` file and remote development setup).
 
 ## Extended version - `core`
 
