@@ -29,7 +29,8 @@
         "tabnine.tabnine-vscode",
         "unifiedjs.vscode-mdx",
         "vitest.explorer",
-        "lokalise.i18n-ally"
+        "lokalise.i18n-ally",
+        "anthropic.claude-code"
       ]
     }
   },
@@ -38,7 +39,7 @@
   "forwardPorts": [5173],
 
   // Use 'postCreateCommand' to run commands after the container is created.
-  "postCreateCommand": "pnpm install && pnpm exec playwright install chromium --with-deps --only-shell",
+  "postCreateCommand": "bash -c 'gh auth login --hostname github.com --web --scopes public_repo,read:org,workflow && pnpm install && pnpm exec playwright install chromium --with-deps --only-shell'",
 
   // Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
   "remoteUser": "node"

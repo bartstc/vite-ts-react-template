@@ -26,7 +26,7 @@ This version is free of any libraries. If the `core` version doesn't match your 
 - [PNPM](https://pnpm.io/) as a package manager.
 - CI setup (tests, build, tests coverage report, deploy draft) with [GitHub Actions](https://docs.github.com/en/actions).
 - [Github Copilot](https://github.com/features/copilot) configuration (instructions).
-- [Claude Code](https://docs.anthropic.com/en/docs/claude-code/overview) configuration (`CLAUDE.md` file and remote development setup).
+- [Claude Code](https://docs.anthropic.com/en/docs/claude-code/overview) configuration (`CLAUDE.md` file, `.claude` directory with settings and commands, and remote development setup).
 
 ## Extended version - `core`
 
@@ -41,7 +41,7 @@ If configured tools and overall setup meet your requirements, you should definit
 - Everything that's included in the `basic` version.
 - Simple, modular, and accessible components based on [Chakra UI](https://chakra-ui.com/).
 - Data fetching and external state synchronization based on [React Query](https://tanstack.com/query/v4/).
-- Routing based on [React Router 7](https://reactrouter.com/home).
+- Routing based on [React Router 7](https://reactrouter.com/home) with strong path typing.
 - Internalization with [i18next](https://www.i18next.com/).
 - Formatting tools for numbers, monetary values, and dates (easily extendable with any date library like [DayJS](https://day.js.org/)).
 - State management with [Zustand](https://docs.pmnd.rs/zustand/getting-started/introduction).
