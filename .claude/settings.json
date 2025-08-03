@@ -1,6 +1,7 @@
 {
   "permissions": {
     "allow": [
+      "Bash(find:*)",
       "Bash(ls:*)",
       "Bash(git status)",
       "Bash(git add:*)",
@@ -17,7 +18,10 @@
       "Bash(pnpm test:storybook)",
       "Bash(rg:*)",
       "Bash(gh pr view:*)",
-      "Bash(gh pr diff:*)"
+      "Bash(gh pr diff:*)",
+      "WebFetch(domain:docs.anthropic.com)",
+      "WebFetch(domain:chakra-ui.com/docs)",
+      "WebFetch(domain:github.com)"
     ],
     "deny": [
       "Bash(rm -rf /)",

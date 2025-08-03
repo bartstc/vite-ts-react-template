@@ -17,6 +17,28 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 | G-5 | Stay within the current task context. Inform the dev if it'd be better to start afresh.                                                                                                                      | ❌ Continue work from a prior prompt after "new task" – start a fresh session.                                                                        |
 | G-6 | Modify API contracts only with explicit developer approval and clear documentation.                                                                                                                          | ❌ Change API contracts (e.g., endpoints, DTOs, mapping logic) without approval.                                                                      |
 
+## Plan & Review
+
+### Before starting work
+
+- Always start with planning the work unless requested not to do it. After getting the plan, never present it in the chat, write it to .claude/tasks/TASK_NAME.md instead.
+- The plan should be a detailed implementation plan and the reasoning behind them, as well as tasks broken down.
+- If the task requires external knowledge or certain package, also research to get latest knowledge (Use Task tool for research).
+- Don't over plan it, always think MVP.
+- Once you write the plan, firstly ask me to review it. Do not continue until I approve the plan.
+
+### While implementing
+
+- You should update the plan as you work.
+- After you complete tasks in the plan, you should update and append detailed descriptions of the changes you made, so following tasks can be easily hand over to other engineers.
+
+### Scanning Repository
+
+- **Use Only Referenced Files**: Analyze, generate code, or match patterns using only files explicitly mentioned in the user's prompt. [Important]
+- **Locate Anchors First**: Before scanning, check for existing `AIDEV-*` anchors in relevant subdirectories. [Important]
+- **No Broad Scans**: Avoid scanning unreferenced files unless the user explicitly permits it.
+- **Handle Insufficient Information**: If referenced files lack context, state: "Insufficient information in provided files." Suggest specific files or details needed, e.g., "Please provide 'src/features/auth/[file_name]' or clarify expected behavior."
+
 ## Essential Commands
 
 ### Essential Commands
@@ -123,13 +145,6 @@ Each feature follows feature slice architecture patterns with three layers:
 
 - Lazy loading and code splitting based on `react-router`
 - Using direct imports instead of default
-
-## Scanning Repository
-
-- **Use Only Referenced Files**: Analyze, generate code, or match patterns using only files explicitly mentioned in the user's prompt. [Important]
-- **Locate Anchors First**: Before scanning, check for existing `AIDEV-*` anchors in relevant subdirectories. [Important]
-- **No Broad Scans**: Avoid scanning unreferenced files unless the user explicitly permits it.
-- **Handle Insufficient Information**: If referenced files lack context, state: "Insufficient information in provided files." Suggest specific files or details needed, e.g., "Please provide 'src/features/auth/[file_name]' or clarify expected behavior."
 
 ## Code Style and Patterns
 
