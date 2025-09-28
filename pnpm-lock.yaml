@@ -78,7 +78,7 @@ importers:
         specifier: 0.4.19
         version: 0.4.19(eslint@9.24.0)
       eslint-plugin-react-you-might-not-need-an-effect:
-        specifier: ^0.5.4
+        specifier: 0.5.4
         version: 0.5.4(eslint@9.24.0)
       eslint-plugin-storybook:
         specifier: 9.0.18
