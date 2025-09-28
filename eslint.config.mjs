@@ -7,6 +7,7 @@ import importPlugin from "eslint-plugin-import";
 import storybookPlugin from "eslint-plugin-storybook";
 import vitest from "eslint-plugin-vitest";
 import reactRefresh from "eslint-plugin-react-refresh";
+import reactYouMightNotNeedAnEffect from "eslint-plugin-react-you-might-not-need-an-effect";
 
 export default config(
   { ignores: ["**/dist", "**/*.typegen.ts", "**/public/mockServiceWorker.js"] },
@@ -17,6 +18,7 @@ export default config(
   reactPlugin.configs.flat.recommended,
   reactPlugin.configs.flat["jsx-runtime"],
   prettierPluginRecommended,
+  reactYouMightNotNeedAnEffect.configs.recommended,
   ...storybookPlugin.configs["flat/recommended"],
 
   {
