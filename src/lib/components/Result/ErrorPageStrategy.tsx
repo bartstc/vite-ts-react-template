@@ -10,7 +10,7 @@ import { InternalServerErrorResult } from "./InternalServerErrorResult";
 import { NotFoundResult } from "./NotFoundResult";
 
 interface IProps<Response extends AjaxError["response"] = any> {
-  error?: AjaxError<Response>;
+  error?: AjaxError<Response> | Error;
 }
 
 export function ErrorPageStrategy<Response extends AjaxError["response"] = any>(

@@ -1,45 +1,47 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import type { ComponentType, ReactNode } from "react";
-import {
-  ErrorBoundary as Boundary,
-  type ErrorBoundaryPropsWithFallback,
+import type { ComponentType, ErrorInfo, PropsWithChildren } from "react";
+import type {
+  FallbackProps as BoundaryFallbackProps,
+  ErrorBoundaryPropsWithComponent,
 } from "react-error-boundary";
+import { ErrorBoundary as Boundary } from "react-error-boundary";
 
 import { ErrorPageStrategy } from "@/lib/components/Result/ErrorPageStrategy";
+import type { AjaxError } from "@/lib/http/AjaxError";
+import { Logger } from "@/lib/logger";
 
 export interface FallbackProps<ErrorType> {
-  error: ErrorType;
+  error: ErrorType | Error;
+  resetErrorBoundary: BoundaryFallbackProps["resetErrorBoundary"];
 }
 
 export type ErrorFallback<ErrorType> = ComponentType<FallbackProps<ErrorType>>;
 
-interface ErrorBoundaryProps<ErrorType> {
-  onResetKeysChange?: ErrorBoundaryPropsWithFallback["onResetKeysChange"];
-  onReset?: () => void;
-  onError?: (
-    error: Error,
-    info: {
-      componentStack: string;
-    }
-  ) => void;
-  fallback?: ErrorFallback<ErrorType> | React.ReactElement<any, any>;
-  resetKeys?: any[];
+interface BoundaryProps<ErrorType> {
+  onReset?: ErrorBoundaryPropsWithComponent["onReset"];
+  onError?: (error: ErrorType | Error, info: ErrorInfo) => void;
+  resetKeys?: ErrorBoundaryPropsWithComponent["resetKeys"];
+  fallback?: ErrorFallback<ErrorType>;
 }
 
-export interface IErrorBoundaryProps<ErrorType>
-  extends ErrorBoundaryProps<ErrorType> {
-  children: ReactNode;
-}
+export type ErrorBoundaryProps<ErrorType> = PropsWithChildren<
+  BoundaryProps<ErrorType>
+>;
 
-export function ErrorBoundary<ErrorType extends Error>({
+// todo: story
+export function ErrorBoundary<ErrorType extends AjaxError | Error = AjaxError>({
   fallback,
   children,
   ...props
-}: IErrorBoundaryProps<ErrorType>) {
+}: ErrorBoundaryProps<ErrorType>) {
   return (
     <Boundary
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      FallbackComponent={(fallback as any) ?? ErrorPageStrategy}
+      FallbackComponent={fallback ?? ErrorPageStrategy}
+      onError={(error) => {
+        Logger.error(error.message, {
+          type: "error-boundary",
+          message: error.message,
+        });
+      }}
       {...props}
     >
       {children}
