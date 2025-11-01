@@ -18,8 +18,8 @@ This version is free of any libraries. If the `core` version doesn't match your 
 
 ### Key features
 
-- Dev environment based on [Vite 7](https://vitejs.dev/) toolkit.
-- Testing environment based on [Vitest 3](https://vitest.dev/) and [Storybook 9](https://storybook.js.org/).
+- Dev environment based on [Vite](https://vitejs.dev/) toolkit.
+- Testing environment based on [Vitest](https://vitest.dev/) and [Storybook](https://storybook.js.org/).
 - Static code analysis: eslint, prettier, husky.
 - TypeScript support.
 - [Devcontainer](https://code.visualstudio.com/docs/devcontainers/containers) config for VS Code.
