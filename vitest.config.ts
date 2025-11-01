@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import { storybookTest } from "@storybook/addon-vitest/vitest-plugin";
+import { playwright } from "@vitest/browser-playwright";
 import { mergeConfig } from "vite";
 import { coverageConfigDefaults, defineConfig } from "vitest/config";
 
@@ -30,10 +31,12 @@ export default defineConfig((env) =>
             "json",
             ["lcov", { projectRoot: "./src" }],
           ],
+          include: ["src/**/*.{ts,tsx}"],
           exclude: [
             "**/test-lib/*",
             "**/public/*",
             "src/**/*.stories.@(ts|tsx)",
+            "src/**/*.test.@(ts|tsx)",
             ...coverageConfigDefaults.exclude,
           ],
           reportsDirectory: "./coverage",
@@ -66,7 +69,7 @@ export default defineConfig((env) =>
               include: ["src/**/*.stories.@(ts|tsx)"],
               browser: {
                 enabled: true,
-                provider: "playwright",
+                provider: playwright(),
                 headless: true,
                 instances: [{ browser: "chromium" }],
               },
