@@ -14,6 +14,7 @@
       "Bash(git checkout:*)",
       "Bash(pnpm dev)",
       "Bash(pnpm lint)",
+      "Bash(pnpm lint:*)",
       "Bash(pnpm storybook)",
       "Bash(pnpm test)",
       "Bash(pnpm test:coverage)",
