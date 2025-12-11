@@ -41,7 +41,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **No Broad Scans**: Avoid scanning unreferenced files unless the user explicitly permits it.
 - **Handle Insufficient Information**: If referenced files lack context, state: "Insufficient information in provided files." Suggest specific files or details needed, e.g., "Please provide 'src/features/auth/[file_name]' or clarify expected behavior."
 
-## Essential Commands
+## Commands
 
 ### Essential Commands
 
@@ -153,13 +153,6 @@ Each feature follows feature slice architecture patterns with three layers:
 
 ## Code Style and Patterns
 
-### Code Style
-
-- Formatting: Prettier with 80-char lines
-- Imports: sorted with eslint-plugin-import
-- Components, providers: `PascalCase`, co-located with their tests `PascalCase.stories`
-- Hooks, functions, classes, contexts: `kebab-case`, co-located with their tests `kebab-case.test`
-
 ### Anchor comments
 
 Add specially formatted comments throughout the codebase, where appropriate, for yourself as inline knowledge that can be easily `grep`ped for.
@@ -187,19 +180,13 @@ Add specially formatted comments throughout the codebase, where appropriate, for
 
 #### Typescript
 
-- If TypeScript inference can do the job, use it instead of explicit types.
 - Follow functional programming principles where possible, especially prefer immutability and pure functions.
-- Prefer type over interface unless the user explicitly requests an interface.
-- Use optional chaining (?.) and nullish coalescing (??) operators for safe property access if needed.
 - Avoid using `any` type. If necessary, use `unknown` instead.
 
 #### React
 
-- Use functional components with hooks.
 - If a complicated `useEffect` is generated, create a custom hook instead.
-- Always prefix custom hooks with `use`
 - Keep components small and focused.
-- Try to separate JSX and custom styles from logic.
 - When editing/adding styles, look for available API of [Chakra UI](https://www.chakra-ui.com/docs/components/concepts/overview).
 
 ## Testing Discipline
