@@ -56,6 +56,8 @@
     "sleep": true,
 
     // Git commands
+    "/^git\\s+(status|diff|log|show|branch)\\b/": true,
+    "/^git\\s+status(\\s+.*)?$/": true,
     "/^git status\\b/": true,
     "/^git log\\b/": true,
     "/^git show\\b/": true,
