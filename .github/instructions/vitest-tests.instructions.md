@@ -2,18 +2,25 @@
 applyTo: "**/*.test.{ts,tsx}"
 ---
 
-### Testing Guidelines (Vitest)
+## Testing Discipline
 
-> Note: The guidelines below apply when writing unit tests with Vitest framework.
+| What           | AI CAN Do               | AI MUST NOT Do           |
+| -------------- | ----------------------- | ------------------------ |
+| Implementation | Generate business logic | Touch test files         |
+| Test Planning  | Suggest test scenarios  | Write test code          |
+| Debugging      | Analyze test failures   | Modify test expectations |
 
-- Use `describe()` blocks to group related tests by functionality or component
-- Write descriptive test names using `it('should ...')` format that clearly state the expected behavior
-- Structure tests using Given-When-Then pattern: setup data, perform action, verify results
-- Use `beforeEach()` to reset mocks (if any) and setup common test state for isolation
-- Use `toStrictEqual()` instead of `toEqual()` for exact object matching
-- Use `expect.poll()` for async operations and state changes
-- Test both successful and error scenarios
-- Use `vi.mock()` for external dependencies and `vi.clearAllMocks()` in `beforeEach()`
-- Use existing fixture factories instead of inline object creation
-- Mock complex objects as minimal implementations with only required properties
-- Keep tests focused on single responsibilities
+### Test Case Scenarios Preference
+
+- Focus on **business logic and domain requirements**, not implementation details
+- Test **meaningful scenarios** that could realistically occur in production
+- Keep test scenarios focused on single responsibilities
+- Avoid redundant edge cases like:
+  - Empty arrays when "not found" is already tested
+  - `undefined` collections when the type system prevents this
+  - Multiple variations of the same error condition
+- Prioritize tests for:
+  - Happy path scenarios with realistic data
+  - Error conditions that users might encounter
+  - Edge cases that affect business logic (not just code coverage)
+- Each test should verify **distinct behavior**, not just different ways to trigger the same code path
