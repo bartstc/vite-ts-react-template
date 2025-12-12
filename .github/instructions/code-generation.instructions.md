@@ -28,14 +28,18 @@ Add specially formatted comments throughout the codebase, where appropriate, for
 - Do not add comments to code unless explicitly requested. If needed, focus on better var/function names instead.
 - Always use async/await for async code.
 - Always use try/catch blocks for async operations.
+- Follow functional programming principles where possible, especially prefer immutability and pure functions.
+- Treat data as immutable - return new objects/arrays instead of mutating existing ones.
 
 #### Typescript
 
-- Follow functional programming principles where possible, especially prefer immutability and pure functions.
 - Avoid using `any` type. If necessary, use `unknown` instead.
+- Avoid type assertions (`value as Type`) - prefer proper type guards or refactoring.
+- Prefer solving problems with TypeScript types over runtime JavaScript code when possible.
 
 #### React
 
-- If a complicated `useEffect` is generated, create a custom hook instead.
-- Keep components small and focused.
-- When editing/adding styles, look for available API of [Chakra UI](https://www.chakra-ui.com/docs/components/concepts/overview).
+- Split complex `useEffect` into smaller, focused `useEffect`s.
+- Keep components small and focused on single responsibility.
+- Prefer composition over prop drilling - use `children` prop and component composition patterns.
+- Isolate business logic from presentation - components should focus on UI, extract logic to custom hooks or separate functions.
