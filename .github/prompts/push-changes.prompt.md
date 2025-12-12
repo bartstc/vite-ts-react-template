@@ -14,7 +14,7 @@ If a topic is provided, focus on documenting that topic.
 3. run `git commit -m "commit message"` to commit changes (make the message very concise yet complete, do not give yourself credit)
 4. run `git push --set-upstream origin <branch_name>` to push changes to GitHub
 
-## # Important Rules:
+### Important Rules:
 
 - FOLLOW THIS EXACT ORDER. EACH STEP IS A SEPARATE TERMINAL.
 - commit messages cannot contain newline characters
@@ -29,7 +29,7 @@ If a topic is provided, focus on documenting that topic.
   - for edits, prefix with "chore: "
   - Example: `fix: add logging to catch block of <query_name> query`, `feat: add client side validation to login form`
 
-## # Commonly used branches:
+### Commonly used branches:
 
 - `core` – Production branch. Never push (unless the user says otherwise).
 - `basic` – Production branch. Never push (unless the user says otherwise).
