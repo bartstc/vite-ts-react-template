@@ -27,5 +27,161 @@
   "github.copilot.chat.codeGeneration.useInstructionFiles": true,
   "chat.instructionsFilesLocations": {
     ".github/instructions": true
+  },
+  "chat.tools.terminal.autoApprove": {
+    // Safe read-only commands
+    "cd": true,
+    "echo": true,
+    "ls": true,
+    "pwd": true,
+    "cat": true,
+    "head": true,
+    "tail": true,
+    "findstr": true,
+    "wc": true,
+    "tr": true,
+    "cut": true,
+    "cmp": true,
+    "which": true,
+    "basename": true,
+    "dirname": true,
+    "realpath": true,
+    "readlink": true,
+    "stat": true,
+    "file": true,
+    "du": true,
+    "df": true,
+    "sleep": true,
+
+    // Git commands
+    "/^git\\s+(status|diff|log|show|branch)\\b/": true,
+    "/^git\\s+status(\\s+.*)?$/": true,
+    "/^git status\\b/": true,
+    "/^git log\\b/": true,
+    "/^git show\\b/": true,
+    "/^git diff\\b/": true,
+    "/^git add\\b/": true,
+    "/^git commit\\b/": true,
+    "/^git pull\\b/": true,
+    "/^git push\\b(?!.*--force)/": true, // Allow push but not force push
+    "/^git checkout\\b/": true,
+
+    // File operations
+    "find": true,
+    "/^find\\b.*-(delete|exec|execdir|fprint|fprintf|fls|ok|okdir)\\b/": false,
+    "mkdir": true,
+    "rg": true,
+    "/^rg\\b/": true,
+
+    // Pnpm commands
+    "pnpm dev": true,
+    "pnpm lint": true,
+    "/^pnpm lint:/": true,
+    "pnpm storybook": true,
+    "pnpm test": true,
+    "pnpm test:coverage": true,
+    "pnpm test:unit": true,
+    "pnpm test:storybook": true,
+    "/^pnpm exec prettier/": true,
+
+    // GitHub CLI
+    "/^gh pr view/": true,
+    "/^gh pr diff/": true,
+
+    // PowerShell commands
+    "Get-ChildItem": true,
+    "Get-Content": true,
+    "Get-Date": true,
+    "Get-Random": true,
+    "Get-Location": true,
+    "Write-Host": true,
+    "Write-Output": true,
+    "Split-Path": true,
+    "Join-Path": true,
+    "Start-Sleep": true,
+    "Where-Object": true,
+    "/^Select-[a-z0-9]/i": true,
+    "/^Measure-[a-z0-9]/i": true,
+    "/^Compare-[a-z0-9]/i": true,
+    "/^Format-[a-z0-9]/i": true,
+    "/^Sort-[a-z0-9]/i": true,
+
+    // Safety patterns
+    "column": true,
+    "/^column\\b.*-c\\s+[0-9]{4,}/": false,
+    "date": true,
+    "/^date\\b.*(-s|--set)\\b/": false,
+    "grep": true,
+    "/^grep\\b.*-(f|P)\\b/": false,
+    "sort": true,
+    "/^sort\\b.*-(o|S)\\b/": false,
+    "tree": true,
+    "/^tree\\b.*-o\\b/": false,
+
+    // Command substitution blocks
+    "/\\(.+\\)/": {
+      "approve": false,
+      "matchCommandLine": true
+    },
+    "/\\{.+\\}/": {
+      "approve": false,
+      "matchCommandLine": true
+    },
+    "`.+`/": {
+      "approve": false,
+      "matchCommandLine": true
+    },
+
+    // DANGEROUS COMMANDS - Explicitly blocked
+    "rm": false,
+    "rmdir": false,
+    "del": false,
+    "Remove-Item": false,
+    "ri": false,
+    "rd": false,
+    "erase": false,
+    "dd": false,
+    "kill": false,
+    "ps": false,
+    "top": false,
+    "Stop-Process": false,
+    "spps": false,
+    "taskkill": false,
+    "taskkill.exe": false,
+
+    // Network commands blocked
+    "curl": false,
+    "wget": false,
+    "Invoke-RestMethod": false,
+    "Invoke-WebRequest": false,
+    "irm": false,
+    "iwr": false,
+
+    // Permission changes blocked
+    "chmod": false,
+    "chown": false,
+    "Set-ItemProperty": false,
+    "sp": false,
+    "Set-Acl": false,
+
+    // Code execution blocked
+    "jq": false,
+    "xargs": false,
+    "eval": false,
+    "Invoke-Expression": false,
+    "iex": false,
+
+    // Additional dangerous patterns deny list
+    "/^rm -rf \\//": false,
+    "/^sudo rm/": false,
+    "/^git clean/": false,
+    "/^git push.*--force/": false,
+    "/^git reset --hard/": false,
+    "pnpm install": false,
+    "/^pnpm install:/": false,
+    "shutdown": false,
+    "reboot": false,
+    "/^mkfs\\./": false,
+    "/^killall/": false
   }
 }
