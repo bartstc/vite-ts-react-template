@@ -2,26 +2,40 @@
 applyTo: "**/*.{ts,tsx}"
 ---
 
-### Code Generation Guidelines
+## Code Style and Patterns
+
+### Anchor comments
+
+Add specially formatted comments throughout the codebase, where appropriate, for yourself as inline knowledge that can be easily `grep`ped for.
+
+- Use `AIDEV-NOTE:`, `AIDEV-TODO:`, or `AIDEV-QUESTION:` (all-caps prefix) for comments aimed at AI and developers.
+- Keep them concise (≤ 120 chars).
+- Before scanning files, always first try to **grep for existing anchors** `AIDEV-*` in prompt's referenced files or relevant files/subdirectories. [Important]
+- **Update relevant anchors** when modifying associated code.
+- **Do not remove `AIDEV-NOTE`s** without explicit human instruction.
+- Make sure to add relevant anchor comments, whenever a file or piece of code is:
+  - too complex, or
+  - very important, or
+  - confusing, or
+  - could have a bug
+
+### Code Standards
+
+#### General
 
 - Preserve the original structure and formatting of the user's input.
 - Always follow the existing structure and formatting of referenced files.
 - Do not add comments to code unless explicitly requested. If needed, focus on better var/function names instead.
 - Always use async/await for async code.
 - Always use try/catch blocks for async operations.
-- If an additional reference file (e.g., implementation or type definitions) is needed for better results, acknowledge this and ask the user to provide it.
 
 #### Typescript
 
-- If TypeScript inference can do the job, use it instead of explicit types.
 - Follow functional programming principles where possible, especially prefer immutability and pure functions.
-- Prefer type over interface unless the user explicitly requests an interface.
-- Use optional chaining (?.) and nullish coalescing (??) operators for safe property access if needed.
 - Avoid using `any` type. If necessary, use `unknown` instead.
 
 #### React
 
-- Use functional components with hooks.
 - If a complicated `useEffect` is generated, create a custom hook instead.
 - Keep components small and focused.
-- Try to separate JSX and custom styles from logic.
+- When editing/adding styles, look for available API of [Chakra UI](https://www.chakra-ui.com/docs/components/concepts/overview).
