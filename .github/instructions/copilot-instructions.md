@@ -18,28 +18,21 @@ applyTo: "**"
 | G-6 | Modify API contracts only with explicit developer approval and clear documentation.                                                                                                                          | ❌ Change API contracts (e.g., endpoints, DTOs, mapping logic) without approval.                                                                      |
 | G-7 | Use git commands only when explicitly requested by the developer.                                                                                                                                            | ❌ Stage, commit, or push changes without explicit developer request.                                                                                 |
 
-## Plan & Review
+> **Note:** Rules G-3, G-4, and G-7 primarily apply to Agent mode when Copilot makes autonomous changes.
 
-### Before starting work
+## Workflow Guidelines
 
-- Always start with planning the work unless requested not to do it. After getting the plan, never present it in the chat, write it to .claude/tasks/TASK_NAME.md instead.
-- The plan should be a detailed implementation plan and the reasoning behind them, as well as tasks broken down.
-- If the task requires external knowledge or certain package, also research to get latest knowledge (Use Task tool for research).
-- Don't over plan it, always think MVP.
-- Once you write the plan, firstly ask me to review it. Do not start implementation until I approve the plan.
+### When working on complex tasks
 
-### While implementing
+- Break down work into clear, incremental steps
+- In Plan mode, Copilot will propose an implementation plan for review
+- In Agent mode, follow the task incrementally with clear checkpoints
+- Update relevant `AIDEV-*` anchor comments as you work
 
-- You should update the plan in .claude/tasks/TASK_NAME.md as you work.
-- After you complete tasks in .claude/tasks/TASK_NAME.md, you should update and append detailed descriptions of the changes you made, so following tasks can be easily hand over to other engineers.
-- In case of lint errors/warnings, use `pnpm lint --fix` to resolve them.
+### Context Usage
 
-### Scanning Repository
-
-- **Use Only Referenced Files**: Analyze, generate code, or match patterns using only files explicitly mentioned in the user's prompt. [Important]
-- **Locate Anchors First**: Before scanning, check for existing `AIDEV-*` anchors in relevant subdirectories. [Important]
-- **No Broad Scans**: Avoid scanning unreferenced files unless the user explicitly permits it.
-- **Handle Insufficient Information**: If referenced files lack context, state: "Insufficient information in provided files." Suggest specific files or details needed, e.g., "Please provide 'src/features/auth/[file_name]' or clarify expected behavior."
+- **Locate Anchors First**: Before editing code, check for existing `AIDEV-*` anchors in relevant files/subdirectories using grep. [Important]
+- **Handle Insufficient Information**: If context is unclear, ask: "Please provide '[specific file/detail]' or clarify expected behavior."
 
 ## Commands
 
