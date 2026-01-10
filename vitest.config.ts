@@ -58,7 +58,6 @@ export default defineConfig((env) =>
           {
             extends: true,
             plugins: [
-              // eslint-disable-next-line @typescript-eslint/no-unsafe-call
               storybookTest({
                 configDir: path.join(dirname, ".storybook"),
                 storybookScript: "pnpm storybook --ci",
