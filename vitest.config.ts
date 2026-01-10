@@ -66,7 +66,6 @@ export default defineConfig((env) =>
             ],
             test: {
               name: "storybook",
-              include: ["src/**/*.stories.@(ts|tsx)"],
               browser: {
                 enabled: true,
                 provider: playwright(),
