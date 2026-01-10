@@ -1,5 +1,6 @@
 import { SettingsIcon } from "@chakra-ui/icons";
 import { Button } from "@chakra-ui/react";
+import { keepPreviousData } from "@tanstack/react-query";
 import { useState } from "react";
 
 import { useProductsQuery } from "@/features/products/infrastructure/productsQuery";
@@ -19,7 +20,7 @@ const ProductsPage = () => {
 
   const [params, setParams] = useState<IQueryParams>(defaultParams);
   const { data, isFetching } = useProductsQuery(params, {
-    keepPreviousData: true,
+    placeholderData: keepPreviousData,
   });
 
   const noMoreProducts = data.meta.total <= params.limit;

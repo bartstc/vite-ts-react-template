@@ -2,9 +2,9 @@ import type { IHttpService } from "./IHttpService";
 import type { IHttpServiceClient } from "./IHttpServiceClient";
 import type { IHttpServiceOptions } from "./IHttpServiceOptions";
 
-export class HttpService<Options extends IHttpServiceOptions>
-  implements IHttpService<Options>
-{
+export class HttpService<
+  Options extends IHttpServiceOptions,
+> implements IHttpService<Options> {
   private client: IHttpServiceClient<Options>;
 
   constructor(client: IHttpServiceClient<Options>) {
