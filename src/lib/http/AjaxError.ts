@@ -6,9 +6,9 @@ interface IAjaxError extends Error {
 }
 
 export class AjaxError<
-    Response extends HTTPError["response"] = HTTPError["response"],
-    Request extends HTTPError["request"] = HTTPError["request"],
-  >
+  Response extends HTTPError["response"] = HTTPError["response"],
+  Request extends HTTPError["request"] = HTTPError["request"],
+>
   extends HTTPError
   implements IAjaxError
 {
