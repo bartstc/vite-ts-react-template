@@ -30,7 +30,7 @@ const getProductsQuery = (params: IQueryParams = defaultParams) => ({
 
 export const useProductsQuery = (
   params: IQueryParams = defaultParams,
-  options?: UseQueryOptions<ICollection>
+  options?: Omit<UseQueryOptions<ICollection>, "queryKey" | "queryFn">
 ) => {
   return useQuery({
     ...getProductsQuery(params),
