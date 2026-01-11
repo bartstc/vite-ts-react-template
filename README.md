@@ -103,6 +103,24 @@ Learn more about using this template in practice below.
 | `pnpm test:coverage`  | Runs all tests with coverage                        |
 | `pnpm storybook`      | Runs a Storybook locally on port `6006`             |
 
+## Testing strategy
+
+This template implements a comprehensive testing strategy covering all layers of your application:
+
+### Unit tests (`*.test.ts`, `*.test.tsx`)
+
+- **Environment**: jsdom (fast, lightweight DOM simulation)
+- **Location**: Co-located with source files in `src/`
+- **Purpose**: Test components, hooks, and utilities in isolation
+- **Run with**: `pnpm test:unit`
+
+### Component tests (`*.stories.tsx`)
+
+- **Environment**: Real browser (Chromium) via @vitest/browser-playwright
+- **Location**: Co-located with components in `src/`
+- **Purpose**: Visual testing and component interaction in Storybook
+- **Run with**: `pnpm test:storybook`
+
 # Contributing
 
 It is publicly open for any contribution. Bugfixes, new features, and extra modules are welcome.
