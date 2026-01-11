@@ -19,7 +19,8 @@ This version is free of any libraries. If the `core` version doesn't match your 
 ### Key features
 
 - Dev environment based on [Vite](https://vitejs.dev/) toolkit.
-- Testing environment based on [Vitest](https://vitest.dev/) and [Storybook](https://storybook.js.org/).
+- Unit, integration, and component testing with [Vitest](https://vitest.dev/) and [Storybook](https://storybook.js.org/).
+- End-to-end testing with [Playwright](https://playwright.dev/).
 - Static code analysis: eslint, prettier, husky.
 - TypeScript support.
 - [Devcontainer](https://code.visualstudio.com/docs/devcontainers/containers) config for VS Code.
@@ -99,11 +100,39 @@ Learn more about using this template in practice below.
 | `pnpm dev`            | Runs dev server with the HMR locally on port `5173` |
 | `pnpm lint`           | Checks for lint errors                              |
 | `pnpm build`          | Builds optimized app package                        |
-| `pnpm test`           | Runs all tests                                      |
+| `pnpm test`           | Runs all tests (unit + storybook)                   |
 | `pnpm test:unit`      | Runs unit tests                                     |
 | `pnpm test:storybook` | Runs storybook tests                                |
-| `pnpm test:coverage`  | Runs all tests with coverage                        |
+| `pnpm test:coverage`  | Runs unit + storybook tests with coverage           |
+| `pnpm test:e2e`       | Runs E2E tests with Playwright                      |
+| `pnpm test:e2e:ui`    | Runs E2E tests in interactive UI mode               |
+| `pnpm test:e2e:debug` | Runs E2E tests in debug mode                        |
 | `pnpm storybook`      | Runs a Storybook locally on port `6006`             |
+
+## Testing strategy
+
+This template implements a comprehensive testing strategy covering all layers of your application:
+
+### Unit tests (`*.test.ts`, `*.test.tsx`)
+
+- **Environment**: jsdom (fast, lightweight DOM simulation)
+- **Location**: Co-located with source files in `src/`
+- **Purpose**: Test components, hooks, and utilities in isolation
+- **Run with**: `pnpm test:unit`
+
+### Component tests (`*.stories.tsx`)
+
+- **Environment**: Real browser (Chromium) via @vitest/browser-playwright
+- **Location**: Co-located with components in `src/`
+- **Purpose**: Visual testing and component interaction in Storybook
+- **Run with**: `pnpm test:storybook`
+
+### E2E tests (`*.spec.ts`)
+
+- **Environment**: @playwright/test with Chromium, Firefox, and WebKit
+- **Location**: `e2e/` directory
+- **Purpose**: Test complete user workflows and multi-page interactions
+- **Run with**: `pnpm test:e2e`
 
 # Contributing
 

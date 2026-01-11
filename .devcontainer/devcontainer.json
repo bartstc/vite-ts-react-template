@@ -38,7 +38,10 @@
   "forwardPorts": [5173],
 
   // Use 'postCreateCommand' to run commands after the container is created.
-  "postCreateCommand": "bash -c 'gh auth login --hostname github.com --web --scopes public_repo,read:org,workflow && pnpm install && pnpm exec playwright install chromium --with-deps --only-shell'",
+  // For storybook-only tests
+  // "postCreateCommand": "bash -c 'gh auth login --hostname github.com --web --scopes public_repo,read:org,workflow && pnpm install && pnpm exec playwright install chromium --with-deps --only-shell'",
+  // For full browser testing
+  "postCreateCommand": "bash -c 'gh auth login --hostname github.com --web --scopes public_repo,read:org,workflow && pnpm install && pnpm exec playwright install --with-deps'",
 
   "remoteUser": "node"
 }

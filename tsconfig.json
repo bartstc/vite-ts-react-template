@@ -37,7 +37,9 @@
     "src/**/*",
     ".storybook/**/*.ts",
     "eslint.config.mjs",
-    "vitest.shims.d.ts"
+    "vitest.shims.d.ts",
+    "e2e/**/*",
+    "playwright.config.ts"
   ],
   "references": [
     {
