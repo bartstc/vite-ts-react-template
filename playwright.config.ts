@@ -30,6 +30,9 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: "on-first-retry",
+
+    /* Run headless in containers without display server. UI mode still works via web interface. */
+    // headless: true,
   },
 
   /* Configure projects for major browsers */

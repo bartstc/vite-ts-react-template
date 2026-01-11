@@ -95,19 +95,21 @@ Learn more about using this template in practice below.
 
 ## Basic commands
 
-| Command               | Description                                         |
-| --------------------- | --------------------------------------------------- |
-| `pnpm dev`            | Runs dev server with the HMR locally on port `5173` |
-| `pnpm lint`           | Checks for lint errors                              |
-| `pnpm build`          | Builds optimized app package                        |
-| `pnpm test`           | Runs all tests (unit + storybook)                   |
-| `pnpm test:unit`      | Runs unit tests                                     |
-| `pnpm test:storybook` | Runs storybook tests                                |
-| `pnpm test:coverage`  | Runs unit + storybook tests with coverage           |
-| `pnpm test:e2e`       | Runs E2E tests with Playwright                      |
-| `pnpm test:e2e:ui`    | Runs E2E tests in interactive UI mode               |
-| `pnpm test:e2e:debug` | Runs E2E tests in debug mode                        |
-| `pnpm storybook`      | Runs a Storybook locally on port `6006`             |
+| Command                | Description                                                     |
+| ---------------------- | --------------------------------------------------------------- |
+| `pnpm dev`             | Runs dev server with the HMR locally on port `5173`             |
+| `pnpm lint`            | Checks for lint errors                                          |
+| `pnpm build`           | Builds optimized app package                                    |
+| `pnpm test`            | Runs all tests (unit + storybook)                               |
+| `pnpm test:unit`       | Runs unit tests                                                 |
+| `pnpm test:storybook`  | Runs storybook tests                                            |
+| `pnpm test:coverage`   | Runs unit + storybook tests with coverage                       |
+| `pnpm test:e2e`        | Runs E2E tests with Playwright (headless)                       |
+| `pnpm test:e2e:ui`     | Runs E2E tests in interactive web UI mode                       |
+| `pnpm test:e2e:headed` | Runs E2E tests with visible browser windows (requires X server) |
+| `pnpm test:e2e:debug`  | Runs E2E tests in debug mode                                    |
+| `pnpm test:e2e:report` | Opens the HTML report for E2E tests from the last test run      |
+| `pnpm storybook`       | Runs a Storybook locally on port `6006`                         |
 
 ## Testing strategy
 
