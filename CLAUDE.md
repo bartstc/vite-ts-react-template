@@ -10,7 +10,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 | #:  | AI _may_ do                                                                                                                                                                                                  | AI _must NOT_ do                                                                                                                                      |
 | --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
 | G-0 | Whenever unsure about something that's related to the project, ask the developer for clarification before making changes.                                                                                    | ❌ Write changes or use tools when you are not sure about something project-specific, or if you don't have context for a particular feature/decision. |
-| G-1 | Generate code **only inside** relevant source directories (e.g., `src/features/` for features, `src/lib/api/` for the API, `src/pages/` for composing feature-wise components), or explicitly pointed files. | ❌ Touch files beyond `src`, or any `*.stories.tsx` / `*.test.tsx` / `*.test.ts` files (humans own tests & specs), unless requested.                  |
+| G-1 | Generate code **only inside** relevant source directories (e.g., `src/features/` for features, `src/lib/api/` for the API, `src/pages/` for composing feature-wise components), or explicitly pointed files. | ❌ Touch files beyond `src`, or any `*.stories.tsx` / `*.test.tsx` / `*.test.ts` / `*.spec.ts` files (humans own tests & specs), unless requested.    |
 | G-2 | Add/update **`AIDEV-NOTE:` anchor comments** near non-trivial edited code.                                                                                                                                   | ❌ Delete or mangle existing `AIDEV-` comments.                                                                                                       |
 | G-3 | Follow lint/style configs (`.prettierrc`, `.eslint.config.mjs`). Use the project's configured linter, if available, instead of manually re-formatting code.                                                  | ❌ Re-format code to any other style.                                                                                                                 |
 | G-4 | For changes >300 LOC or >3 files, **ask for confirmation**.                                                                                                                                                  | ❌ Refactor large modules without human guidance.                                                                                                     |
@@ -51,13 +51,17 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `pnpm test` - Run all tests (unit + storybook)
 - `pnpm test:unit` - Run unit tests only
 - `pnpm test:storybook` - Run storybook tests only
-- `pnpm test:coverage` - Run tests with coverage report
+- `pnpm test:e2e` - Run E2E tests with Playwright
+- `pnpm test:e2e:ui` - Run E2E tests in interactive UI mode
+- `pnpm test:e2e:debug` - Run E2E tests in debug mode
+- `pnpm test:coverage` - Run unit + storybook tests with coverage report
 - `pnpm storybook` - Start Storybook development server on port 6006
 
 ### CI Commands
 
 - `pnpm test:unit:ci` - Run unit tests with coverage and reports for CI
 - `pnpm test:storybook:ci` - Run storybook tests with coverage and reports for CI
+- `pnpm test:e2e:ci` - Run E2E tests with reports for CI
 
 ### Package Manager
 
@@ -75,29 +79,32 @@ This is a React SPA built with Vite using feature slice based architecture with 
 - **React Router 7** for routing
 - **i18next** for internationalization
 - **MSW 2** for API mocking
-- **Vitest 3** for testing
-- **Storybook 9** for component development
+- **Vitest 4** for unit and component testing
+- **Storybook 10** for component development
+- **Playwright** for E2E testing
 - **Zustand** for state management
 - **Chakra UI** for components
 
 ### Project Structure
 
 ```
-src/
-├── app/           # App-level configuration (App.tsx, Providers.tsx)
-├── features/      # Feature modules using feature slice architecture
-│   ├── auth/      # Authentication feature
-│   ├── carts/     # Shopping cart feature
-│   ├── products/  # Product catalog feature
-├── lib/           # Shared libraries and utilities
-│   ├── api/       # Centralized API layer (queries, commands, DTOs)
-│   ├── components/ # Reusable UI components
-│   ├── http/      # HTTP client and error handling
-│   ├── i18n/      # Internationalization setup
-│   ├── router/    # Routing utilities
-│   └── theme/     # Theme configuration
-├── pages/         # Route-level page components composing feature components & logic
-└── test-lib/      # Testing utilities and fixtures
+.
+├── e2e/           # End-to-end tests with Playwright
+└── src/
+    ├── app/           # App-level configuration (App.tsx, Providers.tsx)
+    ├── features/      # Feature modules using feature slice architecture
+    │   ├── auth/      # Authentication feature
+    │   ├── carts/     # Shopping cart feature
+    │   ├── products/  # Product catalog feature
+    ├── lib/           # Shared libraries and utilities
+    │   ├── api/       # Centralized API layer (queries, commands, DTOs)
+    │   ├── components/ # Reusable UI components
+    │   ├── http/      # HTTP client and error handling
+    │   ├── i18n/      # Internationalization setup
+    │   ├── router/    # Routing utilities
+    │   └── theme/     # Theme configuration
+    ├── pages/         # Route-level page components composing feature components & logic
+    └── test-lib/      # Testing utilities and fixtures
 ```
 
 ### Feature Architecture
@@ -127,8 +134,9 @@ Each feature follows feature slice architecture patterns with three layers:
 
 - **Unit tests** - `.test.ts` / `.test.tsx` files alongside source code
 - **Storybook tests** - `.stories.tsx` files alongside components
+- **E2E tests** - Playwright tests in `tests/` directory (or `e2e/`)
 - **MSW integration** - Mocked APIs for both development and testing
-- **Coverage reporting** - Istanbul coverage with LCOV reports
+- **Coverage reporting** - Istanbul coverage with LCOV reports (for unit + storybook tests)
 
 ### State Management
 
