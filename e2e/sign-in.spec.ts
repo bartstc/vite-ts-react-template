@@ -14,7 +14,8 @@ const INVALID_CREDENTIALS = {
 
 test.describe("Sign In", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/", { waitUntil: "networkidle" });
+    await page.goto(process.env.BASE_URL!, { waitUntil: "networkidle" });
+    // await page.waitForLoadState("networkidle");
     await page.getByRole("link", { name: /sign in/i }).click();
     await expect(page).toHaveURL(new RegExp(routes.signIn));
   });

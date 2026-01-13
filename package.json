@@ -66,6 +66,7 @@
     "@vitejs/plugin-react-swc": "4.2.2",
     "@vitest/browser-playwright": "4.0.16",
     "@vitest/coverage-istanbul": "4.0.16",
+    "dotenv": "17.2.3",
     "eslint": "9.39.2",
     "eslint-config-prettier": "10.1.8",
     "eslint-import-resolver-typescript": "4.4.4",
