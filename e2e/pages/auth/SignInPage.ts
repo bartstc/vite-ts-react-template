@@ -23,13 +23,19 @@ export class SignInPage extends BasePage {
     return this;
   }
 
-  async login(
-    username: string = ValidUserCredentials.user.username,
-    password: string = ValidUserCredentials.password
-  ): Promise<void> {
+  async login(username: string, password: string): Promise<void> {
     await this.fillUsername(username);
     await this.fillPassword(password);
     await this.clickSignIn();
+  }
+
+  async loginAndWaitForRedirect(
+    username: string = ValidUserCredentials.user.username,
+    password: string = ValidUserCredentials.password
+  ): Promise<void> {
+    await this.login(username, password);
+    // AIDEV-NOTE: Login automatically redirects to /products, wait for it
+    await this.page.waitForURL(/\/products$/);
   }
 
   async fillUsername(username: string): Promise<this> {

@@ -1,5 +1,8 @@
 import { routes } from "@/lib/router/routes";
-import { InvalidUserCredentials } from "@e2e/fixtures/credentials-fixture";
+import {
+  InvalidUserCredentials,
+  ValidUserCredentials,
+} from "@e2e/fixtures/credentials-fixture";
 import { test, expect } from "@e2e/pages";
 
 test.describe("Sign In", () => {
@@ -10,7 +13,10 @@ test.describe("Sign In", () => {
   test("should successfully sign in with valid credentials", async ({
     signInPage,
   }) => {
-    await signInPage.login();
+    await signInPage.login(
+      ValidUserCredentials.user.username,
+      ValidUserCredentials.password
+    );
 
     await expect(signInPage.header.logoutButton).toBeVisible();
     await expect(signInPage.header.signInLink).not.toBeVisible();

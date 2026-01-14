@@ -1,45 +1,53 @@
 import { test, expect } from "@e2e/pages";
 
+const ROUTES = {
+  PRODUCTS: /\/products$/,
+  PRODUCT_DETAILS: /\/products\/\d+/,
+  CART: /\/cart\/\d+/,
+} as const;
+
 test.describe("Product List Page", () => {
-  test.beforeEach(async ({ productListPage }) => {
-    await productListPage.goto();
-  });
+  test.describe("Unauthenticated User", () => {
+    test.beforeEach(async ({ productListPage }) => {
+      await productListPage.goto();
+    });
 
-  test("should display products grid on page load", async ({
-    productListPage,
-  }) => {
-    await productListPage.waitForProductsToLoad();
+    test("should display products grid on page load", async ({
+      productListPage,
+    }) => {
+      await productListPage.waitForProductsToLoad();
 
-    const count = await productListPage.getProductCount();
-    expect(count).toBeGreaterThan(0);
-  });
+      const count = await productListPage.getProductCount();
+      expect(count).toBeGreaterThan(0);
+    });
 
-  test("should navigate to product details when clicking product card", async ({
-    productListPage,
-    page,
-  }) => {
-    await productListPage.waitForProductsToLoad();
-    await productListPage.selectFirstProduct();
+    test("should navigate to product details when clicking product card", async ({
+      productListPage,
+      page,
+    }) => {
+      await productListPage.waitForProductsToLoad();
+      await productListPage.selectFirstProduct();
 
-    await expect(page).toHaveURL(/\/products\/\d+/);
-  });
+      await expect(page).toHaveURL(ROUTES.PRODUCT_DETAILS);
+    });
 
-  test("should show error when trying to add product to cart without being logged in", async ({
-    productListPage,
-    page,
-  }) => {
-    await productListPage.waitForProductsToLoad();
-    await productListPage.addFirstProductToCart();
+    test("should show error when trying to add product to cart without being logged in", async ({
+      productListPage,
+      page,
+    }) => {
+      await productListPage.waitForProductsToLoad();
+      await productListPage.addFirstProductToCart();
 
-    await expect(
-      page.getByText(/please log in in order to add products/i)
-    ).toBeVisible();
+      await expect(
+        page.getByText(/please log in in order to add products/i)
+      ).toBeVisible();
+    });
   });
 
   test.describe("Authenticated User", () => {
     test.beforeEach(async ({ signInPage }) => {
       await signInPage.goto();
-      await signInPage.login();
+      await signInPage.loginAndWaitForRedirect();
     });
 
     test("should add product to cart from grid and continue browsing products", async ({
@@ -59,7 +67,7 @@ test.describe("Product List Page", () => {
       await page.getByRole("button", { name: /continue shopping/i }).click();
 
       await expect(dialog).not.toBeVisible();
-      await expect(page).toHaveURL(/\/products$/);
+      await expect(page).toHaveURL(ROUTES.PRODUCTS);
     });
 
     test("should add product to cart from grid and navigate to cart when clicking go to cart button", async ({
@@ -74,7 +82,8 @@ test.describe("Product List Page", () => {
 
       await page.getByRole("button", { name: /go to cart/i }).click();
 
-      await expect(page).toHaveURL(/\/cart\/\d+/);
+      // AIDEV-NOTE: Use regex for dynamic route with cartId parameter
+      await expect(page).toHaveURL(ROUTES.CART);
     });
   });
 });

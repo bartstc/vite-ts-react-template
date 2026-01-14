@@ -34,6 +34,9 @@ export default defineConfig({
 
     /* Run headless in containers without display server. UI mode still works via web interface. */
     // headless: true,
+
+    /* AIDEV-NOTE: Isolate storage state between tests to prevent auth state leakage */
+    storageState: { cookies: [], origins: [] },
   },
 
   /* Configure projects for major browsers */
