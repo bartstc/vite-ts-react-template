@@ -24,7 +24,7 @@ const ProductCard = ({ title, category, price, imageUrl, id }: IProps) => {
   const categoryColor = useSecondaryTextColor();
 
   return (
-    <VStack spacing={3} overflow="hidden" rounded="lg">
+    <VStack spacing={3} overflow="hidden" rounded="lg" as="article">
       <Box
         onClick={() => navigate(`/products/${id}`)}
         cursor="pointer"

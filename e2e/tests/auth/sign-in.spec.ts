@@ -21,6 +21,7 @@ test.describe("Sign In", () => {
 
     await expect(signInPage.successMessage).toBeVisible();
     await expect(page.getByRole("button", { name: /logout/i })).toBeVisible();
+    await expect(page.getByText(/successfully signed in/i)).toBeVisible();
     await expect(
       page.getByRole("button", { name: /sign in/i })
     ).not.toBeVisible();
