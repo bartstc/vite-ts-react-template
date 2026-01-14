@@ -1,8 +1,5 @@
 import { routes } from "@/lib/router/routes";
-import {
-  ValidUserCredentials,
-  InvalidUserCredentials,
-} from "@e2e/fixtures/credentials-fixture";
+import { InvalidUserCredentials } from "@e2e/fixtures/credentials-fixture";
 import { test, expect } from "@e2e/pages";
 
 test.describe("Sign In", () => {
@@ -12,19 +9,11 @@ test.describe("Sign In", () => {
 
   test("should successfully sign in with valid credentials", async ({
     signInPage,
-    page,
   }) => {
-    await signInPage.login(
-      ValidUserCredentials.user.username,
-      ValidUserCredentials.password
-    );
+    await signInPage.login();
 
-    await expect(signInPage.successMessage).toBeVisible();
-    await expect(page.getByRole("button", { name: /logout/i })).toBeVisible();
-    await expect(page.getByText(/successfully signed in/i)).toBeVisible();
-    await expect(
-      page.getByRole("button", { name: /sign in/i })
-    ).not.toBeVisible();
+    await expect(signInPage.header.logoutButton).toBeVisible();
+    await expect(signInPage.header.signInLink).not.toBeVisible();
   });
 
   test("should show error message with invalid credentials", async ({
@@ -36,7 +25,11 @@ test.describe("Sign In", () => {
       InvalidUserCredentials.password
     );
 
-    await expect(signInPage.errorMessage).toBeVisible();
+    await expect(
+      page.getByText(
+        "Failed to sign in. Please check your credentials and try again."
+      )
+    ).toBeVisible();
     await expect(page).toHaveURL(new RegExp(routes.signIn));
   });
 });

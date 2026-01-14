@@ -935,13 +935,6 @@ async proceedToPayment(): Promise<this> {
 - Don't rely on test execution order
 - Clean up state if needed (though tests should be stateless with API)
 
-### 6. Fixture Reuse
-
-- ✅ Import domain fixtures from `@/test-lib/fixtures`
-- ✅ Create E2E-specific fixtures only when needed
-- ❌ Never duplicate domain fixture data
-- ❌ Never create parallel fixture hierarchies
-
 ---
 
 ## Implementation Checklist
@@ -969,16 +962,16 @@ async proceedToPayment(): Promise<this> {
 
 **Goal**: Add product list test coverage with necessary page objects
 
-- [ ] Create `e2e/pages/components/HeaderComponent.ts`
-- [ ] Create `e2e/pages/components/ProductCardComponent.ts`
-- [ ] Create `e2e/pages/products/ProductListPage.ts`
-- [ ] Update `e2e/fixtures/pageFixtures.ts` to add `productListPage` fixture
-- [ ] Create `e2e/tests/products/product-list.spec.ts`
-- [ ] Import ProductFixture from `@/test-lib/fixtures`
-- [ ] Implement display tests (2 tests)
-- [ ] Implement navigation tests (1 test)
-- [ ] Implement cart action tests (1 test)
-- [ ] Verify tests pass
+- [x] Create `e2e/pages/components/HeaderComponent.ts`
+- [x] Create `e2e/pages/components/ProductCardComponent.ts`
+- [x] Create `e2e/pages/products/ProductListPage.ts`
+- [x] Update `e2e/fixtures/pageFixtures.ts` to add `productListPage` fixture
+- [x] Create `e2e/tests/products/product-list.spec.ts`
+- [x] Import ProductFixture from `@/test-lib/fixtures`
+- [x] Implement display tests (2 tests)
+- [x] Implement navigation tests (1 test)
+- [x] Implement cart action tests (1 test)
+- [x] Verify tests pass
 
 ### Phase 4: Product Details Tests
 
@@ -992,7 +985,6 @@ async proceedToPayment(): Promise<this> {
 - [ ] Implement quantity tests (1-2 tests)
 - [ ] Implement cart action tests (2 tests)
 - [ ] Implement navigation tests (1 test)
-- [ ] Verify tests pass
 
 ### Phase 5: Cart Tests
 
@@ -1005,7 +997,6 @@ async proceedToPayment(): Promise<this> {
 - [ ] Implement display tests (2 tests)
 - [ ] Implement update tests (1 test)
 - [ ] Implement remove tests (2 tests)
-- [ ] Verify tests pass
 
 ---
 

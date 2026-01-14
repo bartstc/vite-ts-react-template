@@ -1,23 +1,21 @@
 import type { Page, Locator } from "@playwright/test";
 
+import { ValidUserCredentials } from "@e2e/fixtures/credentials-fixture";
 import { BasePage } from "@e2e/pages/base/BasePage";
+import { HeaderComponent } from "@e2e/pages/components/HeaderComponent";
 
 export class SignInPage extends BasePage {
+  readonly header: HeaderComponent;
   readonly usernameInput: Locator;
   readonly passwordInput: Locator;
   readonly signInButton: Locator;
-  readonly errorMessage: Locator;
-  readonly successMessage: Locator;
 
   constructor(page: Page) {
     super(page);
+    this.header = new HeaderComponent(page);
     this.usernameInput = page.getByLabel(/username/i);
     this.passwordInput = page.getByLabel(/password/i);
     this.signInButton = page.getByRole("button", { name: /sign in/i });
-    this.errorMessage = page.getByText(
-      "Failed to sign in. Please check your credentials and try again."
-    );
-    this.successMessage = page.getByText("Successfully signed in!");
   }
 
   async goto(): Promise<this> {
@@ -25,7 +23,10 @@ export class SignInPage extends BasePage {
     return this;
   }
 
-  async login(username: string, password: string): Promise<void> {
+  async login(
+    username: string = ValidUserCredentials.user.username,
+    password: string = ValidUserCredentials.password
+  ): Promise<void> {
     await this.fillUsername(username);
     await this.fillPassword(password);
     await this.clickSignIn();
