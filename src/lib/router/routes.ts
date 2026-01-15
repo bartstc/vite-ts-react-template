@@ -5,6 +5,7 @@ export const routes = {
     path: "/products/:productId",
     children: {
       productDetails: "/products/:productId/details",
+      // for testing purposes
       productReviews: {
         path: "/products/:productId/reviews",
         children: {
@@ -14,6 +15,4 @@ export const routes = {
     },
   },
   cart: "/cart/:cartId",
-
-  // for testing purposes
 } as const;

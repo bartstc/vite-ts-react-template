@@ -122,6 +122,9 @@ importers:
       "@vitest/coverage-istanbul":
         specifier: 4.0.16
         version: 4.0.16(vitest@4.0.16)
+      dotenv:
+        specifier: ^17.2.3
+        version: 17.2.3
       eslint:
         specifier: 9.39.2
         version: 9.39.2
@@ -4124,6 +4127,13 @@ packages:
       }
     engines: { node: ">=12" }
     deprecated: Use your platform's native DOMException instead
+
+  dotenv@17.2.3:
+    resolution:
+      {
+        integrity: sha512-JVUnt+DUIzu87TABbhPmNfVdBDt18BLOWjMUFJMSi/Qqg7NTYtabbvSNJGOJ7afbRuv9D/lngizHtP7QyLQ+9w==,
+      }
+    engines: { node: ">=12" }
 
   dunder-proto@1.0.1:
     resolution:
@@ -10229,6 +10239,8 @@ snapshots:
   domexception@4.0.0:
     dependencies:
       webidl-conversions: 7.0.0
+
+  dotenv@17.2.3: {}
 
   dunder-proto@1.0.1:
     dependencies:

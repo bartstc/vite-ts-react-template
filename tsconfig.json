@@ -27,7 +27,8 @@
     "esModuleInterop": true,
     "incremental": true,
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@e2e/*": ["./e2e/*"]
     },
     "typeRoots": ["./node_modules/@types"]
   },

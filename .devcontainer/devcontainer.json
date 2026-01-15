@@ -35,7 +35,8 @@
   },
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
-  "forwardPorts": [5173],
+  // 5173: Vite dev server, 6006: Storybook, 9323: Playwright HTML reporter
+  "forwardPorts": [5173, 6006, 9323],
 
   // Use 'postCreateCommand' to run commands after the container is created.
   // For storybook-only tests

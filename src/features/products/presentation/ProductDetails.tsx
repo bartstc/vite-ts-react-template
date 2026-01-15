@@ -37,10 +37,12 @@ const ProductDetails = ({ product, onBack }: IProps) => {
 
   return (
     <SimpleGrid
+      as="section"
       w="100%"
       maxW="1000px"
       columns={{ base: 1, lg: 2 }}
       gap={{ base: 6, md: 8 }}
+      data-testid="product-details"
     >
       <ProductAddedDialog />
       <GridItem colSpan={1}>
