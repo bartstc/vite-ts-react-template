@@ -6,7 +6,7 @@ import { ProductCardComponent } from "@e2e/pages/components/ProductCardComponent
 
 export class ProductListPage extends BasePage {
   readonly header: HeaderComponent;
-  readonly searchInput: Locator;
+  private readonly searchInput: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -35,7 +35,7 @@ export class ProductListPage extends BasePage {
     return cards.length;
   }
 
-  getProductCard(index = 0): ProductCardComponent {
+  private getProductCard(index = 0): ProductCardComponent {
     // AIDEV-NOTE: Get product card by index (default: first product)
     // E2E tests use real API data, so we can't rely on specific product names
     const cardRoot = this.page.locator("article").nth(index);
@@ -48,15 +48,15 @@ export class ProductListPage extends BasePage {
     await card.click();
   }
 
-  async selectProductByIndex(index: number): Promise<void> {
-    const card = this.getProductCard(index);
-    await card.click();
-  }
-
   async addFirstProductToCart(): Promise<this> {
     const card = this.getProductCard(0);
     await card.addToCart();
     return this;
+  }
+
+  async selectProductByIndex(index: number): Promise<void> {
+    const card = this.getProductCard(index);
+    await card.click();
   }
 
   async addProductToCartByIndex(index: number): Promise<this> {

@@ -6,9 +6,9 @@ import { HeaderComponent } from "@e2e/pages/components/HeaderComponent";
 
 export class SignInPage extends BasePage {
   readonly header: HeaderComponent;
-  readonly usernameInput: Locator;
-  readonly passwordInput: Locator;
-  readonly signInButton: Locator;
+  private readonly usernameInput: Locator;
+  private readonly passwordInput: Locator;
+  private readonly signInButton: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -38,17 +38,17 @@ export class SignInPage extends BasePage {
     await this.page.waitForURL(/\/products$/);
   }
 
-  async fillUsername(username: string): Promise<this> {
+  private async fillUsername(username: string): Promise<this> {
     await this.usernameInput.fill(username);
     return this;
   }
 
-  async fillPassword(password: string): Promise<this> {
+  private async fillPassword(password: string): Promise<this> {
     await this.passwordInput.fill(password);
     return this;
   }
 
-  async clickSignIn(): Promise<void> {
+  private async clickSignIn(): Promise<void> {
     await this.signInButton.click();
   }
 }

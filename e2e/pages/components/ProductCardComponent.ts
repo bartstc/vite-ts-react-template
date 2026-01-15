@@ -1,7 +1,7 @@
 import type { Page, Locator } from "@playwright/test";
 
 export class ProductCardComponent {
-  readonly addToCartButton: Locator;
+  private readonly addToCartButton: Locator;
 
   constructor(
     _page: Page,

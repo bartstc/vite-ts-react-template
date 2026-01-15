@@ -26,6 +26,7 @@ test.describe("Product Details Page", () => {
     test.beforeEach(async ({ signInPage, productDetailsPage }) => {
       await signInPage.goto();
       await signInPage.loginAndWaitForRedirect();
+
       await productDetailsPage.gotoFirstProduct();
     });
 

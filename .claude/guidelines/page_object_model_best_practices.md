@@ -737,6 +737,12 @@ test("complete checkout", async ({ checkoutPage }) => {
 
 **5. Assertions in page objects** — Hide test logic. Keep assertions in test files where they're visible.
 
+**6. All members public** — Locators and methods used only internally should be marked `private`. Only expose what tests need for assertions or actions.
+
+**7. Skipping optional/default form fields** — Always test all form fields, including those with default values. Use non-default values in tests to verify the selection mechanism works, not just default rendering.
+
+**8. Toast/notification locators in POMs** — Keep toast message assertions in test files, not page objects. Toasts are transient UI feedback, not page state. Test critical user feedback (checkout success, errors) directly in tests using `page.getByText()`.
+
 ---
 
 ## Folder structure for enterprise scale

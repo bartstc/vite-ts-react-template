@@ -3,9 +3,9 @@ import type { Page, Locator } from "@playwright/test";
 export class HeaderComponent {
   readonly signInLink: Locator;
   readonly logoutButton: Locator;
-  readonly productsLink: Locator;
-  readonly cartBadge: Locator;
-  readonly cartLink: Locator;
+  private readonly productsLink: Locator;
+  private readonly cartBadge: Locator;
+  private readonly cartLink: Locator;
 
   constructor(page: Page) {
     this.signInLink = page.getByRole("link", { name: /sign in/i });

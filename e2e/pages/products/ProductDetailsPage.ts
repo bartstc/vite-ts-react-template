@@ -5,9 +5,9 @@ import { HeaderComponent } from "@e2e/pages/components/HeaderComponent";
 
 export class ProductDetailsPage extends BasePage {
   readonly header: HeaderComponent;
-  readonly productDetailsSection: Locator;
-  readonly addToCartButton: Locator;
-  readonly backToListButton: Locator;
+  private readonly productDetailsSection: Locator;
+  private readonly addToCartButton: Locator;
+  private readonly backToListButton: Locator;
 
   constructor(page: Page) {
     super(page);
