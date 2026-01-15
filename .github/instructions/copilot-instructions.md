@@ -6,6 +6,8 @@ applyTo: "**"
 
 - When unsure about implementation details, requirements, or business logic, ALWAYS consult the developer rather than making assumptions.
 - We optimize for maintainability over cleverness. When in doubt, choose the boring solution.
+- When reporting information, options, pros/cons, or summarizing changes, be extremely concise—sacrifice grammar if needed.
+- Keep plans and documentation concise yet detailed—prioritize information density over formatting.
 
 | #:  | AI _may_ do                                                                                                                                                                                                  | AI _must NOT_ do                                                                                                                                      |
 | --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
