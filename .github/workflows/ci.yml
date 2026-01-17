@@ -20,6 +20,9 @@ jobs:
       test-type: lint
       test-command: pnpm lint
 
+  playwright-tests:
+    uses: ./.github/workflows/playwright.yml
+
   unit-tests:
     runs-on: ubuntu-latest
 
@@ -147,7 +150,7 @@ jobs:
           path: coverage/**/*
 
   build:
-    needs: [lint-tests, unit-tests, storybook-tests]
+    needs: [lint-tests, unit-tests, storybook-tests, playwright-tests]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

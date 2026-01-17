@@ -1,11 +1,11 @@
 name: Playwright Tests
 on:
-  # Temporarily disabled - uncomment to re-enable
-  # push:
-  #   branches: [ main, master ]
-  # pull_request:
-  #   branches: [ main, master ]
-  workflow_dispatch: # Allow manual trigger only
+  push:
+    branches: [core]
+  pull_request:
+    branches: [core]
+  workflow_call: # Allow reuse from other workflows
+  workflow_dispatch: # Allow manual trigger
 jobs:
   test:
     timeout-minutes: 60
@@ -20,7 +20,7 @@ jobs:
       - name: Install Playwright Browsers
         run: pnpm exec playwright install --with-deps
       - name: Run Playwright tests
-        run: pnpm exec playwright test
+        run: pnpm exec playwright test --project=chromium
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
