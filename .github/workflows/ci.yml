@@ -22,6 +22,8 @@ jobs:
 
   playwright-tests:
     uses: ./.github/workflows/playwright.yml
+    with:
+      node-version: "22.x"
 
   unit-tests:
     runs-on: ubuntu-latest
