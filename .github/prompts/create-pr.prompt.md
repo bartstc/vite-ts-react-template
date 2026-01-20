@@ -1,5 +1,6 @@
 ---
-mode: agent
+agent: agent
+description: This prompt is used to create a Pull Request (PR) on GitHub using the
 ---
 
 ## Follow these steps:

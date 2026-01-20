@@ -1,5 +1,6 @@
 ---
-mode: agent
+agent: agent
+description: This prompt is used to push code changes to a GitHub repository.
 ---
 
 If no topic provided, just document the recent changes.  
