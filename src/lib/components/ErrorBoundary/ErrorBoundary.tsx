@@ -1,46 +1,50 @@
 import type { ComponentType, ErrorInfo, PropsWithChildren } from "react";
-import type {
-  FallbackProps as BoundaryFallbackProps,
-  ErrorBoundaryPropsWithComponent,
-} from "react-error-boundary";
+import type { ErrorBoundaryPropsWithComponent } from "react-error-boundary";
 import { ErrorBoundary as Boundary } from "react-error-boundary";
 
 import { ErrorPageStrategy } from "@/lib/components/Result/ErrorPageStrategy";
-import type { AjaxError } from "@/lib/http/AjaxError";
+import { AjaxError } from "@/lib/http/AjaxError";
 import { Logger } from "@/lib/logger";
 
-export interface FallbackProps<ErrorType> {
-  error: ErrorType | Error;
-  resetErrorBoundary: BoundaryFallbackProps["resetErrorBoundary"];
+export interface FallbackProps<ErrorType = Error | AjaxError> {
+  error: ErrorType;
+  resetErrorBoundary: () => void;
 }
 
-export type ErrorFallback<ErrorType> = ComponentType<FallbackProps<ErrorType>>;
+export type ErrorFallback<ErrorType = Error | AjaxError> = ComponentType<
+  FallbackProps<ErrorType>
+>;
 
-interface BoundaryProps<ErrorType> {
+interface BoundaryProps<ErrorType = Error | AjaxError> {
   onReset?: ErrorBoundaryPropsWithComponent["onReset"];
-  onError?: (error: ErrorType | Error, info: ErrorInfo) => void;
+  onError?: (error: ErrorType, info: ErrorInfo) => void;
   resetKeys?: ErrorBoundaryPropsWithComponent["resetKeys"];
   fallback?: ErrorFallback<ErrorType>;
 }
 
-export type ErrorBoundaryProps<ErrorType> = PropsWithChildren<
-  BoundaryProps<ErrorType>
->;
+export type ErrorBoundaryProps<ErrorType = Error | AjaxError> =
+  PropsWithChildren<BoundaryProps<ErrorType>>;
 
-// todo: story
-export function ErrorBoundary<ErrorType extends AjaxError | Error = AjaxError>({
-  fallback,
-  children,
-  ...props
-}: ErrorBoundaryProps<ErrorType>) {
+export function ErrorBoundary<
+  ErrorType extends Error | AjaxError = Error | AjaxError,
+>({ fallback, children, onError, ...props }: ErrorBoundaryProps<ErrorType>) {
+  const FallbackComponent = (fallback ?? ErrorPageStrategy) as ComponentType<{
+    error: unknown;
+    resetErrorBoundary: () => void;
+  }>;
+
   return (
     <Boundary
-      FallbackComponent={fallback ?? ErrorPageStrategy}
-      onError={(error) => {
-        Logger.error(error.message, {
-          type: "error-boundary",
-          message: error.message,
-        });
+      FallbackComponent={FallbackComponent}
+      onError={(error, info) => {
+        if (error instanceof Error || error instanceof AjaxError) {
+          onError?.(error as ErrorType, info);
+
+          Logger.error(error.message, {
+            type: "error-boundary",
+            message: error.message,
+          });
+        }
       }}
       {...props}
     >

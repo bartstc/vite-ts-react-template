@@ -59,8 +59,8 @@ importers:
         specifier: 19.2.3
         version: 19.2.3(react@19.2.3)
       react-error-boundary:
-        specifier: 6.0.3
-        version: 6.0.3(react@19.2.3)
+        specifier: 6.1.0
+        version: 6.1.0(react@19.2.3)
       react-i18next:
         specifier: 16.5.1
         version: 16.5.1(i18next@25.7.4(typescript@5.9.3))(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(typescript@5.9.3)
@@ -123,7 +123,7 @@ importers:
         specifier: 4.0.16
         version: 4.0.16(vitest@4.0.16)
       dotenv:
-        specifier: ^17.2.3
+        specifier: 17.2.3
         version: 17.2.3
       eslint:
         specifier: 9.39.2
@@ -6148,10 +6148,10 @@ packages:
     peerDependencies:
       react: ^19.2.3
 
-  react-error-boundary@6.0.3:
+  react-error-boundary@6.1.0:
     resolution:
       {
-        integrity: sha512-5guqn2UYpCFjE8UDMA8J7Kke+YSGBFrKQRJb3XdcaGZXYINZfQXgBt3ifY6MvjkN7QROc5A8zclyoSCwrcRUKw==,
+        integrity: sha512-02k9WQ/mUhdbXir0tC1NiMesGzRPaCsJEWU/4bcFrbY1YMZOtHShtZP6zw0SJrBWA/31H0KT9/FgdL8+sPKgHA==,
       }
     peerDependencies:
       react: ^18.0.0 || ^19.0.0
@@ -11652,7 +11652,7 @@ snapshots:
       react: 19.2.3
       scheduler: 0.27.0
 
-  react-error-boundary@6.0.3(react@19.2.3):
+  react-error-boundary@6.1.0(react@19.2.3):
     dependencies:
       react: 19.2.3
 

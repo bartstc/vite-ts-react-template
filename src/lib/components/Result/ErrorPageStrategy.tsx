@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 // eslint-disable-next-line import/no-restricted-paths
 import { useAuthStore } from "@/features/auth/application/authStore";
 import { AjaxError } from "@/lib/http/AjaxError";
@@ -9,13 +7,11 @@ import { InternalErrorResult } from "./InternalErrorResult";
 import { InternalServerErrorResult } from "./InternalServerErrorResult";
 import { NotFoundResult } from "./NotFoundResult";
 
-interface IProps<Response extends AjaxError["response"] = any> {
-  error?: AjaxError<Response> | Error;
+interface IProps {
+  error?: AjaxError | Error;
 }
 
-export function ErrorPageStrategy<Response extends AjaxError["response"] = any>(
-  props: IProps<Response>
-) {
+export function ErrorPageStrategy(props: IProps) {
   const navigate = useNavigate();
   const logout = useAuthStore((store) => store.logout);
   const routeError = useRouteError();
