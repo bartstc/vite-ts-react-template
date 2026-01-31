@@ -22,26 +22,33 @@ React SPA built with Vite using feature slice architecture with clean architectu
 
 ## Commands
 
+**Package Manager:** PNPM only (`pnpm`, not `npm` or `yarn`)
+
+### Essential Commands
+
+| Command                | Description                      |
+| ---------------------- | -------------------------------- |
+| `pnpm dev`             | Start dev server (port 5173)     |
+| `pnpm lint`            | Run ESLint                       |
+| `pnpm lint --fix`      | Fix lint errors                  |
+| `pnpm test`            | Run all tests (unit + storybook) |
+| `pnpm test:unit`       | Unit tests only                  |
+| `pnpm test:storybook`  | Storybook tests only             |
+| `pnpm test:e2e`        | E2E tests (Playwright, headless) |
+| `pnpm test:e2e:ui`     | E2E interactive web UI mode      |
+| `pnpm test:e2e:headed` | E2E with visible browser         |
+| `pnpm test:e2e:debug`  | E2E debug mode                   |
+| `pnpm test:e2e:report` | Open E2E HTML report             |
+| `pnpm test:coverage`   | Tests with coverage report       |
+| `pnpm storybook`       | Storybook (port 6006)            |
+
+### CI Commands
+
 | Command                  | Description                      |
 | ------------------------ | -------------------------------- |
-| `pnpm dev`               | Start dev server (port 5173)     |
-| `pnpm lint`              | Run ESLint                       |
-| `pnpm lint --fix`        | Fix lint errors                  |
-| `pnpm test`              | Run all tests (unit + storybook) |
-| `pnpm test:unit`         | Unit tests only                  |
-| `pnpm test:storybook`    | Storybook tests only             |
-| `pnpm test:e2e`          | E2E tests (Playwright, headless) |
-| `pnpm test:e2e:ui`       | E2E interactive web UI mode      |
-| `pnpm test:e2e:headed`   | E2E with visible browser         |
-| `pnpm test:e2e:debug`    | E2E debug mode                   |
-| `pnpm test:e2e:report`   | Open E2E HTML report             |
-| `pnpm test:coverage`     | Tests with coverage report       |
-| `pnpm storybook`         | Storybook (port 6006)            |
-| `pnpm test:unit:ci`      | CI unit tests with reports       |
-| `pnpm test:storybook:ci` | CI storybook tests with reports  |
-| `pnpm test:e2e:ci`       | CI E2E tests with reports        |
-
-**Package Manager:** PNPM only (`pnpm`, not `npm` or `yarn`)
+| `pnpm test:unit:ci`      | Unit tests with coverage/reports |
+| `pnpm test:storybook:ci` | Storybook tests with reports     |
+| `pnpm test:e2e:ci`       | E2E tests with reports           |
 
 ## Path Resolution
 

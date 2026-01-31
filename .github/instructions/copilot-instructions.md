@@ -38,120 +38,30 @@ applyTo: "**"
 
 ## Commands
 
+**Package Manager:** PNPM only (`pnpm`, not `npm` or `yarn`)
+
 ### Essential Commands
 
-- `pnpm dev` - Start development server on port 5173
-- `pnpm lint` - Run ESLint with flat config
-- `pnpm lint --fix` - Run ESLint and fix linting errors/warnings
-- `pnpm test` - Run all tests (unit + storybook)
-- `pnpm test:unit` - Run unit tests only
-- `pnpm test:storybook` - Run storybook tests only
-- `pnpm test:e2e` - Run E2E tests with Playwright (headless)
-- `pnpm test:e2e:ui` - Run E2E tests in interactive web UI mode (recommended for devcontainers)
-- `pnpm test:e2e:headed` - Run E2E tests with visible browser windows (requires X server or xvfb-run)
-- `pnpm test:e2e:debug` - Run E2E tests in debug mode
-- `pnpm test:e2e:report` - Open HTML report for E2E tests from last test run
-- `pnpm test:coverage` - Run unit + storybook tests with coverage report
-- `pnpm storybook` - Start Storybook development server on port 6006
+| Command                | Description                      |
+| ---------------------- | -------------------------------- |
+| `pnpm dev`             | Start dev server (port 5173)     |
+| `pnpm lint`            | Run ESLint                       |
+| `pnpm lint --fix`      | Fix lint errors                  |
+| `pnpm test`            | Run all tests (unit + storybook) |
+| `pnpm test:unit`       | Unit tests only                  |
+| `pnpm test:storybook`  | Storybook tests only             |
+| `pnpm test:e2e`        | E2E tests (Playwright, headless) |
+| `pnpm test:e2e:ui`     | E2E interactive web UI mode      |
+| `pnpm test:e2e:headed` | E2E with visible browser         |
+| `pnpm test:e2e:debug`  | E2E debug mode                   |
+| `pnpm test:e2e:report` | Open E2E HTML report             |
+| `pnpm test:coverage`   | Tests with coverage report       |
+| `pnpm storybook`       | Storybook (port 6006)            |
 
 ### CI Commands
 
-- `pnpm test:unit:ci` - Run unit tests with coverage and reports for CI
-- `pnpm test:storybook:ci` - Run storybook tests with coverage and reports for CI
-- `pnpm test:e2e:ci` - Run E2E tests with reports for CI
-
-### Package Manager
-
-This project uses **PNPM** as the package manager. Always use `pnpm` commands, not `npm` or `yarn`.
-
-## Architecture Overview
-
-This is a React SPA built with Vite using feature slice based architecture with clean architecture principles.
-
-### Core Technologies
-
-- **React 19** with TypeScript
-- **Vite 7** for build tooling
-- **React Query (TanStack Query)** for data fetching
-- **React Router 7** for routing
-- **i18next** for internationalization
-- **MSW 2** for API mocking
-- **Vitest 4** for unit and component testing
-- **Storybook 10** for component development
-- **Playwright** for E2E testing
-- **Zustand** for state management
-- **Chakra UI** for components
-
-### Project Structure
-
-```
-.
-├── e2e/           # End-to-end tests with Playwright
-└── src/
-    ├── app/           # App-level configuration (App.tsx, Providers.tsx)
-    ├── features/      # Feature modules using feature slice architecture
-    │   ├── auth/      # Authentication feature
-    │   ├── carts/     # Shopping cart feature
-    │   ├── products/  # Product catalog feature
-    ├── lib/           # Shared libraries and utilities
-    │   ├── api/       # Centralized API layer (queries, commands, DTOs)
-    │   ├── components/ # Reusable UI components
-    │   ├── http/      # HTTP client and error handling
-    │   ├── i18n/      # Internationalization setup
-    │   ├── router/    # Routing utilities
-    │   └── theme/     # Theme configuration
-    ├── pages/         # Route-level page components composing feature components & logic
-    └── test-lib/      # Testing utilities and fixtures
-```
-
-### Feature Architecture
-
-Each feature follows feature slice architecture patterns with three layers:
-
-- **presentation/** - UI components, UI-wise hooks
-- **application/** - Business logic, state management, logic-wise hooks
-- **infrastructure/** - Data fetching, external APIs, contracts, DTOs
-- **types/** - Type definitions
-
-### Key Patterns
-
-- **Co-location** - Related files (component + story + test) are grouped together
-- **MSW handlers** - API mocking is centralized in `test-lib/handlers/`
-- **Fixture pattern** - Test data generation in `test-lib/fixtures/`
-- **Strong typing** - Comprehensive TypeScript usage with branded types
-- **Component Composition**: Features export composed components for pages to use,
-- **Centralized API** - All API logic consolidated in `src/lib/api/` with endpoint-based organization
-
-### Path Resolution
-
-- Uses `@/*` path mapping for clean imports from `src/`
-- Example: `import { Button } from '@/shared/components/button'`
-
-### Testing Strategy
-
-- **Unit tests** - `.test.ts` / `.test.tsx` files alongside source code
-- **Storybook tests** - `.stories.tsx` files alongside components
-- **E2E tests** - Playwright tests in `tests/` directory (or `e2e/`)
-- **MSW integration** - Mocked APIs for both development and testing
-- **Coverage reporting** - Istanbul coverage with LCOV reports (for unit + storybook tests)
-
-### State Management
-
-- **Zustand stores** - For complex local state (auth, modals, etc.)
-- **React Query** - For server state and caching
-- **React state** - For simple component state
-
-### Routing
-
-- **File-based routing** - Pages in `src/pages/` with corresponding loaders
-- **Strong typing** - Route paths defined in `lib/router/routes.ts`
-- **Lazy loading** - Components loaded on demand with error boundaries
-
-### Error Handling
-
-- Using `react-error-boundary` for unexpected components runtime errors
-
-### Build Optimization
-
-- Lazy loading and code splitting based on `react-router`
-- Using direct imports instead of default
+| Command                  | Description                      |
+| ------------------------ | -------------------------------- |
+| `pnpm test:unit:ci`      | Unit tests with coverage/reports |
+| `pnpm test:storybook:ci` | Storybook tests with reports     |
+| `pnpm test:e2e:ci`       | E2E tests with reports           |
