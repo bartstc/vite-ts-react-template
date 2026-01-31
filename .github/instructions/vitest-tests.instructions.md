@@ -1,4 +1,6 @@
-# Testing
+---
+applyTo: "**/*.{test,spec}.{ts,tsx}"
+---
 
 ## Testing Strategy
 
