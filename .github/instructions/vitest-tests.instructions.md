@@ -1,8 +1,16 @@
----
-applyTo: "**/*.test.{ts,tsx}"
----
+# Testing
 
-## Testing Discipline
+## Testing Strategy
+
+| Type            | Location                                  | Tool       |
+| --------------- | ----------------------------------------- | ---------- |
+| Unit tests      | `.test.ts` / `.test.tsx` alongside source | Vitest     |
+| Storybook tests | `.stories.tsx` alongside components       | Storybook  |
+| E2E tests       | `e2e/` directory                          | Playwright |
+| API mocking     | `test-lib/handlers/`                      | MSW        |
+| Test fixtures   | `test-lib/fixtures/`                      | Custom     |
+
+## AI Boundaries
 
 | What           | AI CAN Do               | AI MUST NOT Do           |
 | -------------- | ----------------------- | ------------------------ |
@@ -10,17 +18,18 @@ applyTo: "**/*.test.{ts,tsx}"
 | Test Planning  | Suggest test scenarios  | Write test code          |
 | Debugging      | Analyze test failures   | Modify test expectations |
 
-### Test Case Scenarios Preference
+## Test Case Scenarios
 
-- Focus on **business logic and domain requirements**, not implementation details
-- Test **meaningful scenarios** that could realistically occur in production
-- Keep test scenarios focused on single responsibilities
-- Avoid redundant edge cases like:
-  - Empty arrays when "not found" is already tested
-  - `undefined` collections when the type system prevents this
-  - Multiple variations of the same error condition
-- Prioritize tests for:
-  - Happy path scenarios with realistic data
-  - Error conditions that users might encounter
-  - Edge cases that affect business logic (not just code coverage)
-- Each test should verify **distinct behavior**, not just different ways to trigger the same code path
+**Prioritize tests for:**
+
+- Happy path scenarios with realistic data
+- Error conditions users might encounter
+- Edge cases that affect business logic (not just coverage)
+
+**Avoid redundant edge cases:**
+
+- Empty arrays when "not found" is already tested
+- `undefined` collections when type system prevents this
+- Multiple variations of the same error condition
+
+Each test should verify **distinct behavior**, not different ways to trigger the same code path.
