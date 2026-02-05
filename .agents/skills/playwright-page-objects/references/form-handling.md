@@ -1,6 +1,6 @@
 # Form Handling
 
-Patterns for multi-step forms, checkout flows, and complex user interactions.
+Patterns for forms, multi-step flows, and validation.
 
 ## Fluent Interfaces
 
@@ -150,7 +150,7 @@ await page.getByLabel("Birth Date").fill("1990-01-15");
 
 ## Testing All Form Fields
 
-**Always test all form fields, including those with default values.** Use non-default values in tests to verify the selection mechanism works, not just default rendering.
+**Always test all form fields, including those with default values.** Use non-default values in tests to verify the selection mechanism works.
 
 ```typescript
 // ❌ BAD - Only tests required fields
@@ -159,7 +159,148 @@ await page.getByRole("button", { name: "Submit" }).click();
 
 // ✅ GOOD - Tests all fields with non-default values
 await page.getByLabel("Email").fill("test@example.com");
-await page.getByRole("combobox", { name: "Country" }).selectOption("CA"); // Not default "US"
-await page.getByRole("checkbox", { name: "Newsletter" }).check(); // Test the checkbox
+await page.getByRole("combobox", { name: "Country" }).selectOption("CA"); // Not default
+await page.getByRole("checkbox", { name: "Newsletter" }).check();
 await page.getByRole("button", { name: "Submit" }).click();
+```
+
+## Form Component with Validation
+
+Reusable component for forms with error handling:
+
+```typescript
+// components/FormComponent.ts
+import { Page, Locator } from "@playwright/test";
+
+export class FormComponent {
+  readonly page: Page;
+  readonly container: Locator;
+  readonly submitButton: Locator;
+
+  constructor(page: Page, formTestId: string) {
+    this.page = page;
+    this.container = page.getByTestId(formTestId);
+    this.submitButton = this.container.getByRole("button", {
+      name: /submit|save|create/i,
+    });
+  }
+
+  async fillField(label: string, value: string): Promise<this> {
+    await this.container.getByLabel(label).fill(value);
+    return this;
+  }
+
+  async selectOption(label: string, value: string): Promise<this> {
+    await this.container.getByLabel(label).selectOption(value);
+    return this;
+  }
+
+  async checkCheckbox(label: string): Promise<this> {
+    await this.container.getByLabel(label).check();
+    return this;
+  }
+
+  async uncheckCheckbox(label: string): Promise<this> {
+    await this.container.getByLabel(label).uncheck();
+    return this;
+  }
+
+  async submit(): Promise<this> {
+    await this.submitButton.click();
+    return this;
+  }
+
+  // Expose validation state — tests make assertions
+  async getFieldError(fieldName: string): Promise<string | null> {
+    // Common patterns for error messages
+    const errorLocator = this.container
+      .locator(`[data-testid="${fieldName}-error"]`)
+      .or(this.container.locator(`#${fieldName}-error`))
+      .or(
+        this.container
+          .getByRole("alert")
+          .filter({ hasText: new RegExp(fieldName, "i") })
+      );
+
+    if (await errorLocator.isVisible()) {
+      return await errorLocator.textContent();
+    }
+    return null;
+  }
+
+  async hasFieldError(fieldName: string): Promise<boolean> {
+    const error = await this.getFieldError(fieldName);
+    return error !== null && error.trim() !== "";
+  }
+
+  async getFormErrors(): Promise<string[]> {
+    const errors = await this.container.getByRole("alert").allTextContents();
+    return errors.filter((e) => e.trim() !== "");
+  }
+
+  async hasFormErrors(): Promise<boolean> {
+    const errors = await this.getFormErrors();
+    return errors.length > 0;
+  }
+}
+```
+
+### Using Form Component
+
+```typescript
+// pages/RegistrationPage.ts
+export class RegistrationPage {
+  readonly page: Page;
+  readonly form: FormComponent;
+
+  constructor(page: Page) {
+    this.page = page;
+    this.form = new FormComponent(page, "registration-form");
+  }
+
+  async goto(): Promise<this> {
+    await this.page.goto("/register");
+    return this;
+  }
+
+  async register(email: string, password: string): Promise<this> {
+    await this.form.fillField("Email", email);
+    await this.form.fillField("Password", password);
+    await this.form.fillField("Confirm Password", password);
+    await this.form.submit();
+    return this;
+  }
+
+  // Expose form's validation getters
+  async getEmailError(): Promise<string | null> {
+    return this.form.getFieldError("email");
+  }
+
+  async getPasswordError(): Promise<string | null> {
+    return this.form.getFieldError("password");
+  }
+}
+```
+
+### Test with Validation
+
+```typescript
+test("should show validation errors", async ({ registrationPage }) => {
+  await registrationPage.goto();
+  await registrationPage.register("invalid-email", "123");
+
+  // Assertions in test, not page object
+  const emailError = await registrationPage.getEmailError();
+  const passwordError = await registrationPage.getPasswordError();
+
+  expect(emailError).toContain("valid email");
+  expect(passwordError).toContain("at least 8 characters");
+});
+
+test("should register successfully", async ({ registrationPage, page }) => {
+  await registrationPage.goto();
+  await registrationPage.register("user@example.com", "SecurePass123!");
+
+  await expect(page).toHaveURL("/welcome");
+});
 ```
