@@ -1,148 +1,119 @@
-# What is SPA Vite Template
+# SPA Vite Template
 
-This project provides a basic dev setup intended for `Single Page Application` (SPA) development. It contains already configured tools and libraries providing a quick and seamless start, making the Developer Experience (DX) and scalability of your project easily manageable. It also shows a practical application of selected tools and practices in a form of a demo app.
+An opinionated, production-ready starter for **Single Page Application** development with React. Pre-configured tooling, libraries, and a demo app so you can skip the boilerplate and focus on building.
 
-# Template versions
+## What's included
 
-Bearing in mind flexibility and openness to various tools and preferences, this template allows you to adjust your workflow to your needs, assuring best practices and following opinionated frontend/React trends at the same time.
+### Developer experience
 
-Thus, the template provides two different versions, differing in complexity and spectrum of solved problems.
+- [Vite](https://vitejs.dev/) — fast dev server and build tooling
+- [TypeScript](https://www.typescriptlang.org/) — strict type safety
+- [ESLint](https://eslint.org/) + [Prettier](https://prettier.io/) + [Husky](https://typicode.github.io/husky/) — consistent code style
+- [PNPM](https://pnpm.io/) — fast, disk-efficient package manager
+- [Devcontainer](https://code.visualstudio.com/docs/devcontainers/containers) — reproducible VS Code dev environment
+- [GitHub Actions](https://docs.github.com/en/actions) CI — tests, build, coverage reports, deploy draft
+- [GitHub Copilot](https://github.com/features/copilot) — instructions, skills, and custom prompts (`.github/instructions/`, `.github/skills/`, `.github/prompts/`)
+- [Claude Code](https://docs.anthropic.com/en/docs/claude-code/overview) — project rules (`CLAUDE.md`), skills, subagents, and custom commands (`.claude/`)
 
-## Basic version - `basic`
+### Testing
 
-The most basic config of the dev environment. It provides seamless DX and assures a legible and consistent codebase.
+- [Vitest](https://vitest.dev/) — unit and integration tests
+- [Storybook](https://storybook.js.org/) — component tests in a real browser
+- [Playwright](https://playwright.dev/) — E2E tests across Chromium, Firefox, and WebKit
 
-### When to use
+### Libraries
 
-This version is free of any libraries. If the `core` version doesn't match your preferences and expectations, the `basic` version will be perfect as a basis for your personalized project setup.
+- [Chakra UI](https://chakra-ui.com/) — accessible, modular component library
+- [React Router 7](https://reactrouter.com/home) — routing with strong path typing
+- [React Query](https://tanstack.com/query/v4/) — data fetching and server state synchronization
+- [Zustand](https://docs.pmnd.rs/zustand/getting-started/introduction) — lightweight state management
+- [i18next](https://www.i18next.com/) — internationalization
+- [XState](https://stately.ai/docs/xstate) — state orchestration (example usage)
+- [MSW 2](https://mswjs.io/) — API mocking for development and tests
 
-### Key features
+### Architecture
 
-- Dev environment based on [Vite](https://vitejs.dev/) toolkit.
-- Unit, integration, and component testing with [Vitest](https://vitest.dev/) and [Storybook](https://storybook.js.org/).
-- End-to-end testing with [Playwright](https://playwright.dev/).
-- Static code analysis: eslint, prettier, husky.
-- TypeScript support.
-- [Devcontainer](https://code.visualstudio.com/docs/devcontainers/containers) config for VS Code.
-- [PNPM](https://pnpm.io/) as a package manager.
-- CI setup (tests, build, tests coverage report, deploy draft) with [GitHub Actions](https://docs.github.com/en/actions).
-- [Github Copilot](https://github.com/features/copilot) configuration (instructions).
-- [Claude Code](https://docs.anthropic.com/en/docs/claude-code/overview) configuration (`CLAUDE.md` file, `.claude` directory with settings and commands, and remote development setup).
+- Feature slice architecture with clean architecture principles
+- Centralized API layer with endpoint-based organization and type consolidation
+- Formatting utilities for numbers, monetary values, and dates
+- A demo app with authentication showcasing the project structure and tooling in action (powered by [Fake Store API](https://fakestoreapi.com/docs))
 
-## Extended version - `core`
+## Getting started
 
-The extension of the `basic` version. It contains already configured tools and libraries that aim to solve the most basic and typical problems existing in a modern frontend application (SPA).
-
-### When to use
-
-If configured tools and overall setup meet your requirements, you should definitely choose this version as the starting point for your project.
-
-### Key features
-
-- Everything that's included in the `basic` version.
-- Simple, modular, and accessible components based on [Chakra UI](https://chakra-ui.com/).
-- Data fetching and external state synchronization based on [React Query](https://tanstack.com/query/v4/).
-- Routing based on [React Router 7](https://reactrouter.com/home) with strong path typing.
-- Internalization with [i18next](https://www.i18next.com/).
-- Formatting tools for numbers, monetary values, and dates (easily extendable with any date library like [DayJS](https://day.js.org/)).
-- State management with [Zustand](https://docs.pmnd.rs/zustand/getting-started/introduction).
-- State orchestration with [XState](https://stately.ai/docs/xstate) (just an example).
-- API mocking with [MSW 2](https://mswjs.io/).
-- Centralized API architecture with endpoint-based organization and type consolidation.
-- A demo app with authentication presenting project structure, good practices, and used tooling in action (with a little help of [Fake Store API](https://fakestoreapi.com/docs)).
-
-# Guideline
-
-## How to use
-
-_You may simply download a ZIP Directory and start with a clean git repository using a command_ `git init`...
-
-... or clone this repo through git CLI.
+Clone the repo and set up your own remote:
 
 ```
-git clone -b basic --depth 1 --single-branch https://github.com/bartstc/spa-vite-template.git [project_name]
+git clone --depth 1 https://github.com/bartstc/spa-vite-template.git [project_name]
+cd [project_name]
+rm -rf .git && git init
+git remote add origin git@github.com:username/project.git
 ```
 
-```
-git clone -b core --depth 1 --single-branch https://github.com/bartstc/spa-vite-template.git [project_name]
-```
+### Dev environment
 
-Link cloned repo with your own remote repository.
+It's recommended to run the dev server inside a container for consistent Node/PNPM versions. If you're using VS Code, the included [devcontainer config](https://code.visualstudio.com/docs/devcontainers/containers) handles this out of the box.
 
-```
-git remote set-url origin git@github.com:username/project.git
-```
+## Commands
 
-Create and push your own branch designated for development.
-
-```
-git checkout -b [branch_name]
-```
-
-```
-git push --set-upstream origin [branch_name]
-```
-
-Set your newly created and pushed branch as default. You may do this in `Settings` -> `Branches` -> `Default Branch`.
-
-## Starting the dev environment
-
-It's recommended to run the dev server and tests in a docker container. Containerized environment assures compatibility and cohesion regarding launching and developing your project. Because of that, you don't need to worry about unexpected errors or undesired mismatches of locally installed dependencies e. g. Node or Pnpm.
-
-If you are using [VS Code](https://code.visualstudio.com/) as your IDE, I personally recommend using already configured in this template [devcontainer env](https://code.visualstudio.com/docs/devcontainers/containers).
-
-Learn more about using this template in practice below.
-
-## Basic commands
-
-| Command                | Description                                                     |
-| ---------------------- | --------------------------------------------------------------- |
-| `pnpm dev`             | Runs dev server with the HMR locally on port `5173`             |
-| `pnpm lint`            | Checks for lint errors                                          |
-| `pnpm build`           | Builds optimized app package                                    |
-| `pnpm test`            | Runs all tests (unit + storybook)                               |
-| `pnpm test:unit`       | Runs unit tests                                                 |
-| `pnpm test:storybook`  | Runs storybook tests                                            |
-| `pnpm test:coverage`   | Runs unit + storybook tests with coverage                       |
-| `pnpm test:e2e`        | Runs E2E tests with Playwright (headless)                       |
-| `pnpm test:e2e:ui`     | Runs E2E tests in interactive web UI mode                       |
-| `pnpm test:e2e:headed` | Runs E2E tests with visible browser windows (requires X server) |
-| `pnpm test:e2e:debug`  | Runs E2E tests in debug mode                                    |
-| `pnpm test:e2e:report` | Opens the HTML report for E2E tests from the last test run      |
-| `pnpm storybook`       | Runs a Storybook locally on port `6006`                         |
+| Command                | Description                                |
+| ---------------------- | ------------------------------------------ |
+| `pnpm dev`             | Dev server with HMR on port `5173`         |
+| `pnpm lint`            | Check for lint errors                      |
+| `pnpm build`           | Production build                           |
+| `pnpm test`            | Run all tests (unit + storybook)           |
+| `pnpm test:unit`       | Unit tests only                            |
+| `pnpm test:storybook`  | Storybook component tests only             |
+| `pnpm test:coverage`   | Tests with coverage report                 |
+| `pnpm test:e2e`        | E2E tests (headless)                       |
+| `pnpm test:e2e:ui`     | E2E in interactive web UI mode             |
+| `pnpm test:e2e:headed` | E2E with visible browser                   |
+| `pnpm test:e2e:debug`  | E2E in debug mode                          |
+| `pnpm test:e2e:report` | Open the HTML report from the last E2E run |
+| `pnpm storybook`       | Storybook on port `6006`                   |
 
 ## Testing strategy
 
-This template implements a comprehensive testing strategy covering all layers of your application:
-
 ### Unit tests (`*.test.ts`, `*.test.tsx`)
 
-- **Environment**: jsdom (fast, lightweight DOM simulation)
+- **Environment**: jsdom
 - **Location**: Co-located with source files in `src/`
-- **Purpose**: Test components, hooks, and utilities in isolation
 - **Run with**: `pnpm test:unit`
 
 ### Component tests (`*.stories.tsx`)
 
 - **Environment**: Real browser (Chromium) via @vitest/browser-playwright
 - **Location**: Co-located with components in `src/`
-- **Purpose**: Visual testing and component interaction in Storybook
 - **Run with**: `pnpm test:storybook`
 
 ### E2E tests (`*.spec.ts`)
 
-- **Environment**: @playwright/test with Chromium, Firefox, and WebKit
-- **Location**: `e2e/` directory
-- **Purpose**: Test complete user workflows and multi-page interactions
+- **Environment**: Chromium, Firefox, and WebKit via @playwright/test
+- **Location**: `e2e/`
 - **Run with**: `pnpm test:e2e`
 
-# Contributing
+## Removing libraries you don't need
 
-It is publicly open for any contribution. Bugfixes, new features, and extra modules are welcome.
+This template is opinionated — it picks libraries so you don't have to. If something doesn't fit your project, here's how to strip it out:
 
-- To contribute to code: Fork the repo, push your changes to your fork, and submit a pull request.
-- To report a bug: If something does not work, please report it using [GitHub Issues](https://github.com/bartstc/spa-vite-template/issues).
+| Library      | What to remove                                                                         |
+| ------------ | -------------------------------------------------------------------------------------- |
+| Chakra UI    | `src/lib/components/`, Chakra provider in `src/app/`, `@chakra-ui/*` deps              |
+| React Router | `src/pages/`, route config in `src/app/`, `react-router` dep                           |
+| React Query  | Query provider in `src/app/`, `src/lib/api/` query hooks, `@tanstack/react-query` deps |
+| i18next      | `src/lib/i18n/`, i18n provider in `src/app/`, `i18next` + `react-i18next` deps         |
+| Zustand      | Store files in `src/features/*/stores/`, `zustand` dep                                 |
+| XState       | State machine files (example usage), `xstate` + `@xstate/react` deps                   |
+| MSW          | `src/test-lib/handlers/`, `msw` dep, browser/server setup files                        |
 
-# License
+After removing, run `pnpm install` to clean the lockfile and `pnpm lint` to catch broken imports.
 
-This project is licensed under the terms of the [MIT license](https://github.com/bartstc/vite-ts-react-template/blob/core/LICENSE).
+## Contributing
+
+Open for contributions — bugfixes, new features, and extra modules are welcome.
+
+- **Code**: Fork the repo, push your changes, and submit a pull request.
+- **Bugs**: Report issues via [GitHub Issues](https://github.com/bartstc/spa-vite-template/issues).
+
+## License
+
+[MIT](https://github.com/bartstc/vite-ts-react-template/blob/core/LICENSE)
