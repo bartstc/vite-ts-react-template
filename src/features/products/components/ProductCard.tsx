@@ -1,8 +1,8 @@
 /* eslint-disable import/no-restricted-paths */
 import { Box, Text, VStack, HStack } from "@chakra-ui/react";
 
-import { AddToCartButton } from "@/features/carts/presentation/AddToCartButton/AddToCartButton";
-import { Category } from "@/features/products/types/Category";
+import { AddToCartButton } from "@/features/carts/components/AddToCartButton/AddToCartButton";
+import { Category } from "@/features/products/models/Category";
 import { moneyVO } from "@/lib/format/Money";
 import { useNavigate } from "@/lib/router";
 import { routes } from "@/lib/router/routes";

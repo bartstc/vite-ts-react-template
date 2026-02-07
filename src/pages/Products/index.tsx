@@ -3,8 +3,8 @@ import { Button } from "@chakra-ui/react";
 import { keepPreviousData } from "@tanstack/react-query";
 import { useState } from "react";
 
-import { useProductsQuery } from "@/features/products/infrastructure/productsQuery";
-import { ProductsList } from "@/features/products/presentation/ProductsList";
+import { ProductsList } from "@/features/products/components/ProductsList";
+import { useProductsQuery } from "@/features/products/providers/productsQuery";
 import { Page } from "@/lib/components/Layout/Page";
 import { PageHeader } from "@/lib/components/Layout/PageHeader";
 import { ErrorPageStrategy } from "@/lib/components/Result/ErrorPageStrategy";

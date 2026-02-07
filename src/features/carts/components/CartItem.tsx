@@ -2,8 +2,8 @@
 import { CheckIcon } from "@chakra-ui/icons";
 import { Box, Text, VStack, HStack, Button, Stack } from "@chakra-ui/react";
 
-import { useCategoryLabel } from "@/features/products/presentation/useCategoryLabel";
-import { Category } from "@/features/products/types/Category";
+import { useCategoryLabel } from "@/features/products/components/useCategoryLabel";
+import { Category } from "@/features/products/models/Category";
 import { useNotImplementedYetToast } from "@/lib/components/Toast/useNotImplementedYetToast";
 import { moneyVO } from "@/lib/format/Money";
 import { useTranslations } from "@/lib/i18n/useTransations";

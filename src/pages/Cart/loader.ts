@@ -1,4 +1,4 @@
-import { cartProductsLoader } from "@/features/carts/infrastructure/useCartProductsQuery";
+import { cartProductsLoader } from "@/features/carts/providers/useCartProductsQuery";
 import type { LoaderFunctionArgs } from "@/lib/router";
 
 export const cartPageLoader = ({ params }: LoaderFunctionArgs) => {

@@ -1,8 +1,8 @@
 /* eslint-disable import/no-restricted-paths */
 import { SimpleGrid, GridItem } from "@chakra-ui/react";
 
-import { ProductAddedDialog } from "@/features/carts/presentation/AddToCartButton/ProductAddedDialog";
-import type { IProduct } from "@/features/products/types/IProduct";
+import { ProductAddedDialog } from "@/features/carts/components/AddToCartButton/ProductAddedDialog";
+import type { IProduct } from "@/features/products/models/IProduct";
 import { EmptyStateResult } from "@/lib/components/Result/EmptyStateResult";
 
 import { ProductCard } from "./ProductCard";

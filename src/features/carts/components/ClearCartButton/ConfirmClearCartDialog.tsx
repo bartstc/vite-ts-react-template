@@ -13,8 +13,8 @@ import {
 } from "@chakra-ui/react";
 import { useRef } from "react";
 
-import { useClearCart } from "@/features/carts/infrastructure/useClearCart";
-import { useConfirmClearCartDialogStore } from "@/features/carts/presentation/ClearCartButton/useConfirmClearCartDialogStore";
+import { useConfirmClearCartDialogStore } from "@/features/carts/components/ClearCartButton/useConfirmClearCartDialogStore";
+import { useClearCart } from "@/features/carts/providers/useClearCart";
 import { useTranslations } from "@/lib/i18n/useTransations";
 
 import { useClearCartNotifications } from "./useClearCartNotifications";

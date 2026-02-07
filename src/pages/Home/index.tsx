@@ -1,7 +1,7 @@
-import { FeatureSection } from "@/features/marketing/presentation/FeatureSection";
-import { HeroSection } from "@/features/marketing/presentation/HeroSection";
-import { PricingSection } from "@/features/marketing/presentation/PricingSection";
-import { useProductsQuery } from "@/features/products/infrastructure/productsQuery";
+import { FeatureSection } from "@/features/marketing/components/FeatureSection";
+import { HeroSection } from "@/features/marketing/components/HeroSection";
+import { PricingSection } from "@/features/marketing/components/PricingSection";
+import { useProductsQuery } from "@/features/products/providers/productsQuery";
 import { Page } from "@/lib/components/Layout/Page";
 import { InternalErrorResult } from "@/lib/components/Result/InternalErrorResult";
 import { useRouteError } from "@/lib/router/useRouteError";

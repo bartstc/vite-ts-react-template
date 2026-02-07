@@ -2,8 +2,8 @@ import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { VStack, HStack, Button, Text, Divider } from "@chakra-ui/react";
 import { type ComponentProps, Fragment } from "react";
 
-import { CartItem } from "@/features/carts/presentation/CartItem";
-import { CheckoutButton } from "@/features/carts/presentation/CheckoutButton/CheckoutButton";
+import { CartItem } from "@/features/carts/components/CartItem";
+import { CheckoutButton } from "@/features/carts/components/CheckoutButton/CheckoutButton";
 import { moneyVO } from "@/lib/format/Money";
 import { useTranslations } from "@/lib/i18n/useTransations";
 import { useNavigate } from "@/lib/router";

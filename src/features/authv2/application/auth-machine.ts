@@ -1,8 +1,8 @@
 import { assign, emit, setup, type PromiseActorLogic } from "xstate";
 
-import type { ICredentials } from "@/features/auth/infrastructure/loginUser";
-import type { IUser } from "@/features/auth/types/IUser";
-import type { UserRoles } from "@/features/authv2/types/UserRoles";
+import type { IUser } from "@/features/auth/models/IUser";
+import type { ICredentials } from "@/features/auth/providers/loginUser";
+import type { UserRoles } from "@/features/authv2/models/UserRoles";
 import type { OneOfUnion } from "@/lib/types/one-of-union";
 
 export type AuthMachineContext =

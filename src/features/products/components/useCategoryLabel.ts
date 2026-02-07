@@ -1,4 +1,4 @@
-import { Category } from "@/features/products/types/Category";
+import { Category } from "@/features/products/models/Category";
 import { useTranslations } from "@/lib/i18n/useTransations";
 
 export const useCategoryLabel = (category: Category) => {

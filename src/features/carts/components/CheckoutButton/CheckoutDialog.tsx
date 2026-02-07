@@ -9,7 +9,7 @@ import {
 } from "@chakra-ui/react";
 import { useRef } from "react";
 
-import { usePurchaseDialogStore } from "@/features/carts/presentation/CheckoutButton/usePurchaseDialogStore";
+import { usePurchaseDialogStore } from "@/features/carts/components/CheckoutButton/usePurchaseDialogStore";
 import { useTranslations } from "@/lib/i18n/useTransations";
 
 import { CheckoutForm } from "../CheckoutForm";

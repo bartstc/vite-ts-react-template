@@ -1,6 +1,6 @@
 import type { Page, Locator } from "@playwright/test";
 
-import type { PaymentMethod } from "@/features/carts/types/PaymentMethod";
+import type { PaymentMethod } from "@/features/carts/models/PaymentMethod";
 import { BasePage } from "@e2e/pages/base/BasePage";
 
 export class CartPage extends BasePage {

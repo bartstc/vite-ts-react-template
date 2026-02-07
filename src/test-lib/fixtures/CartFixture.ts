@@ -1,4 +1,4 @@
-import type { ICart } from "@/features/carts/types/ICart";
+import type { ICart } from "@/features/carts/models/ICart";
 import { DateVO } from "@/lib/date/Date";
 
 import { createFixture } from "./createFixture";

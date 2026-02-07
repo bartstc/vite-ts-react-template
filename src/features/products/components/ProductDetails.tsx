@@ -15,11 +15,11 @@ import {
   AccordionIcon,
 } from "@chakra-ui/react";
 
-import { AddToCartButton } from "@/features/carts/presentation/AddToCartButton/AddToCartButton";
-import { ProductAddedDialog } from "@/features/carts/presentation/AddToCartButton/ProductAddedDialog";
-import { StarRating } from "@/features/products/presentation/StarRating";
-import { useCategoryLabel } from "@/features/products/presentation/useCategoryLabel";
-import type { IProduct } from "@/features/products/types/IProduct";
+import { AddToCartButton } from "@/features/carts/components/AddToCartButton/AddToCartButton";
+import { ProductAddedDialog } from "@/features/carts/components/AddToCartButton/ProductAddedDialog";
+import { StarRating } from "@/features/products/components/StarRating";
+import { useCategoryLabel } from "@/features/products/components/useCategoryLabel";
+import type { IProduct } from "@/features/products/models/IProduct";
 import { PageHeader } from "@/lib/components/Layout/PageHeader";
 import { moneyVO } from "@/lib/format/Money";
 import { useTranslations } from "@/lib/i18n/useTransations";

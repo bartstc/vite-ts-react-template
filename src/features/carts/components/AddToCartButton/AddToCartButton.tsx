@@ -1,8 +1,8 @@
 import { Button, type ButtonProps } from "@chakra-ui/react";
 
 import { useAuthStore } from "@/features/auth/application/authStore";
-import { useAddToCart } from "@/features/carts/infrastructure/useAddToCart";
-import { useProductAddedDialogStore } from "@/features/carts/presentation/AddToCartButton/useProductAddedDialogStore";
+import { useProductAddedDialogStore } from "@/features/carts/components/AddToCartButton/useProductAddedDialogStore";
+import { useAddToCart } from "@/features/carts/providers/useAddToCart";
 import { useTranslations } from "@/lib/i18n/useTransations";
 
 import { useAddToCartNotifications } from "./useAddToCartNotifications";

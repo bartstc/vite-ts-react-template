@@ -1,5 +1,5 @@
-import { Category } from "@/features/products/types/Category";
-import type { IProduct } from "@/features/products/types/IProduct";
+import { Category } from "@/features/products/models/Category";
+import type { IProduct } from "@/features/products/models/IProduct";
 
 import { createFixture } from "./createFixture";
 

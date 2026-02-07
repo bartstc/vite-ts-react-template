@@ -1,4 +1,4 @@
-import { productLoader } from "@/features/products/infrastructure/productQuery";
+import { productLoader } from "@/features/products/providers/productQuery";
 import type { LoaderFunctionArgs } from "@/lib/router";
 
 export const productPageLoader = ({ params }: LoaderFunctionArgs) => {

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { userEvent, within, screen, expect } from "storybook/test";
 
-import { ClearCartButton } from "@/features/carts/presentation/ClearCartButton/ClearCartButton";
+import { ClearCartButton } from "@/features/carts/components/ClearCartButton/ClearCartButton";
 import { getClearCartHandler } from "@/test-lib/handlers/getClearCartHandler";
 import { sleep } from "@/test-lib/storybook/sleep";
 

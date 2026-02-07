@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { userEvent, within, screen, expect } from "storybook/test";
 
-import { CheckoutButton } from "@/features/carts/presentation/CheckoutButton/CheckoutButton";
+import { CheckoutButton } from "@/features/carts/components/CheckoutButton/CheckoutButton";
 
 import { Purchasing as CheckoutFormPurchasing } from "../CheckoutForm.stories";
 

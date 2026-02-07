@@ -1,8 +1,8 @@
 import { Button, VStack } from "@chakra-ui/react";
 import { useState } from "react";
 
-import { usePurchase } from "@/features/carts/infrastructure/usePurchase";
-import type { PaymentMethod } from "@/features/carts/types/PaymentMethod";
+import type { PaymentMethod } from "@/features/carts/models/PaymentMethod";
+import { usePurchase } from "@/features/carts/providers/usePurchase";
 import { Select } from "@/lib/components/Form/Select";
 import { TextInput } from "@/lib/components/Form/TextInput";
 import { useTranslations } from "@/lib/i18n/useTransations";

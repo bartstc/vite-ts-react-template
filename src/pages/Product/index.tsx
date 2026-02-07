@@ -1,9 +1,9 @@
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import { Button } from "@chakra-ui/react";
 
-import { useProductQuery } from "@/features/products/infrastructure/productQuery";
-import { ProductDetails } from "@/features/products/presentation/ProductDetails";
-import { ProductNotFoundResult } from "@/features/products/presentation/ProductNotFoundResult";
+import { ProductDetails } from "@/features/products/components/ProductDetails";
+import { ProductNotFoundResult } from "@/features/products/components/ProductNotFoundResult";
+import { useProductQuery } from "@/features/products/providers/productQuery";
 import { Page } from "@/lib/components/Layout/Page";
 import { InternalErrorResult } from "@/lib/components/Result/InternalErrorResult";
 import { ResourceNotFoundException } from "@/lib/http/exceptions/ResourceNotFoundException";

@@ -2,7 +2,7 @@ import {
   Permission,
   Role,
   type UserRoles,
-} from "@/features/authv2/types/UserRoles";
+} from "@/features/authv2/models/UserRoles";
 import { sleep } from "@/lib/sleep";
 
 export async function getRoles(): Promise<UserRoles> {

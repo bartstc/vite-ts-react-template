@@ -1,4 +1,4 @@
-import type { IUser } from "@/features/auth/types/IUser";
+import type { IUser } from "@/features/auth/models/IUser";
 
 import { createFixture } from "./createFixture";
 

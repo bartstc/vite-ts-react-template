@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 import { useRef } from "react";
 
-import { useProductAddedDialogStore } from "@/features/carts/presentation/AddToCartButton/useProductAddedDialogStore";
+import { useProductAddedDialogStore } from "@/features/carts/components/AddToCartButton/useProductAddedDialogStore";
 import { useTranslations } from "@/lib/i18n/useTransations";
 import { useNavigate } from "@/lib/router";
 import { routes } from "@/lib/router/routes";

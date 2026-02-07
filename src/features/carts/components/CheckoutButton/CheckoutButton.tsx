@@ -1,6 +1,6 @@
 import { Button } from "@chakra-ui/react";
 
-import { usePurchaseDialogStore } from "@/features/carts/presentation/CheckoutButton/usePurchaseDialogStore";
+import { usePurchaseDialogStore } from "@/features/carts/components/CheckoutButton/usePurchaseDialogStore";
 import { useTranslations } from "@/lib/i18n/useTransations";
 
 import { CheckoutDialog } from "./CheckoutDialog";

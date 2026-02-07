@@ -1,7 +1,7 @@
 import { withRequireAuth } from "@/features/auth/application/withRequireAuth";
-import { useCartProductsQuery } from "@/features/carts/infrastructure/useCartProductsQuery";
-import { CartsList } from "@/features/carts/presentation/CartsList";
-import { ClearCartButton } from "@/features/carts/presentation/ClearCartButton/ClearCartButton";
+import { CartsList } from "@/features/carts/components/CartsList";
+import { ClearCartButton } from "@/features/carts/components/ClearCartButton/ClearCartButton";
+import { useCartProductsQuery } from "@/features/carts/providers/useCartProductsQuery";
 import { Page } from "@/lib/components/Layout/Page";
 import { PageHeader } from "@/lib/components/Layout/PageHeader";
 import { ErrorPageStrategy } from "@/lib/components/Result/ErrorPageStrategy";

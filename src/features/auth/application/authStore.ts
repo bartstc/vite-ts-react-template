@@ -1,10 +1,10 @@
 import { createContext, useContext } from "react";
 import { createStore, useStore } from "zustand";
 
-import { getUser } from "@/features/auth/infrastructure/getUser";
-import type { IUser } from "@/features/auth/types/IUser";
+import type { IUser } from "@/features/auth/models/IUser";
+import { getUser } from "@/features/auth/providers/getUser";
 
-import { loginUser, type ICredentials } from "../infrastructure/loginUser";
+import { loginUser, type ICredentials } from "../providers/loginUser";
 
 const AUTH_KEY = "fake_store_is_authenticated";
 
