@@ -36,6 +36,7 @@ An opinionated, production-ready starter for **Single Page Application** develop
 - Feature slice architecture with clean architecture principles
 - Centralized API layer with endpoint-based organization and type consolidation
 - Formatting utilities for numbers, monetary values, and dates
+- File naming: PascalCase for React components/stories/page objects, kebab-case for everything else
 - A demo app with authentication showcasing the project structure and tooling in action (powered by [Fake Store API](https://fakestoreapi.com/docs))
 
 ## Getting started

@@ -7,6 +7,21 @@
 - Follow functional programming principles - prefer immutability and pure functions
 - Treat data as immutable - return new objects/arrays instead of mutating
 
+## Naming Conventions
+
+### File naming
+
+| Category           | Convention | Example                                           |
+| ------------------ | ---------- | ------------------------------------------------- |
+| React components   | PascalCase | `ProductCard.tsx`, `SignInForm.tsx`               |
+| Storybook stories  | PascalCase | `ProductCard.stories.tsx`                         |
+| Page Objects (E2E) | PascalCase | `ProductListPage.ts`, `HeaderComponent.ts`        |
+| Everything else    | kebab-case | `auth-store.ts`, `use-counter.ts`, `build-url.ts` |
+
+"Everything else" includes: hooks, stores, utils, types, models, HOCs, handlers, fixtures, providers, machines, and tests.
+
+Test files mirror their source: `use-counter.ts` → `use-counter.test.ts`, `all-or-nothing.ts` → `all-or-nothing.test.ts`.
+
 ## TypeScript
 
 - Avoid `any` type - use `unknown` if necessary
