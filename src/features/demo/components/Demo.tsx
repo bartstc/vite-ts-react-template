@@ -1,10 +1,10 @@
 import { VStack, Text, Heading, Center, Button } from "@chakra-ui/react";
 
-import { useCounter } from "@/features/demo/application/useCounter";
-import { useFormatDate } from "@/lib/date/useFormatDate";
-import { useFormatDateTime } from "@/lib/date/useFormatDateTime";
-import { moneyVO } from "@/lib/format/Money";
-import { numberVO } from "@/lib/format/Number";
+import { useCounter } from "@/features/demo/application/use-counter";
+import { useFormatDate } from "@/lib/date/use-format-date";
+import { useFormatDateTime } from "@/lib/date/use-format-date-time";
+import { moneyVO } from "@/lib/format/money";
+import { numberVO } from "@/lib/format/number";
 
 const Demo = () => {
   const formatDate = useFormatDate();

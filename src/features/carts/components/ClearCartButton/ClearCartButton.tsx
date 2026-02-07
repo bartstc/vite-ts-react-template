@@ -1,8 +1,8 @@
 import { DeleteIcon } from "@chakra-ui/icons";
 import { Button } from "@chakra-ui/react";
 
-import { useConfirmClearCartDialogStore } from "@/features/carts/components/ClearCartButton/useConfirmClearCartDialogStore";
-import { useTranslations } from "@/lib/i18n/useTransations";
+import { useConfirmClearCartDialogStore } from "@/features/carts/components/ClearCartButton/use-confirm-clear-cart-dialog-store";
+import { useTranslations } from "@/lib/i18n/use-transations";
 
 import { ConfirmClearCartDialog } from "./ConfirmClearCartDialog";
 

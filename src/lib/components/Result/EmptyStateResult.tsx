@@ -1,7 +1,7 @@
 import { ButtonGroup } from "@chakra-ui/react";
 import type { ReactNode } from "react";
 
-import { useTranslations } from "@/lib/i18n/useTransations";
+import { useTranslations } from "@/lib/i18n/use-transations";
 
 import { RestFiltersButton } from "./Buttons/ResetFiltersButton";
 import { WarningIcon } from "./Icons/WarningIcon";

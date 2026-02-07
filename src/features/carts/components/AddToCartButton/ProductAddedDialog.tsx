@@ -13,11 +13,11 @@ import {
 } from "@chakra-ui/react";
 import { useRef } from "react";
 
-import { useProductAddedDialogStore } from "@/features/carts/components/AddToCartButton/useProductAddedDialogStore";
-import { useTranslations } from "@/lib/i18n/useTransations";
+import { useProductAddedDialogStore } from "@/features/carts/components/AddToCartButton/use-product-added-dialog-store";
+import { useTranslations } from "@/lib/i18n/use-transations";
 import { useNavigate } from "@/lib/router";
 import { routes } from "@/lib/router/routes";
-import { useSecondaryTextColor } from "@/lib/theme/useSecondaryTextColor";
+import { useSecondaryTextColor } from "@/lib/theme/use-secondary-text-color";
 
 const ProductAddedDialog = () => {
   const secondaryColor = useSecondaryTextColor();

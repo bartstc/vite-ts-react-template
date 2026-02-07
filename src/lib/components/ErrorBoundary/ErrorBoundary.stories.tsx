@@ -7,7 +7,7 @@ import { createMemoryRouter, RouterProvider } from "react-router";
 import { ErrorBoundary } from "@/lib/components/ErrorBoundary/ErrorBoundary";
 import { ErrorPageStrategy } from "@/lib/components/Result/ErrorPageStrategy";
 import { InternalServerErrorResult } from "@/lib/components/Result/InternalServerErrorResult";
-import { AjaxError } from "@/lib/http/AjaxError";
+import { AjaxError } from "@/lib/http/ajax-error";
 
 const withRouter: Decorator = (story) => {
   const router = createMemoryRouter(

@@ -1,5 +1,5 @@
-import { HttpService } from "./HttpService";
-import { KyClient } from "./KyClient";
+import { HttpService } from "./http-service";
+import { KyClient } from "./ky-client";
 
 const headers = {
   "Content-Type": "application/json",

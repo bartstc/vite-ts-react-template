@@ -1,11 +1,11 @@
 import { Button, type ButtonProps } from "@chakra-ui/react";
 
-import { useAuthStore } from "@/features/auth/application/authStore";
-import { useProductAddedDialogStore } from "@/features/carts/components/AddToCartButton/useProductAddedDialogStore";
-import { useAddToCart } from "@/features/carts/providers/useAddToCart";
-import { useTranslations } from "@/lib/i18n/useTransations";
+import { useAuthStore } from "@/features/auth/application/auth-store";
+import { useProductAddedDialogStore } from "@/features/carts/components/AddToCartButton/use-product-added-dialog-store";
+import { useAddToCart } from "@/features/carts/providers/use-add-to-cart";
+import { useTranslations } from "@/lib/i18n/use-transations";
 
-import { useAddToCartNotifications } from "./useAddToCartNotifications";
+import { useAddToCartNotifications } from "./use-add-to-cart-notifications";
 
 interface IProps {
   productId: number;

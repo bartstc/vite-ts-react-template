@@ -13,8 +13,8 @@ import {
 } from "@chakra-ui/react";
 import type { ReactNode } from "react";
 
-import { useBrandColor } from "@/lib/theme/useBrandColor";
-import { useSecondaryTextColor } from "@/lib/theme/useSecondaryTextColor";
+import { useBrandColor } from "@/lib/theme/use-brand-color";
+import { useSecondaryTextColor } from "@/lib/theme/use-secondary-text-color";
 
 const FeatureSection = () => {
   const brandColor = useBrandColor();

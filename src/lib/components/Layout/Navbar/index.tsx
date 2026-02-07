@@ -13,8 +13,8 @@ import {
 } from "@chakra-ui/react";
 
 // eslint-disable-next-line import/no-restricted-paths
-import { useAuthStore } from "@/features/auth/application/authStore";
-import { useNotImplementedYetToast } from "@/lib/components/Toast/useNotImplementedYetToast";
+import { useAuthStore } from "@/features/auth/application/auth-store";
+import { useNotImplementedYetToast } from "@/lib/components/Toast/use-not-implemented-yet-toast";
 import { Link, useNavigate } from "@/lib/router";
 
 import { ToggleModeButton } from "../ToggleModeButton";

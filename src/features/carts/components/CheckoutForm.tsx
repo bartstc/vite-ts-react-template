@@ -1,13 +1,13 @@
 import { Button, VStack } from "@chakra-ui/react";
 import { useState } from "react";
 
-import type { PaymentMethod } from "@/features/carts/models/PaymentMethod";
-import { usePurchase } from "@/features/carts/providers/usePurchase";
+import type { PaymentMethod } from "@/features/carts/models/payment-method";
+import { usePurchase } from "@/features/carts/providers/use-purchase";
 import { Select } from "@/lib/components/Form/Select";
 import { TextInput } from "@/lib/components/Form/TextInput";
-import { useTranslations } from "@/lib/i18n/useTransations";
+import { useTranslations } from "@/lib/i18n/use-transations";
 
-import { usePurchaseNotifications } from "./useCheckoutNotifications";
+import { usePurchaseNotifications } from "./use-checkout-notifications";
 
 interface IProps {
   onSuccess?: () => void;

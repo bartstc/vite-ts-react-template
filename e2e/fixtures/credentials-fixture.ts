@@ -1,9 +1,9 @@
-import type { IUser } from "@/features/auth/models/IUser";
-import { UserFixture } from "@/test-lib/fixtures/UserFixture";
+import type { User } from "@/features/auth/models/user";
+import { UserFixture } from "@/test-lib/fixtures/user-fixture";
 
 // AIDEV-NOTE: Reuses UserFixture from @/test-lib for domain data, adds E2E-specific password field
 export interface TestCredentials {
-  user: IUser;
+  user: User;
   password: string;
 }
 

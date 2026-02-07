@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { userEvent, within, screen, expect } from "storybook/test";
 
 import { ClearCartButton } from "@/features/carts/components/ClearCartButton/ClearCartButton";
-import { getClearCartHandler } from "@/test-lib/handlers/getClearCartHandler";
+import { getClearCartHandler } from "@/test-lib/handlers/get-clear-cart-handler";
 import { sleep } from "@/test-lib/storybook/sleep";
 
 const meta = {

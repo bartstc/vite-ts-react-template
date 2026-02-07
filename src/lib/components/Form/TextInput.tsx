@@ -7,7 +7,7 @@ import {
 } from "@chakra-ui/react";
 import type { ReactNode } from "react";
 
-import { useTranslations } from "@/lib/i18n/useTransations";
+import { useTranslations } from "@/lib/i18n/use-transations";
 
 interface IProps extends InputProps {
   id: string;

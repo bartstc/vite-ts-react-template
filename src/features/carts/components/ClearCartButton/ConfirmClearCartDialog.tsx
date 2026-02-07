@@ -13,11 +13,11 @@ import {
 } from "@chakra-ui/react";
 import { useRef } from "react";
 
-import { useConfirmClearCartDialogStore } from "@/features/carts/components/ClearCartButton/useConfirmClearCartDialogStore";
-import { useClearCart } from "@/features/carts/providers/useClearCart";
-import { useTranslations } from "@/lib/i18n/useTransations";
+import { useConfirmClearCartDialogStore } from "@/features/carts/components/ClearCartButton/use-confirm-clear-cart-dialog-store";
+import { useClearCart } from "@/features/carts/providers/use-clear-cart";
+import { useTranslations } from "@/lib/i18n/use-transations";
 
-import { useClearCartNotifications } from "./useClearCartNotifications";
+import { useClearCartNotifications } from "./use-clear-cart-notifications";
 
 const ConfirmClearCartDialog = () => {
   const cancelRef = useRef<HTMLButtonElement>(null);

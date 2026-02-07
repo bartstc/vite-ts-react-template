@@ -11,12 +11,12 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 
-import { useAuthStore } from "@/features/auth/application/authStore";
+import { useAuthStore } from "@/features/auth/application/auth-store";
 import { TextInput } from "@/lib/components/Form/TextInput";
-import { useTranslations } from "@/lib/i18n/useTransations";
-import { useSecondaryTextColor } from "@/lib/theme/useSecondaryTextColor";
+import { useTranslations } from "@/lib/i18n/use-transations";
+import { useSecondaryTextColor } from "@/lib/theme/use-secondary-text-color";
 
-import { useSignInNotifications } from "./useSignInNotifications";
+import { useSignInNotifications } from "./use-sign-in-notifications";
 
 interface IProps {
   initialUsername?: string;

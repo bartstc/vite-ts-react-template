@@ -4,11 +4,11 @@ import { type ComponentProps, Fragment } from "react";
 
 import { CartItem } from "@/features/carts/components/CartItem";
 import { CheckoutButton } from "@/features/carts/components/CheckoutButton/CheckoutButton";
-import { moneyVO } from "@/lib/format/Money";
-import { useTranslations } from "@/lib/i18n/useTransations";
+import { moneyVO } from "@/lib/format/money";
+import { useTranslations } from "@/lib/i18n/use-transations";
 import { useNavigate } from "@/lib/router";
 import { routes } from "@/lib/router/routes";
-import { useSecondaryTextColor } from "@/lib/theme/useSecondaryTextColor";
+import { useSecondaryTextColor } from "@/lib/theme/use-secondary-text-color";
 
 interface IProps {
   cartProducts: ComponentProps<typeof CartItem>[];

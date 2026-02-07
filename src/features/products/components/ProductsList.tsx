@@ -2,13 +2,13 @@
 import { SimpleGrid, GridItem } from "@chakra-ui/react";
 
 import { ProductAddedDialog } from "@/features/carts/components/AddToCartButton/ProductAddedDialog";
-import type { IProduct } from "@/features/products/models/IProduct";
+import type { Product } from "@/features/products/models/product";
 import { EmptyStateResult } from "@/lib/components/Result/EmptyStateResult";
 
 import { ProductCard } from "./ProductCard";
 
 interface IProps {
-  products: IProduct[];
+  products: Product[];
 }
 
 const ProductsList = ({ products }: IProps) => {

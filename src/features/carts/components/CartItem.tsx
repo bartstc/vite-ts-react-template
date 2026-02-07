@@ -2,14 +2,14 @@
 import { CheckIcon } from "@chakra-ui/icons";
 import { Box, Text, VStack, HStack, Button, Stack } from "@chakra-ui/react";
 
-import { useCategoryLabel } from "@/features/products/components/useCategoryLabel";
-import { Category } from "@/features/products/models/Category";
-import { useNotImplementedYetToast } from "@/lib/components/Toast/useNotImplementedYetToast";
-import { moneyVO } from "@/lib/format/Money";
-import { useTranslations } from "@/lib/i18n/useTransations";
+import { useCategoryLabel } from "@/features/products/components/use-category-label";
+import { Category } from "@/features/products/models/category";
+import { useNotImplementedYetToast } from "@/lib/components/Toast/use-not-implemented-yet-toast";
+import { moneyVO } from "@/lib/format/money";
+import { useTranslations } from "@/lib/i18n/use-transations";
 import { useNavigate } from "@/lib/router";
 import { routes } from "@/lib/router/routes";
-import { useSecondaryTextColor } from "@/lib/theme/useSecondaryTextColor";
+import { useSecondaryTextColor } from "@/lib/theme/use-secondary-text-color";
 
 interface IProps {
   id: number;

@@ -12,8 +12,8 @@ import {
 
 import { Link } from "@/lib/router";
 
-import type { INavItem } from "./INavItem";
-import { useNavItems } from "./useNavItems";
+import type { NavItem } from "./nav-item";
+import { useNavItems } from "./use-nav-items";
 
 export const MobileNav = () => {
   const bg = useColorModeValue("white", "gray.800");
@@ -36,7 +36,7 @@ export const MobileNav = () => {
 };
 
 // todo: navigation: Link
-const MobileNavItem = ({ label, children, href }: INavItem) => {
+const MobileNavItem = ({ label, children, href }: NavItem) => {
   const { isOpen, onToggle } = useDisclosure();
 
   return (

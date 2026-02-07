@@ -8,7 +8,7 @@ import {
   type NavigateOptions,
 } from "react-router";
 
-import type { RoutePath } from "@/lib/router/routePath";
+import type { RoutePath } from "@/lib/router/route-path";
 
 export {
   Link,
@@ -22,8 +22,8 @@ export {
   matchPath,
   type LoaderFunctionArgs,
 } from "react-router";
-export { useRouteError } from "./useRouteError";
-export { handleLazyImportError } from "./handleLazyImportError";
+export { useRouteError } from "./use-route-error";
+export { handleLazyImportError } from "./handle-lazy-import-error";
 
 export const useLocationState = () => useLocation().state ?? {};
 

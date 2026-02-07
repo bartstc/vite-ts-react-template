@@ -1,6 +1,6 @@
 import { Center } from "@chakra-ui/react";
 
-import { withRequirePub } from "@/features/auth/application/withRequirePub";
+import { withRequirePub } from "@/features/auth/application/with-require-pub";
 import { SignInForm } from "@/features/auth/components/SignInForm";
 import { Page } from "@/lib/components/Layout/Page";
 import { ErrorPageStrategy } from "@/lib/components/Result/ErrorPageStrategy";

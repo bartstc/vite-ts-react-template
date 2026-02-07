@@ -5,7 +5,7 @@ export enum Category {
   Electronics = "electronics",
 }
 
-export interface IRating {
+export interface Rating {
   rate: number;
   count: number;
 }
@@ -17,5 +17,5 @@ export interface ProductDto {
   category: Category;
   image: string;
   price: number;
-  rating: IRating;
+  rating: Rating;
 }

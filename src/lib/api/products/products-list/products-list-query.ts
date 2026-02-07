@@ -1,10 +1,10 @@
 import type { UseQueryOptions } from "@tanstack/react-query";
 
-import { buildUrl } from "@/lib/buildUrl";
+import { buildUrl } from "@/lib/build-url";
 import { httpService } from "@/lib/http";
 import { queryClient, useQuery } from "@/lib/query";
-import type { IMeta } from "@/types/IMeta";
-import type { IQueryParams } from "@/types/IQueryParams";
+import type { Meta } from "@/types/meta";
+import type { QueryParams } from "@/types/query-params";
 
 import { productsQueryKeys } from "../products-query-keys";
 import type { ProductDto } from "../{product-id}/product-dto";
@@ -13,10 +13,10 @@ const defaultParams = { limit: 10, sort: "asc" };
 
 interface ICollection {
   products: ProductDto[];
-  meta: IMeta;
+  meta: Meta;
 }
 
-const getProductsQuery = (params: IQueryParams = defaultParams) => ({
+const getProductsQuery = (params: QueryParams = defaultParams) => ({
   queryKey: productsQueryKeys.list(params),
   queryFn: (): Promise<ICollection> =>
     httpService.get<ProductDto[]>(buildUrl("products", params)).then((res) => ({
@@ -29,7 +29,7 @@ const getProductsQuery = (params: IQueryParams = defaultParams) => ({
 });
 
 export const useProductsQuery = (
-  params: IQueryParams = defaultParams,
+  params: QueryParams = defaultParams,
   options?: Omit<UseQueryOptions<ICollection>, "queryKey" | "queryFn">
 ) => {
   return useQuery({
@@ -38,5 +38,5 @@ export const useProductsQuery = (
   });
 };
 
-export const productsLoader = async (params: IQueryParams = defaultParams) =>
+export const productsLoader = async (params: QueryParams = defaultParams) =>
   queryClient.ensureQueryData(getProductsQuery(params));

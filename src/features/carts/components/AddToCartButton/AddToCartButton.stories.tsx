@@ -11,7 +11,7 @@ import {
   reactRouterParameters,
 } from "storybook-addon-remix-react-router";
 
-import { getAddToCartHandler } from "@/test-lib/handlers/getAddToCartHandler";
+import { getAddToCartHandler } from "@/test-lib/handlers/get-add-to-cart-handler";
 import { sleep } from "@/test-lib/storybook/sleep";
 
 import { AddToCartButton } from "./AddToCartButton";

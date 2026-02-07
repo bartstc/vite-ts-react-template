@@ -18,15 +18,15 @@ import {
 import { AddToCartButton } from "@/features/carts/components/AddToCartButton/AddToCartButton";
 import { ProductAddedDialog } from "@/features/carts/components/AddToCartButton/ProductAddedDialog";
 import { StarRating } from "@/features/products/components/StarRating";
-import { useCategoryLabel } from "@/features/products/components/useCategoryLabel";
-import type { IProduct } from "@/features/products/models/IProduct";
+import { useCategoryLabel } from "@/features/products/components/use-category-label";
+import type { Product } from "@/features/products/models/product";
 import { PageHeader } from "@/lib/components/Layout/PageHeader";
-import { moneyVO } from "@/lib/format/Money";
-import { useTranslations } from "@/lib/i18n/useTransations";
-import { useSecondaryTextColor } from "@/lib/theme/useSecondaryTextColor";
+import { moneyVO } from "@/lib/format/money";
+import { useTranslations } from "@/lib/i18n/use-transations";
+import { useSecondaryTextColor } from "@/lib/theme/use-secondary-text-color";
 
 interface IProps {
-  product: IProduct;
+  product: Product;
   onBack: () => void;
 }
 

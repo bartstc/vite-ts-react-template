@@ -4,21 +4,21 @@ import { keepPreviousData } from "@tanstack/react-query";
 import { useState } from "react";
 
 import { ProductsList } from "@/features/products/components/ProductsList";
-import { useProductsQuery } from "@/features/products/providers/productsQuery";
+import { useProductsQuery } from "@/features/products/providers/products-query";
 import { Page } from "@/lib/components/Layout/Page";
 import { PageHeader } from "@/lib/components/Layout/PageHeader";
 import { ErrorPageStrategy } from "@/lib/components/Result/ErrorPageStrategy";
-import { useNotImplementedYetToast } from "@/lib/components/Toast/useNotImplementedYetToast";
-import { useTranslations } from "@/lib/i18n/useTransations";
-import type { IQueryParams } from "@/types/IQueryParams";
+import { useNotImplementedYetToast } from "@/lib/components/Toast/use-not-implemented-yet-toast";
+import { useTranslations } from "@/lib/i18n/use-transations";
+import type { QueryParams } from "@/types/query-params";
 
-const defaultParams: IQueryParams = { limit: 10, sort: "asc" };
+const defaultParams: QueryParams = { limit: 10, sort: "asc" };
 
 const ProductsPage = () => {
   const notImplemented = useNotImplementedYetToast();
   const t = useTranslations("pages.products");
 
-  const [params, setParams] = useState<IQueryParams>(defaultParams);
+  const [params, setParams] = useState<QueryParams>(defaultParams);
   const { data, isFetching } = useProductsQuery(params, {
     placeholderData: keepPreviousData,
   });

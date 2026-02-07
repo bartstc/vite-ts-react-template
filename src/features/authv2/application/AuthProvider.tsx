@@ -4,15 +4,15 @@ import type { PropsWithChildren } from "react";
 import { useEffect } from "react";
 import { fromPromise } from "xstate";
 
-import { getUser } from "@/features/auth/providers/getUser";
-import { loginUser } from "@/features/auth/providers/loginUser";
+import { getUser } from "@/features/auth/providers/get-user";
+import { loginUser } from "@/features/auth/providers/login-user";
 import { AuthContext } from "@/features/authv2/application/auth-context";
 import {
   authMachine,
   type AuthMachineActors,
   type AuthMachineEmittedEvents,
 } from "@/features/authv2/application/auth-machine";
-import { getRoles } from "@/features/authv2/providers/getRoles";
+import { getRoles } from "@/features/authv2/providers/get-roles";
 import { sleep } from "@/lib/sleep";
 
 const AUTH_KEY = "fake_store_is_authenticated";
