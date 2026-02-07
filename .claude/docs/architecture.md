@@ -40,10 +40,10 @@
 
 Each feature follows feature slice architecture patterns with three layers:
 
-- **presentation/** - UI components, UI-wise hooks
-- **application/** - Business logic, state management, logic-wise hooks
-- **infrastructure/** - Data fetching, external APIs, contracts, DTOs
-- **types/** - Type definitions
+- **components/** - UI components, presentational and decoupled from data sources, business logic, and router state
+- **application/** - Business logic, state management, custom hooks, stores, and functions
+- **providers/** - Data fetching, external APIs, platform/SDK interactions, commands/mutations
+- **models/** - Type definitions
 
 ## Key Patterns
 

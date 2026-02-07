@@ -8,7 +8,7 @@ import {
 } from "@chakra-ui/react";
 import type { ReactNode } from "react";
 
-import { useSecondaryTextColor } from "@/lib/theme/useSecondaryTextColor";
+import { useSecondaryTextColor } from "@/lib/theme/use-secondary-text-color";
 
 interface IProps {
   title: string | ReactNode;

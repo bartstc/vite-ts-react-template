@@ -2,10 +2,10 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { HttpResponse } from "msw";
 import { withRouter } from "storybook-addon-remix-react-router";
 
-import { CartFixture } from "@/test-lib/fixtures/CartFixture";
-import { getCartHandler } from "@/test-lib/handlers/getCartHandler";
-import { getClearCartHandler } from "@/test-lib/handlers/getClearCartHandler";
-import { getProductHandler } from "@/test-lib/handlers/getProductHandler";
+import { CartFixture } from "@/test-lib/fixtures/cart-fixture";
+import { getCartHandler } from "@/test-lib/handlers/get-cart-handler";
+import { getClearCartHandler } from "@/test-lib/handlers/get-clear-cart-handler";
+import { getProductHandler } from "@/test-lib/handlers/get-product-handler";
 
 import { cartPageLoader } from "./loader";
 

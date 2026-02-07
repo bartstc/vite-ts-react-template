@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { withRouter } from "storybook-addon-remix-react-router";
 
-import { getProductsHandler } from "@/test-lib/handlers/getProductsHandler";
+import { getProductsHandler } from "@/test-lib/handlers/get-products-handler";
 
 import { homePageLoader } from "./loader";
 

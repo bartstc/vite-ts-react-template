@@ -3,7 +3,7 @@ import type { ErrorBoundaryPropsWithComponent } from "react-error-boundary";
 import { ErrorBoundary as Boundary } from "react-error-boundary";
 
 import { ErrorPageStrategy } from "@/lib/components/Result/ErrorPageStrategy";
-import { AjaxError } from "@/lib/http/AjaxError";
+import { AjaxError } from "@/lib/http/ajax-error";
 import { Logger } from "@/lib/logger";
 
 export interface FallbackProps<ErrorType = Error | AjaxError> {

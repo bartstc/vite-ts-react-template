@@ -1,7 +1,7 @@
 import { ArrowRightIcon } from "@chakra-ui/icons";
 import { HStack, Text } from "@chakra-ui/react";
 
-import { useBrandColor } from "@/lib/theme/useBrandColor";
+import { useBrandColor } from "@/lib/theme/use-brand-color";
 
 export const Logo = () => {
   const color = useBrandColor();

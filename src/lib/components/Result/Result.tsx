@@ -1,7 +1,7 @@
 import { Center, VStack, Heading, Text } from "@chakra-ui/react";
 import type { ReactNode } from "react";
 
-import { useSecondaryTextColor } from "@/lib/theme/useSecondaryTextColor";
+import { useSecondaryTextColor } from "@/lib/theme/use-secondary-text-color";
 
 interface IProps {
   image: ReactNode;

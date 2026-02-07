@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 
-import { DateVO } from "@/lib/date/Date";
+import { DateVO } from "@/lib/date/date";
 import { httpService } from "@/lib/http";
 import { Logger } from "@/lib/logger";
 

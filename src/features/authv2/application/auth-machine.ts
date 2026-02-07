@@ -1,8 +1,8 @@
 import { assign, emit, setup, type PromiseActorLogic } from "xstate";
 
-import type { ICredentials } from "@/features/auth/infrastructure/loginUser";
-import type { IUser } from "@/features/auth/types/IUser";
-import type { UserRoles } from "@/features/authv2/types/UserRoles";
+import type { User } from "@/features/auth/models/user";
+import type { ICredentials } from "@/features/auth/providers/login-user";
+import type { UserRoles } from "@/features/authv2/models/user-roles";
 import type { OneOfUnion } from "@/lib/types/one-of-union";
 
 export type AuthMachineContext =
@@ -11,16 +11,16 @@ export type AuthMachineContext =
     }
   | {
       type: "AUTHENTICATED";
-      user: IUser;
+      user: User;
     }
   | {
       type: "ROLES_ASSIGNED";
-      user: IUser;
+      user: User;
       roles: UserRoles;
     }
   | {
       type: "AUTHORIZED";
-      user: IUser;
+      user: User;
       roles: UserRoles;
     };
 
@@ -41,7 +41,7 @@ type AuthMachineEvents =
 export type AuthMachineEmittedEvents =
   | {
       type: "USER_LOGGED_IN";
-      user: IUser;
+      user: User;
     }
   | {
       type: "USER_LOGGED_OUT";
@@ -53,7 +53,7 @@ export type AuthMachineEmittedEvents =
 
 export interface AuthMachineActors {
   checkAuthStatus: PromiseActorLogic<boolean, void>;
-  getUser: PromiseActorLogic<IUser, void>;
+  getUser: PromiseActorLogic<User, void>;
   loginUser: PromiseActorLogic<void, ICredentials>;
   getRoles: PromiseActorLogic<UserRoles, void>;
   logout: PromiseActorLogic<void, void>;

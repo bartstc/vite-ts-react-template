@@ -31,6 +31,19 @@ Add specially formatted comments throughout the codebase, where appropriate, for
 - Follow functional programming principles where possible, especially prefer immutability and pure functions.
 - Treat data as immutable - return new objects/arrays instead of mutating existing ones.
 
+#### Naming Conventions
+
+| Category           | Convention | Example                                           |
+| ------------------ | ---------- | ------------------------------------------------- |
+| React components   | PascalCase | `ProductCard.tsx`, `SignInForm.tsx`               |
+| Storybook stories  | PascalCase | `ProductCard.stories.tsx`                         |
+| Page Objects (E2E) | PascalCase | `ProductListPage.ts`, `HeaderComponent.ts`        |
+| Everything else    | kebab-case | `auth-store.ts`, `use-counter.ts`, `build-url.ts` |
+
+"Everything else" includes: hooks, stores, utils, types, models, HOCs, handlers, fixtures, providers, machines, and tests.
+
+Test files mirror their source: `use-counter.ts` → `use-counter.test.ts`, `all-or-nothing.ts` → `all-or-nothing.test.ts`.
+
 #### Typescript
 
 - Avoid using `any` type. If necessary, use `unknown` instead.

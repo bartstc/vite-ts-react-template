@@ -1,7 +1,7 @@
 import type { ComponentType } from "react";
 
 // eslint-disable-next-line import/no-restricted-paths
-import type { Permission } from "@/features/authv2/types/UserRoles";
+import type { Permission } from "@/features/authv2/models/user-roles";
 import { useHasAllPermissions } from "@/lib/permissions/use-has-all-permissions";
 import { useHasPermission } from "@/lib/permissions/use-has-permission";
 

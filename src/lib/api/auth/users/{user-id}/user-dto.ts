@@ -1,4 +1,4 @@
-export interface IAddress {
+export interface Address {
   city: string;
   street: string;
   number: number;
@@ -18,7 +18,7 @@ export interface UserDto {
     lastname: string;
   };
   phone: string;
-  address: IAddress;
+  address: Address;
   cartId: number;
   password: string;
 }

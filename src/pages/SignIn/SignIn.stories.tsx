@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { withRouter } from "storybook-addon-remix-react-router";
 
-import { getSignInHandler } from "@/test-lib/handlers/signInHandler";
+import { getSignInHandler } from "@/test-lib/handlers/sign-in-handler";
 
 import { SignInPage as Component } from "./index";
 

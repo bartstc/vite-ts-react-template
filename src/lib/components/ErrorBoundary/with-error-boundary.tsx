@@ -5,7 +5,7 @@ import {
   type ErrorBoundaryProps,
   type ErrorFallback,
 } from "@/lib/components/ErrorBoundary/ErrorBoundary";
-import type { AjaxError } from "@/lib/http/AjaxError";
+import type { AjaxError } from "@/lib/http/ajax-error";
 
 export const withErrorBoundary =
   <TProps extends object>(

@@ -13,10 +13,10 @@ import {
 } from "@chakra-ui/react";
 
 import { Link, useLocation } from "@/lib/router";
-import { useBrandColor } from "@/lib/theme/useBrandColor";
+import { useBrandColor } from "@/lib/theme/use-brand-color";
 
-import type { INavItem } from "./INavItem";
-import { useNavItems } from "./useNavItems";
+import type { NavItem } from "./nav-item";
+import { useNavItems } from "./use-nav-items";
 
 export const DesktopNav = () => {
   const { pathname } = useLocation();
@@ -80,7 +80,7 @@ export const DesktopNav = () => {
   );
 };
 
-const DesktopSubNav = ({ label, href, subLabel }: INavItem) => {
+const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
   const brandColor = useBrandColor();
 
   return (

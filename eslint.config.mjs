@@ -1,4 +1,5 @@
-import { config, configs as tsConfigs } from "typescript-eslint";
+import { defineConfig } from "eslint/config";
+import tseslint from "typescript-eslint";
 import js from "@eslint/js";
 import { configs } from "eslint-plugin-react-hooks";
 import reactPlugin from "eslint-plugin-react";
@@ -18,7 +19,7 @@ const featureToFeatureZones = featureSlices.map((feature) => ({
   message: "Avoid importing from other features.",
 }));
 
-export default config(
+export default defineConfig(
   {
     ignores: [
       "**/dist",
@@ -29,8 +30,8 @@ export default config(
     ],
   },
   js.configs.recommended,
-  tsConfigs.recommendedTypeChecked,
-  tsConfigs.stylisticTypeChecked,
+  tseslint.configs.recommendedTypeChecked,
+  tseslint.configs.stylisticTypeChecked,
   configs["recommended-latest"],
   reactPlugin.configs.flat.recommended,
   reactPlugin.configs.flat["jsx-runtime"],

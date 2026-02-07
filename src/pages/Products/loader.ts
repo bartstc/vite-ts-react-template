@@ -1,4 +1,4 @@
-import { productsLoader } from "@/features/products/infrastructure/productsQuery";
+import { productsLoader } from "@/features/products/providers/products-query";
 
 export const productsPageLoader = () => {
   return productsLoader();

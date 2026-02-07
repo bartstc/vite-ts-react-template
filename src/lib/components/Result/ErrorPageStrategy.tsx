@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/no-restricted-paths
-import { useAuthStore } from "@/features/auth/application/authStore";
-import { AjaxError } from "@/lib/http/AjaxError";
+import { useAuthStore } from "@/features/auth/application/auth-store";
+import { AjaxError } from "@/lib/http/ajax-error";
 import { useNavigate, useRouteError } from "@/lib/router";
 
 import { InternalErrorResult } from "./InternalErrorResult";
