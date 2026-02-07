@@ -1,20 +1,7 @@
 # Workflow
 
-## Plan & Review
+## While Implementing
 
-### Before Starting Work
-
-1. Always start with planning (unless requested not to)
-2. Write plan to `.claude/tasks/TASK_NAME.md` - never present in chat
-3. Plan should include: detailed implementation steps, reasoning, broken-down tasks
-4. Research external knowledge/packages if needed (use Task tool)
-5. Think MVP - don't over-plan
-6. Ask for review before implementation
-
-### While Implementing
-
-- Update `.claude/tasks/TASK_NAME.md` as you work
-- After completing tasks, append detailed change descriptions for handover
 - Use `pnpm lint --fix` for lint errors/warnings
 
 ## Scanning Repository
