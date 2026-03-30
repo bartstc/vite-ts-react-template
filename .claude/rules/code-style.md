@@ -1,3 +1,9 @@
+---
+paths:
+  - "src/**"
+  - "e2e/**"
+---
+
 # Code Style
 
 ## General

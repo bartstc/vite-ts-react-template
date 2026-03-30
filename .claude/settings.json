@@ -30,7 +30,6 @@
     ],
     "deny": [
       "Bash(rm -rf /)",
-      "Bash(:(){ :|:& };:)",
       "Bash(dd if=/dev/random of=/dev/sda)",
       "Bash(chmod -R 777 /)",
       "Bash(wget -O- | bash)",
@@ -51,5 +50,8 @@
       "Bash(pnpm install)",
       "Bash(pnpm install:*)"
     ]
+  },
+  "enabledPlugins": {
+    "claude-hud@claude-hud": true
   }
 }

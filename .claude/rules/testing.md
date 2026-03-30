@@ -1,3 +1,12 @@
+---
+paths:
+  - "**/*.test.ts"
+  - "**/*.test.tsx"
+  - "**/*.spec.ts"
+  - "**/*.spec.tsx"
+  - "e2e/**"
+---
+
 # Testing
 
 ## Testing Strategy
@@ -12,11 +21,11 @@
 
 ## AI Boundaries
 
-| What           | AI CAN Do               | AI MUST NOT Do           |
-| -------------- | ----------------------- | ------------------------ |
-| Implementation | Generate business logic | Touch test files         |
-| Test Planning  | Suggest test scenarios  | Write test code          |
-| Debugging      | Analyze test failures   | Modify test expectations |
+| What           | AI CAN Do                                 | AI MUST NOT Do                  |
+| -------------- | ----------------------------------------- | ------------------------------- |
+| Implementation | Generate business logic; create new tests | Modify existing test files      |
+| Test Planning  | Write new test files when asked           | Edit existing test expectations |
+| Debugging      | Analyze test failures                     | Change existing test code       |
 
 ## Test Case Scenarios
 

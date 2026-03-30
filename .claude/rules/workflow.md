@@ -1,3 +1,9 @@
+---
+paths:
+  - "src/**"
+  - "e2e/**"
+---
+
 # Workflow
 
 ## While Implementing

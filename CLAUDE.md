@@ -9,16 +9,16 @@ React SPA built with Vite using feature slice architecture with clean architectu
 - When reporting information, options, pros/cons, or summarizing changes, be extremely concise—sacrifice grammar if needed.
 - Keep plans and documentation concise yet detailed—prioritize information density over formatting.
 
-| #   | AI _may_ do                                                                                      | AI _must NOT_ do                                                                                    |
-| --- | ------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------- |
-| G-0 | Ask for clarification when unsure about project-specific details                                 | Write changes without context for a feature/decision                                                |
-| G-1 | Generate code in `src/features/`, `src/lib/api/`, `src/pages/`, or explicitly pointed files      | Touch files beyond `src` and `e2e`, or `*.stories.tsx` / `*.test.tsx` / `*.spec.ts` without request |
-| G-2 | Add/update `AIDEV-NOTE:` anchor comments near non-trivial code (exception to "no comments" rule) | Delete or mangle existing `AIDEV-` comments                                                         |
-| G-3 | Follow lint/style configs (`.prettierrc`, `.eslint.config.mjs`)                                  | Re-format code to any other style                                                                   |
-| G-4 | For changes >300 LOC or >3 files, ask for confirmation                                           | Refactor large modules without human guidance                                                       |
-| G-5 | Stay within current task context; inform dev if fresh start needed                               | Continue work from prior prompt after "new task"                                                    |
-| G-6 | Modify API contracts only with explicit approval and documentation                               | Change API contracts without approval                                                               |
-| G-7 | Use git commands only when explicitly requested                                                  | Stage, commit, or push without explicit request                                                     |
+| #   | AI _may_ do                                                                                      | AI _must NOT_ do                                                          |
+| --- | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------- |
+| G-0 | Ask for clarification when unsure about project-specific details                                 | Write changes without context for a feature/decision                      |
+| G-1 | Generate code in `src/features/`, `src/lib/api/`, `src/pages/`, or explicitly pointed files      | Touch files beyond `src` and `e2e` without request; modify existing tests |
+| G-2 | Add/update `AIDEV-NOTE:` anchor comments near non-trivial code (exception to "no comments" rule) | Delete or mangle existing `AIDEV-` comments                               |
+| G-3 | Follow lint/style configs (`.prettierrc`, `.eslint.config.mjs`)                                  | Re-format code to any other style                                         |
+| G-4 | For changes >300 LOC or >3 files, ask for confirmation                                           | Refactor large modules without human guidance                             |
+| G-5 | Stay within current task context; inform dev if fresh start needed                               | Continue work from prior prompt after "new task"                          |
+| G-6 | Modify API contracts only with explicit approval and documentation                               | Change API contracts without approval                                     |
+| G-7 | Use git commands only when explicitly requested                                                  | Stage, commit, or push without explicit request                           |
 
 ## Commands
 
@@ -53,10 +53,3 @@ React SPA built with Vite using feature slice architecture with clean architectu
 ## Path Resolution
 
 Uses `@/*` path mapping for imports from `src/` (e.g., `import { Button } from '@/lib/components/button'`)
-
-## Detailed Guidelines
-
-- [Architecture](.claude/docs/architecture.md) - Tech stack, project structure, patterns, state management
-- [Code Style](.claude/docs/code-style.md) - TypeScript, React, and general coding standards
-- [Testing](.claude/docs/testing.md) - Testing strategy, AI boundaries, test case preferences
-- [Workflow](.claude/docs/workflow.md) - Planning process, repository scanning, anchor comments

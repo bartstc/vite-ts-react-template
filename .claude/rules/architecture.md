@@ -1,3 +1,9 @@
+---
+paths:
+  - "src/**"
+  - "e2e/**"
+---
+
 # Architecture
 
 ## Core Technologies
