@@ -1,4 +1,4 @@
-import { Button, VStack, useBoolean } from "@chakra-ui/react";
+import { Button, VStack } from "@chakra-ui/react";
 import type { Decorator, Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 // eslint-disable-next-line no-restricted-imports
@@ -36,7 +36,7 @@ const TestableErrorBoundary = ({
 }: {
   withRecovery?: boolean;
 }) => {
-  const [throwError, setError] = useBoolean(false);
+  const [throwError, setError] = useState(false);
   const [resetKey, setResetKey] = useState(false);
 
   return (
@@ -57,7 +57,7 @@ const TestableErrorBoundary = ({
       }}
     >
       <VStack>
-        <Button id="test" onClick={setError.on} colorScheme="red">
+        <Button id="test" onClick={() => setError(true)} colorPalette="red">
           {"Throw an error"}
         </Button>
         {throwError ? (

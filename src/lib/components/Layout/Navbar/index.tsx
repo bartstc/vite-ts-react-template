@@ -1,21 +1,21 @@
-import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import {
   Box,
+  Collapsible,
   Flex,
-  Text,
+  HStack,
   IconButton,
   Button,
-  Collapse,
-  HStack,
-  useColorModeValue,
+  Text,
   useBreakpointValue,
-  useDisclosure,
 } from "@chakra-ui/react";
+import { Menu, X } from "lucide-react";
+import { useState } from "react";
 
 // eslint-disable-next-line import/no-restricted-paths
 import { useAuthStore } from "@/features/auth/application/auth-store";
 import { useNotImplementedYetToast } from "@/lib/components/Toast/use-not-implemented-yet-toast";
 import { Link, useNavigate } from "@/lib/router";
+import { useColorModeValue } from "@/lib/theme/use-color-mode";
 
 import { ToggleModeButton } from "../ToggleModeButton";
 
@@ -24,7 +24,8 @@ import { LoaderBar } from "./LoaderBar";
 import { MobileNav } from "./MobileNav";
 
 export const Navbar = () => {
-  const { isOpen, onToggle } = useDisclosure();
+  const [isOpen, setIsOpen] = useState(false);
+  const onToggle = () => setIsOpen((v) => !v);
   const bg = useColorModeValue("white", "gray.800");
 
   return (
@@ -46,27 +47,25 @@ export const Navbar = () => {
         >
           <IconButton
             onClick={onToggle}
-            icon={
-              isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />
-            }
             variant="ghost"
             aria-label="Toggle Navigation"
-          />
+          >
+            {isOpen ? <X size={12} /> : <Menu size={20} />}
+          </IconButton>
         </Flex>
         <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
           <Text
-            as={Link}
-            to="/"
+            asChild
             textAlign={useBreakpointValue({ base: "center", md: "left" })}
             fontWeight="extrabold"
           >
-            {"Logo"}
+            <Link to="/">{"Vite TS React Template"}</Link>
           </Text>
           <Flex display={{ base: "none", md: "flex" }} ml={10}>
             <DesktopNav />
           </Flex>
         </Flex>
-        <HStack direction="row" spacing={4}>
+        <HStack gap={4}>
           <SignInButton />
           <SignUpButton />
           <LogoutButton />
@@ -74,9 +73,11 @@ export const Navbar = () => {
         </HStack>
       </Flex>
       <LoaderBar />
-      <Collapse in={isOpen} animateOpacity>
-        <MobileNav />
-      </Collapse>
+      <Collapsible.Root open={isOpen}>
+        <Collapsible.Content>
+          <MobileNav />
+        </Collapsible.Content>
+      </Collapsible.Root>
     </Box>
   );
 };
@@ -89,8 +90,8 @@ const SignInButton = () => {
   }
 
   return (
-    <Button fontWeight={400} variant="link" as={Link} to="/sign-in">
-      {"Sign In"}
+    <Button asChild fontWeight={400} variant="plain">
+      <Link to="/sign-in">{"Sign In"}</Link>
     </Button>
   );
 };
@@ -106,7 +107,7 @@ const SignUpButton = () => {
   return (
     <Button
       display={{ base: "none", md: "inline-flex" }}
-      colorScheme="orange"
+      colorPalette="orange"
       onClick={notImplemented}
     >
       {"Sign Up"}
@@ -127,10 +128,10 @@ const LogoutButton = () => {
   return (
     <Button
       fontWeight={400}
-      variant="link"
+      variant="plain"
       onClick={() => logout().then(() => navigate("/"))}
     >
-      {"Logout"}
+      <Link to="/sign-in">{"Logout"}</Link>
     </Button>
   );
 };

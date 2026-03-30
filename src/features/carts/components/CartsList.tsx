@@ -1,5 +1,5 @@
-import { ArrowForwardIcon } from "@chakra-ui/icons";
-import { VStack, HStack, Button, Text, Divider } from "@chakra-ui/react";
+import { VStack, HStack, Button, Text, Separator } from "@chakra-ui/react";
+import { ArrowRight } from "lucide-react";
 import { type ComponentProps, Fragment } from "react";
 
 import { CartItem } from "@/features/carts/components/CartItem";
@@ -26,14 +26,14 @@ const CartsList = ({ cartProducts }: IProps) => {
     .reduce((a, b) => a + b, 0);
 
   return (
-    <VStack w="100%" spacing={8}>
+    <VStack w="100%" gap={8}>
       {cartProducts.map((cart) => (
         <Fragment key={cart.id}>
           <CartItem {...cart} />
-          <Divider />
+          <Separator />
         </Fragment>
       ))}
-      <VStack w="100%" align="start" spacing={1}>
+      <VStack w="100%" align="start" gap={1}>
         <HStack
           w="100%"
           align="flex-start"
@@ -51,13 +51,13 @@ const CartsList = ({ cartProducts }: IProps) => {
       <VStack w="100%">
         <CheckoutButton />
         <Button
-          variant="link"
+          variant="plain"
           size="sm"
-          colorScheme="blue"
-          rightIcon={<ArrowForwardIcon />}
+          colorPalette="blue"
           onClick={() => navigate(routes.products)}
         >
           {t("continue-shopping")}
+          <ArrowRight />
         </Button>
       </VStack>
     </VStack>

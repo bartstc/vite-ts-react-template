@@ -1,6 +1,14 @@
 /* eslint-disable import/no-restricted-paths */
-import { CheckIcon } from "@chakra-ui/icons";
-import { Box, Text, VStack, HStack, Button, Stack } from "@chakra-ui/react";
+import {
+  Box,
+  Text,
+  VStack,
+  HStack,
+  Button,
+  Stack,
+  Icon,
+} from "@chakra-ui/react";
+import { Check } from "lucide-react";
 
 import { useCategoryLabel } from "@/features/products/components/use-category-label";
 import { Category } from "@/features/products/models/category";
@@ -37,7 +45,7 @@ const CartItem = ({
   return (
     <Stack
       direction={{ base: "column", md: "row" }}
-      spacing={3}
+      gap={3}
       overflow="hidden"
       justify="space-between"
       rounded="lg"
@@ -45,7 +53,7 @@ const CartItem = ({
     >
       <Stack
         direction={{ base: "column", md: "row" }}
-        spacing={{ base: 2, md: 4 }}
+        gap={{ base: 2, md: 4 }}
         align="flex-start"
       >
         <Box
@@ -55,17 +63,23 @@ const CartItem = ({
               params: { productId: id.toString() },
             })
           }
-          cursor="pointer"
+          // cursor="pointer"
+          // w="100%"
+          // maxW="150px"
+          // h="100%"
+          // maxH="100px"
+          // bgImage={imageUrl}
+          // bgSize="contain"
+          // bgRepeat="no-repeat"
+          // position="center"
           w="100%"
-          maxW="150px"
-          h="100%"
-          maxH="100px"
-          bgImage={imageUrl}
-          bgSize="contain"
-          bgRepeat="no-repeat"
-          bgPosition="center"
+          bgSize="cover"
+          bgPos="center"
+          style={{
+            backgroundImage: `url(${imageUrl})`,
+          }}
         />
-        <VStack spacing={1} align="flex-start" justify="flex-start">
+        <VStack gap={1} align="flex-start" justify="flex-start">
           <Text
             fontSize="lg"
             fontWeight="medium"
@@ -81,8 +95,10 @@ const CartItem = ({
           <Text fontSize="sm">
             {t("quantity")} {quantity}
           </Text>
-          <HStack spacing={2}>
-            <CheckIcon color="green.500" />
+          <HStack gap={2}>
+            <Icon color="green.500">
+              <Check />
+            </Icon>
             <Text color="green.500" fontSize="sm">
               {t("in-stock")}
             </Text>
@@ -92,7 +108,7 @@ const CartItem = ({
       <Stack
         direction={{ base: "row", md: "column" }}
         align={{ base: "center", md: "flex-end" }}
-        spacing={{ base: 4, md: 2 }}
+        gap={{ base: 4, md: 2 }}
       >
         <Text fontSize="lg" fontWeight="medium">
           {moneyVO.format(price)}

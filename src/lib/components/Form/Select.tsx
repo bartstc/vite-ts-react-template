@@ -1,28 +1,30 @@
-import {
-  VStack,
-  type SelectProps,
-  Select as ChakraSelect,
-  Text,
-} from "@chakra-ui/react";
+import { VStack, NativeSelect, Text } from "@chakra-ui/react";
 import type { ReactNode } from "react";
 
-interface IProps extends SelectProps {
+interface IProps {
   id: string;
   children: ReactNode;
   options: { label: string; value: string }[];
+  value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
-const Select = ({ children, options, id, ...props }: IProps) => {
+const Select = ({ children, options, id, value, onChange }: IProps) => {
   return (
-    <VStack as="label" htmlFor={id} w="100%" align="start" spacing={2}>
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    <VStack as="label" htmlFor={id} w="100%" align="start" gap={2}>
       <Text fontWeight="500">{children}</Text>
-      <ChakraSelect id={id} {...props}>
-        {options.map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.label}
-          </option>
-        ))}
-      </ChakraSelect>
+      <NativeSelect.Root w="100%">
+        <NativeSelect.Field id={id} value={value} onChange={onChange}>
+          {options.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </NativeSelect.Field>
+        <NativeSelect.Indicator />
+      </NativeSelect.Root>
     </VStack>
   );
 };

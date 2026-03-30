@@ -1,5 +1,5 @@
-import { DeleteIcon } from "@chakra-ui/icons";
 import { Button } from "@chakra-ui/react";
+import { Trash2 } from "lucide-react";
 
 import { useConfirmClearCartDialogStore } from "@/features/carts/components/ClearCartButton/use-confirm-clear-cart-dialog-store";
 import { useTranslations } from "@/lib/i18n/use-transations";
@@ -12,7 +12,8 @@ const ClearCartButton = () => {
 
   return (
     <>
-      <Button leftIcon={<DeleteIcon />} onClick={() => onOpen()}>
+      <Button onClick={() => onOpen()}>
+        <Trash2 />
         {t("button")}
       </Button>
       <ConfirmClearCartDialog />

@@ -6,7 +6,6 @@ import {
   Button,
   Heading,
   Text,
-  useColorModeValue,
   VStack,
 } from "@chakra-ui/react";
 import { useState } from "react";
@@ -14,6 +13,7 @@ import { useState } from "react";
 import { useAuthStore } from "@/features/auth/application/auth-store";
 import { TextInput } from "@/lib/components/Form/TextInput";
 import { useTranslations } from "@/lib/i18n/use-transations";
+import { useColorModeValue } from "@/lib/theme/use-color-mode";
 import { useSecondaryTextColor } from "@/lib/theme/use-secondary-text-color";
 
 import { useSignInNotifications } from "./use-sign-in-notifications";
@@ -35,7 +35,7 @@ export const SignInForm = ({ initialUsername, initialPassword }: IProps) => {
   const login = useAuthStore((store) => store.login);
 
   return (
-    <VStack align="stretch" spacing={8} w="100%" maxW="lg">
+    <VStack align="stretch" gap={8} w="100%" maxW="lg">
       <VStack textAlign="center">
         <Heading fontSize={{ base: "2xl", md: "4xl" }}>{t("header")}</Heading>
         <Text fontSize={{ base: "md", md: "lg" }} color={secondaryColor}>
@@ -50,7 +50,7 @@ export const SignInForm = ({ initialUsername, initialPassword }: IProps) => {
       >
         <VStack
           as="form"
-          spacing={4}
+          gap={4}
           onSubmit={(e) => {
             e.preventDefault();
 
@@ -78,17 +78,21 @@ export const SignInForm = ({ initialUsername, initialPassword }: IProps) => {
           >
             {t("password")}
           </TextInput>
-          <VStack w="100%" spacing={10}>
+          <VStack w="100%" gap={10}>
             <Stack
               w="100%"
               direction={{ base: "column", sm: "row" }}
               align="start"
               justify="space-between"
             >
-              <Checkbox>{t("remember-me")}</Checkbox>
+              <Checkbox.Root>
+                <Checkbox.HiddenInput />
+                <Checkbox.Control />
+                <Checkbox.Label>{t("remember-me")}</Checkbox.Label>
+              </Checkbox.Root>
               <Link color="blue.400">{t("forgot-password")}</Link>
             </Stack>
-            <Button type="submit" colorScheme="blue" w="100%">
+            <Button type="submit" colorPalette="blue" w="100%">
               {t("sign-in")}
             </Button>
           </VStack>

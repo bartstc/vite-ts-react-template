@@ -14,7 +14,7 @@ const HomePage = ({ fallbackProductsNumber }: IProps) => {
   const { data } = useProductsQuery();
 
   return (
-    <Page maxW="container.xl" spacing={{ base: 8, lg: 20 }}>
+    <Page maxW="container.xl" gap={{ base: 8, lg: 20 }}>
       <HeroSection
         productNumber={fallbackProductsNumber ?? data?.meta.total ?? 0}
       />

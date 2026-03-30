@@ -25,7 +25,7 @@ const CheckoutForm = ({ onSuccess }: IProps) => {
   return (
     <VStack
       as="form"
-      spacing={4}
+      gap={4}
       onSubmit={async (e) => {
         e.preventDefault();
 
@@ -64,7 +64,7 @@ const CheckoutForm = ({ onSuccess }: IProps) => {
       >
         {t("payment-method")}
       </Select>
-      <Button type="submit" colorScheme="blue" w="100%" isLoading={isLoading}>
+      <Button type="submit" colorPalette="blue" w="100%" loading={isLoading}>
         {t("submit")}
       </Button>
     </VStack>

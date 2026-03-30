@@ -1,6 +1,6 @@
-import { SettingsIcon } from "@chakra-ui/icons";
 import { Button } from "@chakra-ui/react";
 import { keepPreviousData } from "@tanstack/react-query";
+import { Settings } from "lucide-react";
 import { useState } from "react";
 
 import { ProductsList } from "@/features/products/components/ProductsList";
@@ -28,7 +28,8 @@ const ProductsPage = () => {
   return (
     <Page>
       <PageHeader title={t("title")} description={t("description")}>
-        <Button leftIcon={<SettingsIcon />} onClick={notImplemented}>
+        <Button onClick={notImplemented}>
+          <Settings />
           {t("more-filters")}
         </Button>
       </PageHeader>
@@ -42,8 +43,8 @@ const ProductsPage = () => {
               limit: (params?.limit ?? 10) + 10,
             }))
           }
-          isLoading={isFetching}
-          isDisabled={noMoreProducts}
+          loading={isFetching}
+          disabled={noMoreProducts}
         >
           {noMoreProducts ? t("load-more.no-more") : t("load-more.show-more")}
         </Button>
