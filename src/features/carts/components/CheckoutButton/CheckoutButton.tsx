@@ -11,7 +11,7 @@ const CheckoutButton = () => {
 
   return (
     <>
-      <Button w="100%" colorScheme="orange" onClick={() => onOpen()}>
+      <Button w="100%" colorPalette="orange" onClick={() => onOpen()}>
         {t("button")}
       </Button>
       <CheckoutDialog />

@@ -1,13 +1,4 @@
-import {
-  AlertDialog,
-  AlertDialogBody,
-  AlertDialogHeader,
-  AlertDialogContent,
-  AlertDialogOverlay,
-  AlertDialogCloseButton,
-  type AlertDialogProps,
-} from "@chakra-ui/react";
-import { useRef } from "react";
+import { CloseButton, Dialog, Portal } from "@chakra-ui/react";
 
 import { usePurchaseDialogStore } from "@/features/carts/components/CheckoutButton/use-purchase-dialog-store";
 import { useTranslations } from "@/lib/i18n/use-transations";
@@ -15,7 +6,6 @@ import { useTranslations } from "@/lib/i18n/use-transations";
 import { CheckoutForm } from "../CheckoutForm";
 
 const CheckoutDialog = () => {
-  const cancelRef = useRef<HTMLButtonElement>(null);
   const t = useTranslations("features.carts.checkout.dialog");
 
   const { isOpen, onClose } = usePurchaseDialogStore((state) => ({
@@ -24,23 +14,30 @@ const CheckoutDialog = () => {
   }));
 
   return (
-    <AlertDialog
-      isOpen={isOpen}
-      leastDestructiveRef={cancelRef as AlertDialogProps["leastDestructiveRef"]}
-      onClose={onClose}
+    <Dialog.Root
+      role="alertdialog"
+      open={isOpen}
+      onOpenChange={(e) => {
+        if (!e.open) onClose();
+      }}
     >
-      <AlertDialogOverlay>
-        <AlertDialogContent pb={4}>
-          <AlertDialogHeader fontSize="lg" fontWeight="bold">
-            {t("title")}
-          </AlertDialogHeader>
-          <AlertDialogCloseButton />
-          <AlertDialogBody>
-            <CheckoutForm onSuccess={onClose} />
-          </AlertDialogBody>
-        </AlertDialogContent>
-      </AlertDialogOverlay>
-    </AlertDialog>
+      <Portal>
+        <Dialog.Backdrop />
+        <Dialog.Positioner>
+          <Dialog.Content pb={4}>
+            <Dialog.Header fontSize="lg" fontWeight="bold">
+              <Dialog.Title>{t("title")}</Dialog.Title>
+            </Dialog.Header>
+            <Dialog.CloseTrigger asChild>
+              <CloseButton size="sm" />
+            </Dialog.CloseTrigger>
+            <Dialog.Body>
+              <CheckoutForm onSuccess={onClose} />
+            </Dialog.Body>
+          </Dialog.Content>
+        </Dialog.Positioner>
+      </Portal>
+    </Dialog.Root>
   );
 };
 

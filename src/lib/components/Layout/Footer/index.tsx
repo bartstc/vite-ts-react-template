@@ -5,9 +5,10 @@ import {
   SimpleGrid,
   Stack,
   Text,
-  useColorModeValue,
 } from "@chakra-ui/react";
 import type { ReactNode } from "react";
+
+import { useColorModeValue } from "@/lib/theme/use-color-mode";
 
 import { Logo } from "./Logo";
 
@@ -19,9 +20,9 @@ export const Footer = () => {
       <Container as={Stack} maxW="1340px" py={10}>
         <SimpleGrid
           templateColumns={{ sm: "1fr 1fr", md: "2fr 1fr 1fr 1fr 1fr" }}
-          spacing={8}
+          gap={8}
         >
-          <Stack spacing={3}>
+          <Stack gap={3}>
             <Box>
               <Logo />
             </Box>

@@ -1,17 +1,11 @@
 import {
   Button,
-  AlertDialog,
-  AlertDialogBody,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogContent,
-  AlertDialogOverlay,
+  CloseButton,
+  Dialog,
+  Portal,
   VStack,
   Text,
-  AlertDialogCloseButton,
-  type AlertDialogProps,
 } from "@chakra-ui/react";
-import { useRef } from "react";
 
 import { useProductAddedDialogStore } from "@/features/carts/components/AddToCartButton/use-product-added-dialog-store";
 import { useTranslations } from "@/lib/i18n/use-transations";
@@ -24,8 +18,6 @@ const ProductAddedDialog = () => {
   const navigate = useNavigate();
   const t = useTranslations("features.carts.add-to-cart.dialog");
 
-  const cancelRef = useRef<HTMLButtonElement>(null);
-
   const { isOpen, onClose, cartId } = useProductAddedDialogStore((state) => ({
     isOpen: state.isOpen,
     onClose: state.onClose,
@@ -33,53 +25,58 @@ const ProductAddedDialog = () => {
   }));
 
   return (
-    <AlertDialog
-      isOpen={isOpen}
-      leastDestructiveRef={cancelRef as AlertDialogProps["leastDestructiveRef"]}
-      onClose={onClose}
+    <Dialog.Root
+      role="alertdialog"
+      open={isOpen}
+      onOpenChange={(e) => {
+        if (!e.open) onClose();
+      }}
     >
-      <AlertDialogOverlay>
-        <AlertDialogContent>
-          <AlertDialogHeader fontSize="lg" fontWeight="bold">
-            {t("title")}
-          </AlertDialogHeader>
-          <AlertDialogCloseButton />
-          <AlertDialogBody>
-            <VStack align="stretch">
-              <Text>{t("message")}</Text>
-              <Text fontSize="sm" color={secondaryColor}>
-                {t("success-message")}
-              </Text>
-            </VStack>
-          </AlertDialogBody>
-
-          <AlertDialogFooter>
-            <Button
-              ref={cancelRef}
-              onClick={() => {
-                onClose();
-                void navigate({
-                  path: routes.cart,
-                  params: { cartId: cartId?.toString() },
-                });
-              }}
-            >
-              {t("go-to-cart")}
-            </Button>
-            <Button
-              colorScheme="blue"
-              onClick={() => {
-                onClose();
-                void navigate("/products");
-              }}
-              ml={3}
-            >
-              {t("continue-shopping")}
-            </Button>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialogOverlay>
-    </AlertDialog>
+      <Portal>
+        <Dialog.Backdrop />
+        <Dialog.Positioner>
+          <Dialog.Content>
+            <Dialog.Header fontSize="lg" fontWeight="bold">
+              <Dialog.Title>{t("title")}</Dialog.Title>
+            </Dialog.Header>
+            <Dialog.CloseTrigger asChild>
+              <CloseButton size="sm" />
+            </Dialog.CloseTrigger>
+            <Dialog.Body>
+              <VStack align="stretch">
+                <Text>{t("message")}</Text>
+                <Text fontSize="sm" color={secondaryColor}>
+                  {t("success-message")}
+                </Text>
+              </VStack>
+            </Dialog.Body>
+            <Dialog.Footer>
+              <Button
+                onClick={() => {
+                  onClose();
+                  void navigate({
+                    path: routes.cart,
+                    params: { cartId: cartId?.toString() },
+                  });
+                }}
+              >
+                {t("go-to-cart")}
+              </Button>
+              <Button
+                colorPalette="blue"
+                onClick={() => {
+                  onClose();
+                  void navigate("/products");
+                }}
+                ml={3}
+              >
+                {t("continue-shopping")}
+              </Button>
+            </Dialog.Footer>
+          </Dialog.Content>
+        </Dialog.Positioner>
+      </Portal>
+    </Dialog.Root>
   );
 };
 

@@ -9,10 +9,10 @@ import { useAddToCartNotifications } from "./use-add-to-cart-notifications";
 
 interface IProps {
   productId: number;
-  colorScheme?: ButtonProps["colorScheme"];
+  colorPalette?: ButtonProps["colorPalette"];
 }
 
-const AddToCartButton = ({ productId, colorScheme = "gray" }: IProps) => {
+const AddToCartButton = ({ productId, colorPalette = "gray" }: IProps) => {
   const cartId = useAuthStore((store) => store.user?.cartId);
   const isAuthenticated = useAuthStore((store) => store.isAuthenticated);
   const t = useTranslations("features.carts.add-to-cart");
@@ -25,8 +25,8 @@ const AddToCartButton = ({ productId, colorScheme = "gray" }: IProps) => {
   return (
     <Button
       w="100%"
-      colorScheme={colorScheme}
-      isLoading={isLoading}
+      colorPalette={colorPalette}
+      loading={isLoading}
       onClick={async () => {
         if (!isAuthenticated) {
           return notifyNotAuthenticated();

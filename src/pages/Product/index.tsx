@@ -1,5 +1,5 @@
-import { ArrowBackIcon } from "@chakra-ui/icons";
 import { Button } from "@chakra-ui/react";
+import { ArrowLeft } from "lucide-react";
 
 import { ProductDetails } from "@/features/products/components/ProductDetails";
 import { ProductNotFoundResult } from "@/features/products/components/ProductNotFoundResult";
@@ -17,12 +17,9 @@ const ProductPage = () => {
   const t = useTranslations("pages.product");
 
   return (
-    <Page spacing={6}>
-      <Button
-        leftIcon={<ArrowBackIcon />}
-        variant="link"
-        onClick={() => navigate("/products")}
-      >
+    <Page gap={6}>
+      <Button variant="plain" onClick={() => navigate("/products")}>
+        <ArrowLeft />
         {t("back-to-list")}
       </Button>
       <ProductDetails product={data} onBack={() => navigate("/products")} />

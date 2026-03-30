@@ -1,4 +1,3 @@
-import { ChevronRightIcon } from "@chakra-ui/icons";
 import {
   Box,
   Flex,
@@ -9,11 +8,12 @@ import {
   PopoverTrigger,
   Stack,
   Text,
-  useColorModeValue,
 } from "@chakra-ui/react";
+import { ChevronRight } from "lucide-react";
 
 import { Link, useLocation } from "@/lib/router";
 import { useBrandColor } from "@/lib/theme/use-brand-color";
+import { useColorModeValue } from "@/lib/theme/use-color-mode";
 
 import type { NavItem } from "./nav-item";
 import { useNavItems } from "./use-nav-items";
@@ -27,22 +27,21 @@ export const DesktopNav = () => {
   const brandColor = useBrandColor();
 
   return (
-    <Stack direction="row" spacing={4}>
+    <Stack direction="row" gap={4}>
       {navItems.map((navItem) => (
         <Box key={navItem.label}>
-          <Popover trigger="hover" placement="bottom-start">
+          <Popover.Root positioning={{ placement: "bottom-start" }}>
             <PopoverTrigger>
               {navItem.href ? (
                 <ChLink
-                  as={Link}
+                  asChild
                   p={2}
-                  to={navItem.href}
                   color={pathname === navItem.href ? brandColor : linkColor}
                   _hover={{
                     color: brandColor,
                   }}
                 >
-                  {navItem.label}
+                  <Link to={navItem.href}>{navItem.label}</Link>
                 </ChLink>
               ) : (
                 <ChLink
@@ -73,7 +72,7 @@ export const DesktopNav = () => {
                 </Stack>
               </PopoverContent>
             )}
-          </Popover>
+          </Popover.Root>
         </Box>
       ))}
     </Stack>
@@ -114,7 +113,9 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
           align="center"
           flex={1}
         >
-          <Icon color={brandColor} w={5} h={5} as={ChevronRightIcon} />
+          <Icon color={brandColor} boxSize={5}>
+            <ChevronRight />
+          </Icon>
         </Flex>
       </Stack>
     </ChLink>

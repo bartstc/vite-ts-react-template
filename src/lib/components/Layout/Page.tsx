@@ -7,23 +7,17 @@ import {
 
 interface IProps {
   children: StackProps["children"];
-  spacing?: StackProps["spacing"];
+  gap?: StackProps["gap"];
   maxW?: ContainerProps["maxW"];
 }
 
 const Page = ({ children, maxW = "container.lg", ...props }: IProps) => {
   return (
-    <VStack
-      as={Container}
-      display="stretch"
-      spacing={10}
-      px={{ base: 3, md: 4 }}
-      maxW={maxW}
-      m="0 auto"
-      {...props}
-    >
-      {children}
-    </VStack>
+    <Container maxW={maxW} p={0}>
+      <VStack gapY={10} px={{ base: 3, md: 4 }} m="0 auto" {...props}>
+        {children}
+      </VStack>
+    </Container>
   );
 };
 

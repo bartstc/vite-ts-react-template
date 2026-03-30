@@ -6,7 +6,13 @@ const LoaderBar = () => {
   const { state } = useNavigation();
 
   if (state === "loading") {
-    return <Progress size="xs" colorScheme="orange" isIndeterminate />;
+    return (
+      <Progress.Root size="xs" colorPalette="orange" value={null}>
+        <Progress.Track>
+          <Progress.Range />
+        </Progress.Track>
+      </Progress.Root>
+    );
   }
 
   return null;

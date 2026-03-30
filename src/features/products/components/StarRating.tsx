@@ -1,7 +1,8 @@
-import { StarIcon } from "@chakra-ui/icons";
-import { HStack, Tooltip, useColorModeValue } from "@chakra-ui/react";
+import { HStack, Icon, Portal, Tooltip } from "@chakra-ui/react";
+import { Star } from "lucide-react";
 
 import { useTranslations } from "@/lib/i18n/use-transations";
+import { useColorModeValue } from "@/lib/theme/use-color-mode";
 
 interface IProps {
   rating: number;
@@ -17,13 +18,22 @@ const StarRating = ({ rating }: IProps) => {
   };
 
   return (
-    <Tooltip label={t("tooltip", { rating })}>
-      <HStack spacing={1} display="flex" alignItems="center" mt={2}>
-        {Array.from([1, 2, 3, 4, 5]).map((number) => (
-          <StarIcon key={number} color={countColor(number)} />
-        ))}
-      </HStack>
-    </Tooltip>
+    <Tooltip.Root>
+      <Tooltip.Trigger asChild>
+        <HStack gap={1} display="flex" alignItems="center" mt={2}>
+          {Array.from([1, 2, 3, 4, 5]).map((number) => (
+            <Icon key={number} color={countColor(number)} boxSize={3}>
+              <Star fill="currentColor" />
+            </Icon>
+          ))}
+        </HStack>
+      </Tooltip.Trigger>
+      <Portal>
+        <Tooltip.Positioner>
+          <Tooltip.Content>{t("tooltip", { rating })}</Tooltip.Content>
+        </Tooltip.Positioner>
+      </Portal>
+    </Tooltip.Root>
   );
 };
 

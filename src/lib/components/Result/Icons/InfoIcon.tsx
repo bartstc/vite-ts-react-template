@@ -1,10 +1,16 @@
-import { InfoIcon as ChInfoIcon } from "@chakra-ui/icons";
-import { useColorModeValue } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
+import { Info } from "lucide-react";
+
+import { useColorModeValue } from "@/lib/theme/use-color-mode";
 
 const InfoIcon = () => {
   const color = useColorModeValue("blue.500", "blue.300");
 
-  return <ChInfoIcon boxSize={16} color={color} />;
+  return (
+    <Box color={color}>
+      <Info size={64} />
+    </Box>
+  );
 };
 
 export { InfoIcon };

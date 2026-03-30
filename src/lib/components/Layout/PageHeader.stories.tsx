@@ -1,6 +1,6 @@
-import { EmailIcon, ExternalLinkIcon } from "@chakra-ui/icons";
 import { Button } from "@chakra-ui/react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { ExternalLink, Mail } from "lucide-react";
 
 import { PageHeader } from "./PageHeader";
 
@@ -21,14 +21,12 @@ export const Default: Story = {
     description: "Specialization: JavaScript, TypeScript, React, Nextjs",
     children: (
       <>
-        <Button
-          colorScheme="blue"
-          variant="outline"
-          leftIcon={<ExternalLinkIcon />}
-        >
+        <Button colorPalette="blue" variant="outline">
+          <ExternalLink />
           {"See profile"}
         </Button>
-        <Button colorScheme="blue" leftIcon={<EmailIcon />}>
+        <Button colorPalette="blue">
+          <Mail />
           {"Contact"}
         </Button>
       </>

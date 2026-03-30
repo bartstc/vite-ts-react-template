@@ -17,6 +17,6 @@ export const Default: Story = {};
 
 export const WithAction: Story = {
   args: {
-    children: <Button colorScheme="blue">{"Back to home page"}</Button>,
+    children: <Button colorPalette="blue">{"Back to home page"}</Button>,
   },
 };

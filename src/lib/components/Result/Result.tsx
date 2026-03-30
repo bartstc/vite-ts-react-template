@@ -14,13 +14,13 @@ const Result = ({ children, heading, image, subheading }: IProps) => {
   const secondaryColor = useSecondaryTextColor();
 
   return (
-    <Center minH="75vh" as={VStack} textAlign="center" spacing={6}>
+    <Center minH="75vh" as={VStack} textAlign="center" gap={6}>
       {image}
       <VStack maxW="2xl">
         <Heading as="h2" size={{ base: "lg", md: "xl" }}>
           {heading}
         </Heading>
-        <Text size={{ base: "md", md: "lg" }} color={secondaryColor}>
+        <Text fontSize={{ base: "md", md: "lg" }} color={secondaryColor}>
           {subheading}
         </Text>
       </VStack>

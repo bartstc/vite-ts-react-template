@@ -1,18 +1,19 @@
-import { CheckIcon as ChakraCheckIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
   Heading,
   HStack,
+  Icon,
   List,
   ListItem,
   Stack,
   Text,
-  useColorModeValue,
   VStack,
 } from "@chakra-ui/react";
+import { Check } from "lucide-react";
 import type { ReactNode } from "react";
 
+import { useColorModeValue } from "@/lib/theme/use-color-mode";
 import { useSecondaryTextColor } from "@/lib/theme/use-secondary-text-color";
 
 const PricingSection = () => {
@@ -21,7 +22,7 @@ const PricingSection = () => {
 
   return (
     <Box py={12}>
-      <VStack spacing={2} textAlign="center">
+      <VStack gap={2} textAlign="center">
         <Heading
           as="h2"
           fontWeight="bold"
@@ -45,7 +46,7 @@ const PricingSection = () => {
         direction={{ base: "column", md: "row" }}
         textAlign="center"
         justify="center"
-        spacing={10}
+        gap={10}
         py={10}
       >
         <PriceWrapper>
@@ -66,7 +67,7 @@ const PricingSection = () => {
             </HStack>
           </Box>
           <VStack bg={sectionBg} py={4} borderBottomRadius="xl">
-            <List spacing={3} textAlign="start" px={12}>
+            <List.Root gap={3} textAlign="start" px={12}>
               <ListItem>
                 <CheckIcon /> {"unlimited build minutes"}
               </ListItem>
@@ -76,9 +77,9 @@ const PricingSection = () => {
               <ListItem>
                 <CheckIcon /> {"5TB Lorem, ipsum dolor."}
               </ListItem>
-            </List>
+            </List.Root>
             <Box w="80%" pt={7}>
-              <Button w="full" colorScheme="orange" variant="outline">
+              <Button w="full" colorPalette="orange" variant="outline">
                 {"Start trial"}
               </Button>
             </Box>
@@ -105,7 +106,7 @@ const PricingSection = () => {
               </HStack>
             </Box>
             <VStack bg={sectionBg} py={4} borderBottomRadius="xl">
-              <List spacing={3} textAlign="start" px={12}>
+              <List.Root gap={3} textAlign="start" px={12}>
                 <ListItem>
                   <CheckIcon /> {"unlimited build minutes"}
                 </ListItem>
@@ -121,9 +122,9 @@ const PricingSection = () => {
                 <ListItem>
                   <CheckIcon /> {"5TB Lorem, ipsum dolor."}
                 </ListItem>
-              </List>
+              </List.Root>
               <Box w="80%" pt={7}>
-                <Button w="full" colorScheme="orange">
+                <Button w="full" colorPalette="orange">
                   {"Start trial"}
                 </Button>
               </Box>
@@ -148,7 +149,7 @@ const PricingSection = () => {
             </HStack>
           </Box>
           <VStack bg={sectionBg} py={4} borderBottomRadius="xl">
-            <List spacing={3} textAlign="start" px={12}>
+            <List.Root gap={3} textAlign="start" px={12}>
               <ListItem>
                 <CheckIcon /> {"unlimited build minutes"}
               </ListItem>
@@ -158,9 +159,9 @@ const PricingSection = () => {
               <ListItem>
                 <CheckIcon /> {"5TB Lorem, ipsum dolor."}
               </ListItem>
-            </List>
+            </List.Root>
             <Box w="80%" pt={7}>
-              <Button w="full" colorScheme="orange" variant="outline">
+              <Button w="full" colorPalette="orange" variant="outline">
                 {"Start trial"}
               </Button>
             </Box>
@@ -218,7 +219,11 @@ const MostPopularBadge = () => {
 const CheckIcon = () => {
   const color = useColorModeValue("green.500", "green.200");
 
-  return <ChakraCheckIcon fontSize="sm" color={color} mr={2} />;
+  return (
+    <Icon fontSize="sm" color={color} mr={2}>
+      <Check />
+    </Icon>
+  );
 };
 
 export { PricingSection };

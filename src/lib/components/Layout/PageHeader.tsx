@@ -29,11 +29,11 @@ const PageHeader = ({
     <Stack
       direction={{ base: "column", lg: "row" }}
       w="100%"
-      spacing={3}
+      gap={3}
       justify="space-between"
       align={{ base: "start", lg: "center" }}
     >
-      <VStack align="start" spacing={1}>
+      <VStack align="start" gap={1}>
         <Heading size={size}>{title}</Heading>
         {description && <Text color={descriptionColor}>{description}</Text>}
       </VStack>

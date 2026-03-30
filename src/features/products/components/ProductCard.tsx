@@ -24,7 +24,7 @@ const ProductCard = ({ title, category, price, imageUrl, id }: IProps) => {
   const categoryColor = useSecondaryTextColor();
 
   return (
-    <VStack spacing={3} overflow="hidden" rounded="lg" as="article">
+    <VStack gap={3} overflow="hidden" rounded="lg" as="article">
       <Box
         onClick={() => navigate(`/products/${id}`)}
         cursor="pointer"
@@ -36,16 +36,16 @@ const ProductCard = ({ title, category, price, imageUrl, id }: IProps) => {
           backgroundImage: `url(${imageUrl})`,
         }}
       />
-      <VStack w="100%" spacing={0} align="flex-start">
+      <VStack w="100%" gap={0} align="flex-start">
         <HStack
           w="100%"
           justify="space-between"
           fontSize={{ base: "md", md: "lg" }}
           fontWeight="semibold"
-          spacing={6}
+          gap={6}
         >
           <Text
-            isTruncated
+            truncate
             onClick={() =>
               navigate({
                 path: routes.product.path,

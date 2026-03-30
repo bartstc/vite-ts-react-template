@@ -1,12 +1,10 @@
-import { SunIcon, MoonIcon } from "@chakra-ui/icons";
-import {
-  IconButton,
-  useColorMode,
-  type IconButtonProps,
-} from "@chakra-ui/react";
+import { IconButton, type IconButtonProps } from "@chakra-ui/react";
+import { Moon, Sun } from "lucide-react";
+
+import { useColorMode } from "@/lib/theme/use-color-mode";
 
 const ToggleModeButton = (
-  props: Omit<IconButtonProps, "aria-label" | "onClick" | "variant" | "icon">
+  props: Omit<IconButtonProps, "aria-label" | "onClick" | "variant">
 ) => {
   const { colorMode, toggleColorMode } = useColorMode();
   return (
@@ -14,9 +12,10 @@ const ToggleModeButton = (
       aria-label="Switch mode"
       onClick={toggleColorMode}
       variant="ghost"
-      icon={colorMode === "light" ? <MoonIcon /> : <SunIcon />}
       {...props}
-    />
+    >
+      {colorMode === "light" ? <Moon /> : <Sun />}
+    </IconButton>
   );
 };
 

@@ -1,18 +1,14 @@
 /* eslint-disable import/no-restricted-paths */
 import {
+  Accordion,
   Box,
   Button,
   HStack,
-  Text,
-  VStack,
+  Separator,
   SimpleGrid,
   GridItem,
-  Divider,
-  Accordion,
-  AccordionItem,
-  AccordionButton,
-  AccordionPanel,
-  AccordionIcon,
+  Text,
+  VStack,
 } from "@chakra-ui/react";
 
 import { AddToCartButton } from "@/features/carts/components/AddToCartButton/AddToCartButton";
@@ -29,6 +25,13 @@ interface IProps {
   product: Product;
   onBack: () => void;
 }
+
+const accordionItems = [
+  { value: "features", labelKey: "features", contentKey: "features-content" },
+  { value: "care", labelKey: "care", contentKey: "care-content" },
+  { value: "shipping", labelKey: "shipping", contentKey: "shipping-content" },
+  { value: "returns", labelKey: "returns", contentKey: "returns-content" },
+] as const;
 
 const ProductDetails = ({ product, onBack }: IProps) => {
   const categoryLabel = useCategoryLabel(product.category);
@@ -59,18 +62,18 @@ const ProductDetails = ({ product, onBack }: IProps) => {
         </Box>
       </GridItem>
       <GridItem colSpan={1}>
-        <VStack spacing={{ base: 1, lg: 3 }} w="100%" align="start">
+        <VStack gap={{ base: 1, lg: 3 }} w="100%" align="start">
           <PageHeader
             title={product.title}
             description={t("collection", { category: categoryLabel })}
           />
-          <HStack w="100%" height="24px" spacing={4}>
+          <HStack w="100%" height="24px" gap={4}>
             <Text fontWeight="semibold" fontSize={{ base: "lg", md: "xl" }}>
               {moneyVO.format(product.price)}
             </Text>
-            <Divider orientation="vertical" />
+            <Separator orientation="vertical" />
             <StarRating rating={product.rating.rate} />
-            <Button variant="link" colorScheme="orange">
+            <Button variant="plain" colorPalette="orange">
               {t("see-reviews", { number: product.rating.count })}
             </Button>
           </HStack>
@@ -82,49 +85,33 @@ const ProductDetails = ({ product, onBack }: IProps) => {
             {product.description}
           </Text>
           <VStack w="100%">
-            <AddToCartButton productId={product.id} colorScheme="orange" />
+            <AddToCartButton productId={product.id} colorPalette="orange" />
             <Button w="100%" variant="outline" onClick={onBack}>
               {t("back-to-list")}
             </Button>
           </VStack>
-          <Accordion w="100%" pt={4} defaultIndex={[0]}>
-            <AccordionItem>
-              <AccordionButton>
-                <Box as="span" flex="1" textAlign="left">
-                  {t("features")}
-                </Box>
-                <AccordionIcon />
-              </AccordionButton>
-              <AccordionPanel pb={4}>{t("features-content")}</AccordionPanel>
-            </AccordionItem>
-            <AccordionItem>
-              <AccordionButton>
-                <Box as="span" flex="1" textAlign="left">
-                  {t("care")}
-                </Box>
-                <AccordionIcon />
-              </AccordionButton>
-              <AccordionPanel pb={4}>{t("care-content")}</AccordionPanel>
-            </AccordionItem>
-            <AccordionItem>
-              <AccordionButton>
-                <Box as="span" flex="1" textAlign="left">
-                  {t("shipping")}
-                </Box>
-                <AccordionIcon />
-              </AccordionButton>
-              <AccordionPanel pb={4}>{t("shipping-content")}</AccordionPanel>
-            </AccordionItem>
-            <AccordionItem>
-              <AccordionButton>
-                <Box as="span" flex="1" textAlign="left">
-                  {t("returns")}
-                </Box>
-                <AccordionIcon />
-              </AccordionButton>
-              <AccordionPanel pb={4}>{t("returns-content")}</AccordionPanel>
-            </AccordionItem>
-          </Accordion>
+          <Accordion.Root
+            w="100%"
+            pt={4}
+            collapsible
+            defaultValue={["features"]}
+          >
+            {accordionItems.map((item) => (
+              <Accordion.Item key={item.value} value={item.value}>
+                <Accordion.ItemTrigger>
+                  <Box as="span" flex="1" textAlign="left">
+                    {t(item.labelKey)}
+                  </Box>
+                  <Accordion.ItemIndicator />
+                </Accordion.ItemTrigger>
+                <Accordion.ItemContent>
+                  <Accordion.ItemBody pb={4}>
+                    {t(item.contentKey)}
+                  </Accordion.ItemBody>
+                </Accordion.ItemContent>
+              </Accordion.Item>
+            ))}
+          </Accordion.Root>
         </VStack>
       </GridItem>
     </SimpleGrid>

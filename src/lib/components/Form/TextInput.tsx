@@ -1,10 +1,4 @@
-import {
-  FormControl,
-  FormLabel,
-  Input,
-  FormErrorMessage,
-  type InputProps,
-} from "@chakra-ui/react";
+import { Field, Input, type InputProps } from "@chakra-ui/react";
 import type { ReactNode } from "react";
 
 import { useTranslations } from "@/lib/i18n/use-transations";
@@ -20,11 +14,11 @@ const TextInput = ({ id, children, isRequired = true, ...props }: IProps) => {
   const isInvalid = props.value === "";
 
   return (
-    <FormControl id={id} isRequired={isRequired} isInvalid={isInvalid}>
-      <FormLabel>{children}</FormLabel>
-      <Input {...props} />
-      {isInvalid && <FormErrorMessage>{t("required")}</FormErrorMessage>}
-    </FormControl>
+    <Field.Root required={isRequired} invalid={isInvalid} w="100%">
+      <Field.Label htmlFor={id}>{children}</Field.Label>
+      <Input id={id} {...props} />
+      {isInvalid && <Field.ErrorText>{t("required")}</Field.ErrorText>}
+    </Field.Root>
   );
 };
 

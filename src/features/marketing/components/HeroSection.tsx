@@ -5,13 +5,12 @@ import {
   Text,
   Button,
   Stack,
-  Icon,
   VStack,
-  useColorModeValue,
   createIcon,
 } from "@chakra-ui/react";
 
 import { useBrandColor } from "@/lib/theme/use-brand-color";
+import { useColorModeValue } from "@/lib/theme/use-color-mode";
 import { useSecondaryTextColor } from "@/lib/theme/use-secondary-text-color";
 
 interface IProps {
@@ -26,7 +25,7 @@ const HeroSection = ({ productNumber }: IProps) => {
     <Container maxW="3xl">
       <Stack
         textAlign="center"
-        spacing={{ base: 8, md: 14 }}
+        gap={{ base: 8, md: 14 }}
         pt={{ base: 20, md: 36 }}
         pb={{ base: 16, md: 20 }}
       >
@@ -49,21 +48,15 @@ const HeroSection = ({ productNumber }: IProps) => {
             "store and plenty of trusted clients that will soon extend their offer."
           }
         </Text>
-        <VStack
-          spacing={3}
-          align="center"
-          alignSelf="center"
-          position="relative"
-        >
-          <Button colorScheme="orange" rounded="full" px={6}>
+        <VStack gap={3} align="center" alignSelf="center" position="relative">
+          <Button colorPalette="orange" rounded="full" px={6}>
             {"Get Started"}
           </Button>
-          <Button variant="link" colorScheme="blue" size="sm">
+          <Button variant="plain" colorPalette="blue" size="sm">
             {"Learn more"}
           </Button>
           <Box>
-            <Icon
-              as={Arrow}
+            <Arrow
               color={useColorModeValue("gray.800", "gray.300")}
               w={71}
               position="absolute"

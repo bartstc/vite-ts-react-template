@@ -1,4 +1,3 @@
-import { CheckIcon } from "@chakra-ui/icons";
 import {
   Box,
   Text,
@@ -6,11 +5,12 @@ import {
   VStack,
   GridItem,
   Flex,
+  Icon,
   SimpleGrid,
   chakra,
-  CardBody,
   Card,
 } from "@chakra-ui/react";
+import { Check } from "lucide-react";
 import type { ReactNode } from "react";
 
 import { useBrandColor } from "@/lib/theme/use-brand-color";
@@ -21,19 +21,19 @@ const FeatureSection = () => {
   const textColor = useSecondaryTextColor();
 
   return (
-    <Card>
-      <CardBody px={{ base: 4, lg: 10 }} py={{ base: 6, lg: 10 }}>
+    <Card.Root>
+      <Card.Body px={{ base: 4, lg: 10 }} py={{ base: 6, lg: 10 }}>
         <SimpleGrid
           alignItems="center"
           columns={{
             base: 1,
             lg: 3,
           }}
-          spacingY={{
+          gapY={{
             base: 12,
             lg: 32,
           }}
-          spacingX={{
+          gapX={{
             base: 0,
             lg: 24,
           }}
@@ -41,7 +41,7 @@ const FeatureSection = () => {
           <GridItem
             colSpan={{ base: 1, lg: 1 }}
             as={VStack}
-            spacing={0}
+            gap={0}
             alignSelf="start"
             alignItems={{ base: "center", lg: "start" }}
           >
@@ -76,7 +76,7 @@ const FeatureSection = () => {
           </GridItem>
           <GridItem colSpan={2}>
             <Stack
-              spacing={{
+              gap={{
                 base: 10,
                 md: 0,
               }}
@@ -128,8 +128,8 @@ const FeatureSection = () => {
             </Stack>
           </GridItem>
         </SimpleGrid>
-      </CardBody>
-    </Card>
+      </Card.Body>
+    </Card.Root>
   );
 };
 
@@ -144,7 +144,9 @@ const Feature = (props: IFeatureProps) => {
   return (
     <Flex>
       <Flex shrink={0}>
-        <CheckIcon fontSize="lg" color="green.500" />
+        <Icon fontSize="lg" color="green.500">
+          <Check />
+        </Icon>
       </Flex>
       <Box ml={4}>
         <chakra.dt fontSize="lg" fontWeight="bold" lineHeight="6">
