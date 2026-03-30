@@ -1,6 +1,7 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import type { ReactNode } from "react";
 
+import { Toaster } from "@/lib/components/Toast/Toaster";
 import { system } from "@/lib/theme/theme";
 
 import { ColorModeProvider } from "./ColorModeProvider";
@@ -13,7 +14,10 @@ interface ProviderProps extends Pick<ColorModeProviderProps, "forcedTheme"> {
 export function DesignProvider({ children, ...props }: ProviderProps) {
   return (
     <ChakraProvider value={system}>
-      <ColorModeProvider {...props}>{children}</ColorModeProvider>
+      <ColorModeProvider {...props}>
+        <Toaster />
+        {children}
+      </ColorModeProvider>
     </ChakraProvider>
   );
 }

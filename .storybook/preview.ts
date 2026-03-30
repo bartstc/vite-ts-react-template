@@ -1,7 +1,7 @@
-import { ChakraProvider, theme } from "@chakra-ui/react";
 import { initialize, mswLoader } from "msw-storybook-addon";
 import { createElement } from "react";
 
+import { DesignProvider } from "@/app/design/DesignProvider";
 import { getUserHandler } from "@/test-lib/handlers/get-user-handler";
 import { withAuth } from "@/test-lib/storybook/with-auth";
 import { withI18Next } from "@/test-lib/storybook/with-i18next";
@@ -38,7 +38,7 @@ initialize(
 
 export const decorators = [
   // eslint-disable-next-line react/no-children-prop, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-explicit-any
-  (story: any) => createElement(ChakraProvider, { children: story(), theme }),
+  (story: any) => createElement(DesignProvider, { children: story() }),
   withI18Next,
   withReactQuery,
   withAuth,
