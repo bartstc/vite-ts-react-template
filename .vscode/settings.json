@@ -25,6 +25,7 @@
   "js/ts.preferences.importModuleSpecifier": "non-relative",
   "i18n-ally.localesPaths": ["public/locales"],
   "i18n-ally.keystyle": "nested",
+  "claudeCode.initialPermissionMode": "acceptEdits",
   "github.copilot.chat.codeGeneration.useInstructionFiles": true,
   "chat.useAgentSkills": true,
   "chat.instructionsFilesLocations": {
