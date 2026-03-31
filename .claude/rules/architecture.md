@@ -46,10 +46,20 @@ paths:
 
 Each feature follows feature slice architecture patterns with three layers:
 
-- **components/** - UI components, presentational and decoupled from data sources, business logic, and router state
-- **application/** - Business logic, state management, custom hooks, stores, and functions
-- **providers/** - Data fetching, external APIs, platform/SDK interactions, commands/mutations
-- **models/** - Type definitions
+## Feature Architecture
+
+Each feature follows feature slice architecture patterns with four layers:
+
+- **components/** - UI components, presentational and decoupled from business logic (application) and router state. Data access is only through `providers/`.
+- **application/** - Business logic, portable state management (stores, FSMs, form validation), custom hooks. Should not depend on router state or external APIs directly (only through `providers/`).
+- **providers/** - Data fetching, external APIs, platform/SDK interactions, commands/mutations, and API type definitions (DTOs). Library-specific code (React Query, SWR, etc.) must not leak beyond this layer.
+- **models/** - Domain type definitions, utilities, and type mapping functions.
+
+**Dependency rule:** `components/` and `application/` import from `models/` and `providers/`. `providers/` and `models/` have no internal feature dependencies.
+
+## API Layer
+
+`src/lib/api/` is the global home for all HTTP logic: query/mutation hooks, loaders, query keys, and DTOs, organised by resource. Feature `providers/` do not implement API logic — they re-export selectively from `src/lib/api/` to decouple feature internals from the global API structure. New API logic always goes in `src/lib/api/` first, then gets exposed through the relevant feature's `providers/`.
 
 ## Key Patterns
 
