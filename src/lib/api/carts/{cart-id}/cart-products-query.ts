@@ -1,8 +1,8 @@
-import type { UseQueryOptions } from "@tanstack/react-query";
+import { queryOptions } from "@tanstack/react-query";
 
-import { getProductQuery } from "@/lib/api/products/{product-id}/product-query";
+import type { ProductDto } from "@/lib/api/products/{product-id}/product-dto";
 import { httpService } from "@/lib/http";
-import { queryClient, useQuery } from "@/lib/query";
+import { queryClient } from "@/lib/query";
 
 import { cartQueryKeys } from "../cart-query-keys";
 
@@ -14,39 +14,32 @@ interface IResponse {
   products: CartProductDto[];
 }
 
-const getCartProductsQuery = (cartId: string) => ({
-  queryKey: cartQueryKeys.products(cartId),
-  queryFn: async (): Promise<IResponse> => {
-    const cart = await httpService.get<CartDto>(`carts/${cartId}`);
+const cartProductsQuery = (cartId: string) =>
+  queryOptions({
+    queryKey: cartQueryKeys.products(cartId),
+    queryFn: async (): Promise<IResponse> => {
+      const cart = await httpService.get<CartDto>(`carts/${cartId}`);
 
-    const productPromises = cart.products.map((product) =>
-      getProductQuery(product.productId.toString()).queryFn()
-    );
+      const products = await Promise.all(
+        cart.products.map((product) =>
+          httpService.get<ProductDto>(`products/${product.productId}`)
+        )
+      );
 
-    const products = await Promise.all(productPromises);
-
-    return {
-      date: cart.date,
-      products: products.map((product) => ({
-        ...product,
-        quantity:
-          cart.products.find(
-            (cartProduct) => cartProduct.productId === product.id
-          )?.quantity ?? 0,
-      })),
-    };
-  },
-});
-
-export const useCartProductsQuery = (
-  cartId: string,
-  options?: UseQueryOptions<IResponse>
-) => {
-  return useQuery({
-    ...getCartProductsQuery(cartId),
-    ...options,
+      return {
+        date: cart.date,
+        products: products.map((product) => ({
+          ...product,
+          quantity:
+            cart.products.find(
+              (cartProduct) => cartProduct.productId === product.id
+            )?.quantity ?? 0,
+        })),
+      };
+    },
   });
-};
 
 export const cartProductsLoader = async (cartId: string) =>
-  queryClient.ensureQueryData(getCartProductsQuery(cartId));
+  queryClient.ensureQueryData(cartProductsQuery(cartId));
+
+export { cartProductsQuery };

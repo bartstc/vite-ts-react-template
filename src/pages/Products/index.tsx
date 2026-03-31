@@ -1,5 +1,4 @@
 import { Button } from "@chakra-ui/react";
-import { keepPreviousData } from "@tanstack/react-query";
 import { Settings } from "lucide-react";
 import { useState } from "react";
 
@@ -19,9 +18,7 @@ const ProductsPage = () => {
   const t = useTranslations("pages.products");
 
   const [params, setParams] = useState<QueryParams>(defaultParams);
-  const { data, isFetching } = useProductsQuery(params, {
-    placeholderData: keepPreviousData,
-  });
+  const { data, isFetching } = useProductsQuery(params);
 
   const noMoreProducts = data.meta.total <= params.limit;
 

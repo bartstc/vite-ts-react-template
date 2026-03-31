@@ -1,8 +1,8 @@
-import type { UseQueryOptions } from "@tanstack/react-query";
+import { queryOptions } from "@tanstack/react-query";
 
 import { buildUrl } from "@/lib/build-url";
 import { httpService } from "@/lib/http";
-import { queryClient, useQuery } from "@/lib/query";
+import { queryClient } from "@/lib/query";
 import type { Meta } from "@/types/meta";
 import type { QueryParams } from "@/types/query-params";
 
@@ -16,27 +16,20 @@ interface ICollection {
   meta: Meta;
 }
 
-const getProductsQuery = (params: QueryParams = defaultParams) => ({
-  queryKey: productsQueryKeys.list(params),
-  queryFn: (): Promise<ICollection> =>
-    httpService.get<ProductDto[]>(buildUrl("products", params)).then((res) => ({
-      products: res,
-      meta: {
-        ...params,
-        total: 20,
-      },
-    })),
-});
-
-export const useProductsQuery = (
-  params: QueryParams = defaultParams,
-  options?: Omit<UseQueryOptions<ICollection>, "queryKey" | "queryFn">
-) => {
-  return useQuery({
-    ...getProductsQuery(params),
-    ...options,
+export const productsQuery = (params: QueryParams = defaultParams) =>
+  queryOptions({
+    queryKey: productsQueryKeys.list(params),
+    queryFn: (): Promise<ICollection> =>
+      httpService
+        .get<ProductDto[]>(buildUrl("products", params))
+        .then((res) => ({
+          products: res,
+          meta: {
+            ...params,
+            total: 20,
+          },
+        })),
   });
-};
 
 export const productsLoader = async (params: QueryParams = defaultParams) =>
-  queryClient.ensureQueryData(getProductsQuery(params));
+  queryClient.ensureQueryData(productsQuery(params));
