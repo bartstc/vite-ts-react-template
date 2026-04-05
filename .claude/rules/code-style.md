@@ -1,41 +1,29 @@
----
-paths:
-  - "src/**"
-  - "e2e/**"
----
-
 # Code Style
 
-## General
+## File Naming
 
-- Preserve original structure and formatting of referenced files
-- Follow existing patterns in the codebase
-- Follow functional programming principles - prefer immutability and pure functions
-- Treat data as immutable - return new objects/arrays instead of mutating
+| Category           | Convention | Example                             |
+| ------------------ | ---------- | ----------------------------------- |
+| React components   | PascalCase | `ProductCard.tsx`, `SignInForm.tsx` |
+| Storybook stories  | PascalCase | `ProductCard.stories.tsx`           |
+| Page Objects (E2E) | PascalCase | `ProductListPage.ts`                |
+| Everything else    | kebab-case | `auth-store.ts`, `use-counter.ts`   |
 
-## Naming Conventions
-
-### File naming
-
-| Category           | Convention | Example                                           |
-| ------------------ | ---------- | ------------------------------------------------- |
-| React components   | PascalCase | `ProductCard.tsx`, `SignInForm.tsx`               |
-| Storybook stories  | PascalCase | `ProductCard.stories.tsx`                         |
-| Page Objects (E2E) | PascalCase | `ProductListPage.ts`, `HeaderComponent.ts`        |
-| Everything else    | kebab-case | `auth-store.ts`, `use-counter.ts`, `build-url.ts` |
-
-"Everything else" includes: hooks, stores, utils, types, models, HOCs, handlers, fixtures, providers, machines, and tests.
-
-Test files mirror their source: `use-counter.ts` → `use-counter.test.ts`, `all-or-nothing.ts` → `all-or-nothing.test.ts`.
+Test files mirror source: `use-counter.ts` → `use-counter.test.ts`.
 
 ## TypeScript
 
-- Avoid `any` type - use `unknown` if necessary
-- Avoid type assertions (`value as Type`) - prefer type guards or refactoring
+- Use `unknown` instead of `any` — refactor or use type guards instead of type assertions (`as Type`)
 - Prefer solving problems with TypeScript types over runtime code when possible
+- Use named exports exclusively
 
 ## React
 
 - Split complex `useEffect` into smaller, focused effects
-- Prefer composition over prop drilling - use `children` prop and component composition
-- Isolate business logic from presentation - extract logic to custom hooks or separate functions
+- Prefer composition with `children` prop over prop drilling
+- Extract business logic to custom hooks or functions — keep components presentational
+
+## General
+
+- Prefer immutability and pure functions — return new objects/arrays instead of mutating
+- Follow lint/style configs (`.prettierrc`, `.eslint.config.mjs`) — do not reformat to any other style
