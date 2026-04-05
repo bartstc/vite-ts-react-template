@@ -38,6 +38,7 @@ An opinionated, production-ready starter for **Single Page Application** develop
 - Formatting utilities for numbers, monetary values, and dates
 - File naming: PascalCase for React components/stories/page objects, kebab-case for everything else
 - A demo app with authentication showcasing the project structure and tooling in action (powered by [Fake Store API](https://fakestoreapi.com/docs))
+- Read more about architecture: `docs/architecture.md`ś
 
 ## Getting started
 
