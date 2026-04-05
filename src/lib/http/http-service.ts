@@ -73,4 +73,8 @@ export class HttpService<
   private configure(customOptions?: Options): Options {
     return Object.assign(this.client.options, customOptions);
   }
+
+  public isError(error: unknown): error is Error {
+    return error instanceof Error;
+  }
 }

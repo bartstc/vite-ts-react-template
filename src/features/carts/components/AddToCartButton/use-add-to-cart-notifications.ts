@@ -26,5 +26,25 @@ export const useAddToCartNotifications = () => {
       description: t("not-authenticated"),
     });
 
-  return { notifySuccess, notifyFailure, notifyNotAuthenticated } as const;
+  const notifyUnknownProduct = () =>
+    toast({
+      status: "error",
+      title: t("title"),
+      description: t("unknown-product-error"),
+    });
+
+  const notifyProductNotAvailable = () =>
+    toast({
+      status: "error",
+      title: t("title"),
+      description: t("product-not-available-error"),
+    });
+
+  return {
+    notifySuccess,
+    notifyFailure,
+    notifyNotAuthenticated,
+    notifyUnknownProduct,
+    notifyProductNotAvailable,
+  } as const;
 };

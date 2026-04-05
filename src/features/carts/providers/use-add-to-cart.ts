@@ -1,7 +1,12 @@
 import { useAuthStore } from "@/features/auth/application/auth-store";
-import { useAddToCartMutation } from "@/lib/api/carts/{cart-id}/add-to-cart-command";
+import {
+  useAddToCartMutation,
+  UnknownProductError,
+  ProductNotAvailableError,
+} from "@/lib/api/carts/{cart-id}/add-to-cart-command";
+import { UnauthorizedError } from "@/lib/types/unauthorized-error";
 
-interface IAddToCartValues {
+interface AddToCartPayload {
   productId: number;
   quantity?: number;
 }
@@ -11,12 +16,14 @@ export const useAddToCart = () => {
   const userId = useAuthStore((store) => store.user?.id);
   const [mutateAsync, isLoading] = useAddToCartMutation();
 
-  const handler = (body: IAddToCartValues) => {
+  const handler = (body: AddToCartPayload) => {
     if (!cartId || !userId) {
-      throw new Error("User not authenticated");
+      throw new UnauthorizedError();
     }
     return mutateAsync({ ...body, cartId, userId });
   };
 
   return [handler, isLoading] as const;
 };
+
+export { UnknownProductError, ProductNotAvailableError };

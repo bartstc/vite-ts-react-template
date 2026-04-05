@@ -2,7 +2,11 @@ import { Button, type ButtonProps } from "@chakra-ui/react";
 
 import { useAuthStore } from "@/features/auth/application/auth-store";
 import { useProductAddedDialogStore } from "@/features/carts/components/AddToCartButton/use-product-added-dialog-store";
-import { useAddToCart } from "@/features/carts/providers/use-add-to-cart";
+import {
+  useAddToCart,
+  UnknownProductError,
+  ProductNotAvailableError,
+} from "@/features/carts/providers/use-add-to-cart";
 import { useTranslations } from "@/lib/i18n/use-transations";
 
 import { useAddToCartNotifications } from "./use-add-to-cart-notifications";
@@ -18,28 +22,45 @@ const AddToCartButton = ({ productId, colorPalette = "gray" }: IProps) => {
   const t = useTranslations("features.carts.add-to-cart");
 
   const [add, isLoading] = useAddToCart();
-  const { notifyFailure, notifySuccess, notifyNotAuthenticated } =
-    useAddToCartNotifications();
+  const {
+    notifyFailure,
+    notifySuccess,
+    notifyNotAuthenticated,
+    notifyUnknownProduct,
+    notifyProductNotAvailable,
+  } = useAddToCartNotifications();
   const onOpen = useProductAddedDialogStore((store) => store.onOpen);
+
+  const onAdd = async () => {
+    if (!isAuthenticated) {
+      return notifyNotAuthenticated();
+    }
+
+    try {
+      await add({ productId, quantity: 1 });
+      notifySuccess();
+      onOpen(cartId);
+    } catch (e) {
+      if (e instanceof UnknownProductError) {
+        notifyUnknownProduct();
+        return;
+      }
+
+      if (e instanceof ProductNotAvailableError) {
+        notifyProductNotAvailable();
+        return;
+      }
+
+      notifyFailure();
+    }
+  };
 
   return (
     <Button
       w="100%"
       colorPalette={colorPalette}
       loading={isLoading}
-      onClick={async () => {
-        if (!isAuthenticated) {
-          return notifyNotAuthenticated();
-        }
-
-        try {
-          await add({ productId });
-          notifySuccess();
-          onOpen(cartId);
-        } catch {
-          notifyFailure();
-        }
-      }}
+      onClick={onAdd}
     >
       {t("button")}
     </Button>

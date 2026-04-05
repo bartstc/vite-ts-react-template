@@ -99,6 +99,8 @@
           "title": "New product",
           "success": "A product has been successfully added to your cart.",
           "error": "Something went wrong with adding a product to a cart. Pleas try again or contact us.",
+          "unknown-product-error": "Product doesn't exist. It may be unavailable or removed from the store.",
+          "product-not-available-error": "Product is not available. It may be out of stock or removed from the store.",
           "not-authenticated": "Please log in in order to add products."
         },
         "dialog": {
