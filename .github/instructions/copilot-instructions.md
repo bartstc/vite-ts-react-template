@@ -41,8 +41,8 @@ Package manager: PNPM only. Path alias: `@/*` → `src/`.
 
 **2. Self-Improvement Loop**
 
-- After any correction, capture the pattern in `tasks/lessons.md` and write a rule to prevent recurrence
-- Review `tasks/lessons.md` at the start of each session
+- After any correction, capture the pattern in `specs/lessons.md` and write a rule to prevent recurrence
+- Review `specs/lessons.md` at the start of each session
 - Ruthlessly iterate on lessons until the mistake rate drops
 
 **3. Verification Before Done**
@@ -61,6 +61,11 @@ Package manager: PNPM only. Path alias: `@/*` → `src/`.
 
 - When given a bug report: just fix it
 - Use logs, errors, and failing tests to diagnose — require zero context switching from the developer
+
+**6. Spec-Driven Development**
+
+- For features spanning 5+ files or 5+ unconstrained decisions, write a spec first using writing-spec skill
+- Skip when the developer opts out
 
 ## Conventions
 
