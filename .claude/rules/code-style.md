@@ -10,6 +10,7 @@
 | Everything else    | kebab-case | `auth-store.ts`, `use-counter.ts`   |
 
 Test files mirror source: `use-counter.ts` → `use-counter.test.ts`.
+File names match the primary export when possible: `ProductCard.tsx` exports `ProductCard` component, `use-add-product.ts` exports `useAddProduct` hook.
 
 ## TypeScript
 
