@@ -20,7 +20,7 @@ export const useAddToCart = () => {
     if (!cartId || !userId) {
       throw new UnauthorizedError();
     }
-    return mutateAsync({ ...body, cartId, userId });
+    return mutateAsync(cartId, body);
   };
 
   return [handler, isLoading] as const;

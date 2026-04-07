@@ -1,6 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
 
-import { DateVO } from "@/lib/date/date";
 import { httpService } from "@/lib/http";
 import { Logger } from "@/lib/logger";
 import { UnknownError } from "@/lib/types/unknown-error";
@@ -8,33 +7,25 @@ import { UnknownError } from "@/lib/types/unknown-error";
 interface AddToCartPayload {
   productId: number;
   quantity?: number;
-  cartId: number;
-  userId: number;
 }
 
 interface AddToCartDto {
-  userId: number;
-  date: string;
-  products: { productId: number; quantity: number }[];
+  cartId: number;
+  payload: AddToCartPayload;
 }
 
 export const useAddToCartMutation = () => {
-  const { mutateAsync, isPending } = useMutation<
-    void,
-    unknown,
-    AddToCartPayload
-  >({
+  const { mutateAsync, isPending } = useMutation<void, unknown, AddToCartDto>({
     mutationFn: (body) =>
-      httpService.put<void, AddToCartDto>(`carts/${body.cartId}`, {
-        userId: body.userId,
-        date: DateVO.now(),
-        products: [{ productId: body.productId, quantity: body.quantity ?? 1 }],
+      httpService.put<void, AddToCartPayload>(`carts/${body.cartId}`, {
+        productId: body.payload.productId,
+        quantity: body.payload.quantity,
       }),
   });
 
-  const handler = async (body: AddToCartPayload) => {
+  const handler = async (cartId: number, payload: AddToCartPayload) => {
     try {
-      return await mutateAsync(body);
+      return await mutateAsync({ cartId, payload });
     } catch (e) {
       Logger.error(
         "An error occurred during adding an item to the cart",

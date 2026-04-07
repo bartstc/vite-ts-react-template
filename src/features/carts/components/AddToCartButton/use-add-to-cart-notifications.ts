@@ -12,13 +12,6 @@ export const useAddToCartNotifications = () => {
       description: t("success"),
     });
 
-  const notifyFailure = () =>
-    toast({
-      status: "error",
-      title: t("title"),
-      description: t("error"),
-    });
-
   const notifyNotAuthenticated = () =>
     toast({
       status: "warning",
@@ -38,6 +31,13 @@ export const useAddToCartNotifications = () => {
       status: "error",
       title: t("title"),
       description: t("product-not-available-error"),
+    });
+
+  const notifyFailure = () =>
+    toast({
+      status: "error",
+      title: t("title"),
+      description: t("error"),
     });
 
   return {
