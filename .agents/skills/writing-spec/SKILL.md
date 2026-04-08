@@ -34,7 +34,7 @@ Collaborate with the developer to fill sections 1-3 of the template.
 
 Collaborate on sections 4-6 of the template.
 
-1. Propose a **Building Blocks Diff** — list every block that is ADDED, MODIFIED, or DELETED. Use the project's building block taxonomy from `.agents/skills/building-blocks/SKILL.md` (mutation-hook, query-options-factory, store, use-case-hook, pure-component, compound-component, page, facade-hook, frontend-model, value-object, etc.). Reference by **name and type only** — do not define internals. Implementation details belong in coding standards and per-type skills, not specs. For changes that don't map to a typed building block, use the target file path + a short description instead.
+1. Propose a **Building Blocks Diff** — list every block that is ADDED, MODIFIED, or DELETED. Use the project's building block taxonomy from `.agents/skills/building-blocks/SKILL.md`. Reference by **name and type only** — do not define internals. Implementation details belong in coding standards and per-type skills, not specs. For changes that don't map to a typed building block, use the target file path + a short description instead.
 2. For non-trivial features, propose **two plausible designs** with tradeoffs. Let the developer choose. Capture the winner and rationale in **Design Decisions**
 3. Draft the **Boundaries** section using the three-tier system:
    - ✅ **Always** — proceed without asking (e.g., create files in the feature directory)

@@ -53,6 +53,7 @@ Each feature follows feature slice architecture patterns with four layers:
 - **components/** - UI components, presentational and decoupled from business logic (application) and router state. Data access is only through `providers/`.
 - **application/** - Business logic, portable state management (stores, FSMs, form validation), custom hooks. Should not depend on router state or external APIs directly (only through `providers/`).
 - **providers/** - Hook composition and data access gateway for the feature slice. Exposes query hooks, mutations, loaders, domain errors, and DTOs sourced from `src/lib/api/`. Library-specific code (React Query, etc.) must not leak beyond this layer.
+  - files are named after their primary export or reexport: `useCartProductsQuery` → `use-cart-products-query.ts`, `useAddToCartMutation` → `use-add-to-cart-mutation.ts`
 - **models/** - Domain type definitions, utilities, and type mapping functions.
 
 **Dependency rule:** `components/` and `application/` import from `models/` and `providers/`. `providers/` and `models/` have no internal feature dependencies.
