@@ -49,7 +49,7 @@ Collaborate on sections 4-6 of the template.
 Fill sections 7-10 of the template.
 
 1. Break work into a **Task Breakdown** — ordered, independently testable tasks. Each task:
-   - References building blocks from section 4
+   - References building blocks from section 4 if any are involved
    - Traces to requirement IDs (R1, R2, …)
    - Includes target file paths
    - Is marked `[P]` (parallelizable) or `[S]` (sequential)
@@ -159,6 +159,6 @@ The spec is ready for implementation when:
 
 ## References
 
-- `@docs/spec-template.md` — section structure and inline guidance
 - `.agents/skills/building-blocks/SKILL.md` — building block type dictionary (names, descriptions, when to use each)
+- `@docs/spec-template.md` — section structure and inline guidance
 - `@docs/architecture.md` — project structure, architectural decisions, conventions
