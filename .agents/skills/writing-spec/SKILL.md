@@ -11,7 +11,7 @@ Guide the developer through writing a feature spec before any code is written. T
 
 - Read `@docs/spec-template.md` before starting — it defines the section structure
 - Read `@docs/architecture.md` to understand current building block types and project structure
-- Check `specs/` for the next available sequence number
+- Determine the next available sequence number by checking both `specs/` directory listings AND `git log` for prior spec-related commits — use the higher of the two
 
 ## Workflow: Four Phases with Gates
 

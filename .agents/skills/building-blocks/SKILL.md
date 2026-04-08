@@ -31,9 +31,9 @@ Read the rule file for each block you are about to implement. The summaries belo
 
 ### App Orchestration
 
-| Block           | Layer          | Summary                                                                                          | File                     |
-| --------------- | -------------- | ------------------------------------------------------------------------------------------------ | ------------------------ |
-| `use-case-hook` | `application/` | Orchestrates mutation + notification into one feature-level operation. The feature's public API. | `rules/use-case-hook.md` |
+| Block           | Layer          | Summary                                                                | File                     |
+| --------------- | -------------- | ---------------------------------------------------------------------- | ------------------------ |
+| `use-case-hook` | `application/` | Orchestrates mutation + notification into one feature-level operation. | `rules/use-case-hook.md` |
 
 ### Component Patterns
 

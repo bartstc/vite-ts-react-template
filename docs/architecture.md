@@ -32,7 +32,7 @@ paths:
     │   ├── carts/     # Shopping cart feature
     │   ├── products/  # Product catalog feature
     ├── lib/           # Shared libraries and utilities
-    │   ├── api/       # Centralized API layer (queries, commands, DTOs)
+    │   ├── api/       # Centralized API layer (queries, mutations, DTOs)
     │   ├── components/ # Reusable UI components
     │   ├── http/      # HTTP client and error handling
     │   ├── i18n/      # Internationalization setup
@@ -61,6 +61,17 @@ Each feature follows feature slice architecture patterns with four layers:
 ## API Layer
 
 `src/lib/api/` is the global home for all HTTP logic: `queryOptions` factories, loaders, mutation hooks, query keys, domain errors, and DTOs, organised by resource. Query files expose `queryOptions` factories (no `useQuery` hooks — hook composition belongs in `providers/`). Feature `providers/` compose hooks on top of those factories and re-export them for feature slice. New API logic always goes in `src/lib/api/` first, then gets exposed through the relevant feature's `providers/`.
+
+**File naming in `src/lib/api/`:**
+
+| Type          | Suffix           | Example                   |
+| ------------- | ---------------- | ------------------------- |
+| Query         | `-query.ts`      | `cart-products-query.ts`  |
+| Mutation hook | `-mutation.ts`   | `add-to-cart-mutation.ts` |
+| DTO interface | `-dto.ts`        | `cart-product-dto.ts`     |
+| Query keys    | `-query-keys.ts` | `cart-query-keys.ts`      |
+
+Never use `-command.ts`, `-service.ts`, or other suffixes.
 
 ## Key Patterns
 
