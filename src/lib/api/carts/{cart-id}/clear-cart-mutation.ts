@@ -1,5 +1,6 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
+import { cartQueryKeys } from "@/lib/api/carts/cart-query-keys";
 import { httpService } from "@/lib/http";
 import { Logger } from "@/lib/logger";
 
@@ -8,6 +9,7 @@ interface IClearCartValues {
 }
 
 export const useClearCartMutation = () => {
+  const queryClient = useQueryClient();
   const { mutateAsync, isPending } = useMutation<
     void,
     unknown,
@@ -19,12 +21,9 @@ export const useClearCartMutation = () => {
   const handler = (body: IClearCartValues) => {
     return mutateAsync(body)
       .then(async () => {
-        // optionally mutate related data
+        await queryClient.invalidateQueries({ queryKey: cartQueryKeys.all });
       })
       .catch((e) => {
-        // listen for a specific error and act respectively (e.g. throwing a specific error and catch it later)
-
-        // notify backend about the error if needed
         Logger.error("An error occurred during clearing the cart", e as Error);
 
         throw e;

@@ -7,22 +7,18 @@ import {
   Text,
 } from "@chakra-ui/react";
 
+import { useClearCart } from "@/features/carts/application/use-clear-cart";
 import { useConfirmClearCartDialogStore } from "@/features/carts/components/ClearCartButton/use-confirm-clear-cart-dialog-store";
-import { useClearCart } from "@/features/carts/providers/use-clear-cart";
 import { useTranslations } from "@/lib/i18n/use-transations";
 
-import { useClearCartNotifications } from "./use-clear-cart-notifications";
-
 const ConfirmClearCartDialog = () => {
-  const [clear, isLoading] = useClearCart();
+  const { clearCart, isPending } = useClearCart();
   const t = useTranslations("features.carts.clear-cart.dialog");
 
   const { isOpen, onClose } = useConfirmClearCartDialogStore((state) => ({
     isOpen: state.isOpen,
     onClose: state.onClose,
   }));
-
-  const [notifySuccess, notifyFailure] = useClearCartNotifications();
 
   return (
     <Dialog.Root
@@ -52,15 +48,12 @@ const ConfirmClearCartDialog = () => {
               <Button
                 colorPalette="red"
                 onClick={() => {
-                  clear()
-                    .then(() => {
-                      notifySuccess();
-                      onClose();
-                    })
-                    .catch(() => notifyFailure());
+                  void clearCart().then((success) => {
+                    if (success) onClose();
+                  });
                 }}
                 ml={3}
-                loading={isLoading}
+                loading={isPending}
               >
                 {t("confirm")}
               </Button>

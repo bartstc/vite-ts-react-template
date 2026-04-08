@@ -1,13 +1,11 @@
 import { Button, VStack } from "@chakra-ui/react";
 import { useState } from "react";
 
+import { usePurchase } from "@/features/carts/application/use-purchase";
 import type { PaymentMethod } from "@/features/carts/models/payment-method";
-import { usePurchase } from "@/features/carts/providers/use-purchase";
 import { Select } from "@/lib/components/Form/Select";
 import { TextInput } from "@/lib/components/Form/TextInput";
 import { useTranslations } from "@/lib/i18n/use-transations";
-
-import { usePurchaseNotifications } from "./use-checkout-notifications";
 
 interface IProps {
   onSuccess?: () => void;
@@ -19,8 +17,7 @@ const CheckoutForm = ({ onSuccess }: IProps) => {
   const [address, setAddress] = useState<string>();
   const [method, setMethod] = useState<PaymentMethod>("blik");
 
-  const [purchase, isLoading] = usePurchase();
-  const [notifySuccess, notifyFailure] = usePurchaseNotifications();
+  const { purchase, isPending } = usePurchase();
 
   return (
     <VStack
@@ -29,13 +26,8 @@ const CheckoutForm = ({ onSuccess }: IProps) => {
       onSubmit={async (e) => {
         e.preventDefault();
 
-        try {
-          await purchase();
-          notifySuccess();
-          onSuccess?.();
-        } catch {
-          notifyFailure();
-        }
+        const success = await purchase();
+        if (success) onSuccess?.();
       }}
     >
       <TextInput
@@ -64,7 +56,7 @@ const CheckoutForm = ({ onSuccess }: IProps) => {
       >
         {t("payment-method")}
       </Select>
-      <Button type="submit" colorPalette="blue" w="100%" loading={isLoading}>
+      <Button type="submit" colorPalette="blue" w="100%" loading={isPending}>
         {t("submit")}
       </Button>
     </VStack>

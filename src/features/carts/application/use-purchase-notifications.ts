@@ -5,19 +5,19 @@ export const usePurchaseNotifications = () => {
   const t = useTranslations("features.carts.checkout.notifications");
   const toast = useToast();
 
-  const success = () =>
+  const notifySuccess = () =>
     toast({
       status: "success",
       title: t("title"),
       description: t("success"),
     });
 
-  const failure = () =>
+  const notifyFailure = () =>
     toast({
       status: "error",
       title: t("title"),
       description: t("error"),
     });
 
-  return [success, failure] as const;
+  return { notifySuccess, notifyFailure };
 };

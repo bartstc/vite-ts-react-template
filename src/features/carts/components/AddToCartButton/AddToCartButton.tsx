@@ -10,14 +10,14 @@ interface IProps {
 
 const AddToCartButton = ({ productId, colorPalette = "gray" }: IProps) => {
   const t = useTranslations("features.carts.add-to-cart");
-  const { execute, isPending } = useAddToCart();
+  const { addToCart, isPending } = useAddToCart();
 
   return (
     <Button
       w="100%"
       colorPalette={colorPalette}
       loading={isPending}
-      onClick={() => execute(productId)}
+      onClick={() => addToCart(productId)}
     >
       {t("button")}
     </Button>

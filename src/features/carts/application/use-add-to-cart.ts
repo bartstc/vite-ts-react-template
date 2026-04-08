@@ -21,7 +21,7 @@ export const useAddToCart = () => {
   } = useAddToCartNotifications();
   const onOpen = useProductAddedDialogStore((store) => store.onOpen);
 
-  const execute = async (productId: number) => {
+  const addToCart = async (productId: number) => {
     if (!isAuthenticated) {
       notifyNotAuthenticated();
       return;
@@ -46,5 +46,5 @@ export const useAddToCart = () => {
     }
   };
 
-  return { execute, isPending };
+  return { addToCart, isPending };
 };
