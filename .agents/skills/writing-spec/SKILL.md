@@ -22,10 +22,11 @@ Each phase ends with a human review gate. Do NOT advance to the next phase witho
 Collaborate with the developer to fill sections 1-3 of the template.
 
 1. Ask the developer to describe the feature in 2-5 sentences (or accept what they've already provided)
-2. Draft the **Goal & Context** section — focus on the problem, not the solution
-3. Draft **Requirements** using EARS notation: `WHEN [condition] THE SYSTEM SHALL [behavior]`. Assign stable IDs (R1, R2, …)
-4. Draft **Non-Goals** — ask: "What should this feature explicitly NOT do?"
-5. Present all three sections for review
+2. Before drafting, ask 3-5 clarifying questions about scope boundaries, error scenarios, and unstated assumptions — only where the answer would change the spec. Skip obvious ones.
+3. Draft the **Goal & Context** section — focus on the problem, not the solution
+4. Draft **Requirements** using EARS notation: `WHEN [condition] THE SYSTEM SHALL [behavior]`. Assign stable IDs (R1, R2, …)
+5. Draft **Non-Goals** — ask: "What should this feature explicitly NOT do?"
+6. Present all three sections for review
 
 **What to ask if unclear:** "What's the observable user behavior when this works correctly?" Never invent requirements — if the developer hasn't specified a behavior, ask about it.
 
@@ -58,12 +59,16 @@ Fill sections 7-10 of the template.
 
 ### Phase 4 — Review & Finalize
 
-1. Re-read the complete spec end-to-end
-2. Verify: every requirement has ≥1 task, every task traces to ≥1 requirement, boundaries are specific (file paths, not vague categories)
-3. Check spec length — target under 150 lines. If longer, look for content that belongs in coding standards or architecture docs instead
-4. Ask: "Would a staff engineer approve this spec as-is?"
-5. Set status to `review` in the Meta table
-6. Present final spec for developer sign-off
+1. Run a **structured self-audit** and present findings to the developer (don't silently verify — show the results):
+   - **Coverage matrix**: for each requirement ID, list which task(s) implement it. Flag any requirement with zero tasks
+   - **Orphan tasks**: flag any task that doesn't trace back to a requirement ID
+   - **EARS compliance**: flag any requirement missing WHEN/THE SYSTEM SHALL or using vague language ("handle properly", "work correctly")
+   - **Boundary specificity**: flag any boundary item (✅/⚠️/🚫) that references a vague category instead of a file path or module name
+   - **Building block references**: flag any block in Section 4 that doesn't exist in the building-blocks catalog
+   - **Line count**: report total. If >150, identify which section to compress or extract
+2. Fix any issues found in step 1 before proceeding
+3. Set status to `review` in the Meta table
+4. Present the audit results and the final spec for developer sign-off
 
 ## Rules & Constraints
 
