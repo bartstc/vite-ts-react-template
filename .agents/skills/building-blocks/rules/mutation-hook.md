@@ -1,7 +1,7 @@
 ---
 title: Mutation Hook
 category: Data Fetching
-layer: providers/
+layer: lib/api/
 composedWith: use-case-hook, notification-hook, query-keys-factory
 ---
 
