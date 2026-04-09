@@ -9,6 +9,7 @@ const config: StorybookConfig = {
     "storybook-addon-remix-react-router",
     "@storybook/addon-docs",
     "@storybook/addon-vitest",
+    "@storybook/addon-mcp",
   ],
 
   framework: {

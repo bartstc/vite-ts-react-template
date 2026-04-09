@@ -5,6 +5,10 @@
       "command": "pnpm",
       "args": ["dlx", "@chakra-ui/react-mcp"],
       "env": {}
+    },
+    "storybook": {
+      "type": "http",
+      "url": "http://localhost:6006/mcp"
     }
   }
 }
