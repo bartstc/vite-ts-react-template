@@ -33,12 +33,22 @@ An opinionated, production-ready starter for **Single Page Application** develop
 
 ### Architecture
 
-- Feature slice architecture with clean architecture principles
+- Feature slice architecture with clean architecture principles — each feature has four layers (`components/`, `application/`, `providers/`, `models/`) with strict dependency rules
 - Centralized API layer with endpoint-based organization and type consolidation
+- Spec-driven development for AI-assisted workflows — four-phase gated spec process, typed building block patterns, and a self-improvement loop
 - Formatting utilities for numbers, monetary values, and dates
 - File naming: PascalCase for React components/stories/page objects, kebab-case for everything else
 - A demo app with authentication showcasing the project structure and tooling in action (powered by [Fake Store API](https://fakestoreapi.com/docs))
-- Read more about architecture: `docs/architecture.md`ś
+- Read more: [`docs/architecture.md`](docs/architecture.md)
+
+### AI-assisted development
+
+This project uses spec-driven development for non-trivial features. Instead of prompting an AI agent to "build X," you collaboratively write a short spec (80–150 lines) that constrains intent, design, and sequencing before any code is written.
+
+- **Spec workflow** — four-phase gated process: Goal & Scope → Design → Sequencing → Review. Each phase requires developer approval before proceeding.
+- **Building blocks catalog** — typed patterns (mutations, queries, stores, components, hooks, models) that specs reference by name. The agent reads the pattern before implementing.
+- **Self-improvement loop** — lessons from past implementations accumulate in `specs/lessons.md` and feed back into future sessions.
+- Read more: [`docs/spec-development-docs.md`](docs/spec-development-docs.md)
 
 ## Getting started
 
