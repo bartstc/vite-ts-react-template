@@ -2,16 +2,17 @@
 import fs from "node:fs";
 import path from "node:path";
 
-import react from "@vitejs/plugin-react-swc";
+import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 import checker from "vite-plugin-checker";
-import tsconfigPaths from "vite-tsconfig-paths";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
+  resolve: {
+    tsconfigPaths: true,
+  },
   plugins: [
     react(),
-    tsconfigPaths(),
     mode !== "test" &&
       checker({
         typescript: true,
