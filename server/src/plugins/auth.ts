@@ -1,0 +1,18 @@
+import fastifyJwt from "@fastify/jwt";
+import type { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
+import { JWT_SECRET } from "@/config.js";
+
+export function registerJwt(app: FastifyInstance): void {
+  app.register(fastifyJwt, { secret: JWT_SECRET });
+}
+
+export async function authenticate(
+  request: FastifyRequest,
+  reply: FastifyReply
+): Promise<void> {
+  try {
+    await request.jwtVerify();
+  } catch {
+    reply.code(401).send({ message: "Unauthorized" });
+  }
+}

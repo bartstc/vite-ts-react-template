@@ -23,7 +23,9 @@
     "preview": "vite preview",
     "lint": "eslint . --ignore-pattern '*.d.ts' --report-unused-disable-directives --max-warnings 0",
     "prepare": "husky install",
-    "storybook": "storybook dev -p 6006"
+    "storybook": "storybook dev -p 6006",
+    "dev:server": "pnpm --filter server dev",
+    "dev:all": "concurrently \"pnpm dev\" \"pnpm dev:server\""
   },
   "dependencies": {
     "@chakra-ui/react": "3.34.0",
@@ -89,6 +91,7 @@
     "storybook-addon-remix-react-router": "6.1.0",
     "typescript": "5.9.3",
     "typescript-eslint": "8.52.0",
+    "concurrently": "9.2.1",
     "vite": "8.0.8",
     "vite-plugin-checker": "0.12.0",
     "vitest": "4.1.3"
