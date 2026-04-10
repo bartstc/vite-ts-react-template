@@ -23,10 +23,10 @@ const ProductsList = ({ products }: IProps) => {
         <GridItem key={product.id} colSpan={1}>
           <ProductCard
             id={product.id}
-            title={product.title}
+            name={product.name}
             category={product.category}
             price={product.price}
-            imageUrl={product.image}
+            imageUrl={product.imageUrl}
           />
         </GridItem>
       ))}

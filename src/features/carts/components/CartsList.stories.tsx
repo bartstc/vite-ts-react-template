@@ -15,15 +15,9 @@ const meta = {
 } satisfies Meta<typeof CartsList>;
 
 const products = ProductFixture.createCollection([
-  {
-    id: 1,
-  },
-  {
-    id: 2,
-  },
-  {
-    id: 3,
-  },
+  { id: "4f968992-1aab-49c9-8913-09405915c1c0" },
+  { id: "4f968992-1aab-49c9-8913-09405915c1c1" },
+  { id: "4f968992-1aab-49c9-8913-09405915c1c2" },
 ]);
 
 export default meta;
@@ -31,10 +25,9 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    cartProducts: products.map((product) => ({
+    cartProducts: products.map((product, i) => ({
       ...product,
-      quantity: product.id,
-      imageUrl: product.image,
+      quantity: i + 1,
     })),
   },
 };

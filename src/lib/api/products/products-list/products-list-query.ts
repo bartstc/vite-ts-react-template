@@ -20,15 +20,7 @@ export const productsQuery = (params: QueryParams = defaultParams) =>
   queryOptions({
     queryKey: productsQueryKeys.list(params),
     queryFn: (): Promise<ICollection> =>
-      httpService
-        .get<ProductDto[]>(buildUrl("products", params))
-        .then((res) => ({
-          products: res,
-          meta: {
-            ...params,
-            total: 20,
-          },
-        })),
+      httpService.get<ICollection>(buildUrl("products", params)),
   });
 
 export const productsLoader = async (params: QueryParams = defaultParams) =>

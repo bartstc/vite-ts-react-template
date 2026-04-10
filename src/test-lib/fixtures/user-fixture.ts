@@ -4,7 +4,7 @@ import { createFixture } from "./create-fixture";
 
 export const UserFixture = createFixture<User>({
   id: 1,
-  cartId: 2,
+  cartId: "00000000-0000-0000-0000-000000000001",
   email: "John@gmail.com",
   username: "johnd",
   name: {

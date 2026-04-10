@@ -11,9 +11,9 @@ import { cartPageLoader } from "./loader";
 
 import { Component } from "./index";
 
-const CART_ID = 1;
-const PRODUCT_ID_1 = 2;
-const PRODUCT_ID_2 = 3;
+const CART_ID = "00000000-0000-0000-0000-000000000001";
+const PRODUCT_ID_1 = "4f968992-1aab-49c9-8913-09405915c1c0";
+const PRODUCT_ID_2 = "4f968992-1aab-49c9-8913-09405915c1c1";
 
 const meta = {
   title: "pages/Cart",

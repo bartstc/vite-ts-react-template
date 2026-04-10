@@ -47,7 +47,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    productId: 1,
+    productId: "4f968992-1aab-49c9-8913-09405915c1c0",
   },
 };
 

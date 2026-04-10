@@ -4,7 +4,7 @@ import { useAddToCart } from "@/features/carts/application/use-add-to-cart";
 import { useTranslations } from "@/lib/i18n/use-transations";
 
 interface IProps {
-  productId: number;
+  productId: string;
   colorPalette?: ButtonProps["colorPalette"];
 }
 

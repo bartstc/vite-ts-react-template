@@ -20,27 +20,13 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     products: ProductFixture.createCollection([
-      {
-        id: 1,
-      },
-      {
-        id: 2,
-      },
-      {
-        id: 3,
-      },
-      {
-        id: 4,
-      },
-      {
-        id: 5,
-      },
-      {
-        id: 6,
-      },
-      {
-        id: 7,
-      },
+      { id: "4f968992-1aab-49c9-8913-09405915c1c0" },
+      { id: "4f968992-1aab-49c9-8913-09405915c1c1" },
+      { id: "4f968992-1aab-49c9-8913-09405915c1c2" },
+      { id: "4f968992-1aab-49c9-8913-09405915c1c3" },
+      { id: "4f968992-1aab-49c9-8913-09405915c1c4" },
+      { id: "4f968992-1aab-49c9-8913-09405915c1c5" },
+      { id: "4f968992-1aab-49c9-8913-09405915c1c6" },
     ]),
   },
 };

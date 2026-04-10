@@ -12,8 +12,12 @@ export const getProductsHandler = (resolver?: GetResolver) =>
     (req) => {
       if (resolver) return resolver(req);
 
-      return HttpResponse.json(
-        ProductFixture.createCollection([{ id: 1 }, { id: 2 }])
-      );
+      return HttpResponse.json({
+        products: ProductFixture.createCollection([
+          { id: "4f968992-1aab-49c9-8913-09405915c1c0" },
+          { id: "4f968992-1aab-49c9-8913-09405915c1c1" },
+        ]),
+        meta: { limit: 10, sort: "asc", total: 2 },
+      });
     }
   );

@@ -4,6 +4,7 @@ import { withRouter } from "storybook-addon-remix-react-router";
 
 import { ProductFixture } from "@/test-lib/fixtures/product-fixture";
 import { getAddToCartHandler } from "@/test-lib/handlers/get-add-to-cart-handler";
+import { getMarketingProductHandler } from "@/test-lib/handlers/get-marketing-product-handler";
 
 import { ProductDetails } from "./ProductDetails";
 
@@ -14,7 +15,7 @@ const meta = {
   parameters: {
     layout: "centered",
     msw: {
-      handlers: [getAddToCartHandler()],
+      handlers: [getAddToCartHandler(), getMarketingProductHandler()],
     },
   },
 } satisfies Meta<typeof ProductDetails>;

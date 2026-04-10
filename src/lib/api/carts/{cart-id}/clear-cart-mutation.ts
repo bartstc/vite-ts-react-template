@@ -5,7 +5,7 @@ import { httpService } from "@/lib/http";
 import { Logger } from "@/lib/logger";
 
 interface IClearCartValues {
-  cartId: number;
+  cartId: string;
 }
 
 export const useClearCartMutation = () => {

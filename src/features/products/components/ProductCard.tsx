@@ -11,14 +11,14 @@ import { useSecondaryTextColor } from "@/lib/theme/use-secondary-text-color";
 import { useCategoryLabel } from "./use-category-label";
 
 interface IProps {
-  id: number;
-  title: string;
+  id: string;
+  name: string;
   category: Category;
-  price: number;
+  price: { amount: number; currency: string };
   imageUrl: string;
 }
 
-const ProductCard = ({ title, category, price, imageUrl, id }: IProps) => {
+const ProductCard = ({ name, category, price, imageUrl, id }: IProps) => {
   const navigate = useNavigate();
   const categoryLabel = useCategoryLabel(category);
   const categoryColor = useSecondaryTextColor();
@@ -49,14 +49,14 @@ const ProductCard = ({ title, category, price, imageUrl, id }: IProps) => {
             onClick={() =>
               navigate({
                 path: routes.product.path,
-                params: { productId: id.toString() },
+                params: { productId: id },
               })
             }
             cursor="pointer"
           >
-            {title}
+            {name}
           </Text>
-          <Text>{moneyVO.format(price)}</Text>
+          <Text>{moneyVO.format(price.amount, price.currency)}</Text>
         </HStack>
         <Text
           fontStyle="italic"

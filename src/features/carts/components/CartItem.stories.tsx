@@ -22,10 +22,10 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     id: product.id,
-    title: product.title,
+    name: product.name,
     category: product.category,
     price: product.price,
-    imageUrl: product.image,
+    imageUrl: product.imageUrl,
     quantity: 4,
   },
 };

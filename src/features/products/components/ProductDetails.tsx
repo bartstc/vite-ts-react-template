@@ -16,6 +16,7 @@ import { ProductAddedDialog } from "@/features/carts/components/AddToCartButton/
 import { StarRating } from "@/features/products/components/StarRating";
 import { useCategoryLabel } from "@/features/products/components/use-category-label";
 import type { Product } from "@/features/products/models/product";
+import { useMarketingProductQuery } from "@/features/products/providers/use-marketing-product-query";
 import { PageHeader } from "@/lib/components/Layout/PageHeader";
 import { moneyVO } from "@/lib/format/money";
 import { useTranslations } from "@/lib/i18n/use-transations";
@@ -37,6 +38,7 @@ const ProductDetails = ({ product, onBack }: IProps) => {
   const categoryLabel = useCategoryLabel(product.category);
   const secondaryColor = useSecondaryTextColor();
   const t = useTranslations("features.products.details");
+  const { data: marketingProduct } = useMarketingProductQuery(product.id);
 
   return (
     <SimpleGrid
@@ -56,7 +58,7 @@ const ProductDetails = ({ product, onBack }: IProps) => {
             bgSize="cover"
             bgPos="center"
             style={{
-              backgroundImage: `url(${product.image})`,
+              backgroundImage: `url(${product.imageUrl})`,
             }}
           />
         </Box>
@@ -64,17 +66,19 @@ const ProductDetails = ({ product, onBack }: IProps) => {
       <GridItem colSpan={1}>
         <VStack gap={{ base: 1, lg: 3 }} w="100%" align="start">
           <PageHeader
-            title={product.title}
+            title={product.name}
             description={t("collection", { category: categoryLabel })}
           />
           <HStack w="100%" height="24px" gap={4}>
             <Text fontWeight="semibold" fontSize={{ base: "lg", md: "xl" }}>
-              {moneyVO.format(product.price)}
+              {moneyVO.format(product.price.amount, product.price.currency)}
             </Text>
             <Separator orientation="vertical" />
-            <StarRating rating={product.rating.rate} />
+            <StarRating rating={marketingProduct?.rating.rate ?? 0} />
             <Button variant="plain" colorPalette="orange">
-              {t("see-reviews", { number: product.rating.count })}
+              {t("see-reviews", {
+                number: marketingProduct?.rating.count ?? 0,
+              })}
             </Button>
           </HStack>
           <Text

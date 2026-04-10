@@ -19,6 +19,6 @@ export interface UserDto {
   };
   phone: string;
   address: Address;
-  cartId: number;
+  cartId: string;
   password: string;
 }

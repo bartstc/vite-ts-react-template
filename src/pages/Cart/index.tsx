@@ -28,9 +28,9 @@ const CartPage = () => {
       <CartsList
         cartProducts={data.products.map((product) => ({
           id: product.id,
-          title: product.title,
+          name: product.name,
           price: product.price,
-          imageUrl: product.image,
+          imageUrl: product.imageUrl,
           category: product.category,
           quantity: product.quantity,
         }))}

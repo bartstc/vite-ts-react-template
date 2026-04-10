@@ -1,11 +1,11 @@
-interface Product {
-  productId: number;
+interface CartProduct {
+  productId: string;
   quantity: number;
 }
 
 export interface CartDto {
-  id: number;
+  id: string;
   userId: number;
   date: string;
-  products: Product[];
+  products: CartProduct[];
 }
