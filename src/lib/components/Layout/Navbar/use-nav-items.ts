@@ -39,11 +39,6 @@ export const NAV_ITEMS: NavItem[] = [
         subLabel: "Next generation Frontend Tooling",
         href: "https://vitejs.dev/",
       },
-      {
-        label: "Fake Store API",
-        subLabel: "Free rest API for e-commerce",
-        href: "https://fakestoreapi.com/",
-      },
     ],
   },
   {

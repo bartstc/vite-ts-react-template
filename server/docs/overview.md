@@ -1,6 +1,6 @@
 # Local API Server
 
-A self-contained Fastify server that replaces the external Fake Store API dependency. Runs alongside the Vite dev server and provides a stable, resettable backend for local development and E2E tests.
+A self-contained Fastify server. Runs alongside the Vite dev server and provides a stable, resettable backend for local development and E2E tests.
 
 ## Stack
 
