@@ -16,6 +16,7 @@ export const seedUsers: User[] = [
       zipcode: "12345",
       geolocation: { lat: "40.7128", long: "-74.0060" },
     },
+    cartId: "00000000-0000-0000-0000-000000000001",
   },
   {
     id: 2,
@@ -32,6 +33,7 @@ export const seedUsers: User[] = [
       zipcode: "23456",
       geolocation: { lat: "34.0522", long: "-118.2437" },
     },
+    cartId: "00000000-0000-0000-0000-000000000002",
   },
   {
     id: 3,
@@ -48,5 +50,6 @@ export const seedUsers: User[] = [
       zipcode: "34567",
       geolocation: { lat: "41.8781", long: "-87.6298" },
     },
+    cartId: "00000000-0000-0000-0000-000000000003",
   },
 ];

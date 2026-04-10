@@ -1,11 +1,13 @@
 import type { User } from "@/modules/auth/auth.types.js";
 import type { Product } from "@/modules/products/products.types.js";
 import type { MarketingProduct } from "@/modules/marketing/marketing.types.js";
+import type { Cart } from "@/modules/carts/carts.types.js";
 
 export interface DatabaseSchema {
   users: User[];
   products: Product[];
   marketingProducts: MarketingProduct[];
+  carts: Cart[];
 }
 
 export const CATEGORIES = ["clothing", "jewelery", "electronics"] as const;

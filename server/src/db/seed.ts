@@ -2,6 +2,7 @@ import { getDb } from "@/db/database.js";
 import { seedUsers } from "@/db/seed-data/users.js";
 import { seedProducts } from "@/db/seed-data/products.js";
 import { seedMarketing } from "@/db/seed-data/marketing.js";
+import { seedCarts } from "@/db/seed-data/carts.js";
 
 export async function seedDatabase(): Promise<void> {
   const db = await getDb();
@@ -14,6 +15,7 @@ export async function seedDatabase(): Promise<void> {
     db.data.users = seedUsers;
     db.data.products = seedProducts;
     db.data.marketingProducts = seedMarketing;
+    db.data.carts = seedCarts;
     await db.write();
   }
 }
@@ -23,5 +25,6 @@ export async function resetDatabase(): Promise<void> {
   db.data.users = seedUsers;
   db.data.products = seedProducts;
   db.data.marketingProducts = seedMarketing;
+  db.data.carts = seedCarts;
   await db.write();
 }

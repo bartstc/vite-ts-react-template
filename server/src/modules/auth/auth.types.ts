@@ -15,6 +15,7 @@ export interface User {
   name: { firstname: string; lastname: string };
   phone: string;
   address: UserAddress;
+  cartId: string;
 }
 
 export interface LoginBody {
