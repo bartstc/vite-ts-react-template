@@ -82,11 +82,14 @@ export class KyClient implements HttpServiceClient<KyClientOptions> {
     return this.kyInstance.patch(url, { json: body, ...options }).json();
   }
 
-  public delete<R = unknown, B = unknown>(
+  public async delete<R = unknown, B = unknown>(
     url: string,
     body?: B,
     options?: Options
   ): Promise<R> {
-    return this.kyInstance.delete(url, { json: body, ...options }).json();
+    const kyOptions = body !== undefined ? { json: body, ...options } : options;
+    const res = await this.kyInstance.delete(url, kyOptions);
+    if (res.status === 204) return undefined as R;
+    return res.json();
   }
 }

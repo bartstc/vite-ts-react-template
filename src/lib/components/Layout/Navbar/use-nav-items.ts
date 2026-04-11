@@ -1,16 +1,26 @@
 // eslint-disable-next-line import/no-restricted-paths
 import { useAuthStore } from "@/features/auth/application/auth-store";
+import { generatePath } from "@/lib/router";
+import { routes } from "@/lib/router/routes";
 
 import type { NavItem } from "./nav-item";
 
 export const useNavItems = () => {
   const isAuthenticated = useAuthStore((store) => store.isAuthenticated);
+  const cartId = useAuthStore((store) => store.user?.cartId);
 
-  return isAuthenticated ? NAV_ITEMS : NAV_ITEMS.slice(0, NAV_ITEMS.length - 1);
+  const cartItem: NavItem = {
+    label: "Cart",
+    href: cartId ? generatePath(routes.cart, { cartId }) : routes.cart,
+  };
+
+  const navItems: NavItem[] = [...BASE_NAV_ITEMS, cartItem];
+
+  return isAuthenticated ? navItems : navItems.slice(0, navItems.length - 1);
 };
 
 // todo: translations
-export const NAV_ITEMS: NavItem[] = [
+const BASE_NAV_ITEMS: NavItem[] = [
   {
     label: "Inspiration",
     children: [
@@ -44,9 +54,5 @@ export const NAV_ITEMS: NavItem[] = [
   {
     label: "Our Products",
     href: "/products",
-  },
-  {
-    label: "Cart",
-    href: "/cart/1",
   },
 ];
