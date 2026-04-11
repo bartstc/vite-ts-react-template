@@ -33,6 +33,12 @@ An opinionated, production-ready starter for **Single Page Application** develop
 
 ### Architecture
 
+```
+src/        React SPA (features, pages, lib)
+server/     Local Fastify API server (dev/demo)
+e2e/        Playwright end-to-end tests
+```
+
 - Feature slice architecture with clean architecture principles — each feature has four layers (`components/`, `application/`, `providers/`, `models/`) with strict dependency rules
 - Centralized API layer with endpoint-based organization and type consolidation
 - Spec-driven development for AI-assisted workflows — four-phase gated spec process, typed building block patterns, and a self-improvement loop
