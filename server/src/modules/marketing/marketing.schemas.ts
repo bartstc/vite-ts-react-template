@@ -8,7 +8,7 @@ export const createMarketingProductSchema = {
     },
   },
   additionalProperties: false,
-} as const;
+};
 
 export const rateProductSchema = {
   type: "object",
@@ -17,4 +17,4 @@ export const rateProductSchema = {
     rating: { type: "number", minimum: 0, maximum: 5 },
   },
   additionalProperties: false,
-} as const;
+};

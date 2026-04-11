@@ -6,4 +6,4 @@ export const loginBodySchema = {
     password: { type: "string", minLength: 1 },
   },
   additionalProperties: false,
-} as const;
+};

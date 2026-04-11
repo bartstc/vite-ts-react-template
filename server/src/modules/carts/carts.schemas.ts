@@ -9,4 +9,4 @@ export const addToCartSchema = {
     quantity: { type: "integer", minimum: 1 },
   },
   additionalProperties: false,
-} as const;
+};

@@ -20,7 +20,7 @@ export const createProductSchema = {
     category: { type: "string", enum: CATEGORIES },
   },
   additionalProperties: false,
-} as const;
+};
 
 export const updateProductSchema = {
   type: "object",
@@ -30,7 +30,7 @@ export const updateProductSchema = {
     imageUrl: { type: "string", format: "uri" },
   },
   additionalProperties: false,
-} as const;
+};
 
 export const updatePriceSchema = {
   type: "object",
@@ -40,7 +40,7 @@ export const updatePriceSchema = {
     code: { type: "string", enum: CURRENCIES },
   },
   additionalProperties: false,
-} as const;
+};
 
 export const listProductsQuerySchema = {
   type: "object",
@@ -48,4 +48,4 @@ export const listProductsQuerySchema = {
     limit: { type: "integer", default: 10, minimum: 1 },
     sort: { type: "string", enum: ["asc", "desc"], default: "asc" },
   },
-} as const;
+};

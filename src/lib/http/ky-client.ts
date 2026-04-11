@@ -8,6 +8,8 @@ import { type HttpServiceClient } from "./http-service-client";
 
 export interface KyClientOptions extends Options {}
 
+export const AUTH_TOKEN_KEY = "auth_token";
+
 export class KyClient implements HttpServiceClient<KyClientOptions> {
   public options: Options;
   private kyInstance: ReturnType<(typeof ky)["create"]>;
@@ -16,7 +18,17 @@ export class KyClient implements HttpServiceClient<KyClientOptions> {
     this.options = options;
     this.kyInstance = ky.create({
       ...options,
+      retry: 0,
       hooks: {
+        beforeRequest: [
+          (request) => {
+            const token = localStorage.getItem(AUTH_TOKEN_KEY);
+            if (!token) return;
+            const headers = new Headers(request.headers);
+            headers.set("Authorization", `Bearer ${token}`);
+            return new Request(request, { headers });
+          },
+        ],
         beforeError: [
           (error) => {
             const { response, request, options } = error;

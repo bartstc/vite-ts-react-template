@@ -18,8 +18,16 @@ export async function getMarketingProductHandler(
   reply.send(record);
 }
 
+export interface CreateMarketingBody {
+  productId: string;
+}
+
+export interface RateProductBody {
+  rating: number;
+}
+
 export async function createMarketingProductHandler(
-  request: FastifyRequest<{ Body: { productId: string } }>,
+  request: FastifyRequest<{ Body: CreateMarketingBody }>,
   reply: FastifyReply
 ): Promise<void> {
   const { productId } = request.body;
@@ -43,7 +51,7 @@ export async function createMarketingProductHandler(
 }
 
 export async function rateMarketingProductHandler(
-  request: FastifyRequest<{ Params: { id: string }; Body: { rating: number } }>,
+  request: FastifyRequest<{ Params: { id: string }; Body: RateProductBody }>,
   reply: FastifyReply
 ): Promise<void> {
   const db = await getDb();

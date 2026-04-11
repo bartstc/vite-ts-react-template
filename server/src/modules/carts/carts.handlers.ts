@@ -16,10 +16,15 @@ export async function getCartHandler(
   reply.send(cart);
 }
 
+export interface AddToCartBody {
+  productId: string;
+  quantity: number;
+}
+
 export async function addToCartHandler(
   request: FastifyRequest<{
     Params: { id: string };
-    Body: { productId: string; quantity: number };
+    Body: AddToCartBody;
   }>,
   reply: FastifyReply
 ): Promise<void> {
@@ -41,7 +46,7 @@ export async function addToCartHandler(
     productIndex === -1
       ? [...cart.products, { productId, quantity }]
       : cart.products.map((p, i) =>
-          i === productIndex ? { ...p, quantity } : p
+          i === productIndex ? { ...p, quantity: p.quantity + quantity } : p
         );
 
   const updated = {

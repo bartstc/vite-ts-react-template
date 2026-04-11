@@ -7,6 +7,10 @@ import {
   updateProductHandler,
   updateProductPriceHandler,
   deleteProductHandler,
+  type ListQuery,
+  type CreateBody,
+  type UpdateBody,
+  type UpdatePriceBody,
 } from "@/modules/products/products.handlers.js";
 import {
   listProductsQuerySchema,
@@ -16,28 +20,28 @@ import {
 } from "@/modules/products/products.schemas.js";
 
 export async function productRoutes(app: FastifyInstance): Promise<void> {
-  app.get(
+  app.get<{ Querystring: ListQuery }>(
     "/api/products",
     { schema: { querystring: listProductsQuerySchema } },
     listProductsHandler
   );
-  app.get("/api/products/:id", getProductHandler);
-  app.post(
+  app.get<{ Params: { id: string } }>("/api/products/:id", getProductHandler);
+  app.post<{ Body: CreateBody }>(
     "/api/products",
     { schema: { body: createProductSchema }, preHandler: authenticate },
     createProductHandler
   );
-  app.put(
+  app.put<{ Params: { id: string }; Body: UpdateBody }>(
     "/api/products/:id",
     { schema: { body: updateProductSchema }, preHandler: authenticate },
     updateProductHandler
   );
-  app.patch(
+  app.patch<{ Params: { id: string }; Body: UpdatePriceBody }>(
     "/api/products/:id/price",
     { schema: { body: updatePriceSchema }, preHandler: authenticate },
     updateProductPriceHandler
   );
-  app.delete(
+  app.delete<{ Params: { id: string } }>(
     "/api/products/:id",
     { preHandler: authenticate },
     deleteProductHandler

@@ -2,12 +2,12 @@ import type { FastifyReply, FastifyRequest } from "fastify";
 import { getDb } from "@/db/database.js";
 import type { Category, Currency } from "@/modules/products/products.types.js";
 
-interface ListQuery {
+export interface ListQuery {
   limit?: number;
   sort?: "asc" | "desc";
 }
 
-interface CreateBody {
+export interface CreateBody {
   name: string;
   description: string;
   price: { amount: number; code: Currency };
@@ -15,13 +15,13 @@ interface CreateBody {
   category: Category;
 }
 
-interface UpdateBody {
+export interface UpdateBody {
   name?: string;
   description?: string;
   imageUrl?: string;
 }
 
-interface UpdatePriceBody {
+export interface UpdatePriceBody {
   amount: number;
   code: Currency;
 }
