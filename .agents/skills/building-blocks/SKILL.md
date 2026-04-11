@@ -1,6 +1,6 @@
 ---
 name: building-blocks
-description: Frontend building block catalog — typed patterns for components, hooks, queries, mutations, stores, and models used across the project. Use this skill whenever implementing, reviewing, or planning feature code, API integrations, state management, component patterns, or data modeling within src/features/ or src/lib/. Also triggers for architectural decisions about where code should live or which pattern to apply.
+description: Frontend building block catalog — typed patterns for components, hooks, queries, mutations, stores, and models. ALWAYS read the relevant rule file before creating or modifying any building block in src/features/ or src/lib/. This includes spec implementation (read rule files for every block in the Building Blocks Diff), new feature work, refactoring, and architectural decisions.
 ---
 
 # Frontend Building Blocks
