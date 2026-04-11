@@ -6,6 +6,7 @@ const defaultData: DatabaseSchema = {
   users: [],
   products: [],
   marketingProducts: [],
+  carts: [],
 };
 
 type Db = Awaited<ReturnType<typeof JSONFilePreset<DatabaseSchema>>>;

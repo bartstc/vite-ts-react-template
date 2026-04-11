@@ -85,8 +85,8 @@ export default defineConfig({
       timeout: 120 * 1000,
     },
     {
-      command: "pnpm dev:server",
-      url: "http://localhost:3001",
+      command: "pnpm --filter server start",
+      url: "http://localhost:3001/docs",
       reuseExistingServer: !process.env.CI,
       timeout: 60 * 1000,
     },
