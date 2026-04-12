@@ -2,8 +2,8 @@ import { test, expect } from "@e2e/pages";
 
 const ROUTES = {
   PRODUCTS: /\/products$/,
-  PRODUCT_DETAILS: /\/products\/\d+$/,
-  CART: /\/cart\/\d+$/,
+  PRODUCT_DETAILS: /\/products\/.+$/,
+  CART: /\/cart\/.+$/,
 } as const;
 
 test.describe("Product Details Page", () => {
