@@ -139,7 +139,7 @@ const ProductOrderForm = () => {
 // ─── Storybook meta ────────────────────────────────────────────────────────────
 
 const meta = {
-  title: "lib/FormV2/AllFieldsForm",
+  title: "lib/Form/AllFieldsForm",
   component: ProductOrderForm,
   parameters: { layout: "centered" },
 } satisfies Meta<typeof ProductOrderForm>;

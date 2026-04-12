@@ -91,6 +91,7 @@ export default defineConfig(
       "**/*.typegen.ts",
       "**/public/mockServiceWorker.js",
       "server/**",
+      "**/*.mdx",
     ],
   },
   js.configs.recommended,
