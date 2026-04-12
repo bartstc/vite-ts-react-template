@@ -24,8 +24,16 @@ const ProductCard = ({ name, category, price, imageUrl, id }: IProps) => {
   const categoryColor = useSecondaryTextColor();
 
   return (
-    <VStack gap={3} overflow="hidden" rounded="lg" as="article">
+    <VStack
+      gap={3}
+      overflow="hidden"
+      rounded="lg"
+      as="article"
+      aria-labelledby={`product-name-${id}`}
+    >
       <Box
+        role="img"
+        aria-label={name}
         onClick={() => navigate(`/products/${id}`)}
         cursor="pointer"
         h={64}
@@ -45,6 +53,7 @@ const ProductCard = ({ name, category, price, imageUrl, id }: IProps) => {
           gap={6}
         >
           <Text
+            id={`product-name-${id}`}
             truncate
             onClick={() =>
               navigate({

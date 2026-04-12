@@ -21,7 +21,7 @@ export class ProductListPage extends BasePage {
 
   async waitForProductsToLoad(): Promise<void> {
     // AIDEV-NOTE: Wait for at least one "Add to cart" button to appear
-    // This indicates products have loaded, without needing a test ID on the grid
+    // This indicates products have loaded
     await this.page
       .getByRole("button", { name: /add to cart/i })
       .first()
@@ -29,16 +29,12 @@ export class ProductListPage extends BasePage {
   }
 
   async getProductCount(): Promise<number> {
-    // AIDEV-NOTE: Count product cards by counting <article> elements
-    // Each ProductCard renders as a semantic <article> element
-    const cards = await this.page.locator("article").all();
+    const cards = await this.page.getByRole("article").all();
     return cards.length;
   }
 
   private getProductCard(index = 0): ProductCardComponent {
-    // AIDEV-NOTE: Get product card by index (default: first product)
-    // E2E tests use real API data, so we can't rely on specific product names
-    const cardRoot = this.page.locator("article").nth(index);
+    const cardRoot = this.page.getByRole("article").nth(index);
 
     return new ProductCardComponent(this.page, cardRoot);
   }
