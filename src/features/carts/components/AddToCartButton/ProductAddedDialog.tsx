@@ -7,7 +7,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 
-import { useProductAddedDialogStore } from "@/features/carts/components/AddToCartButton/use-product-added-dialog-store";
+import { useProductAddedDialogStore } from "@/features/carts/application/use-product-added-dialog-store";
 import { useTranslations } from "@/lib/i18n/use-transations";
 import { useNavigate } from "@/lib/router";
 import { routes } from "@/lib/router/routes";

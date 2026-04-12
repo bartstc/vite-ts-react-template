@@ -52,14 +52,20 @@ Each feature follows feature slice architecture patterns with four layers:
 
 - **components/** - UI components, presentational and decoupled from business logic (application) and router state. Data access is only through `providers/`.
 - **application/** - Business logic, portable state management (stores, FSMs, form validation), custom hooks. Should not depend on router state or external APIs directly (only through `providers/`).
-- **providers/** - Hook composition and data access gateway for the feature slice. Exposes query hooks, mutations, loaders, domain errors, and DTOs sourced from `src/lib/api/`. Library-specific code (React Query, etc.) must not leak beyond this layer.
+- **providers/** - Hook composition and data access gateway for the feature slice. Exposes query hooks, mutations, loaders, and domain errors sourced from `src/lib/api/`. When the DTO shape diverges from the domain model, the mapping function lives here — applied inside the query/mutation hook so consumers always receive the correct domain model type.
   - files are named after their primary export or reexport: `useCartProductsQuery` → `use-cart-products-query.ts`, `useAddToCartMutation` → `use-add-to-cart-mutation.ts`
-- **models/** - Domain type definitions, utilities, and type mapping functions.
-  - exposes frontend models for the feature. Components, application, and pages import types from `models/`, never directly from `src/lib/api/`. When the DTO shape is identical, a simple re-export with a domain name suffices (`export type { ProductDto as Product }`). When it diverges, map to a dedicated frontend model.
+- **models/** - Domain type definitions only. Exposes frontend models for the feature. When the DTO shape is identical to the domain model, re-export with a domain name (`export type { ProductDto as Product }`). When it diverges, define the domain type here.
 
-**Dependency rule:** `components/` and `application/` import from `models/` and `providers/`. `providers/` and `models/` have no internal feature dependencies.
+**Dependency rule:**
 
-## API Layer
+| Layer          | May import from                                  |
+| -------------- | ------------------------------------------------ |
+| `components/`  | `application/`, `providers/`, `models/`, `lib/*` |
+| `application/` | `providers/`, `models/`, `lib/*`                 |
+| `providers/`   | `models/`, `lib/api/`, `lib/*`                   |
+| `models/`      | `lib/api/`, `lib/*`                              |
+
+## API Library
 
 `src/lib/api/` is the global home for all HTTP logic: `queryOptions` factories, loaders, mutation hooks, query keys, domain errors, and DTOs, organised by resource. Query files expose `queryOptions` factories (no `useQuery` hooks — hook composition belongs in `providers/`). Feature `providers/` compose hooks on top of those factories and re-export them for feature slice. New API logic always goes in `src/lib/api/` first, then gets exposed through the relevant feature's `providers/`.
 
@@ -71,8 +77,6 @@ Each feature follows feature slice architecture patterns with four layers:
 | Mutation hook | `-mutation.ts`   | `add-to-cart-mutation.ts` |
 | DTO interface | `-dto.ts`        | `cart-product-dto.ts`     |
 | Query keys    | `-query-keys.ts` | `cart-query-keys.ts`      |
-
-Never use `-command.ts`, `-service.ts`, or other suffixes.
 
 ## Key Patterns
 
