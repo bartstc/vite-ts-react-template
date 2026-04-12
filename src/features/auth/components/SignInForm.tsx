@@ -62,7 +62,7 @@ export const SignInForm = ({ initialUsername, initialPassword }: IProps) => {
         p={{ base: 6, md: 8 }}
       >
         <FormProvider {...form}>
-          <VStack as="form" gap={4} onSubmit={onSubmit}>
+          <VStack as="form" gap={4} onSubmit={onSubmit} align="stretch">
             <TextInput name="username" label={t("username")} isRequired />
             <TextInput
               name="password"

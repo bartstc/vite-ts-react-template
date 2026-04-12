@@ -33,7 +33,7 @@ const CheckoutForm = ({ onSuccess }: IProps) => {
 
   return (
     <FormProvider {...form}>
-      <VStack as="form" gap={4} onSubmit={onSubmit}>
+      <VStack as="form" gap={4} onSubmit={onSubmit} align="stretch">
         <TextInput name="fullName" label={t("full-name")} isRequired />
         <TextInput name="address" label={t("address")} isRequired />
         <SelectInput
