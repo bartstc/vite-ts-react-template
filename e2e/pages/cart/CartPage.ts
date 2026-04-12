@@ -3,12 +3,18 @@ import type { Page, Locator } from "@playwright/test";
 import type { PaymentMethod } from "@/features/carts/models/payment-method";
 import { BasePage } from "@e2e/pages/base/BasePage";
 
+const PAYMENT_METHOD_LABELS: Record<PaymentMethod, string> = {
+  blik: "Blik",
+  card: "Credit Card",
+  paypal: "PayPal",
+};
+
 export class CartPage extends BasePage {
   readonly checkoutButton: Locator;
   readonly checkoutDialog: Locator;
   private readonly fullNameInput: Locator;
   private readonly addressInput: Locator;
-  private readonly paymentMethodSelect: Locator;
+  private readonly paymentMethodTrigger: Locator;
   private readonly submitButton: Locator;
 
   constructor(page: Page) {
@@ -20,8 +26,9 @@ export class CartPage extends BasePage {
 
     this.fullNameInput = this.checkoutDialog.getByLabel(/full name/i);
     this.addressInput = this.checkoutDialog.getByLabel(/address/i);
-    this.paymentMethodSelect =
-      this.checkoutDialog.getByLabel(/payment method/i);
+    this.paymentMethodTrigger = this.checkoutDialog.getByRole("combobox", {
+      name: /payment method/i,
+    });
     this.submitButton = this.checkoutDialog.getByRole("button", {
       name: /complete order/i,
     });
@@ -44,7 +51,10 @@ export class CartPage extends BasePage {
   ): Promise<this> {
     await this.fullNameInput.fill(fullName);
     await this.addressInput.fill(address);
-    await this.paymentMethodSelect.selectOption(paymentMethod);
+    await this.paymentMethodTrigger.click();
+    await this.page
+      .getByRole("option", { name: PAYMENT_METHOD_LABELS[paymentMethod] })
+      .click();
     return this;
   }
 
