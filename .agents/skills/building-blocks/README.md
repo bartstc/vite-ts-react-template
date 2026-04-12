@@ -10,13 +10,13 @@ A structured catalog of typed frontend building blocks, optimized for AI agents.
 
 ## Building Block Categories
 
-| Category           | Blocks | Description                                                                    |
-| ------------------ | ------ | ------------------------------------------------------------------------------ |
-| Data Fetching      | 4      | Query factories, mutations, keys, DTOs                                         |
-| State Management   | 2      | Zustand stores, React Context providers                                        |
-| App Orchestration  | 1      | Use case hooks composing mutations + notifications                             |
-| Component Patterns | 6      | Pure components, compound components, pages, HOCs, facade hooks, named effects |
-| Data Modeling      | 2      | Frontend models, value objects                                                 |
+| Category           | Blocks | Description                                                                           |
+| ------------------ | ------ | ------------------------------------------------------------------------------------- |
+| Data Fetching      | 4      | Query factories, mutations, keys, DTOs                                                |
+| State Management   | 2      | Zustand stores, React Context providers                                               |
+| App Orchestration  | 1      | Use case hooks composing mutations + notifications                                    |
+| Component Patterns | 7      | Pure components, compound components, forms, pages, HOCs, facade hooks, named effects |
+| Data Modeling      | 2      | Frontend models, value objects                                                        |
 
 ## How It Works
 
