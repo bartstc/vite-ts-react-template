@@ -23,21 +23,18 @@ export const Purchasing: Story = {
     within(canvasElement);
 
     await step("Enter credentials", async () => {
-      await userEvent.type(screen.getByLabelText(/Full Name/), "John Doe");
+      await userEvent.type(screen.getByLabelText(/Full Name/i), "John Doe");
       await userEvent.type(
-        screen.getByLabelText(/Address/),
+        screen.getByLabelText(/Address/i),
         "NYC Groove Street"
       );
-      await userEvent.selectOptions(
-        screen.getByRole("combobox"),
-        screen.getByRole("option", { name: "PayPal" })
-      );
+      await userEvent.click(screen.getByRole("combobox"));
+      await sleep(100);
+      await userEvent.click(screen.getByRole("option", { name: "PayPal" }));
+      await sleep(100);
     });
 
-    // https://cathalmacdonnacha.com/how-to-test-a-select-element-with-react-testing-library
-    await expect(
-      screen.getByRole<HTMLOptionElement>("option", { name: "PayPal" }).selected
-    ).toBeTruthy();
+    await expect(screen.getByRole("combobox")).toHaveTextContent("PayPal");
 
     await step("Submit form", async () => {
       await sleep(500);
