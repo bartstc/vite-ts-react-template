@@ -19,9 +19,11 @@ paths:
 ## Feature Slice Layers
 
 - Each feature has four layers: `components/`, `application/`, `providers/`, `models/`
-- `components/` imports from `application/`, `models/`, and `providers/`
-- `application/` imports from `models/` and `providers/` — not from `components/`
-- `providers/` is the data access gateway: composes query hooks, mutations, loaders from `src/lib/api/`
+- `components/` imports from `application/`, `models/`, `providers/`, and `lib/*`
+- `application/` imports from `models/`, `providers/`, and `lib/*` — not from `components/`
+- `providers/` is the data access gateway: composes query hooks, mutations from `src/lib/api/`; may import from `models/`, `lib/api/`, `lib/*`
+- `models/` holds domain type definitions only — no logic; may import from `lib/api/` and `lib/*`
+- `lib/api/` must never be imported in `components/`, `application/`, or `pages/`
 - Library-specific code (React Query, etc.) stays inside `providers/` — never leak beyond this layer
 - API logic starts in `src/lib/api/` (queryOptions factories, mutations, DTOs by resource), then gets exposed through the relevant feature's `providers/`
 - Query files expose `queryOptions` factories — hook composition belongs in `providers/`, not in API files
