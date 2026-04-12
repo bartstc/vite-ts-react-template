@@ -11,6 +11,7 @@ import {
   reactRouterParameters,
 } from "storybook-addon-remix-react-router";
 
+import { generateUuid } from "@/test-lib/generate-uuid";
 import { getAddToCartHandler } from "@/test-lib/handlers/get-add-to-cart-handler";
 import { sleep } from "@/test-lib/storybook/sleep";
 
@@ -46,9 +47,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  args: {
-    productId: "4f968992-1aab-49c9-8913-09405915c1c0",
-  },
+  args: { productId: generateUuid() },
 };
 
 export const AddingProductToCart: Story = {

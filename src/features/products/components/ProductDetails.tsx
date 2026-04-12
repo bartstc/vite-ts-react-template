@@ -15,8 +15,8 @@ import { AddToCartButton } from "@/features/carts/components/AddToCartButton/Add
 import { ProductAddedDialog } from "@/features/carts/components/AddToCartButton/ProductAddedDialog";
 import { StarRating } from "@/features/products/components/StarRating";
 import { useCategoryLabel } from "@/features/products/components/use-category-label";
+import type { MarketingProduct } from "@/features/products/models/marketing-product";
 import type { Product } from "@/features/products/models/product";
-import { useMarketingProductQuery } from "@/features/products/providers/use-marketing-product-query";
 import { PageHeader } from "@/lib/components/Layout/PageHeader";
 import { moneyVO } from "@/lib/format/money";
 import { useTranslations } from "@/lib/i18n/use-transations";
@@ -24,6 +24,7 @@ import { useSecondaryTextColor } from "@/lib/theme/use-secondary-text-color";
 
 interface IProps {
   product: Product;
+  marketingProduct: MarketingProduct;
   onBack: () => void;
 }
 
@@ -34,11 +35,10 @@ const accordionItems = [
   { value: "returns", labelKey: "returns", contentKey: "returns-content" },
 ] as const;
 
-const ProductDetails = ({ product, onBack }: IProps) => {
+const ProductDetails = ({ product, marketingProduct, onBack }: IProps) => {
   const categoryLabel = useCategoryLabel(product.category);
   const secondaryColor = useSecondaryTextColor();
   const t = useTranslations("features.products.details");
-  const { data: marketingProduct } = useMarketingProductQuery(product.id);
 
   return (
     <SimpleGrid

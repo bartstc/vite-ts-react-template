@@ -1,10 +1,11 @@
 import type { Cart } from "@/features/carts/models/cart";
 import { DateVO } from "@/lib/date/date";
+import { USER_CART_ID } from "@/test-lib/fixtures/user-fixture";
 
 import { createFixture } from "./create-fixture";
 
 export const CartFixture = createFixture<Cart>({
-  id: "00000000-0000-0000-0000-000000000001",
+  id: USER_CART_ID,
   date: DateVO.past(),
   userId: 1,
   products: [

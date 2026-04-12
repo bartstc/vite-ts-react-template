@@ -1,10 +1,11 @@
 import { Category } from "@/features/products/models/category";
 import type { Product } from "@/features/products/models/product";
+import { generateUuid } from "@/test-lib/generate-uuid";
 
 import { createFixture } from "./create-fixture";
 
 export const ProductFixture = createFixture<Product>({
-  id: "4f968992-1aab-49c9-8913-09405915c1c0",
+  id: generateUuid(),
   name: "White Nike Shoes",
   category: Category.Clothing,
   price: { amount: 129.99, currency: "USD" },

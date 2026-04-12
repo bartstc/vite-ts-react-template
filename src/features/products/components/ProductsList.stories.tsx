@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { withRouter } from "storybook-addon-remix-react-router";
 
 import { ProductFixture } from "@/test-lib/fixtures/product-fixture";
+import { generateUuid } from "@/test-lib/generate-uuid";
 
 import { ProductsList } from "./ProductsList";
 
@@ -20,13 +21,13 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     products: ProductFixture.createCollection([
-      { id: "4f968992-1aab-49c9-8913-09405915c1c0" },
-      { id: "4f968992-1aab-49c9-8913-09405915c1c1" },
-      { id: "4f968992-1aab-49c9-8913-09405915c1c2" },
-      { id: "4f968992-1aab-49c9-8913-09405915c1c3" },
-      { id: "4f968992-1aab-49c9-8913-09405915c1c4" },
-      { id: "4f968992-1aab-49c9-8913-09405915c1c5" },
-      { id: "4f968992-1aab-49c9-8913-09405915c1c6" },
+      { id: generateUuid() },
+      { id: generateUuid() },
+      { id: generateUuid() },
+      { id: generateUuid() },
+      { id: generateUuid() },
+      { id: generateUuid() },
+      { id: generateUuid() },
     ]),
   },
 };

@@ -3,6 +3,8 @@ import { HttpResponse } from "msw";
 import { withRouter } from "storybook-addon-remix-react-router";
 
 import { CartFixture } from "@/test-lib/fixtures/cart-fixture";
+import { USER_CART_ID } from "@/test-lib/fixtures/user-fixture";
+import { generateUuid } from "@/test-lib/generate-uuid";
 import { getCartHandler } from "@/test-lib/handlers/get-cart-handler";
 import { getClearCartHandler } from "@/test-lib/handlers/get-clear-cart-handler";
 import { getProductHandler } from "@/test-lib/handlers/get-product-handler";
@@ -11,9 +13,9 @@ import { cartPageLoader } from "./loader";
 
 import { Component } from "./index";
 
-const CART_ID = "00000000-0000-0000-0000-000000000001";
-const PRODUCT_ID_1 = "4f968992-1aab-49c9-8913-09405915c1c0";
-const PRODUCT_ID_2 = "4f968992-1aab-49c9-8913-09405915c1c1";
+const CART_ID = USER_CART_ID;
+const PRODUCT_ID_1 = generateUuid();
+const PRODUCT_ID_2 = generateUuid();
 
 const meta = {
   title: "pages/Cart",

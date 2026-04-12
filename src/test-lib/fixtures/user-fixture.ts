@@ -2,9 +2,11 @@ import type { User } from "@/features/auth/models/user";
 
 import { createFixture } from "./create-fixture";
 
+export const USER_CART_ID = "00000000-0000-0000-0000-000000000001";
+
 export const UserFixture = createFixture<User>({
   id: 1,
-  cartId: "00000000-0000-0000-0000-000000000001",
+  cartId: USER_CART_ID,
   email: "John@gmail.com",
   username: "johnd",
   name: {

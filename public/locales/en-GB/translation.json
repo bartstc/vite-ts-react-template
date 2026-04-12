@@ -56,8 +56,7 @@
         "tooltip": "Average customer rating: {rating}"
       },
       "categories": {
-        "women-clothing": "Women's clothing",
-        "men-clothing": "Men's clothing",
+        "clothing": "Clothing",
         "jewelery": "Jewelery",
         "electronics": "Electronics"
       },
