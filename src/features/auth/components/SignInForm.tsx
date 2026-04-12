@@ -8,15 +8,21 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import { useState } from "react";
 
 import { useAuthStore } from "@/features/auth/application/auth-store";
-import { TextInput } from "@/lib/components/Form/TextInput";
+import { TextInput } from "@/lib/components/Form/fields/TextInput";
+import { FormProvider } from "@/lib/components/Form/FormProvider";
+import { useForm } from "@/lib/components/Form/use-form";
 import { useTranslations } from "@/lib/i18n/use-transations";
 import { useColorModeValue } from "@/lib/theme/use-color-mode";
 import { useSecondaryTextColor } from "@/lib/theme/use-secondary-text-color";
 
 import { useSignInNotifications } from "./use-sign-in-notifications";
+
+interface SignInValues {
+  username: string;
+  password: string;
+}
 
 interface IProps {
   initialUsername?: string;
@@ -28,11 +34,18 @@ export const SignInForm = ({ initialUsername, initialPassword }: IProps) => {
 
   const secondaryColor = useSecondaryTextColor();
 
-  const [username, setUsername] = useState(initialUsername);
-  const [password, setPassword] = useState(initialPassword);
-
   const [notifySuccess, notifyFailure] = useSignInNotifications();
   const login = useAuthStore((store) => store.login);
+
+  const form = useForm<SignInValues>({
+    defaultValues: { username: initialUsername, password: initialPassword },
+  });
+
+  const onSubmit = form.handleSubmit(({ username, password }) => {
+    login({ username, password })
+      .then(() => notifySuccess())
+      .catch(() => notifyFailure());
+  });
 
   return (
     <VStack align="stretch" gap={8} w="100%" maxW="lg">
@@ -48,55 +61,35 @@ export const SignInForm = ({ initialUsername, initialPassword }: IProps) => {
         boxShadow="lg"
         p={{ base: 6, md: 8 }}
       >
-        <VStack
-          as="form"
-          gap={4}
-          onSubmit={(e) => {
-            e.preventDefault();
-
-            if (!username || !password) {
-              return;
-            }
-
-            login({ username, password })
-              .then(() => notifySuccess())
-              .catch(() => notifyFailure());
-          }}
-        >
-          <TextInput
-            id="username"
-            value={username}
-            onChange={(e) => setUsername(e.currentTarget.value)}
-          >
-            {t("username")}
-          </TextInput>
-          <TextInput
-            id="password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.currentTarget.value)}
-          >
-            {t("password")}
-          </TextInput>
-          <VStack w="100%" gap={10}>
-            <Stack
-              w="100%"
-              direction={{ base: "column", sm: "row" }}
-              align="start"
-              justify="space-between"
-            >
-              <Checkbox.Root>
-                <Checkbox.HiddenInput />
-                <Checkbox.Control />
-                <Checkbox.Label>{t("remember-me")}</Checkbox.Label>
-              </Checkbox.Root>
-              <Link color="blue.400">{t("forgot-password")}</Link>
-            </Stack>
-            <Button type="submit" colorPalette="blue" w="100%">
-              {t("sign-in")}
-            </Button>
+        <FormProvider {...form}>
+          <VStack as="form" gap={4} onSubmit={onSubmit} align="stretch">
+            <TextInput name="username" label={t("username")} isRequired />
+            <TextInput
+              name="password"
+              label={t("password")}
+              type="password"
+              isRequired
+            />
+            <VStack w="100%" gap={10}>
+              <Stack
+                w="100%"
+                direction={{ base: "column", sm: "row" }}
+                align="start"
+                justify="space-between"
+              >
+                <Checkbox.Root>
+                  <Checkbox.HiddenInput />
+                  <Checkbox.Control />
+                  <Checkbox.Label>{t("remember-me")}</Checkbox.Label>
+                </Checkbox.Root>
+                <Link color="blue.400">{t("forgot-password")}</Link>
+              </Stack>
+              <Button type="submit" colorPalette="blue" w="100%">
+                {t("sign-in")}
+              </Button>
+            </VStack>
           </VStack>
-        </VStack>
+        </FormProvider>
       </Box>
     </VStack>
   );

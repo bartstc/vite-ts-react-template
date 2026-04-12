@@ -1,0 +1,274 @@
+import { Meta, Canvas, Story } from "@storybook/addon-docs/blocks";
+import * as FormStories from "./Form.stories";
+
+<Meta title="lib/Form/Docs" />
+
+# Form Abstraction
+
+A thin wrapper around [react-hook-form](https://react-hook-form.com/) that wires field components directly to form state via React context.
+
+## Quick Start
+
+```tsx
+import { FormProvider } from "@/lib/components/Form/FormProvider";
+import { useForm } from "@/lib/components/Form/use-form";
+import { TextInput } from "@/lib/components/Form/fields/TextInput";
+import { SelectInput } from "@/lib/components/Form/fields/SelectInput";
+
+interface MyValues {
+  name: string;
+  role: string;
+}
+
+const MyForm = () => {
+  const form = useForm<MyValues>({
+    configuration: { autoValidation: true, size: "md", variant: "outline" },
+  });
+
+  const onSubmit = form.handleSubmit((values) => console.log(values));
+
+  return (
+    <FormProvider {...form}>
+      <form onSubmit={onSubmit} noValidate>
+        <TextInput name="name" label="Name" isRequired />
+        <SelectInput
+          name="role"
+          label="Role"
+          options={[
+            { label: "Admin", value: "admin" },
+            { label: "Editor", value: "editor" },
+          ]}
+        />
+        <button type="submit">Submit</button>
+      </form>
+    </FormProvider>
+  );
+};
+```
+
+> **Always add `noValidate` to `<form>`** — without it, native browser validation fires before
+> react-hook-form validation, blocking error messages from appearing.
+
+---
+
+## `useForm`
+
+Extends react-hook-form's `useForm` with a stable `id` and shared `configuration`.
+
+```ts
+const form = useForm<TFieldValues>(options?: UseFormOptions<TFieldValues>);
+```
+
+### Options
+
+| Prop            | Type                     | Default   | Description                                                             |
+| --------------- | ------------------------ | --------- | ----------------------------------------------------------------------- |
+| `configuration` | `Partial<Configuration>` | see below | Initial visual configuration for all fields                             |
+| `...rest`       | `UseFormProps`           | —         | All react-hook-form options (`defaultValues`, `resolver`, `mode`, etc.) |
+
+> `mode` defaults to `"onChange"` so validation runs as the user types.
+
+### Return value (extends `UseFormReturn`)
+
+| Property           | Type                       | Description                             |
+| ------------------ | -------------------------- | --------------------------------------- |
+| `id`               | `string`                   | Stable random ID for this form instance |
+| `configuration`    | `Configuration`            | Current configuration snapshot          |
+| `setConfiguration` | `(cfg) => void`            | Update configuration at runtime         |
+| `handleSubmit`     | `(fn) => FormEventHandler` | Standard RHF submit handler             |
+| `...rest`          | `UseFormReturn`            | All react-hook-form methods             |
+
+---
+
+## `FormProvider`
+
+Publishes the `useForm` return value into context so fields can subscribe without prop drilling.
+
+```tsx
+<FormProvider {...form}>{/* field components go here */}</FormProvider>
+```
+
+Accepts all `UseFormMethods` props plus `children`.
+
+---
+
+## Configuration
+
+Controls visual appearance across all fields in the form. Set once in `useForm`, or change
+at runtime with `setConfiguration`.
+
+| Key                    | Type       | Default   | Description                                           |
+| ---------------------- | ---------- | --------- | ----------------------------------------------------- | ------------------------------ | ------------------ |
+| `size`                 | `"sm"      | "md"`     | `"md"`                                                | Input size passed to Chakra UI |
+| `variant`              | `"outline" | "flushed" | "subtle"`                                             | `"outline"`                    | Input visual style |
+| `autoValidation`       | `boolean`  | `true`    | Auto-wire `isRequired` → required rule for all fields |
+| `keepHiddenFieldValue` | `boolean`  | `true`    | Cache field values when hidden; restore on re-show    |
+
+**Change at runtime:**
+
+```tsx
+// Partial object
+form.setConfiguration({ size: "sm" });
+
+// Selector function (receives current config)
+form.setConfiguration((cfg) => ({ ...cfg, autoValidation: false }));
+```
+
+---
+
+## Field Components
+
+All field components:
+
+- read `control` and `configuration` from context
+- accept `name` (required), `label`, `isRequired`, `isDisabled`
+- accept `register` for additional react-hook-form `RegisterOptions` (custom validation rules)
+- display an error message automatically when validation fails
+
+### `TextInput`
+
+```tsx
+<TextInput
+  name="email"
+  label="Email Address"
+  isRequired
+  type="email"
+  placeholder="you@example.com"
+/>
+```
+
+| Prop          | Type              | Description                                            |
+| ------------- | ----------------- | ------------------------------------------------------ |
+| `name`        | `string`          | Field path in form values                              |
+| `label`       | `string`          | Visible label text                                     |
+| `isRequired`  | `boolean`         | Adds required validation (when `autoValidation: true`) |
+| `type`        | `string`          | HTML input type (`"text"`, `"email"`, `"password"`, …) |
+| `placeholder` | `string`          | Input placeholder                                      |
+| `isDisabled`  | `boolean`         | Disables the input                                     |
+| `autofocus`   | `boolean`         | Auto-focuses on mount                                  |
+| `register`    | `RegisterOptions` | Extra RHF validation rules                             |
+
+### `SelectInput`
+
+```tsx
+<SelectInput
+  name="category"
+  label="Category"
+  isRequired
+  options={[
+    { label: "Books", value: "books" },
+    { label: "Electronics", value: "electronics" },
+  ]}
+  placeholder="Select a category"
+/>
+```
+
+| Prop               | Type                  | Description                                   |
+| ------------------ | --------------------- | --------------------------------------------- |
+| `options`          | `OptionType<Value>[]` | Array of `{ label, value }` objects           |
+| `isMulti`          | `boolean`             | Allow multiple selections                     |
+| `isClearable`      | `boolean`             | Show clear button (defaults to `!isRequired`) |
+| `isLoading`        | `boolean`             | Show spinner, disable interaction             |
+| `placeholder`      | `string`              | Trigger placeholder text                      |
+| `defaultValue`     | `Value`               | Initial uncontrolled value                    |
+| `noOptionsMessage` | `() => ReactNode`     | Content when options list is empty            |
+| `loadingMessage`   | `() => ReactNode`     | Content while loading                         |
+
+> **Testing note:** The Select trigger is a `<button role="combobox">`.
+> Use `getByRole("combobox", { name: "Label" })` — not `getByLabelText` — in test queries.
+
+### `NumberInput`
+
+```tsx
+<NumberInput name="quantity" label="Quantity" isRequired placeholder="1" />
+```
+
+Renders a Chakra UI `NumberInput` (stepper + input). Value is stored as `number | null`.
+
+### `MoneyInput`
+
+```tsx
+<MoneyInput name="totalPrice" label="Total Price" symbol="$" />
+```
+
+| Prop     | Type     | Description                                             |
+| -------- | -------- | ------------------------------------------------------- |
+| `symbol` | `string` | Currency symbol shown as a left addon (`"$"`, `"€"`, …) |
+
+Stores value as `number | null`. Empty input sets the field to `null`.
+
+### `TextareaInput`
+
+```tsx
+<TextareaInput name="notes" label="Notes" placeholder="Optional notes…" />
+```
+
+Same props as `TextInput` minus `type` and `autofocus`.
+
+---
+
+## Conditional Rendering
+
+Fields that should appear or disappear based on other field values must:
+
+1. Use `useFieldBasedCondition` to determine visibility
+2. Be defined **at module scope** (not inside the parent component) to prevent React from
+   remounting the field on every parent re-render
+
+```tsx
+// ✅ Correct — at module scope
+const CouponField = () => {
+  const isVisible = useFieldBasedCondition<MyValues>("couponCode", {
+    name: "hasCoupon",
+    condition: (val) => (val as unknown as string) === "yes",
+    defaultValue: "",
+  });
+
+  if (!isVisible) return null;
+  return <TextInput name="couponCode" label="Coupon Code" />;
+};
+
+// ❌ Wrong — defined inside parent component causes remount on re-render
+const MyForm = () => {
+  const InlineCouponField = () => { ... }; // don't do this
+  ...
+};
+```
+
+### `useFieldBasedCondition`
+
+```ts
+useFieldBasedCondition<Values>(
+  name: string,           // the field being conditionally shown/hidden
+  fields: {
+    name: FieldPath<Values>;              // the field to watch
+    condition: (value: Partial<Values>) => boolean; // true = show
+    defaultValue?: unknown;               // value to set when hidden
+  }
+): boolean
+```
+
+When the field becomes hidden its current value is **cached** (if `keepHiddenFieldValue: true`)
+and restored when it reappears. The `defaultValue` is written to form state while hidden so
+the field is excluded from validation and submit data.
+
+### `useCondition` (lower level)
+
+Use when you already have a derived boolean:
+
+```ts
+const isVisible = useCondition(
+  "couponCode",  // field name
+  someBoolean,   // computed elsewhere
+  {
+    keepValue?: boolean;      // override keepHiddenFieldValue for this field
+    hiddenFieldValue?: unknown;
+  }
+);
+```
+
+---
+
+## Live Example
+
+<Canvas of={FormStories.Default} />

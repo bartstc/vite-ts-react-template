@@ -58,12 +58,18 @@ importers:
       react-error-boundary:
         specifier: 6.1.0
         version: 6.1.0(react@19.2.3)
+      react-hook-form:
+        specifier: 7.72.1
+        version: 7.72.1(react@19.2.3)
       react-i18next:
         specifier: 16.5.1
         version: 16.5.1(i18next@25.7.4(typescript@5.9.3))(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(typescript@5.9.3)
       react-router:
         specifier: 7.12.0
         version: 7.12.0(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+      use-context-selector:
+        specifier: ^2.0.0
+        version: 2.0.0(react@19.2.3)(scheduler@0.27.0)
       xstate:
         specifier: 5.25.0
         version: 5.25.0
@@ -6015,6 +6021,15 @@ packages:
     peerDependencies:
       react: ^18.0.0 || ^19.0.0
 
+  react-hook-form@7.72.1:
+    resolution:
+      {
+        integrity: sha512-RhwBoy2ygeVZje+C+bwJ8g0NjTdBmDlJvAUHTxRjTmSUKPYsKfMphkS2sgEMotsY03bP358yEYlnUeZy//D9Ig==,
+      }
+    engines: { node: ">=18.0.0" }
+    peerDependencies:
+      react: ^16.8.0 || ^17 || ^18 || ^19
+
   react-i18next@16.5.1:
     resolution:
       {
@@ -7055,6 +7070,15 @@ packages:
         integrity: sha512-WypcfiRhfeUP9vvF0j6rw0J3hrWrw6iZv3+22h6iRMJ/8z1Tj6XfLP4DsUix5MhMPnXpiHDoKyoZ/bdCkwBCiQ==,
       }
 
+  use-context-selector@2.0.0:
+    resolution:
+      {
+        integrity: sha512-owfuSmUNd3eNp3J9CdDl0kMgfidV+MkDvHPpvthN5ThqM+ibMccNE0k+Iq7TWC6JPFvGZqanqiGCuQx6DyV24g==,
+      }
+    peerDependencies:
+      react: ">=18.0.0"
+      scheduler: ">=0.19.0"
+
   use-isomorphic-layout-effect@1.2.1:
     resolution:
       {
@@ -7277,6 +7301,7 @@ packages:
         integrity: sha512-p41ogyeMUrw3jWclHWTQg1k05DSVXPLcVxRTYsXUk+ZooOCZLcoYgPZ/HL/D/N+uQPOtcp1me1WhBEaX02mhWg==,
       }
     engines: { node: ">=12" }
+    deprecated: Use @exodus/bytes instead for a more spec-conformant and faster implementation
 
   whatwg-mimetype@3.0.0:
     resolution:
@@ -11542,6 +11567,10 @@ snapshots:
     dependencies:
       react: 19.2.3
 
+  react-hook-form@7.72.1(react@19.2.3):
+    dependencies:
+      react: 19.2.3
+
   react-i18next@16.5.1(i18next@25.7.4(typescript@5.9.3))(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(typescript@5.9.3):
     dependencies:
       "@babel/runtime": 7.28.4
@@ -12222,6 +12251,11 @@ snapshots:
     dependencies:
       querystringify: 2.2.0
       requires-port: 1.0.0
+
+  use-context-selector@2.0.0(react@19.2.3)(scheduler@0.27.0):
+    dependencies:
+      react: 19.2.3
+      scheduler: 0.27.0
 
   use-isomorphic-layout-effect@1.2.1(@types/react@19.2.8)(react@19.2.3):
     dependencies:

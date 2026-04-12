@@ -29,6 +29,7 @@ An opinionated, production-ready starter for **Single Page Application** develop
 - [Zustand](https://docs.pmnd.rs/zustand/getting-started/introduction) — lightweight state management
 - [i18next](https://www.i18next.com/) — internationalization
 - [XState](https://stately.ai/docs/xstate) — state orchestration (example usage)
+- [React Hook Form](https://react-hook-form.com) - form state management with light and composable abstraction
 - [MSW 2](https://mswjs.io/) — API mocking for development and tests
 
 ### Architecture
