@@ -56,7 +56,7 @@ const ProductAddedDialog = () => {
                   onClose();
                   void navigate({
                     path: routes.cart,
-                    params: { cartId: cartId?.toString() },
+                    params: { cartId: cartId ?? undefined },
                   });
                 }}
               >

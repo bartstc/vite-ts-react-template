@@ -1,21 +1,20 @@
 export enum Category {
-  Men_clothing = "men's clothing",
-  Women_clothing = "women's clothing",
+  Clothing = "clothing",
   Jewelery = "jewelery",
   Electronics = "electronics",
 }
 
-export interface Rating {
-  rate: number;
-  count: number;
+export interface Price {
+  amount: number;
+  currency: string;
 }
 
 export interface ProductDto {
-  id: number;
-  title: string;
+  id: string;
+  name: string;
   description: string;
   category: Category;
-  image: string;
-  price: number;
-  rating: Rating;
+  imageUrl: string;
+  price: Price;
+  addedAt: string;
 }

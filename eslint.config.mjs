@@ -27,6 +27,7 @@ export default defineConfig(
       "**/reports/**",
       "**/*.typegen.ts",
       "**/public/mockServiceWorker.js",
+      "server/**",
     ],
   },
   js.configs.recommended,

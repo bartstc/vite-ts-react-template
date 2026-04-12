@@ -4,6 +4,7 @@ import { ArrowLeft } from "lucide-react";
 import { ProductDetails } from "@/features/products/components/ProductDetails";
 import { ProductNotFoundResult } from "@/features/products/components/ProductNotFoundResult";
 import { useProductQuery } from "@/features/products/providers/product-query";
+import { useMarketingProductQuery } from "@/features/products/providers/use-marketing-product-query";
 import { Page } from "@/lib/components/Layout/Page";
 import { InternalErrorResult } from "@/lib/components/Result/InternalErrorResult";
 import { ResourceNotFoundException } from "@/lib/http/exceptions/resource-not-found-exception";
@@ -14,6 +15,9 @@ const ProductPage = () => {
   const params = useParams<{ productId: string }>();
   const navigate = useNavigate();
   const { data } = useProductQuery(params.productId!);
+  const { data: marketingProduct } = useMarketingProductQuery(
+    params.productId!
+  );
   const t = useTranslations("pages.product");
 
   return (
@@ -22,7 +26,11 @@ const ProductPage = () => {
         <ArrowLeft />
         {t("back-to-list")}
       </Button>
-      <ProductDetails product={data} onBack={() => navigate("/products")} />
+      <ProductDetails
+        product={data}
+        marketingProduct={marketingProduct}
+        onBack={() => navigate("/products")}
+      />
     </Page>
   );
 };

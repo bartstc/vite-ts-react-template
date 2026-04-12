@@ -8,6 +8,8 @@ import { type HttpServiceClient } from "./http-service-client";
 
 export interface KyClientOptions extends Options {}
 
+export const AUTH_TOKEN_KEY = "auth_token";
+
 export class KyClient implements HttpServiceClient<KyClientOptions> {
   public options: Options;
   private kyInstance: ReturnType<(typeof ky)["create"]>;
@@ -16,7 +18,17 @@ export class KyClient implements HttpServiceClient<KyClientOptions> {
     this.options = options;
     this.kyInstance = ky.create({
       ...options,
+      retry: 0,
       hooks: {
+        beforeRequest: [
+          (request) => {
+            const token = localStorage.getItem(AUTH_TOKEN_KEY);
+            if (!token) return;
+            const headers = new Headers(request.headers);
+            headers.set("Authorization", `Bearer ${token}`);
+            return new Request(request, { headers });
+          },
+        ],
         beforeError: [
           (error) => {
             const { response, request, options } = error;
@@ -70,11 +82,14 @@ export class KyClient implements HttpServiceClient<KyClientOptions> {
     return this.kyInstance.patch(url, { json: body, ...options }).json();
   }
 
-  public delete<R = unknown, B = unknown>(
+  public async delete<R = unknown, B = unknown>(
     url: string,
     body?: B,
     options?: Options
   ): Promise<R> {
-    return this.kyInstance.delete(url, { json: body, ...options }).json();
+    const kyOptions = body !== undefined ? { json: body, ...options } : options;
+    const res = await this.kyInstance.delete(url, kyOptions);
+    if (res.status === 204) return undefined as R;
+    return res.json();
   }
 }

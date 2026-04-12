@@ -20,16 +20,16 @@ import { routes } from "@/lib/router/routes";
 import { useSecondaryTextColor } from "@/lib/theme/use-secondary-text-color";
 
 interface IProps {
-  id: number;
-  title: string;
+  id: string;
+  name: string;
   category: Category;
-  price: number;
+  price: { amount: number; currency: string };
   imageUrl: string;
   quantity: number;
 }
 
 const CartItem = ({
-  title,
+  name,
   category,
   price,
   imageUrl,
@@ -60,7 +60,7 @@ const CartItem = ({
           onClick={() =>
             navigate({
               path: routes.product.path,
-              params: { productId: id.toString() },
+              params: { productId: id },
             })
           }
           // cursor="pointer"
@@ -87,7 +87,7 @@ const CartItem = ({
             cursor="pointer"
             _hover={{ color: "blue.500" }}
           >
-            {title}
+            {name}
           </Text>
           <Text fontSize="sm" color={categoryColor}>
             {categoryLabel}
@@ -111,7 +111,7 @@ const CartItem = ({
         gap={{ base: 4, md: 2 }}
       >
         <Text fontSize="lg" fontWeight="medium">
-          {moneyVO.format(price)}
+          {moneyVO.format(price.amount, price.currency)}
         </Text>
         <Button size="sm" variant="ghost" onClick={notImplemented}>
           {t("remove")}

@@ -7,9 +7,8 @@ export const useCategoryLabel = (category: Category) => {
   return key ? t(key) : category;
 };
 
-const messageKeys = {
-  [Category.Women_clothing]: "women-clothing",
-  [Category.Men_clothing]: "men-clothing",
+const messageKeys: Partial<Record<Category, string>> = {
+  [Category.Clothing]: "clothing",
   [Category.Jewelery]: "jewelery",
   [Category.Electronics]: "electronics",
 };

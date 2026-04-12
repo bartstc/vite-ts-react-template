@@ -22,7 +22,7 @@ const CartsList = ({ cartProducts }: IProps) => {
 
   // todo: moneyVo.sum()
   const subtotal = cartProducts
-    .map((cart) => cart.price)
+    .map((cart) => cart.price.amount)
     .reduce((a, b) => a + b, 0);
 
   return (

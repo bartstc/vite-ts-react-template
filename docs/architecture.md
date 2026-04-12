@@ -55,6 +55,7 @@ Each feature follows feature slice architecture patterns with four layers:
 - **providers/** - Hook composition and data access gateway for the feature slice. Exposes query hooks, mutations, loaders, domain errors, and DTOs sourced from `src/lib/api/`. Library-specific code (React Query, etc.) must not leak beyond this layer.
   - files are named after their primary export or reexport: `useCartProductsQuery` → `use-cart-products-query.ts`, `useAddToCartMutation` → `use-add-to-cart-mutation.ts`
 - **models/** - Domain type definitions, utilities, and type mapping functions.
+  - exposes frontend models for the feature. Components, application, and pages import types from `models/`, never directly from `src/lib/api/`. When the DTO shape is identical, a simple re-export with a domain name suffices (`export type { ProductDto as Product }`). When it diverges, map to a dedicated frontend model.
 
 **Dependency rule:** `components/` and `application/` import from `models/` and `providers/`. `providers/` and `models/` have no internal feature dependencies.
 
@@ -94,6 +95,14 @@ Never use `-command.ts`, `-service.ts`, or other suffixes.
 | React state    | Simple component state                                                                                        |
 
 XState is preferred for business processes where states must be explicit and transitions constrained.
+
+## Internationalization
+
+- Translation files live in `public/locales/{lang}/translation.json`
+- Keys mirror the feature path e.g. `features.products.<key>`
+- All user-facing text goes through i18next — no hardcoded strings in components
+- When adding any value that renders as a user-facing label, add the corresponding translation key in the same task
+- When removing a value, remove its stale translation key
 
 ## Routing
 

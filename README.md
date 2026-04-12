@@ -33,12 +33,18 @@ An opinionated, production-ready starter for **Single Page Application** develop
 
 ### Architecture
 
+```
+src/        React SPA (features, pages, lib)
+server/     Local Fastify API server (dev/demo)
+e2e/        Playwright end-to-end tests
+```
+
 - Feature slice architecture with clean architecture principles — each feature has four layers (`components/`, `application/`, `providers/`, `models/`) with strict dependency rules
 - Centralized API layer with endpoint-based organization and type consolidation
 - Spec-driven development for AI-assisted workflows — four-phase gated spec process, typed building block patterns, and a self-improvement loop
 - Formatting utilities for numbers, monetary values, and dates
 - File naming: PascalCase for React components/stories/page objects, kebab-case for everything else
-- A demo app with authentication showcasing the project structure and tooling in action (powered by [Fake Store API](https://fakestoreapi.com/docs))
+- A demo app with authentication showcasing the project structure and tooling in action (powered by a local Fastify server in `server/`)
 - Read more: [`docs/architecture.md`](docs/architecture.md)
 
 ### AI-assisted development
@@ -70,6 +76,8 @@ It's recommended to run the dev server inside a container for consistent Node/PN
 | Command                | Description                                |
 | ---------------------- | ------------------------------------------ |
 | `pnpm dev`             | Dev server with HMR on port `5173`         |
+| `pnpm dev:server`      | Local API server only on port `3001`       |
+| `pnpm dev:all`         | Frontend + API server together             |
 | `pnpm lint`            | Check for lint errors                      |
 | `pnpm build`           | Production build                           |
 | `pnpm test`            | Run all tests (unit + storybook)           |

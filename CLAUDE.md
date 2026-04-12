@@ -61,6 +61,7 @@ Package manager: PNPM only. Path alias: `@/*` → `src/`.
 **6. Spec-Driven Development**
 
 - For features spanning 5+ files or 5+ unconstrained decisions, write a spec first using writing-spec skill
+- When implementing a spec, read the building-blocks skill rule files for each block listed in the Building Blocks Diff before writing code
 - Skip when the developer opts out
 
 ## Conventions

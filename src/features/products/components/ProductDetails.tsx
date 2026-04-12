@@ -15,6 +15,7 @@ import { AddToCartButton } from "@/features/carts/components/AddToCartButton/Add
 import { ProductAddedDialog } from "@/features/carts/components/AddToCartButton/ProductAddedDialog";
 import { StarRating } from "@/features/products/components/StarRating";
 import { useCategoryLabel } from "@/features/products/components/use-category-label";
+import type { MarketingProduct } from "@/features/products/models/marketing-product";
 import type { Product } from "@/features/products/models/product";
 import { PageHeader } from "@/lib/components/Layout/PageHeader";
 import { moneyVO } from "@/lib/format/money";
@@ -23,6 +24,7 @@ import { useSecondaryTextColor } from "@/lib/theme/use-secondary-text-color";
 
 interface IProps {
   product: Product;
+  marketingProduct: MarketingProduct;
   onBack: () => void;
 }
 
@@ -33,7 +35,7 @@ const accordionItems = [
   { value: "returns", labelKey: "returns", contentKey: "returns-content" },
 ] as const;
 
-const ProductDetails = ({ product, onBack }: IProps) => {
+const ProductDetails = ({ product, marketingProduct, onBack }: IProps) => {
   const categoryLabel = useCategoryLabel(product.category);
   const secondaryColor = useSecondaryTextColor();
   const t = useTranslations("features.products.details");
@@ -56,7 +58,7 @@ const ProductDetails = ({ product, onBack }: IProps) => {
             bgSize="cover"
             bgPos="center"
             style={{
-              backgroundImage: `url(${product.image})`,
+              backgroundImage: `url(${product.imageUrl})`,
             }}
           />
         </Box>
@@ -64,17 +66,19 @@ const ProductDetails = ({ product, onBack }: IProps) => {
       <GridItem colSpan={1}>
         <VStack gap={{ base: 1, lg: 3 }} w="100%" align="start">
           <PageHeader
-            title={product.title}
+            title={product.name}
             description={t("collection", { category: categoryLabel })}
           />
           <HStack w="100%" height="24px" gap={4}>
             <Text fontWeight="semibold" fontSize={{ base: "lg", md: "xl" }}>
-              {moneyVO.format(product.price)}
+              {moneyVO.format(product.price.amount, product.price.currency)}
             </Text>
             <Separator orientation="vertical" />
-            <StarRating rating={product.rating.rate} />
+            <StarRating rating={marketingProduct?.rating.rate ?? 0} />
             <Button variant="plain" colorPalette="orange">
-              {t("see-reviews", { number: product.rating.count })}
+              {t("see-reviews", {
+                number: marketingProduct?.rating.count ?? 0,
+              })}
             </Button>
           </HStack>
           <Text

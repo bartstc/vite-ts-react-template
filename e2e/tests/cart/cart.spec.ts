@@ -11,7 +11,7 @@ test.describe("Cart Page", () => {
 
       const dialog = page.getByRole("alertdialog");
       await dialog.getByRole("button", { name: /go to cart/i }).click();
-      await page.waitForURL(/\/cart\/\d+$/);
+      await page.waitForURL(/\/cart\/.+$/);
     });
 
     test("should complete checkout workflow and show success message", async ({

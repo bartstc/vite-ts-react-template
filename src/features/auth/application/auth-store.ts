@@ -3,6 +3,7 @@ import { createStore, useStore } from "zustand";
 
 import type { User } from "@/features/auth/models/user";
 import { getUser } from "@/features/auth/providers/get-user";
+import { AUTH_TOKEN_KEY } from "@/lib/http/ky-client";
 
 import { loginUser, type ICredentials } from "../providers/login-user";
 
@@ -67,7 +68,8 @@ export const initializeAuthStore = (preloadedState: Partial<IStore> = {}) => {
         set({ state: "loading" });
 
         try {
-          await loginUser(credentials);
+          const token = await loginUser(credentials);
+          localStorage.setItem(AUTH_TOKEN_KEY, token);
           const user = await getUser();
 
           localStorage.setItem(AUTH_KEY, "true");
@@ -96,6 +98,7 @@ export const initializeAuthStore = (preloadedState: Partial<IStore> = {}) => {
 
         return new Promise((resolve) => setTimeout(resolve, 500)).then(() => {
           localStorage.setItem(AUTH_KEY, "false");
+          localStorage.removeItem(AUTH_TOKEN_KEY);
           set({
             isAuthenticated: false,
             state: "finished",

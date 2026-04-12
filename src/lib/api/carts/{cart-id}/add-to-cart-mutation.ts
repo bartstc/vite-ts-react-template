@@ -5,12 +5,12 @@ import { Logger } from "@/lib/logger";
 import { UnknownError } from "@/lib/types/unknown-error";
 
 interface AddToCartPayload {
-  productId: number;
+  productId: string;
   quantity?: number;
 }
 
 interface AddToCartDto {
-  cartId: number;
+  cartId: string;
   payload: AddToCartPayload;
 }
 
@@ -23,7 +23,7 @@ export const useAddToCartMutation = () => {
       }),
   });
 
-  const handler = async (cartId: number, payload: AddToCartPayload) => {
+  const handler = async (cartId: string, payload: AddToCartPayload) => {
     try {
       return await mutateAsync({ cartId, payload });
     } catch (e) {

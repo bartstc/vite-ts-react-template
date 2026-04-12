@@ -26,16 +26,12 @@ export class ProductDetailsPage extends BasePage {
     });
   }
 
-  private async goto(productId: string): Promise<this> {
-    await this.page.goto(`/products/${productId}`, {
-      waitUntil: "networkidle",
-    });
-    return this;
-  }
-
   async gotoFirstProduct(): Promise<this> {
-    // AIDEV-NOTE: Navigate to first product (ID = 1) as E2E uses real API data
-    return this.goto("1");
+    // AIDEV-NOTE: Navigate via products list to avoid hardcoding ID format
+    await this.page.goto("/products", { waitUntil: "networkidle" });
+    await this.page.getByRole("article").first().getByRole("img").click();
+    await this.page.waitForURL(/\/products\/.+/, { waitUntil: "networkidle" });
+    return this;
   }
 
   async addToCart(): Promise<this> {

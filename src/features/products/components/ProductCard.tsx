@@ -11,21 +11,29 @@ import { useSecondaryTextColor } from "@/lib/theme/use-secondary-text-color";
 import { useCategoryLabel } from "./use-category-label";
 
 interface IProps {
-  id: number;
-  title: string;
+  id: string;
+  name: string;
   category: Category;
-  price: number;
+  price: { amount: number; currency: string };
   imageUrl: string;
 }
 
-const ProductCard = ({ title, category, price, imageUrl, id }: IProps) => {
+const ProductCard = ({ name, category, price, imageUrl, id }: IProps) => {
   const navigate = useNavigate();
   const categoryLabel = useCategoryLabel(category);
   const categoryColor = useSecondaryTextColor();
 
   return (
-    <VStack gap={3} overflow="hidden" rounded="lg" as="article">
+    <VStack
+      gap={3}
+      overflow="hidden"
+      rounded="lg"
+      as="article"
+      aria-labelledby={`product-name-${id}`}
+    >
       <Box
+        role="img"
+        aria-label={name}
         onClick={() => navigate(`/products/${id}`)}
         cursor="pointer"
         h={64}
@@ -45,18 +53,19 @@ const ProductCard = ({ title, category, price, imageUrl, id }: IProps) => {
           gap={6}
         >
           <Text
+            id={`product-name-${id}`}
             truncate
             onClick={() =>
               navigate({
                 path: routes.product.path,
-                params: { productId: id.toString() },
+                params: { productId: id },
               })
             }
             cursor="pointer"
           >
-            {title}
+            {name}
           </Text>
-          <Text>{moneyVO.format(price)}</Text>
+          <Text>{moneyVO.format(price.amount, price.currency)}</Text>
         </HStack>
         <Text
           fontStyle="italic"
