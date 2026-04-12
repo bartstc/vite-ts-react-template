@@ -25,7 +25,11 @@
       }
     },
     "form": {
-      "required": "Field is required."
+      "required": "Field is required.",
+      "select": {
+        "loading": "Loading…",
+        "noResults": "No results"
+      }
     },
     "buttons": {
       "contact-us": "Contact us!",
