@@ -1,5 +1,5 @@
 import { useAuthStore } from "@/features/auth/application/auth-store";
-import { useProductAddedDialogStore } from "@/features/carts/components/AddToCartButton/use-product-added-dialog-store";
+import { useProductAddedDialogStore } from "@/features/carts/application/use-product-added-dialog-store";
 import {
   useAddToCartMutation,
   UnknownProductError,
