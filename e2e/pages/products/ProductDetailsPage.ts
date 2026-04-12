@@ -26,13 +26,6 @@ export class ProductDetailsPage extends BasePage {
     });
   }
 
-  private async goto(productId: string): Promise<this> {
-    await this.page.goto(`/products/${productId}`, {
-      waitUntil: "networkidle",
-    });
-    return this;
-  }
-
   async gotoFirstProduct(): Promise<this> {
     // AIDEV-NOTE: Navigate via products list to avoid hardcoding ID format
     await this.page.goto("/products", { waitUntil: "networkidle" });
