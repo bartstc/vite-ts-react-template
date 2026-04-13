@@ -116,17 +116,20 @@ It's recommended to run the dev server inside a container for consistent Node/PN
 
 This template is opinionated — it picks libraries so you don't have to. If something doesn't fit your project, here's how to strip it out:
 
-| Library      | What to remove                                                                         |
-| ------------ | -------------------------------------------------------------------------------------- |
-| Chakra UI    | `src/lib/components/`, Chakra provider in `src/app/`, `@chakra-ui/*` deps              |
-| React Router | `src/pages/`, route config in `src/app/`, `react-router` dep                           |
-| React Query  | Query provider in `src/app/`, `src/lib/api/` query hooks, `@tanstack/react-query` deps |
-| i18next      | `src/lib/i18n/`, i18n provider in `src/app/`, `i18next` + `react-i18next` deps         |
-| Zustand      | Store files in `src/features/*/stores/`, `zustand` dep                                 |
-| XState       | State machine files (example usage), `xstate` + `@xstate/react` deps                   |
-| MSW          | `src/test-lib/handlers/`, `msw` dep, browser/server setup files                        |
+| Library         | What to remove                                                                                     |
+| --------------- | -------------------------------------------------------------------------------------------------- |
+| Chakra UI       | `src/lib/components/`, Chakra provider in `src/app/`, `@chakra-ui/*` deps                          |
+| React Router    | `src/pages/`, route config in `src/app/`, `react-router` dep                                       |
+| React Query     | Query provider in `src/app/`, `src/lib/api/` query hooks, `@tanstack/react-query` deps             |
+| i18next         | `src/lib/i18n/`, i18n provider in `src/app/`, `i18next` + `react-i18next` deps                     |
+| Zustand         | Store files in `src/features/*/stores/`, `zustand` dep                                             |
+| XState          | State machine files (example usage), `xstate` + `@xstate/react` deps                               |
+| React Hook Form | `src/lib/components/Form/`, form components in `src/features/*/components/`, `react-hook-form` dep |
+| MSW             | `src/test-lib/handlers/`, `msw` dep, browser/server setup files                                    |
 
 After removing, run `pnpm install` to clean the lockfile and `pnpm lint` to catch broken imports.
+
+> **Note for AI-assisted workflows:** Several of these libraries are referenced by name in the [building blocks catalog](.agents/skills/building-blocks/SKILL.md) used during spec-driven development. The catalog includes typed patterns for React Query (`query-options-factory`, `mutation-hook`), Zustand (`store`), and React Hook Form (`form`). If you remove one of these libraries, also remove or replace its corresponding rule file in `.agents/skills/building-blocks/rules/` so the agent doesn't generate code for a library that no longer exists in the project.
 
 ## Contributing
 
