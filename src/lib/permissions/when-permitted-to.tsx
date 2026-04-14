@@ -1,7 +1,7 @@
 import type { ComponentType } from "react";
 
 // eslint-disable-next-line import/no-restricted-paths
-import type { Permission } from "@/features/authv2/models/user-roles";
+import type { Permission } from "@/features/authv2/models/permissions";
 import { useHasPermission } from "@/lib/permissions/use-has-permission";
 
 interface WhenPermittedToFn {

@@ -1,6 +1,6 @@
 /* eslint-disable import/no-restricted-paths */
 import { useAuthorizedContextSelector } from "@/features/authv2/application/use-authorized-context-selector";
-import type { Permission } from "@/features/authv2/models/user-roles";
+import type { Permission } from "@/features/authv2/models/permissions";
 
 type PermissionQuery =
   | Permission

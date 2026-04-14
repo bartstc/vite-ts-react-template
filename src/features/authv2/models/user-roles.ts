@@ -1,8 +1,4 @@
-export enum Permission {
-  Read = "read",
-  Write = "write",
-  Edit = "edit",
-}
+import type { Permission } from "@/features/authv2/models/permissions";
 
 export enum Role {
   Reader = "reader",

@@ -9,8 +9,9 @@ paths:
 ## Project Structure
 
 - `src/features/` — feature modules using feature slice architecture
-- `src/lib/api/` — centralized API layer: queryOptions factories, mutations, DTOs by resource
 - `src/lib/` — shared utilities, components, HTTP client, i18n, routing, theme
+  . `src/lib/api/` — centralized API layer: queryOptions factories, mutations, DTOs by resource
+  - `src/lib/permissions/` — permission gating utilities. Available permissions: `@/features/authv2/models/permissions`
 - `src/pages/` — route-level page components composing features
 - `src/app/` — app-level config (App.tsx, Providers.tsx)
 - `e2e/` — Playwright end-to-end tests
