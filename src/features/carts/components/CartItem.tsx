@@ -63,16 +63,12 @@ const CartItem = ({
               params: { productId: id },
             })
           }
-          // cursor="pointer"
-          // w="100%"
-          // maxW="150px"
-          // h="100%"
-          // maxH="100px"
-          // bgImage={imageUrl}
-          // bgSize="contain"
-          // bgRepeat="no-repeat"
-          // position="center"
-          w="100%"
+          cursor="pointer"
+          flexShrink={0}
+          w="100px"
+          h="100px"
+          rounded="md"
+          overflow="hidden"
           bgSize="cover"
           bgPos="center"
           style={{
