@@ -2,7 +2,6 @@ import type { ComponentType } from "react";
 
 // eslint-disable-next-line import/no-restricted-paths
 import type { Permission } from "@/features/authv2/models/user-roles";
-import { useHasAllPermissions } from "@/lib/permissions/use-has-all-permissions";
 import { useHasPermission } from "@/lib/permissions/use-has-permission";
 
 interface WhenPermittedToFn {
@@ -44,7 +43,7 @@ const whenPermittedToOneOf = <P extends object>(
 ) => {
   return (Component: ComponentType<P>): ComponentType<P> => {
     const WrapperComponent = (props: P) => {
-      const hasPermission = useHasPermission(permissions);
+      const hasPermission = useHasPermission({ permissions, match: "oneOf" });
 
       if (!hasPermission) {
         return Fallback ? <Fallback /> : null;
@@ -62,7 +61,7 @@ const whenPermittedToAll = <P extends object>(
 ) => {
   return (Component: ComponentType<P>): ComponentType<P> => {
     const WrapperComponent = (props: P) => {
-      const hasPermission = useHasAllPermissions(permissions);
+      const hasPermission = useHasPermission({ permissions, match: "all" });
 
       if (!hasPermission) {
         return Fallback ? <Fallback /> : null;

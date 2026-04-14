@@ -2,16 +2,30 @@
 import { useAuthorizedContextSelector } from "@/features/authv2/application/use-authorized-context-selector";
 import type { Permission } from "@/features/authv2/models/user-roles";
 
-export const useHasPermission = (permission: Permission | Permission[]) => {
+type PermissionQuery =
+  | Permission
+  | { permissions: Permission[]; match?: "all" | "oneOf" };
+
+export const useHasPermission = (query: PermissionQuery): boolean => {
   const availablePermissions = useAuthorizedContextSelector(
     (context) => context.roles.permissions
   );
 
-  if (Array.isArray(permission)) {
-    return permission.some((perm) =>
+  if (typeof query === "string") {
+    return !!availablePermissions?.some((p) => p === query);
+  }
+
+  const { permissions, match = "all" } = query;
+
+  if (!permissions.length) return false;
+
+  if (match === "oneOf") {
+    return permissions.some((perm) =>
       availablePermissions?.some((p) => p === perm)
     );
   }
 
-  return !!availablePermissions?.find((p) => p === permission);
+  return permissions.every((perm) =>
+    availablePermissions?.some((p) => p === perm)
+  );
 };
