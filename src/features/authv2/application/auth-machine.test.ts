@@ -1,7 +1,8 @@
 import { describe, it, expect, vi } from "vitest";
 import { createActor, fromPromise } from "xstate";
 
-import { Permission, Role } from "@/features/authv2/models/user-roles";
+import { Permission } from "@/features/authv2/models/permissions";
+import { Role } from "@/features/authv2/models/user-roles";
 import { sleep } from "@/lib/sleep";
 import type { OneOfUnion } from "@/lib/types/one-of-union";
 import { UserFixture } from "@/test-lib/fixtures/user-fixture";
