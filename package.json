@@ -21,6 +21,7 @@
     "test:e2e:ci": "playwright test --reporter=junit --reporter=html --reporter=json",
     "test:coverage": "vitest run --coverage",
     "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
     "lint": "eslint . --ignore-pattern '*.d.ts' --report-unused-disable-directives --max-warnings 0",
     "prepare": "husky install",
     "storybook": "storybook dev -p 6006",

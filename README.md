@@ -79,6 +79,7 @@ It's recommended to run the dev server inside a container for consistent Node/PN
 | `pnpm dev`             | Dev server with HMR on port `5173`         |
 | `pnpm dev:server`      | Local API server only on port `3001`       |
 | `pnpm dev:all`         | Frontend + API server together             |
+| `pnpm typecheck`       | Type-check all sources without emitting    |
 | `pnpm lint`            | Check for lint errors                      |
 | `pnpm build`           | Production build                           |
 | `pnpm test`            | Run all tests (unit + storybook)           |
