@@ -57,7 +57,13 @@
   "features": {
     "products": {
       "rating": {
-        "tooltip": "Average customer rating: {rating}"
+        "tooltip": "Average customer rating: {rating}",
+        "notifications": {
+          "title": "Product rating",
+          "not-authenticated": "You have to log in to rate the product",
+          "success": "Thank you! Your rating has been submitted.",
+          "error": "Something went wrong with submitting your rating. Please try again or contact us."
+        }
       },
       "categories": {
         "clothing": "Clothing",

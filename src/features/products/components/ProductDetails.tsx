@@ -74,7 +74,10 @@ const ProductDetails = ({ product, marketingProduct, onBack }: IProps) => {
               {moneyVO.format(product.price.amount, product.price.currency)}
             </Text>
             <Separator orientation="vertical" />
-            <StarRating rating={marketingProduct?.rating.rate ?? 0} />
+            <StarRating
+              rating={marketingProduct?.rating.rate ?? 0}
+              productId={product.id}
+            />
             <Button variant="plain" colorPalette="orange">
               {t("see-reviews", {
                 number: marketingProduct?.rating.count ?? 0,

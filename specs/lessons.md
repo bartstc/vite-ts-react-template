@@ -39,3 +39,41 @@ Patterns captured after corrections. Review at session start.
 **How to apply:** Before using any type from `src/lib/api/` in a component or page, check whether a domain alias exists in the feature's `models/`. If not, create one following the pattern in `product.ts`: `export type { XxxDto as Xxx } from "@/lib/api/..."`.
 
 **Source:** Correction 2026-04-12 — `MarketingProductDto` leaked into `ProductDetails.tsx` component props.
+
+---
+
+## L003 — Mutation building blocks in specs must be named as hooks (use\* prefix)
+
+**Rule:** Mutation hooks in `lib/api/` and `providers/` are React hooks and must follow the `use` prefix convention. In specs, name them `useXxxMutation`, never `xxxMutation`.
+
+**Why it failed:** `rateMarketingProductMutation` was listed in the Building Blocks Diff without the `use` prefix, despite being a hook that calls `useMutation` internally.
+
+**How to apply:** In any spec Building Blocks Diff, check every mutation-hook entry — if it wraps `useMutation`, prefix it with `use`. File name uses kebab-case: `use-rate-product-mutation.ts`.
+
+Also, we might have inconsistency, as queries from lib/api are exposed by query factories, not query hooks, which might be confusing. Maybe we should always export useQuery (default version) as well, then we would have consistent exports there: useSmthMutation (use-smth-mutation) and useSmthQuery (use-smth-query.ts).
+
+**Source:** Correction 2026-04-17 — spec 004-product-rating Building Blocks Diff.
+
+---
+
+## L004 — Spec boundaries must only list items within the feature's scope
+
+**Rule:** The ⚠️ Ask First boundary tier must only include items that are plausible within the current feature's scope. Generic project-wide concerns (e.g. "adding npm dependencies") that have no connection to the feature being specced must be omitted.
+
+**Why it failed:** "Adding new npm dependencies" was added to ⚠️ Ask First in a spec that adds no dependencies — it was a boilerplate copy-paste rather than a scope-specific boundary.
+
+**How to apply:** Before finalising the Boundaries section, ask: "Is this item actually reachable during implementation of this feature?" If no, remove it.
+
+**Source:** Correction 2026-04-17 — spec 004-product-rating Boundaries section.
+
+---
+
+## L005 — Never explore the codebase for patterns during implementation — read spec and building-blocks rules instead
+
+**Rule:** Before implementing any building block, read the spec's Building Blocks Diff and the corresponding rule file in `.agents/skills/building-blocks/rules/`. Do not open existing feature files to reverse-engineer patterns. If a rule file is missing or ambiguous, raise that gap — do not substitute with file exploration.
+
+**Why it failed:** An agent issued broad `read`/`list` calls across multiple feature folders (`providers/`, `application/`, `models/`, `lib/api/`) to infer patterns from live code. The spec already listed every building block to create, and the building-blocks skill already documents the canonical pattern for each one. The exploration was pure redundancy — and risks drifting toward the existing code's quirks rather than the authoritative pattern.
+
+**How to apply:** At the start of every implementation task: (1) open the spec, identify every block in the Building Blocks Diff, (2) for each block, load the matching rule file from `.agents/skills/building-blocks/rules/<block>.md`, (3) implement against the rule, not against existing files. Only read an existing file when the spec explicitly says "follow the pattern in `path/to/file.ts`" or when you need to find the exact symbol to import (e.g. a query key or provider name).
+
+**Source:** Correction 2026-04-17 — spec 004-product-rating implementation; agent explored 9+ existing files instead of reading building-blocks rules.
