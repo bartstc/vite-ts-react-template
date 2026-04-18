@@ -46,7 +46,6 @@ Package manager: PNPM only. Path alias: `@/*` → `src/`.
 
 - Never mark a task complete without proving it works
 - Run tests, check logs, and demonstrate correctness
-- Ask: "Would a staff engineer approve this?"
 
 **4. Demand Elegance (Balanced)**
 
@@ -62,7 +61,8 @@ Package manager: PNPM only. Path alias: `@/*` → `src/`.
 **6. Spec-Driven Development**
 
 - For features spanning 5+ files or 5+ unconstrained decisions, write a spec first using writing-spec skill
-- When implementing a spec, read the building-blocks skill rule files for each block listed in the Building Blocks Diff before writing code
+- When implementing a spec, read the building-blocks skill rule file for each block in the Building Blocks Diff before writing code. That is the canonical pattern — do not explore existing files to reverse-engineer patterns. Only read existing files for integration points (imports, symbols, types)
+- If a rule file is missing or ambiguous, raise the gap — do not substitute with codebase exploration
 - Skip when the developer opts out
 
 ## Conventions

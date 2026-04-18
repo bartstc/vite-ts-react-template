@@ -39,15 +39,3 @@ Patterns captured after corrections. Review at session start.
 **How to apply:** Before using any type from `src/lib/api/` in a component or page, check whether a domain alias exists in the feature's `models/`. If not, create one following the pattern in `product.ts`: `export type { XxxDto as Xxx } from "@/lib/api/..."`.
 
 **Source:** Correction 2026-04-12 — `MarketingProductDto` leaked into `ProductDetails.tsx` component props.
-
----
-
-## L005 — Never explore the codebase for patterns during implementation — read spec and building-blocks rules instead
-
-**Rule:** Before implementing any building block, read the spec's Building Blocks Diff and the corresponding rule file in `.agents/skills/building-blocks/rules/`. Do not open existing feature files to reverse-engineer patterns. If a rule file is missing or ambiguous, raise that gap — do not substitute with file exploration.
-
-**Why it failed:** An agent issued broad `read`/`list` calls across multiple feature folders (`providers/`, `application/`, `models/`, `lib/api/`) to infer patterns from live code. The spec already listed every building block to create, and the building-blocks skill already documents the canonical pattern for each one. The exploration was pure redundancy — and risks drifting toward the existing code's quirks rather than the authoritative pattern.
-
-**How to apply:** At the start of every implementation task: (1) open the spec, identify every block in the Building Blocks Diff, (2) for each block, load the matching rule file from `.agents/skills/building-blocks/rules/<block>.md`, (3) implement against the rule, not against existing files. Only read an existing file when the spec explicitly says "follow the pattern in `path/to/file.ts`" or when you need to find the exact symbol to import (e.g. a query key or provider name).
-
-**Source:** Correction 2026-04-17 — spec 004-product-rating implementation; agent explored 9+ existing files instead of reading building-blocks rules.
