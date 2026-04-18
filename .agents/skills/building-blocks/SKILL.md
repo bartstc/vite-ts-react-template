@@ -15,12 +15,13 @@ Read the rule file for each block you are about to implement. The summaries belo
 
 ### Data Fetching
 
-| Block                   | Layer        | Summary                                                                                                              | File                             |
-| ----------------------- | ------------ | -------------------------------------------------------------------------------------------------------------------- | -------------------------------- |
-| `mutation-hook`         | `providers/` | Server write via `useMutation` with domain error translation and cache invalidation. Returns `[handler, isPending]`. | `rules/mutation-hook.md`         |
-| `query-options-factory` | `lib/api/`   | Reusable `queryOptions()` factories — no hooks, no `useQuery`. Hook composition belongs in `providers/`.             | `rules/query-options-factory.md` |
-| `query-keys-factory`    | `lib/api/`   | Hierarchical `as const` key tuples per resource. Single source of truth for cache invalidation.                      | `rules/query-keys-factory.md`    |
-| `dto-model`             | `lib/api/`   | TypeScript interfaces mirroring the raw API wire format. No transformations.                                         | `rules/dto-model.md`             |
+| Block                      | Layer        | Summary                                                                                                                           | File                                |
+| -------------------------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- |
+| `mutation-options-factory` | `lib/api/`   | Reusable `mutationOptions()` factories with domain error translation. Composed by `mutation-hook` in `providers/`.                | `rules/mutation-options-factory.md` |
+| `mutation-hook`            | `providers/` | Server write via `useMutation` composed from `mutation-options-factory`, with cache invalidation. Returns `[handler, isPending]`. | `rules/mutation-hook.md`            |
+| `query-options-factory`    | `lib/api/`   | Reusable `queryOptions()` factories — no hooks, no `useQuery`. Hook composition belongs in `providers/`.                          | `rules/query-options-factory.md`    |
+| `query-keys-factory`       | `lib/api/`   | Hierarchical `as const` key tuples per resource. Single source of truth for cache invalidation.                                   | `rules/query-keys-factory.md`       |
+| `dto-model`                | `lib/api/`   | TypeScript interfaces mirroring the raw API wire format. No transformations.                                                      | `rules/dto-model.md`                |
 
 ### State Management
 
