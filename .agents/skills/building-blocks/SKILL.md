@@ -44,6 +44,7 @@ Read the rule file for each block you are about to implement. The summaries belo
 | `compound-component` | `components/`  | Dot-notation sub-components. Composition over configuration — no boolean prop toggles.             | `rules/compound-component.md` |
 | `form`               | `components/`  | Context-driven form via `useForm` + `FormProvider` + field components.                             | `rules/form.md`               |
 | `hoc`                | `components/`  | Component in → enhanced component out. For render-level decisions (auth gates, suspense wrappers). | `rules/hoc.md`                |
+| `error-boundary`     | `components/`  | Scoped error handling for a feature component with its own query.                                  | `rules/error-boundary.md`     |
 | `page`               | `pages/`       | Route-level orchestrator. Only place where router coupling is acceptable.                          | `rules/page.md`               |
 | `facade-hook`        | `components/`  | Private logic extraction for a single component. Defined below the component, not exported.        | `rules/facade-hook.md`        |
 | `named-effect`       | `components/`  | Named function expressions in `useEffect`. Intent visible at a glance.                             | `rules/named-effect.md`       |

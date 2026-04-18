@@ -53,7 +53,7 @@ Fill sections 7-10 of the template.
    - Traces to requirement IDs (R1, R2, …)
    - Includes target file paths
    - Is marked `[P]` (parallelizable) or `[S]` (sequential)
-2. Draft **Error & Edge Cases** using GIVEN/WHEN/THEN — cover failure modes, boundary conditions, concurrency
+2. Draft **Error & Edge Cases** using GIVEN/WHEN/THEN — cover failure modes (including fetch errors for data-fetching components), boundary conditions, concurrency
 3. Add **Open Questions** for anything unresolved that blocks a specific task
 4. Present for review
 

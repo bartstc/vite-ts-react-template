@@ -210,13 +210,13 @@ The building blocks catalog lives in `skills/building-blocks/`. It uses progress
 
 ### Block categories
 
-| Category           | Blocks                                                                                                            | What they cover                                              |
-| ------------------ | ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ |
-| Data Fetching      | `mutation-hook`, `query-options-factory`, `query-keys-factory`, `dto-model`                                       | Server reads/writes, cache keys, API response types          |
-| State Management   | `store`, `provider`                                                                                               | Zustand stores, React Context dependency injection           |
-| App Orchestration  | `use-case-hook`                                                                                                   | Feature-level operations composing mutations + notifications |
-| Component Patterns | `notification-hook`, `pure-component`, `compound-component`, `form`, `hoc`, `page`, `facade-hook`, `named-effect` | UI components, hooks, and composition patterns               |
-| Data Modeling      | `frontend-model`, `value-object`                                                                                  | Domain types, value-based logic grouping                     |
+| Category           | Blocks                                                                                                                              | What they cover                                              |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ |
+| Data Fetching      | `mutation-hook`, `query-options-factory`, `query-keys-factory`, `dto-model`                                                         | Server reads/writes, cache keys, API response types          |
+| State Management   | `store`, `provider`                                                                                                                 | Zustand stores, React Context dependency injection           |
+| App Orchestration  | `use-case-hook`                                                                                                                     | Feature-level operations composing mutations + notifications |
+| Component Patterns | `notification-hook`, `pure-component`, `compound-component`, `form`, `hoc`, `error-boundary`, `page`, `facade-hook`, `named-effect` | UI components, hooks, and composition patterns               |
+| Data Modeling      | `frontend-model`, `value-object`                                                                                                    | Domain types, value-based logic grouping                     |
 
 ### How specs reference building blocks
 
