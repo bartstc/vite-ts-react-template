@@ -65,6 +65,8 @@ Each feature follows feature slice architecture patterns with four layers:
 | `providers/`   | `models/`, `lib/api/`, `lib/*`                   |
 | `models/`      | `lib/api/`, `lib/*`                              |
 
+**Cross-slice primitives:** `features/auth/` and `features/authv2/` are cross-cutting concerns (identity, permissions, auth state). Any feature slice may import from them.
+
 ## API Library
 
 `src/lib/api/` is the global home for all HTTP logic: `queryOptions` factories, loaders, mutation hooks, query keys, domain errors, and DTOs, organised by resource. Query files expose `queryOptions` factories (no `useQuery` hooks — hook composition belongs in `providers/`). Feature `providers/` compose hooks on top of those factories and re-export them for feature slice. New API logic always goes in `src/lib/api/` first, then gets exposed through the relevant feature's `providers/`.

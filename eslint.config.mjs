@@ -23,10 +23,12 @@ const allFeatureSlices = [
   "products",
 ];
 
+// AIDEV-NOTE: `auth` and `authv2` are cross-slice primitives (identity, permissions,
+// auth state). Any feature may import from them. See docs/architecture.md
 const featureToFeatureZones = featureSlices.map((feature) => ({
   target: `./src/features/${feature}`,
   from: "./src/features",
-  except: [`./${feature}`, "./auth"],
+  except: [`./${feature}`, "./auth", "./authv2"],
   message: "Avoid importing from other features.",
 }));
 
