@@ -55,16 +55,19 @@
     }
   },
   "features": {
-    "products": {
+    "marketing": {
       "rating": {
         "tooltip": "Average customer rating: {rating}",
+        "see-reviews": "See all {{number}} reviews",
         "notifications": {
           "title": "Product rating",
           "not-authenticated": "You have to log in to rate the product",
           "success": "Thank you! Your rating has been submitted.",
           "error": "Something went wrong with submitting your rating. Please try again or contact us."
         }
-      },
+      }
+    },
+    "products": {
       "categories": {
         "clothing": "Clothing",
         "jewelery": "Jewelery",
@@ -77,7 +80,6 @@
       },
       "details": {
         "collection": "A part of our {{category}} collection.",
-        "see-reviews": "See all {{number}} reviews",
         "back-to-list": "Back to products' list",
         "features": "Features",
         "features-content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",

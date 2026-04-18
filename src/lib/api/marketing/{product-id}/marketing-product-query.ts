@@ -2,6 +2,7 @@ import { queryOptions } from "@tanstack/react-query";
 
 import { marketingQueryKeys } from "@/lib/api/marketing/marketing-query-keys";
 import { httpService } from "@/lib/http";
+import { queryClient } from "@/lib/query";
 
 import type { MarketingProductDto } from "./marketing-product-dto";
 
@@ -11,3 +12,6 @@ export const marketingProductQuery = (productId: string) =>
     queryFn: (): Promise<MarketingProductDto> =>
       httpService.get<MarketingProductDto>(`marketing/products/${productId}`),
   });
+
+export const marketingProductLoader = (productId: string) =>
+  queryClient.ensureQueryData(marketingProductQuery(productId));

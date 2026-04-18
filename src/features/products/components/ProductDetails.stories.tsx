@@ -1,8 +1,8 @@
+import { HStack, Text } from "@chakra-ui/react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { action } from "storybook/actions";
 import { withRouter } from "storybook-addon-remix-react-router";
 
-import { MarketingProductFixture } from "@/test-lib/fixtures/marketing-product-fixture";
 import { ProductFixture } from "@/test-lib/fixtures/product-fixture";
 import { getAddToCartHandler } from "@/test-lib/handlers/get-add-to-cart-handler";
 
@@ -26,7 +26,13 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     product: ProductFixture.toStructure(),
-    marketingProduct: MarketingProductFixture.toStructure(),
+    children: (
+      <HStack gap={4}>
+        <Text fontSize="sm" color="orange.400">
+          {"★★★★☆ (42 reviews)"}
+        </Text>
+      </HStack>
+    ),
     onBack: action("back to products' list"),
   },
 };
