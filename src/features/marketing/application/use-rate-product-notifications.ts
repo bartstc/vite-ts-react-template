@@ -2,7 +2,7 @@ import { useToast } from "@/lib/components/Toast/use-toast";
 import { useTranslations } from "@/lib/i18n/use-transations";
 
 export const useRateProductNotifications = () => {
-  const t = useTranslations("features.products.rating.notifications");
+  const t = useTranslations("features.marketing.rating.notifications");
   const toast = useToast();
 
   const notifyNotAuthenticated = () =>

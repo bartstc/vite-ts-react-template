@@ -10,12 +10,11 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
+import type { ReactNode } from "react";
 
 import { AddToCartButton } from "@/features/carts/components/AddToCartButton/AddToCartButton";
 import { ProductAddedDialog } from "@/features/carts/components/AddToCartButton/ProductAddedDialog";
-import { StarRating } from "@/features/products/components/StarRating";
 import { useCategoryLabel } from "@/features/products/components/use-category-label";
-import type { MarketingProduct } from "@/features/products/models/marketing-product";
 import type { Product } from "@/features/products/models/product";
 import { PageHeader } from "@/lib/components/Layout/PageHeader";
 import { moneyVO } from "@/lib/format/money";
@@ -24,7 +23,7 @@ import { useSecondaryTextColor } from "@/lib/theme/use-secondary-text-color";
 
 interface IProps {
   product: Product;
-  marketingProduct: MarketingProduct;
+  children?: ReactNode;
   onBack: () => void;
 }
 
@@ -35,7 +34,7 @@ const accordionItems = [
   { value: "returns", labelKey: "returns", contentKey: "returns-content" },
 ] as const;
 
-const ProductDetails = ({ product, marketingProduct, onBack }: IProps) => {
+const ProductDetails = ({ product, children, onBack }: IProps) => {
   const categoryLabel = useCategoryLabel(product.category);
   const secondaryColor = useSecondaryTextColor();
   const t = useTranslations("features.products.details");
@@ -74,15 +73,7 @@ const ProductDetails = ({ product, marketingProduct, onBack }: IProps) => {
               {moneyVO.format(product.price.amount, product.price.currency)}
             </Text>
             <Separator orientation="vertical" />
-            <StarRating
-              rating={marketingProduct?.rating.rate ?? 0}
-              productId={product.id}
-            />
-            <Button variant="plain" colorPalette="orange">
-              {t("see-reviews", {
-                number: marketingProduct?.rating.count ?? 0,
-              })}
-            </Button>
+            {children}
           </HStack>
           <Text
             color={secondaryColor}

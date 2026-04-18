@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { StarRating } from "./StarRating";
 
 const meta = {
-  title: "modules/Products/StarRating",
+  title: "modules/Marketing/StarRating",
   component: StarRating,
   parameters: {
     layout: "centered",
