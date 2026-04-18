@@ -7,4 +7,4 @@ import { useQuery } from "@/lib/query";
 export { marketingProductLoader };
 
 export const useMarketingProductQuery = (productId: string) =>
-  useQuery(marketingProductQuery(productId));
+  useQuery({ ...marketingProductQuery(productId), throwOnError: true });
