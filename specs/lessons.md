@@ -42,18 +42,6 @@ Patterns captured after corrections. Review at session start.
 
 ---
 
-## L004 — Spec boundaries must only list items within the feature's scope
-
-**Rule:** The ⚠️ Ask First boundary tier must only include items that are plausible within the current feature's scope. Generic project-wide concerns (e.g. "adding npm dependencies") that have no connection to the feature being specced must be omitted.
-
-**Why it failed:** "Adding new npm dependencies" was added to ⚠️ Ask First in a spec that adds no dependencies — it was a boilerplate copy-paste rather than a scope-specific boundary.
-
-**How to apply:** Before finalising the Boundaries section, ask: "Is this item actually reachable during implementation of this feature?" If no, remove it.
-
-**Source:** Correction 2026-04-17 — spec 004-product-rating Boundaries section.
-
----
-
 ## L005 — Never explore the codebase for patterns during implementation — read spec and building-blocks rules instead
 
 **Rule:** Before implementing any building block, read the spec's Building Blocks Diff and the corresponding rule file in `.agents/skills/building-blocks/rules/`. Do not open existing feature files to reverse-engineer patterns. If a rule file is missing or ambiguous, raise that gap — do not substitute with file exploration.

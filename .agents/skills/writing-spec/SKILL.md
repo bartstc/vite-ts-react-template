@@ -85,6 +85,7 @@ Fill sections 7-10 of the template.
 - NEVER define building block internals (interfaces, schemas, implementation) in the spec — reference name + type only
 - NEVER skip a review gate — each phase needs explicit developer approval
 - NEVER conflate spec layers: requirements constrain intent, design constrains approach, tasks constrain sequencing. Keep them separate
+- NEVER add boilerplate boundaries — every item in ✅/⚠️/🚫 must be reachable during implementation of this specific feature
 
 ### Prefer
 
