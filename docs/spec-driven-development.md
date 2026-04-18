@@ -6,6 +6,8 @@ This document describes how we use spec-driven development (SDD) in this codebas
 
 AI coding agents are effective at writing code but unreliable at making design decisions. Without constraints, an agent will produce working code that doesn't fit the architecture, misses edge cases, or solves a different problem than intended. Spec-driven development addresses this by separating _what to build_ from _how to build it_.
 
+The bottleneck, then, is the spec itself. Most teams write specifications for human developers — documents loose enough that a skilled engineer fills the gaps with judgment, domain knowledge, and intuition. Agents don't fill gaps; they hallucinate across them. Writing machine-readable specs means being explicit about what a human reader would simply infer: boundary conditions, failure modes, architectural constraints, and the reasoning behind decisions. The discipline isn't learning to use agents — it's learning to separate _what you know_ from _what you're assuming_.
+
 The spec is a short document (80–150 lines) that captures intent, constraints, and sequencing _before_ any code is written. It serves three purposes:
 
 1. **Reduces ambiguity** — the agent works from explicit behavioral requirements instead of inferring intent from vague prompts.
