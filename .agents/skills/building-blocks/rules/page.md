@@ -13,6 +13,7 @@ Composes presentation components into a complete screen. The only place where co
 
 - Pages should be thin orchestrators: pull route params, invoke hooks, pass props to pure components. If a page has significant logic, extract it into a `facade-hook` or `use-case-hook`.
 - One page per route. If two routes share 90% of their UI, extract the shared part into a component — don't make one page serve two routes with conditionals.
+- Page loaders in `src/pages/<Page>/loader.ts` compose resource-level loaders from query-options-factory
 
 ### Example
 

@@ -15,6 +15,7 @@ Reusable, composable query configuration objects via `queryOptions()`. Export a 
 - Co-located with its `dto-model` and `query-keys-factory` for the same resource.
 - The factory wires together the query key (from `query-keys-factory`) and the fetch function — consumers never assemble these manually.
 - Name: `xxxQuery`. File: `xxx-query.ts`. Hook composition (`useXxxQuery`) belongs in `providers/`.
+- When the query is used in a route loader, co-locate `xxxLoader` function in the same file.
 
 ### Example
 
@@ -30,6 +31,10 @@ export const productQuery = (productId: string) =>
     queryFn: (): Promise<ProductDto> =>
       httpService.get<ProductDto>(`products/${productId}`),
   });
+
+// only when needed by page
+export const productLoader = async (productId: string) =>
+  queryClient.ensureQueryData(productQuery(productId));
 ```
 
 ```tsx

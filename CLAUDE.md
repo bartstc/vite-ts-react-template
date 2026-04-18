@@ -71,4 +71,4 @@ Package manager: PNPM only. Path alias: `@/*` → `src/`.
 
 ## Reference Docs
 
-- Read `docs/architecture.md` when adding features, modifying project structure, or making architectural decisions
+- Read `docs/architecture.md` when implementing spec, adding features, modifying project structure, or making architectural decisions
