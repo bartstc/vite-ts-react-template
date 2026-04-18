@@ -42,20 +42,6 @@ Patterns captured after corrections. Review at session start.
 
 ---
 
-## L003 — Mutation building blocks in specs must be named as hooks (use\* prefix)
-
-**Rule:** Mutation hooks in `lib/api/` and `providers/` are React hooks and must follow the `use` prefix convention. In specs, name them `useXxxMutation`, never `xxxMutation`.
-
-**Why it failed:** `rateMarketingProductMutation` was listed in the Building Blocks Diff without the `use` prefix, despite being a hook that calls `useMutation` internally.
-
-**How to apply:** In any spec Building Blocks Diff, check every mutation-hook entry — if it wraps `useMutation`, prefix it with `use`. File name uses kebab-case: `use-rate-product-mutation.ts`.
-
-Also, we might have inconsistency, as queries from lib/api are exposed by query factories, not query hooks, which might be confusing. Maybe we should always export useQuery (default version) as well, then we would have consistent exports there: useSmthMutation (use-smth-mutation) and useSmthQuery (use-smth-query.ts).
-
-**Source:** Correction 2026-04-17 — spec 004-product-rating Building Blocks Diff.
-
----
-
 ## L004 — Spec boundaries must only list items within the feature's scope
 
 **Rule:** The ⚠️ Ask First boundary tier must only include items that are plausible within the current feature's scope. Generic project-wide concerns (e.g. "adding npm dependencies") that have no connection to the feature being specced must be omitted.

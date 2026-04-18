@@ -14,6 +14,7 @@ Reusable, composable query configuration objects via `queryOptions()`. Export a 
 - Avoid wrapping `queryOptions` in custom hooks that swallow options — the factory **is** the abstraction. Hook composition belongs in `providers/`.
 - Co-located with its `dto-model` and `query-keys-factory` for the same resource.
 - The factory wires together the query key (from `query-keys-factory`) and the fetch function — consumers never assemble these manually.
+- Name: `xxxQuery`. File: `xxx-query.ts`. Hook composition (`useXxxQuery`) belongs in `providers/`.
 
 ### Example
 

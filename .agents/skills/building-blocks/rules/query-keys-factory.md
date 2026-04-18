@@ -2,7 +2,7 @@
 title: Query Keys Factory
 category: Data Fetching
 layer: lib/api/
-composedWith: mutation-hook, query-options-factory
+composedWith: query-options-factory
 ---
 
 ## Query Keys Factory

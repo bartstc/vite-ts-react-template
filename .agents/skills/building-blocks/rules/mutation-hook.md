@@ -2,7 +2,7 @@
 title: Mutation Hook
 category: Data Fetching
 layer: lib/api/
-composedWith: use-case-hook, notification-hook, query-keys-factory
+composedWith: query-keys-factory
 ---
 
 ## Mutation Hook
@@ -14,6 +14,7 @@ Server write operations wrapped in `useMutation` with domain error translation a
 - Error classes are co-located with the hook — they're reusable across feature slices, so they live with the mutation definition.
 - Keep the handler's error mapping exhaustive: catch API errors, translate to typed domain errors, fall back to `UnknownError`. Components should never see raw HTTP errors.
 - Invalidation belongs here — the mutation knows what resource it wrote to, so it owns cache coherence via `query-keys-factory`.
+- ALWAYS use `use` prefix in names — `useXxxMutation`, never `xxxMutation`. File: `use-xxx-mutation.ts`.
 
 ### Example
 
