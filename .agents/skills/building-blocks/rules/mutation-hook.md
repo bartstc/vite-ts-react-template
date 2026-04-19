@@ -12,7 +12,7 @@ Server write hook composed from `mutation-options-factory`. Spreads the factory 
 ### Constraints
 
 - ALWAYS use `use` prefix — `useXxxMutation`, never `xxxMutation`. File: `use-xxx-mutation.ts`
-- Compose from a `mutation-options-factory` via spread — do not inline `mutationFn` or error translation here
+- Compose from a `mutation-options-factory` via spread
 - Invalidation belongs here — the hook knows what queries to invalidate via `query-keys-factory`
 - When the consumer needs to extend `onSuccess` (e.g., close a modal after mutation), spread and chain the factory's callbacks
 
