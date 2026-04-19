@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { withRouter } from "storybook-addon-remix-react-router";
 
-import { getAddToCartHandler } from "@/test-lib/handlers/get-add-to-cart-handler";
 import { getProductHandler } from "@/test-lib/handlers/get-product-handler";
+import { putAddToCartHandler } from "@/test-lib/handlers/put-add-to-cart-handler";
 
 import { productPageLoader } from "./loader";
 
@@ -22,7 +22,7 @@ const meta = {
       loader: productPageLoader,
     },
     msw: {
-      handlers: [getAddToCartHandler(), getProductHandler()],
+      handlers: [putAddToCartHandler(), getProductHandler()],
     },
   },
   decorators: [withRouter],

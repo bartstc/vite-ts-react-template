@@ -12,7 +12,7 @@ import {
 } from "storybook-addon-remix-react-router";
 
 import { generateUuid } from "@/test-lib/generate-uuid";
-import { getAddToCartHandler } from "@/test-lib/handlers/get-add-to-cart-handler";
+import { putAddToCartHandler } from "@/test-lib/handlers/put-add-to-cart-handler";
 import { sleep } from "@/test-lib/storybook/sleep";
 
 import { AddToCartButton } from "./AddToCartButton";
@@ -35,7 +35,7 @@ const meta = {
   parameters: {
     layout: "centered",
     msw: {
-      handlers: [getAddToCartHandler()],
+      handlers: [putAddToCartHandler()],
     },
     reactRouter: reactRouterParameters({
       routing: { path: "/products" },

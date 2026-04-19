@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { userEvent, within, screen, expect } from "storybook/test";
 
-import { getSignInHandler } from "@/test-lib/handlers/sign-in-handler";
+import { postSignInHandler } from "@/test-lib/handlers/post-sign-in-handler";
 import { sleep } from "@/test-lib/storybook/sleep";
 
 import { SignInForm } from "./SignInForm";
@@ -12,7 +12,7 @@ const meta = {
   parameters: {
     layout: "centered",
     msw: {
-      handlers: [getSignInHandler()],
+      handlers: [postSignInHandler()],
     },
   },
 } satisfies Meta<typeof SignInForm>;

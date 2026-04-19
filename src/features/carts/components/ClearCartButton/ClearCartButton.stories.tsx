@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { userEvent, within, screen, expect } from "storybook/test";
 
 import { ClearCartButton } from "@/features/carts/components/ClearCartButton/ClearCartButton";
-import { getClearCartHandler } from "@/test-lib/handlers/get-clear-cart-handler";
+import { deleteClearCartHandler } from "@/test-lib/handlers/delete-clear-cart-handler";
 import { sleep } from "@/test-lib/storybook/sleep";
 
 const meta = {
@@ -11,7 +11,7 @@ const meta = {
   parameters: {
     layout: "centered",
     msw: {
-      handlers: [getClearCartHandler()],
+      handlers: [deleteClearCartHandler()],
     },
   },
 } satisfies Meta<typeof ClearCartButton>;

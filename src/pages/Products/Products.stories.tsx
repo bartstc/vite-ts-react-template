@@ -2,8 +2,8 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { HttpResponse } from "msw";
 import { withRouter } from "storybook-addon-remix-react-router";
 
-import { getAddToCartHandler } from "@/test-lib/handlers/get-add-to-cart-handler";
 import { getProductsHandler } from "@/test-lib/handlers/get-products-handler";
+import { putAddToCartHandler } from "@/test-lib/handlers/put-add-to-cart-handler";
 
 import { productsPageLoader } from "./loader";
 
@@ -27,7 +27,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   parameters: {
     msw: {
-      handlers: [getProductsHandler(), getAddToCartHandler()],
+      handlers: [getProductsHandler(), putAddToCartHandler()],
     },
   },
 };

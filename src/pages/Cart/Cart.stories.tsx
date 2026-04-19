@@ -5,8 +5,8 @@ import { withRouter } from "storybook-addon-remix-react-router";
 import { CartFixture } from "@/test-lib/fixtures/cart-fixture";
 import { USER_CART_ID } from "@/test-lib/fixtures/user-fixture";
 import { generateUuid } from "@/test-lib/generate-uuid";
+import { deleteClearCartHandler } from "@/test-lib/handlers/delete-clear-cart-handler";
 import { getCartHandler } from "@/test-lib/handlers/get-cart-handler";
-import { getClearCartHandler } from "@/test-lib/handlers/get-clear-cart-handler";
 import { getProductHandler } from "@/test-lib/handlers/get-product-handler";
 
 import { cartPageLoader } from "./loader";
@@ -50,7 +50,7 @@ export const Default: Story = {
           );
         }),
         getProductHandler(),
-        getClearCartHandler(),
+        deleteClearCartHandler(),
       ],
     },
   },

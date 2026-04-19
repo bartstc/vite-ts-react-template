@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { withRouter } from "storybook-addon-remix-react-router";
 
 import { ProductFixture } from "@/test-lib/fixtures/product-fixture";
-import { getAddToCartHandler } from "@/test-lib/handlers/get-add-to-cart-handler";
+import { putAddToCartHandler } from "@/test-lib/handlers/put-add-to-cart-handler";
 
 import { ProductCard } from "./ProductCard";
 
@@ -13,7 +13,7 @@ const meta = {
   parameters: {
     layout: "centered",
     msw: {
-      handlers: [getAddToCartHandler()],
+      handlers: [putAddToCartHandler()],
     },
   },
 } satisfies Meta<typeof ProductCard>;

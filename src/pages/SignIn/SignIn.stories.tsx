@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { withRouter } from "storybook-addon-remix-react-router";
 
-import { getSignInHandler } from "@/test-lib/handlers/sign-in-handler";
+import { postSignInHandler } from "@/test-lib/handlers/post-sign-in-handler";
 
 import { SignInPage as Component } from "./index";
 
@@ -11,7 +11,7 @@ const meta = {
   parameters: {
     layout: "centered",
     msw: {
-      handlers: [getSignInHandler()],
+      handlers: [postSignInHandler()],
     },
   },
   decorators: [withRouter],

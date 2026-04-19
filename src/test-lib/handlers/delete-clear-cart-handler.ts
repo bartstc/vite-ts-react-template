@@ -4,7 +4,7 @@ import { host } from "@/lib/http";
 
 import type { DeleteResolver } from "./resolvers";
 
-export const getClearCartHandler = (resolver?: DeleteResolver) =>
+export const deleteClearCartHandler = (resolver?: DeleteResolver) =>
   http.delete(`${host}/carts/:cartId`, (req) => {
     if (resolver) return resolver(req);
 
