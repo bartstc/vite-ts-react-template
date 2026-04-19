@@ -11,7 +11,7 @@ Context-driven form built on the project's `useForm` / `FormProvider` abstractio
 
 ### Constraints
 
-- ALWAYS add `noValidate` to the `<form>` element — without it, native browser validation fires before react-hook-form, blocking error messages
+- ALWAYS add `noValidate` to the `<form>` element
 - ALWAYS type the form with an explicit `interface` for field values — pass it as the generic to `useForm<MyValues>()`
 - Use `FormProvider` at the form root. Field components (`TextInput`, `SelectInput`, `NumberInput`, `MoneyInput`, `TextareaInput`) read `control` and `configuration` from context — no prop drilling
 - Use the `register` prop on field components for custom validation rules beyond `isRequired`

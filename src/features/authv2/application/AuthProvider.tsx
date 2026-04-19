@@ -44,26 +44,28 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
 
   const isLoading = useSelector(authActor, (state) => state.hasTag("loading"));
 
-  // Subscribe to emitted events for logging/observability
-  useEffect(() => {
-    const subscription = authActor.on("*", (event) => {
-      const emittedEvent = event as AuthMachineEmittedEvents;
+  useEffect(
+    function subscribeToAuthEvents() {
+      const subscription = authActor.on("*", (event) => {
+        const emittedEvent = event as AuthMachineEmittedEvents;
 
-      switch (emittedEvent.type) {
-        case "USER_LOGGED_IN":
-          console.info("🎉 User logged in:", emittedEvent.user);
-          break;
-        case "USER_LOGGED_OUT":
-          console.info("👋 User logged out");
-          break;
-        case "ROLES_FETCHED":
-          console.info("🔐 Roles fetched:", emittedEvent.roles);
-          break;
-      }
-    });
+        switch (emittedEvent.type) {
+          case "USER_LOGGED_IN":
+            console.info("🎉 User logged in:", emittedEvent.user);
+            break;
+          case "USER_LOGGED_OUT":
+            console.info("👋 User logged out");
+            break;
+          case "ROLES_FETCHED":
+            console.info("🔐 Roles fetched:", emittedEvent.roles);
+            break;
+        }
+      });
 
-    return subscription.unsubscribe;
-  }, [authActor]);
+      return subscription.unsubscribe;
+    },
+    [authActor]
+  );
 
   if (isLoading) {
     return <div>{"Loading authentication..."}</div>;

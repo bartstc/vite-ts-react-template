@@ -84,6 +84,16 @@ const apiLayerIsolationZones = allFeatureSlices.flatMap((feature) => [
   },
 ]);
 
+const noAnonymousUseEffectRule = [
+  "error",
+  {
+    selector:
+      "CallExpression[callee.name='useEffect'] > ArrowFunctionExpression",
+    message:
+      "Name your useEffect callback: useEffect(function syncSomething() { ... })",
+  },
+];
+
 export default defineConfig(
   {
     ignores: [
@@ -229,6 +239,7 @@ export default defineConfig(
           ],
         },
       ],
+      "no-restricted-syntax": noAnonymousUseEffectRule,
     },
   },
   {

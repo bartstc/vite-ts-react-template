@@ -96,14 +96,17 @@ export const useCondition = (
   const insert = useSave();
   const remove = useRemove(keepValue ?? keepHiddenFieldValue);
 
-  useEffect(() => {
-    if (!visibleWhen) {
-      // eslint-disable-next-line react-you-might-not-need-an-effect/no-pass-data-to-parent
-      remove(name, hiddenFieldValue);
-    } else {
-      insert(name);
-    }
-  }, [visibleWhen, hiddenFieldValue, insert, name, remove]);
+  useEffect(
+    function syncFieldVisibility() {
+      if (!visibleWhen) {
+        // eslint-disable-next-line react-you-might-not-need-an-effect/no-pass-data-to-parent
+        remove(name, hiddenFieldValue);
+      } else {
+        insert(name);
+      }
+    },
+    [visibleWhen, hiddenFieldValue, insert, name, remove]
+  );
 
   return visibleWhen;
 };
