@@ -1,87 +1,50 @@
 ---
 title: Mutation Hook
 category: Data Fetching
-layer: lib/api/
-composedWith: query-keys-factory
+layer: providers/
+composedWith: mutation-options-factory, query-keys-factory
 ---
 
 ## Mutation Hook
 
-Server write operations wrapped in `useMutation` with domain error translation and cache invalidation via `query-keys-factory`. Returns a `[handler, isPending]` tuple: the handler encapsulates the async call + error mapping.
+Server write hook composed from `mutation-options-factory`. Spreads the factory options and adds e.g. cache invalidation or custom error handling. Returns a `[handler, isPending]` tuple. Lives in `providers/` — the data access gateway for the feature slice.
 
 ### Constraints
 
-- Error classes are co-located with the hook — they're reusable across feature slices, so they live with the mutation definition.
-- Keep the handler's error mapping exhaustive: catch API errors, translate to typed domain errors, fall back to `UnknownError`. Components should never see raw HTTP errors.
-- Invalidation belongs here — the mutation knows what resource it wrote to, so it owns cache coherence via `query-keys-factory`.
-- ALWAYS use `use` prefix in names — `useXxxMutation`, never `xxxMutation`. File: `use-xxx-mutation.ts`.
+- ALWAYS use `use` prefix — `useXxxMutation`, never `xxxMutation`. File: `use-xxx-mutation.ts`
+- Compose from a `mutation-options-factory` via spread
+- Invalidation belongs here — the hook knows what queries to invalidate via `query-keys-factory`
+- When the consumer needs to extend `onSuccess` (e.g., close a modal after mutation), spread and chain the factory's callbacks
 
 ### Example
 
 ```tsx
+// src/features/carts/providers/use-add-to-cart-mutation.ts
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { httpService } from "@/lib/http"; // project HTTP client
-import { Logger } from "@/lib/logger";
-import { UnknownError } from "@/lib/types/unknown-error";
-import { cartQueryKeys } from "@/lib/api/carts/cart-query-keys"; // query-keys-factory
+import { addToCartMutationOptions } from "@/lib/api/carts/add-to-cart/add-to-cart-mutation";
+import { cartQueryKeys } from "@/lib/api/carts/cart-query-keys";
 
-interface AddToCartPayload {
-  productId: number;
-  quantity?: number;
-}
-
-interface AddToCartDto {
-  cartId: number;
-  payload: AddToCartPayload;
-}
-
-export const useAddToCartMutation = () => {
+export const useAddToCartMutation = (cartId: number) => {
   const queryClient = useQueryClient();
 
-  const { mutateAsync, isPending } = useMutation<void, unknown, AddToCartDto>({
-    mutationFn: (body) =>
-      httpService.put<void, AddToCartPayload>(`carts/${body.cartId}`, {
-        productId: body.payload.productId,
-        quantity: body.payload.quantity,
-      }),
-    onSuccess: (_data, variables) => {
+  const { mutateAsync, isPending } = useMutation({
+    ...addToCartMutationOptions,
+    onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: cartQueryKeys.detail(variables.cartId),
+        queryKey: cartQueryKeys.detail(cartId),
       });
     },
   });
 
-  const handler = async (cartId: number, payload: AddToCartPayload) => {
-    try {
-      return await mutateAsync({ cartId, payload });
-    } catch (e) {
-      Logger.error("Failed to add item to cart", e as Error);
-
-      if (httpService.isError(e) && e.message === "Unknown product") {
-        throw new UnknownProductError();
-      }
-      if (httpService.isError(e) && e.message === "Product not available") {
-        throw new ProductNotAvailableError();
-      }
-
-      throw new UnknownError();
-    }
+  const handler = async (payload: AddToCartPayload) => {
+    return mutateAsync({ cartId, payload });
   };
 
   return [handler, isPending] as const;
 };
-
-export class UnknownProductError extends Error {
-  constructor() {
-    super("Unknown product");
-    this.name = "UnknownProductError";
-  }
-}
-
-export class ProductNotAvailableError extends Error {
-  constructor() {
-    super("Product not available");
-    this.name = "ProductNotAvailableError";
-  }
-}
 ```
+
+### References
+
+- `rules/mutation-options-factory.md` — raw factory pattern in `lib/api/`
+- `rules/query-keys-factory.md` — cache key structure for invalidation

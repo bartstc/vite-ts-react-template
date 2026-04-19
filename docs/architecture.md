@@ -73,12 +73,12 @@ Each feature follows feature slice architecture patterns with four layers:
 
 **File naming in `src/lib/api/`:**
 
-| Type          | Suffix           | Example                   |
-| ------------- | ---------------- | ------------------------- |
-| Query         | `-query.ts`      | `cart-products-query.ts`  |
-| Mutation hook | `-mutation.ts`   | `add-to-cart-mutation.ts` |
-| DTO interface | `-dto.ts`        | `cart-product-dto.ts`     |
-| Query keys    | `-query-keys.ts` | `cart-query-keys.ts`      |
+| Type             | Suffix           | Example                   |
+| ---------------- | ---------------- | ------------------------- |
+| Query options    | `-query.ts`      | `cart-products-query.ts`  |
+| Mutation options | `-mutation.ts`   | `add-to-cart-mutation.ts` |
+| DTO interface    | `-dto.ts`        | `cart-product-dto.ts`     |
+| Query keys       | `-query-keys.ts` | `cart-query-keys.ts`      |
 
 ## Key Patterns
 

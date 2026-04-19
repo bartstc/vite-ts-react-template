@@ -1,18 +1,8 @@
-import { useState } from "react";
+import { mutationOptions } from "@tanstack/react-query";
 
-// todo: use msw to mock this feature
-export const usePurchaseMutation = () => {
-  const [isLoading, setIsLoading] = useState(false);
-
-  const purchase = async () => {
-    return new Promise<void>((resolve) => {
-      setIsLoading(true);
-      setTimeout(() => {
-        resolve();
-        setIsLoading(false);
-      }, 400);
-    });
-  };
-
-  return [purchase, isLoading] as const;
-};
+// AIDEV-NOTE: stub implementation — replace mutationFn with real HTTP call once MSW mock is ready
+export const purchaseMutationOptions = mutationOptions({
+  mutationFn: async (): Promise<void> => {
+    await new Promise<void>((resolve) => setTimeout(resolve, 400));
+  },
+});
