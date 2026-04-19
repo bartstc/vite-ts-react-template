@@ -1,4 +1,4 @@
-import { http } from "msw";
+import { type http } from "msw";
 
 export type GetResolver = Parameters<typeof http.get>[1];
 export type DeleteResolver = Parameters<typeof http.delete>[1];

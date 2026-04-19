@@ -2,6 +2,7 @@ import { withRequireAuth } from "@/features/auth/application/with-require-auth";
 import { CartsList } from "@/features/carts/components/CartsList";
 import { ClearCartButton } from "@/features/carts/components/ClearCartButton/ClearCartButton";
 import { useCartProductsQuery } from "@/features/carts/providers/use-cart-products-query";
+import { assertValue } from "@/lib/assert-value";
 import { Page } from "@/lib/components/Layout/Page";
 import { PageHeader } from "@/lib/components/Layout/PageHeader";
 import { ErrorPageStrategy } from "@/lib/components/Result/ErrorPageStrategy";
@@ -10,8 +11,9 @@ import { useTranslations } from "@/lib/i18n/use-transations";
 import { useParams } from "@/lib/router";
 
 const CartPage = () => {
-  const params = useParams<{ cartId: string }>();
-  const { data } = useCartProductsQuery(params.cartId!);
+  const { cartId } = useParams<{ cartId: string }>();
+  assertValue(cartId);
+  const { data } = useCartProductsQuery(cartId);
   const t = useTranslations("pages.cart");
   const relativeTime = useRelativeTime();
 

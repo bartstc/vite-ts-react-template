@@ -11,7 +11,7 @@ import {
 import { Check } from "lucide-react";
 
 import { useCategoryLabel } from "@/features/products/components/use-category-label";
-import { Category } from "@/features/products/models/category";
+import { type Category } from "@/features/products/models/category";
 import { useNotImplementedYetToast } from "@/lib/components/Toast/use-not-implemented-yet-toast";
 import { moneyVO } from "@/lib/format/money";
 import { useTranslations } from "@/lib/i18n/use-transations";

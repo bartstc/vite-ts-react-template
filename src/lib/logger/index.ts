@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable no-console */
 import { ConsoleLogger } from "./console-logger";
 import { type ILogger, LogEnvironment } from "./logger-types";

@@ -94,6 +94,39 @@ const noAnonymousUseEffectRule = [
   },
 ];
 
+const baseNoRestrictedImports = {
+  patterns: ["react-router"],
+  paths: [
+    {
+      importNames: ["default"],
+      message: `Instead of default import, please use import { method } from "ramda" instead.`,
+      name: "ramda",
+    },
+  ],
+};
+
+const reactQueryHooksRestriction = {
+  name: "@tanstack/react-query",
+  importNames: [
+    "useQuery",
+    "useMutation",
+    "useSuspenseQuery",
+    "useQueries",
+    "useSuspenseQueries",
+    "useQueryClient",
+  ],
+  message: "React Query hooks belong in providers/, not here.",
+};
+
+const noTestsDirectoryRule = [
+  "error",
+  {
+    selector: "Program",
+    message:
+      "Co-locate tests with source files. No __tests__/ directories — use *.test.ts(x) next to the source.",
+  },
+];
+
 export default defineConfig(
   {
     ignores: [
@@ -210,6 +243,15 @@ export default defineConfig(
       "@typescript-eslint/no-base-to-string": "error",
       "@typescript-eslint/no-empty-object-type": "off",
       "@typescript-eslint/unbound-method": "off",
+      "@typescript-eslint/switch-exhaustiveness-check": [
+        "error",
+        { considerDefaultExhaustiveForUnions: true },
+      ],
+      "@typescript-eslint/consistent-type-imports": [
+        "error",
+        { fixStyle: "inline-type-imports" },
+      ],
+      "@typescript-eslint/no-non-null-assertion": "error",
       "@typescript-eslint/no-floating-promises": [
         "error",
         {
@@ -226,19 +268,7 @@ export default defineConfig(
         },
       ],
       "@typescript-eslint/no-unsafe-enum-comparison": "error",
-      "no-restricted-imports": [
-        "error",
-        {
-          patterns: ["react-router"],
-          paths: [
-            {
-              importNames: ["default"],
-              message: `Instead of default import, please use import { method } from "ramda" instead.`,
-              name: "ramda",
-            },
-          ],
-        },
-      ],
+      "no-restricted-imports": ["error", baseNoRestrictedImports],
       "no-restricted-syntax": noAnonymousUseEffectRule,
     },
   },
@@ -284,6 +314,21 @@ export default defineConfig(
     },
   },
   {
+    files: [
+      "./src/features/*/components/**",
+      "./src/features/*/application/**",
+    ],
+    rules: {
+      "no-restricted-imports": [
+        "error",
+        {
+          ...baseNoRestrictedImports,
+          paths: [...baseNoRestrictedImports.paths, reactQueryHooksRestriction],
+        },
+      ],
+    },
+  },
+  {
     files: ["./src/pages/**"],
     rules: {
       "import/no-restricted-paths": [
@@ -316,6 +361,12 @@ export default defineConfig(
           ],
         },
       ],
+    },
+  },
+  {
+    files: ["src/**/__tests__/**"],
+    rules: {
+      "no-restricted-syntax": noTestsDirectoryRule,
     },
   }
 );

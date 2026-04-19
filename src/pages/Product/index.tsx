@@ -5,6 +5,7 @@ import { ProductRating } from "@/features/marketing/components/ProductRating";
 import { ProductDetails } from "@/features/products/components/ProductDetails";
 import { ProductNotFoundResult } from "@/features/products/components/ProductNotFoundResult";
 import { useProductQuery } from "@/features/products/providers/product-query";
+import { assertValue } from "@/lib/assert-value";
 import { Page } from "@/lib/components/Layout/Page";
 import { InternalErrorResult } from "@/lib/components/Result/InternalErrorResult";
 import { ResourceNotFoundException } from "@/lib/http/exceptions/resource-not-found-exception";
@@ -12,9 +13,10 @@ import { useTranslations } from "@/lib/i18n/use-transations";
 import { useNavigate, useParams, useRouteError } from "@/lib/router";
 
 const ProductPage = () => {
-  const params = useParams<{ productId: string }>();
+  const { productId } = useParams<{ productId: string }>();
+  assertValue(productId);
   const navigate = useNavigate();
-  const { data } = useProductQuery(params.productId!);
+  const { data } = useProductQuery(productId);
   const t = useTranslations("pages.product");
 
   return (
@@ -24,7 +26,7 @@ const ProductPage = () => {
         {t("back-to-list")}
       </Button>
       <ProductDetails product={data} onBack={() => navigate("/products")}>
-        <ProductRating productId={params.productId!} />
+        <ProductRating productId={productId} />
       </ProductDetails>
     </Page>
   );

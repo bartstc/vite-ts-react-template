@@ -33,7 +33,7 @@ export const Purchasing: Story = {
 
     await step("Submit the form", async () => {
       // eslint-disable-next-line storybook/context-in-play-function
-      await CheckoutFormPurchasing.play!(context);
+      await CheckoutFormPurchasing.play?.(context);
     });
   },
 };

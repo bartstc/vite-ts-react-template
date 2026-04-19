@@ -1,4 +1,4 @@
-import { HTTPError } from "ky";
+import { type HTTPError } from "ky";
 
 import { AjaxError } from "../ajax-error";
 

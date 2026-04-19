@@ -8,7 +8,7 @@ An opinionated, production-ready starter for **Single Page Application** develop
 
 - [Vite](https://vitejs.dev/) — fast dev server and build tooling
 - [TypeScript](https://www.typescriptlang.org/) — strict type safety
-- [ESLint](https://eslint.org/) + [Prettier](https://prettier.io/) + [Husky](https://typicode.github.io/husky/) — consistent code style
+- [ESLint](https://eslint.org/) (with custom rules) + [Prettier](https://prettier.io/) + [Husky](https://typicode.github.io/husky/) — consistent code style
 - [PNPM](https://pnpm.io/) — fast, disk-efficient package manager
 - [Devcontainer](https://code.visualstudio.com/docs/devcontainers/containers) — reproducible VS Code dev environment
 - [GitHub Actions](https://docs.github.com/en/actions) CI — tests, build, coverage reports, deploy draft
@@ -41,6 +41,7 @@ e2e/        Playwright end-to-end tests
 ```
 
 - Feature slice architecture with clean architecture principles — each feature has four layers (`components/`, `application/`, `providers/`, `models/`) with strict dependency rules
+- Strict ESLint guardrails enforce the feature-slice layer boundaries. See [`eslint.config.mjs`](eslint.config.mjs).
 - Centralized API layer with endpoint-based organization and type consolidation
 - Spec-driven development for AI-assisted workflows — four-phase gated spec process, typed building block patterns, and a self-improvement loop
 - Formatting utilities for numbers, monetary values, and dates
