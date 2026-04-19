@@ -17,8 +17,9 @@ applyTo: "**/*.{test,spec}.{ts,tsx}"
 ## AI Boundaries
 
 - Generate new test files and business logic freely
+- Modify existing tests when change is mechanical (renames, API updates, imports, type fixes). Ask first when change alters intent — assertions, setup, scenario, or expectations
+- Never delete a test without explicit request
 - Analyze test failures to help debug
-- Never modify existing test files or change existing test expectations without explicit request
 
 ## Test Priorities
 
