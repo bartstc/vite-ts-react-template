@@ -110,14 +110,16 @@ Example:
 ```markdown
 ### Added
 
-- `loginMutation` (mutation) — handles POST /auth/login
-- `LoginForm` (component) — form with email/password fields
+- `loginMutation` (mutation-hook) — handles POST /auth/login
+- `LoginForm` (pure-component) — form with email/password fields
 
 ### Modified
 
-- `AppRouter` (route) — add /login route
+- `AppRouter` (page) — add /login route
 - `authStore` (store) — add `isAuthenticated` derived state
 ```
+
+**Test building block exception.** `unit-test` and `component-story-test` are NOT listed in the Building Blocks Diff — they are implied by the Test Plan in section 9 and ride along with the component or module they verify. `msw-handler` and `fixture`, by contrast, ARE listed here when added or modified, because they are reusable infrastructure shared across multiple tests.
 
 ### Section 5: Design Decisions (required for non-trivial features)
 
@@ -142,6 +144,8 @@ Ordered list of independently testable tasks. Each task:
 - Includes target file paths
 - Is marked `[P]` (parallelizable) or `[S]` (sequential)
 
+Support-infrastructure tasks producing `msw-handler` or `fixture` blocks trace to consumer tasks instead of R#s — mark them with "(support task for R#, R#)".
+
 ### Section 8: Error & Edge Cases (optional but recommended)
 
 Uses **GIVEN/WHEN/THEN** format (from BDD) for precision:
@@ -158,9 +162,7 @@ If you skip this section, expect the agent to guess — and guess wrong.
 
 Required when the spec introduces new testable behavior. Skipped with a one-line notice explaining why when the changes don't produce new behavior — presentation-only specs, pure refactors, renames, file moves, or any change that leaves observable behavior identical.
 
-When present, maps every R# to a `Layer` (`storybook` or `vitest`) and a file path (or story name). Scope: Vitest unit tests and Storybook component tests. E2E tests are not part of the spec.
-
-The Test Plan enforces behavior-covered-not-requirement-mapped: multiple R#s may point at the same test file when they exercise the same code path. Duplicate File / Story entries are self-documenting; no explicit sharing note is needed. This matches the existing testing philosophy, which prohibits artificial test duplication.
+When present, maps every R# to a `Layer` (`storybook` or `vitest`) and a test. The `Test` column is the bare file name of the tested module or component (e.g., `CheckoutForm`, `priceFormatter`) — not a full file path. The layer column already identifies whether the test is a `.stories.tsx` or a `.test.ts`. Scope: Vitest unit tests and Storybook component tests. E2E tests are not part of the spec.
 
 ### Sections 10–12
 
@@ -195,12 +197,12 @@ Tasks are broken down, traced to requirements, and ordered. Error & edge cases a
 The agent runs a structured self-audit and presents findings:
 
 - **Coverage matrix** — each requirement ID mapped to implementing tasks. Flags requirements with zero tasks.
-- **Test coverage completeness** — every R# appears in the Test Plan with a layer + file, or the skip notice is present and explains why the spec introduces no new testable behavior.
+- **Test coverage completeness** — every R# appears in the Test Plan with a layer and a test, or the skip notice is present and explains why the spec introduces no new testable behavior.
 - **Orphan tasks** — tasks that don't trace to any requirement.
 - **EARS compliance** — flags requirements missing WHEN/SHALL or using vague language.
 - **Test infrastructure traceability** — `msw-handler`/`fixture` tasks trace to consumer tasks rather than R#s.
 - **Boundary specificity** — flags boundary items referencing vague categories instead of file paths.
-- **Building block references** — flags blocks not found in the catalog (including Test Infrastructure blocks).
+- **Building block references** — flags blocks not found in the catalog, and flags `unit-test`/`component-story-test` incorrectly listed in the Building Blocks Diff.
 - **Line count** — reports total. If >130, surfaces a prompt to consider splitting. If >150, identifies bloated sections or recommends splitting the feature.
 
 Issues are fixed before presenting the final spec for developer sign-off.
@@ -239,6 +241,8 @@ In the spec's Section 4 (Building Blocks Diff), each entry references a block by
 
 The agent then reads `rules/mutation-hook.md` to understand the implementation pattern — error handling conventions, cache invalidation approach, return tuple shape, etc.
 
+**Test block exception:** `unit-test` and `component-story-test` live in the catalog for authoring reference but do NOT appear in the Building Blocks Diff. They are implied by the Test Plan (section 9). `msw-handler` and `fixture` DO appear in the Diff when added or modified — they are reusable infrastructure, not per-test authoring patterns.
+
 ---
 
 ## Architecture integration
@@ -271,8 +275,6 @@ The project's testing philosophy allocates layers as follows:
 - **Storybook play-function tests** are the primary verification layer for feature behavior. Anything user-facing — including mutation hooks used by a component — is verified transitively via the component's play function.
 - **Vitest unit tests** are reserved for mechanics: mappers, transformers, value objects, and custom hooks with non-trivial logic.
 - **No tests** for fixtures, MSW handlers, or trivial glue.
-
-Within this scope, coverage is behavior-covered, not requirement-mapped. Multiple requirements may share one test when they exercise the same code path.
 
 The Test Plan governs test _authoring_ — declaring upfront which tests will exist. The "Verification Before Done" principle in `CLAUDE.md` governs test _execution_ at task-completion time. They are complementary, not duplicate.
 

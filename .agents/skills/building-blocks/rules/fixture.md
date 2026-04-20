@@ -2,7 +2,7 @@
 title: Fixture
 category: Testing
 layer: test-lib/fixtures/
-composedWith: (none — leaf block)
+composedWith: -
 ---
 
 ## Fixture

@@ -37,7 +37,7 @@ A structured catalog of typed frontend building blocks, optimized for AI agents.
 ---
 title: Block Display Name
 category: Data Fetching | State Management | App Orchestration | Component Patterns | Test Infrastructure | Data Modeling
-layer: providers/ | application/ | components/ | models/ | lib/api/ | pages/ | test-lib/handlers/ | test-lib/fixtures/ | co-located
+layer: providers/ | application/ | components/ | models/ | pages/ | lib/api/ | test-lib/handlers/ | test-lib/fixtures/ | co-located
 composedWith: other-block-1, other-block-2
 ---
 

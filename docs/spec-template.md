@@ -37,21 +37,24 @@
 
 <!-- REQUIRED. The core of the spec. List every building block that is ADDED, MODIFIED, or DELETED. Reference by name and type — do NOT define implementation internals. Implementation details live in coding standards and existing patterns. -->
 
-<!-- Use the building block types from docs/building-blocks.md (e.g., queryOptions, component, store, machine, route, hook, service, type). When a change doesn't map to a typed building block, use the target file path + a short description of what changes instead. -->
+<!-- Use the building block types from the building-blocks catalog (e.g., mutation-hook, pure-component, store, page, value-object). When a change doesn't map to a typed building block, use the target file path + a short description of what changes instead. -->
+
+<!-- Test building blocks: `unit-test` and `component-story-test` are NOT listed here — they are implied by the Test Plan in section 9 and ride along with the component/module they verify. `msw-handler` and `fixture` ARE listed here when added or modified, since they are reusable infrastructure shared across multiple tests. -->
 
 ### Added
 
 <!-- Example:
-- `loginMutation` (mutation) — handles POST /auth/login
-- `LoginForm` (component) — form with email/password fields
-- `useAuthRedirect` (hook) — redirects authenticated users away from login
+- `loginMutation` (mutation-hook) — handles POST /auth/login
+- `LoginForm` (pure-component) — form with email/password fields
+- `useAuthRedirect` (facade-hook) — redirects authenticated users away from login
+- `userFixture` (fixture) — deterministic user test data
 - `src/app/routes/login.tsx` — route entry for /login
 -->
 
 ### Modified
 
 <!-- Example:
-- `AppRouter` (route) — add /login route
+- `AppRouter` (page) — add /login route
 - `authStore` (store) — add `isAuthenticated` derived state
 - `src/i18n/en/auth.json` — add login form translation keys
 -->
@@ -59,7 +62,7 @@
 ### Deleted
 
 <!-- Example:
-- `legacyLoginPage` (component) — replaced by LoginForm
+- `legacyLoginPage` (pure-component) — replaced by LoginForm
 - `src/app/redirects.ts` — remove legacy /signin redirect
 -->
 
@@ -107,12 +110,14 @@
 
 <!-- Mark parallelizable tasks with [P]. Mark tasks requiring sequential execution with [S]. -->
 
+<!-- Tasks that produce `msw-handler` or `fixture` blocks are support infrastructure — they trace to consumer tasks rather than R#s. Mark these with "(support task for R#, R#)". -->
+
 <!-- Example:
 1. [S] Create `authStore` with `isAuthenticated` state — `src/features/auth/model/auth.store.ts` (R1, R2)
 2. [P] Create `loginMutation` — `src/features/auth/api/login.mutation.ts` (R1)
 3. [P] Create `LoginForm` component + tests — `src/features/auth/ui/LoginForm.tsx` (R1, R2)
-4. [S] Wire `/login` route into `AppRouter` — `src/app/router.tsx` (R1)
-5. [S] Add E2E test for login flow — `e2e/auth/login.spec.ts` (R1, R2)
+4. [P] Create `userFixture` — `test-lib/fixtures/user-fixture.ts` (support task for R1, R2)
+5. [S] Wire `/login` route into `AppRouter` — `src/app/router.tsx` (R1)
 -->
 
 ## 8. Error & Edge Cases
@@ -126,30 +131,27 @@
 
 ## 9. Test Plan
 
-<!-- REQUIRED only when the spec introduces new testable behavior. Skip with a one-line notice explaining why when the changes don't produce new behavior — for example:
-"No new testable behavior — visual-only changes."
-"No new testable behavior — pure refactor, no observable behavior change."
-"No new testable behavior — file/folder rename only."
+<!-- REQUIRED when Section 2 contains any R# that describes new testable behavior.
+Skip the entire section with a one-line notice when the spec as a whole introduces
+no new testable behavior (visual-only changes, pure refactors, renames, file moves,
+or other changes that leave observable behavior identical).
 
-Maps every R# to a test layer and file. Scope: Vitest unit tests and Storybook component tests.
+Maps every R# to a test. Scope: Vitest unit tests and Storybook component tests.
 E2E tests are not part of the spec. -->
 
 <!-- Layer values (exactly one per row):
-- `storybook` — user-facing behavior verified via a named story's play function. This is the primary layer; anything component-touching (including mutation hooks used by that component) belongs here.
-- `vitest` — mechanics verified via unit tests. Reserved for mappers, transformers, value objects, and custom hooks with non-trivial logic.
--->
+- `storybook` — behavior verified via a story's play function. Primary layer.
+- `vitest` — mechanics verified via unit tests. For mappers, transformers, value objects, and hooks with non-trivial logic.
 
-<!-- Multiple R#s may map to the same File / Story — that's fine and self-documenting. Coverage is behavior-covered, not requirement-mapped.
-
-Multi-layer requirements are rare under the project's testing philosophy. When they occur, pick the primary layer (where the bulk of the assertion lives); add an inline EC in section 8 if the secondary aspect needs explicit documentation. -->
+Test column: bare file name of the tested module or component (e.g., `CheckoutForm`, `priceFormatter`) — not a full file path. The layer column already identifies whether the test is a `.stories.tsx` or a `.test.ts`. -->
 
 <!-- Edge cases (section 8 bullets) are NOT mapped here. They are facets of their parent R# and are covered transitively. -->
 
-| ID  | Layer     | File / Story                                         |
-| --- | --------- | ---------------------------------------------------- |
-| R1  | storybook | CheckoutForm.stories.tsx → Purchasing                |
-| R2  | storybook | CheckoutForm.stories.tsx → Purchasing                |
-| R3  | vitest    | src/features/products/models/price-formatter.test.ts |
+| ID  | Layer     | Test           |
+| --- | --------- | -------------- |
+| R1  | storybook | CheckoutForm   |
+| R2  | storybook | CheckoutForm   |
+| R3  | vitest    | priceFormatter |
 
 ## 10. Acceptance Criteria
 

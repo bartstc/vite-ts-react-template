@@ -34,7 +34,7 @@ Collaborate with the developer to fill sections 1-3 of the template.
 
 Collaborate on sections 4-6 of the template.
 
-1. Propose a **Building Blocks Diff** — list every block that is ADDED, MODIFIED, or DELETED. Use the project's building block taxonomy from `.agents/skills/building-blocks/SKILL.md`. Reference by **name and type only** — do not define internals. Implementation details belong in coding standards and per-type skills, not specs. For changes that don't map to a typed building block, use the target file path + a short description instead.
+1. Propose a **Building Blocks Diff** — list every block that is ADDED, MODIFIED, or DELETED. Use the project's building block taxonomy from `.agents/skills/building-blocks/SKILL.md`. Reference by **name and type only** — do not define internals. Implementation details belong in coding standards and per-type skills, not specs. For changes that don't map to a typed building block, use the target file path + a short description instead. Test building blocks `unit-test` and `component-story-test` are NOT listed here — they are implied by the Test Plan in section 9. `msw-handler` and `fixture` ARE listed here when added or modified.
 2. For non-trivial features, propose **two plausible designs** with tradeoffs. Let the developer choose. Capture the winner and rationale in **Design Decisions**
 3. Draft the **Boundaries** section using the three-tier system:
    - ✅ **Always** — proceed without asking (e.g., create files in the feature directory)
@@ -50,11 +50,11 @@ Fill sections 7-11 of the template.
 
 1. Break work into a **Task Breakdown** — ordered, independently testable tasks. Each task:
    - References building blocks from section 4 if any are involved
-   - Traces to requirement IDs (R1, R2, …)
+   - Traces to requirement IDs (R1, R2, …), or marks support infrastructure tasks as "support task for R#, R#" when producing `msw-handler` or `fixture` blocks
    - Includes target file paths
    - Is marked `[P]` (parallelizable) or `[S]` (sequential)
 2. Draft **Error & Edge Cases** using GIVEN/WHEN/THEN — cover failure modes (including fetch errors for data-fetching components), boundary conditions, concurrency
-3. Draft the **Test Plan** (section 9 of the template) — but only if the spec introduces new testable behavior. Skip with a one-line notice when the changes are presentation-only, pure refactors, renames, or any change that leaves observable behavior identical. Map every R# to a layer (`storybook` or `vitest`) and file. Multiple R#s may point at the same File / Story — that's fine and self-documenting.
+3. Draft the **Test Plan** (section 9 of the template) — but only if the spec introduces new testable behavior. Skip with a one-line notice when the changes are presentation-only, pure refactors, renames, or any change that leaves observable behavior identical. Map every R# to a layer (`storybook` or `vitest`) and a test — use the bare file name of the tested module or component (e.g., `CheckoutForm`, `priceFormatter`), not a full file path. Multiple R#s may point at the same test — that's fine and self-documenting.
 4. Add **Open Questions** for anything unresolved that blocks a specific task
 5. Present for review
 
@@ -62,12 +62,12 @@ Fill sections 7-11 of the template.
 
 1. Run a **structured self-audit** and present findings to the developer (don't silently verify — show the results):
    - **Coverage matrix**: for each requirement ID, list which task(s) implement it. Flag any requirement with zero tasks
-   - **Test coverage completeness**: when Section 9 (Test Plan) is present, verify every R# from section 2 appears in the table with a layer (`storybook` / `vitest`) and file. Flag any missing R#. When Section 9 is skipped, verify the skip notice is present and accurately reflects the change (presentation-only, pure refactor, rename, or other change with no new testable behavior)
+   - **Test coverage completeness**: when Section 9 (Test Plan) is present, verify every R# from section 2 appears in the table with a layer (`storybook` / `vitest`) and a test. Flag any missing R#. When Section 9 is skipped, verify the skip notice is present and accurately reflects the change (presentation-only, pure refactor, rename, or other change with no new testable behavior)
    - **Orphan tasks**: flag any task that doesn't trace back to a requirement ID
    - **EARS compliance**: flag any requirement missing WHEN/THE SYSTEM SHALL or using vague language ("handle properly", "work correctly")
    - **Test infrastructure traceability**: tasks that produce `msw-handler` or `fixture` blocks are exempt from R# traceability. They must instead trace to at least one other task that uses them. Flag any `msw-handler`/`fixture` task with no consumer task
    - **Boundary specificity**: flag any boundary item (✅/⚠️/🚫) that references a vague category instead of a file path or module name
-   - **Building block references**: flag any block in Section 4 OR in Test Plan-generating tasks that doesn't exist in the building-blocks catalog (including Test Infrastructure blocks: `unit-test`, `component-story-test`, `msw-handler`, `fixture`)
+   - **Building block references**: flag any block in Section 4 that doesn't exist in the building-blocks catalog. Flag any `unit-test` or `component-story-test` incorrectly listed in Section 4 (these belong in the Test Plan, not the Building Blocks Diff)
    - **Line count**: report total. If >130 and ≤150, surface to the developer: "This spec is at N lines (approaching the 150 ceiling). Before we finalize, is there a natural seam where this could split into two specs?" If >150, identify which section to compress or extract, or split the feature
 2. Fix any issues found in step 1 before proceeding
 3. Set status to `review` in the Meta table
@@ -81,7 +81,6 @@ Fill sections 7-11 of the template.
 - ALWAYS use EARS notation for requirements and GIVEN/WHEN/THEN for edge cases
 - ALWAYS assign stable IDs to requirements (R1, R2, …) — tasks reference these for traceability
 - ALWAYS include the three-tier boundary system (✅ / ⚠️ / 🚫) with specific paths
-- ALWAYS produce a Test Plan (section 9) when section 4 contains any behavior-bearing block AND the spec introduces new testable behavior. When the spec introduces no new testable behavior — presentation-only changes, pure refactors, renames, file moves, or any change that leaves observable behavior identical — explicitly write the one-line skip notice explaining why. Never silently omit the section
 
 ### What the agent MUST NOT do
 
@@ -92,6 +91,7 @@ Fill sections 7-11 of the template.
 - NEVER add boilerplate boundaries — every item in ✅/⚠️/🚫 must be reachable during implementation of this specific feature
 - NEVER invent Layer values in the Test Plan outside `storybook` and `vitest`. If a requirement genuinely doesn't fit either, stop and ask the developer — it may mean the requirement is ill-formed
 - NEVER map edge cases (GIVEN/WHEN/THEN bullets in section 8) as separate rows in the Test Plan. They are facets of their parent R# and are covered transitively
+- NEVER list `unit-test` or `component-story-test` blocks in the Building Blocks Diff (section 4). They are implied by the Test Plan (section 9) and ride along with the component/module they verify. `msw-handler` and `fixture` ARE listed in section 4 when added or modified
 
 ### Prefer
 
@@ -115,8 +115,8 @@ Fill sections 7-11 of the template.
 ```markdown
 ### Added
 
-- `loginMutation` (mutation) — handles POST /auth/login
-- `LoginForm` (component) — email/password form with validation
+- `loginMutation` (mutation-hook) — handles POST /auth/login
+- `LoginForm` (pure-component) — email/password form with validation
 ```
 
 ### ❌ Wrong: Building block with implementation details
@@ -157,10 +157,9 @@ The spec is ready for implementation when:
 
 - [ ] Every section marked REQUIRED in the template is filled
 - [ ] Every requirement has a stable ID and uses EARS notation
-- [ ] Every task traces to ≥1 requirement ID
+- [ ] Every task traces to ≥1 requirement ID (or is marked as support infrastructure tracing to a consumer task)
 - [ ] Building blocks reference name + type only, no implementation details
 - [ ] Boundaries use specific file paths, not vague categories
-- [ ] Test Plan (section 9) is present when the spec introduces new testable behavior, or the skip notice is present and explains why (presentation-only, refactor, rename, etc.)
 - [ ] Open questions are either resolved or explicitly block named tasks
 - [ ] Developer has approved the final spec (status set to `approved`)
 - [ ] Spec is under 150 lines
