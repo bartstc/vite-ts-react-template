@@ -69,9 +69,8 @@ Fill sections 7-11 of the template.
    - **Test coverage completeness**: when Section 9 (Test Breakdown) is present, verify every R# from section 2 appears on at least one test task. Flag any missing R#. When Section 9 is skipped, verify the skip notice is present and accurately reflects the change (presentation-only, pure refactor, rename, or other change with no new testable behavior)
    - **Orphan tasks**: flag any task in section 7 that doesn't trace to a requirement ID. Flag any test task in section 9 that is neither traced to an R# nor marked as a support task for another test
    - **EARS compliance**: flag any requirement missing WHEN/THE SYSTEM SHALL or using vague language ("handle properly", "work correctly")
-   - **Test infrastructure traceability**: tasks that produce `msw-handler` or `fixture` blocks live in section 9 as support tasks. They must trace to at least one other test task that uses them. Flag any `msw-handler`/`fixture` task with no consumer test task
    - **Boundary specificity**: flag any boundary item (✅/⚠️/🚫) that references a vague category instead of a file path or module name
-   - **Building block references**: flag any block in Section 4 that doesn't exist in the building-blocks catalog (including Test Infrastructure blocks: `unit-test`, `component-story-test`, `msw-handler`, `fixture`)
+   - **Building block references**: flag any block in Section 4 that doesn't exist in the building-blocks catalog
    - **Line count**: report total. If >130 and ≤150, surface to the developer: "This spec is at N lines (approaching the 150 ceiling). Before we finalize, is there a natural seam where this could split into two specs?" If >150, identify which section to compress or extract, or split the feature
 2. Fix any issues found in step 1 before proceeding
 3. Set status to `review` in the Meta table

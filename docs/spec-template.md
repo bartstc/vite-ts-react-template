@@ -61,7 +61,7 @@
 ### Deleted
 
 <!-- Example:
-- `legacyLoginPage` (pure-component) — replaced by LoginForm
+- `LegacyLoginPage` (pure-component) — replaced by LoginForm
 - `src/app/redirects.ts` — remove legacy /signin redirect
 -->
 

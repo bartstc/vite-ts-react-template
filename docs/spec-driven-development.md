@@ -103,7 +103,7 @@ Explicit list of what the feature will NOT do. Prevents scope creep and stops th
 
 ### Section 4: Building Blocks Diff (required)
 
-The core of the spec. Lists every building block that is **added**, **modified**, or **deleted** — referenced by name and type from the building blocks catalog. No implementation details. Test blocks (`unit-test`, `component-story-test`, `msw-handler`, `fixture`) are listed here uniformly alongside production blocks; there is no carve-out.
+The core of the spec. Lists every building block that is **added**, **modified**, or **deleted** — referenced by name and type from the building blocks catalog. No implementation details.
 
 Example:
 
@@ -207,9 +207,8 @@ The agent runs a structured self-audit and presents findings:
 - **Test coverage completeness** — every R# appears on at least one test task in Test Breakdown, or the skip notice is present and explains why the spec introduces no new testable behavior.
 - **Orphan tasks** — production tasks in section 7 that don't trace to any requirement, and test tasks in section 9 that are neither traced to an R# nor marked as a support task.
 - **EARS compliance** — flags requirements missing WHEN/SHALL or using vague language.
-- **Test infrastructure traceability** — `msw-handler`/`fixture` tasks in section 9 must trace to a consumer test task within the same section.
 - **Boundary specificity** — flags boundary items referencing vague categories instead of file paths.
-- **Building block references** — flags blocks not found in the catalog (including Test Infrastructure blocks).
+- **Building block references** — flags blocks not found in the catalog.
 - **Line count** — reports total. If >130, surfaces a prompt to consider splitting. If >150, identifies bloated sections or recommends splitting the feature.
 
 Issues are fixed before presenting the final spec for developer sign-off.
