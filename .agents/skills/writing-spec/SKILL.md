@@ -34,7 +34,7 @@ Collaborate with the developer to fill sections 1-3 of the template.
 
 Collaborate on sections 4-6 of the template.
 
-1. Propose a **Building Blocks Diff** — list every block that is ADDED, MODIFIED, or DELETED. Use the project's building block taxonomy from `.agents/skills/building-blocks/SKILL.md`. Reference by **name and type only** — do not define internals. Implementation details belong in coding standards and per-type skills, not specs. For changes that don't map to a typed building block, use the target file path + a short description instead. Test building blocks `unit-test` and `component-story-test` are NOT listed here — they are implied by the Test Plan in section 9. `msw-handler` and `fixture` ARE listed here when added or modified.
+1. Propose a **Building Blocks Diff** — list every block that is ADDED, MODIFIED, or DELETED, including test blocks (`unit-test`, `component-story-test`, `msw-handler`, `fixture`). Use the project's building block taxonomy from `.agents/skills/building-blocks/SKILL.md`. Reference by **name and type only** — do not define internals. Implementation details belong in coding standards and per-type skills, not specs. For changes that don't map to a typed building block, use the target file path + a short description instead.
 2. For non-trivial features, propose **two plausible designs** with tradeoffs. Let the developer choose. Capture the winner and rationale in **Design Decisions**
 3. Draft the **Boundaries** section using the three-tier system:
    - ✅ **Always** — proceed without asking (e.g., create files in the feature directory)
@@ -48,26 +48,30 @@ Collaborate on sections 4-6 of the template.
 
 Fill sections 7-11 of the template.
 
-1. Break work into a **Task Breakdown** — ordered, independently testable tasks. Each task:
-   - References building blocks from section 4 if any are involved
-   - Traces to requirement IDs (R1, R2, …), or marks support infrastructure tasks as "support task for R#, R#" when producing `msw-handler` or `fixture` blocks
+1. Break production work into a **Task Breakdown** (section 7) — ordered, independently testable production tasks. Each task:
+   - References production building blocks from section 4
+   - Traces to requirement IDs (R1, R2, …)
    - Includes target file paths
    - Is marked `[P]` (parallelizable) or `[S]` (sequential)
-2. Draft **Error & Edge Cases** using GIVEN/WHEN/THEN — cover failure modes (including fetch errors for data-fetching components), boundary conditions, concurrency
-3. Draft the **Test Plan** (section 9 of the template) — but only if the spec introduces new testable behavior. Skip with a one-line notice when the changes are presentation-only, pure refactors, renames, or any change that leaves observable behavior identical. Map every R# to a layer (`storybook` or `vitest`) and a test — use the bare file name of the tested module or component (e.g., `CheckoutForm`, `priceFormatter`), not a full file path. Multiple R#s may point at the same test — that's fine and self-documenting.
+2. Draft **Error & Edge Cases** (section 8) using GIVEN/WHEN/THEN — cover failure modes (including fetch errors for data-fetching components), boundary conditions, concurrency
+3. Break test work into a **Test Breakdown** (section 9) — same format as Task Breakdown. Skip the whole section with a one-line notice when the spec introduces no new testable behavior (presentation-only, pure refactors, renames, or any change that leaves observable behavior identical). Each test task:
+   - References a `component-story-test`, `unit-test`, `msw-handler`, or `fixture` block from section 4
+   - Traces to R#s (for `component-story-test` and `unit-test` tasks), or to consumer test tasks (for `msw-handler` and `fixture` support tasks — mark as "support task for test N")
+   - Includes the target file path
+   - Is marked `[P]` or `[S]`
 4. Add **Open Questions** for anything unresolved that blocks a specific task
 5. Present for review
 
 ### Phase 4 — Review & Finalize
 
 1. Run a **structured self-audit** and present findings to the developer (don't silently verify — show the results):
-   - **Coverage matrix**: for each requirement ID, list which task(s) implement it. Flag any requirement with zero tasks
-   - **Test coverage completeness**: when Section 9 (Test Plan) is present, verify every R# from section 2 appears in the table with a layer (`storybook` / `vitest`) and a test. Flag any missing R#. When Section 9 is skipped, verify the skip notice is present and accurately reflects the change (presentation-only, pure refactor, rename, or other change with no new testable behavior)
-   - **Orphan tasks**: flag any task that doesn't trace back to a requirement ID
+   - **Coverage matrix**: for each requirement ID, list which production task(s) from section 7 implement it AND which test task(s) from section 9 verify it. Flag any requirement missing a production task OR (when Section 9 is present) a test task
+   - **Test coverage completeness**: when Section 9 (Test Breakdown) is present, verify every R# from section 2 appears on at least one test task. Flag any missing R#. When Section 9 is skipped, verify the skip notice is present and accurately reflects the change (presentation-only, pure refactor, rename, or other change with no new testable behavior)
+   - **Orphan tasks**: flag any task in section 7 that doesn't trace to a requirement ID. Flag any test task in section 9 that is neither traced to an R# nor marked as a support task for another test
    - **EARS compliance**: flag any requirement missing WHEN/THE SYSTEM SHALL or using vague language ("handle properly", "work correctly")
-   - **Test infrastructure traceability**: tasks that produce `msw-handler` or `fixture` blocks are exempt from R# traceability. They must instead trace to at least one other task that uses them. Flag any `msw-handler`/`fixture` task with no consumer task
+   - **Test infrastructure traceability**: tasks that produce `msw-handler` or `fixture` blocks live in section 9 as support tasks. They must trace to at least one other test task that uses them. Flag any `msw-handler`/`fixture` task with no consumer test task
    - **Boundary specificity**: flag any boundary item (✅/⚠️/🚫) that references a vague category instead of a file path or module name
-   - **Building block references**: flag any block in Section 4 that doesn't exist in the building-blocks catalog. Flag any `unit-test` or `component-story-test` incorrectly listed in Section 4 (these belong in the Test Plan, not the Building Blocks Diff)
+   - **Building block references**: flag any block in Section 4 that doesn't exist in the building-blocks catalog (including Test Infrastructure blocks: `unit-test`, `component-story-test`, `msw-handler`, `fixture`)
    - **Line count**: report total. If >130 and ≤150, surface to the developer: "This spec is at N lines (approaching the 150 ceiling). Before we finalize, is there a natural seam where this could split into two specs?" If >150, identify which section to compress or extract, or split the feature
 2. Fix any issues found in step 1 before proceeding
 3. Set status to `review` in the Meta table
@@ -89,9 +93,8 @@ Fill sections 7-11 of the template.
 - NEVER skip a review gate — each phase needs explicit developer approval
 - NEVER conflate spec layers: requirements constrain intent, design constrains approach, tasks constrain sequencing. Keep them separate
 - NEVER add boilerplate boundaries — every item in ✅/⚠️/🚫 must be reachable during implementation of this specific feature
-- NEVER invent Layer values in the Test Plan outside `storybook` and `vitest`. If a requirement genuinely doesn't fit either, stop and ask the developer — it may mean the requirement is ill-formed
-- NEVER map edge cases (GIVEN/WHEN/THEN bullets in section 8) as separate rows in the Test Plan. They are facets of their parent R# and are covered transitively
-- NEVER list `unit-test` or `component-story-test` blocks in the Building Blocks Diff (section 4). They are implied by the Test Plan (section 9) and ride along with the component/module they verify. `msw-handler` and `fixture` ARE listed in section 4 when added or modified
+- NEVER map edge cases (GIVEN/WHEN/THEN bullets in section 8) as separate test tasks in the Test Breakdown. They are facets of their parent R# and are covered transitively by the test that verifies that R#
+- NEVER put test tasks in the Task Breakdown (section 7) or production tasks in the Test Breakdown (section 9). The two sections are separate by design
 
 ### Prefer
 
@@ -117,6 +120,7 @@ Fill sections 7-11 of the template.
 
 - `loginMutation` (mutation-hook) — handles POST /auth/login
 - `LoginForm` (pure-component) — email/password form with validation
+- `LoginForm` (component-story-test) — verifies submission and validation
 ```
 
 ### ❌ Wrong: Building block with implementation details
@@ -157,7 +161,7 @@ The spec is ready for implementation when:
 
 - [ ] Every section marked REQUIRED in the template is filled
 - [ ] Every requirement has a stable ID and uses EARS notation
-- [ ] Every task traces to ≥1 requirement ID (or is marked as support infrastructure tracing to a consumer task)
+- [ ] Every production task traces to ≥1 requirement ID; every test task either traces to ≥1 requirement ID or is marked as a support task for another test task
 - [ ] Building blocks reference name + type only, no implementation details
 - [ ] Boundaries use specific file paths, not vague categories
 - [ ] Open questions are either resolved or explicitly block named tasks

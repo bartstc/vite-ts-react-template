@@ -103,7 +103,7 @@ Explicit list of what the feature will NOT do. Prevents scope creep and stops th
 
 ### Section 4: Building Blocks Diff (required)
 
-The core of the spec. Lists every building block that is **added**, **modified**, or **deleted** — referenced by name and type from the building blocks catalog. No implementation details. The agent reads the relevant building block rule file to understand the pattern.
+The core of the spec. Lists every building block that is **added**, **modified**, or **deleted** — referenced by name and type from the building blocks catalog. No implementation details. Test blocks (`unit-test`, `component-story-test`, `msw-handler`, `fixture`) are listed here uniformly alongside production blocks; there is no carve-out.
 
 Example:
 
@@ -112,14 +112,14 @@ Example:
 
 - `loginMutation` (mutation-hook) — handles POST /auth/login
 - `LoginForm` (pure-component) — form with email/password fields
+- `LoginForm` (component-story-test) — verifies submission and validation
+- `userFixture` (fixture) — deterministic user test data
 
 ### Modified
 
 - `AppRouter` (page) — add /login route
 - `authStore` (store) — add `isAuthenticated` derived state
 ```
-
-**Test building block exception.** `unit-test` and `component-story-test` are NOT listed in the Building Blocks Diff — they are implied by the Test Plan in section 9 and ride along with the component or module they verify. `msw-handler` and `fixture`, by contrast, ARE listed here when added or modified, because they are reusable infrastructure shared across multiple tests.
 
 ### Section 5: Design Decisions (required for non-trivial features)
 
@@ -137,14 +137,14 @@ This pattern comes from [GitHub's analysis of 2,500+ agent configuration files](
 
 ### Section 7: Task Breakdown (required)
 
-Ordered list of independently testable tasks. Each task:
+Ordered list of independently testable **production** tasks. Each task:
 
-- References building blocks from Section 4
+- References production building blocks from Section 4
 - Traces to requirement IDs (R1, R2, …)
 - Includes target file paths
 - Is marked `[P]` (parallelizable) or `[S]` (sequential)
 
-Support-infrastructure tasks producing `msw-handler` or `fixture` blocks trace to consumer tasks instead of R#s — mark them with "(support task for R#, R#)".
+Test tasks live in Section 9 (Test Breakdown), not here.
 
 ### Section 8: Error & Edge Cases (optional but recommended)
 
@@ -158,11 +158,18 @@ THEN redirect to dashboard.
 
 If you skip this section, expect the agent to guess — and guess wrong.
 
-### Section 9: Test Plan (required when the spec introduces new testable behavior)
+### Section 9: Test Breakdown (required when the spec introduces new testable behavior)
 
-Required when the spec introduces new testable behavior. Skipped with a one-line notice explaining why when the changes don't produce new behavior — presentation-only specs, pure refactors, renames, file moves, or any change that leaves observable behavior identical.
+Mirrors Section 7's format for test tasks. Required when the spec introduces new testable behavior. Skipped with a one-line notice when the changes don't produce new behavior — presentation-only specs, pure refactors, renames, file moves, or any change that leaves observable behavior identical.
 
-When present, maps every R# to a `Layer` (`storybook` or `vitest`) and a test. The `Test` column is the bare file name of the tested module or component (e.g., `CheckoutForm`, `priceFormatter`) — not a full file path. The layer column already identifies whether the test is a `.stories.tsx` or a `.test.ts`. Scope: Vitest unit tests and Storybook component tests. E2E tests are not part of the spec.
+When present, each test task:
+
+- References a `component-story-test`, `unit-test`, `msw-handler`, or `fixture` block from Section 4
+- Traces to R#s (for `component-story-test` and `unit-test` tasks), or to consumer test tasks (for `msw-handler` and `fixture` support tasks — marked "support task for test N")
+- Includes the target file path
+- Is marked `[P]` or `[S]`
+
+Scope: Vitest unit tests and Storybook component tests. E2E tests are not part of the spec.
 
 ### Sections 10–12
 
@@ -190,19 +197,19 @@ The agent proposes a Building Blocks Diff and, for non-trivial features, two pla
 
 ### Phase 3 — Spec (Sequencing)
 
-Tasks are broken down, traced to requirements, and ordered. Error & edge cases are documented in GIVEN/WHEN/THEN. The Test Plan is drafted when the spec introduces new testable behavior, or skipped with a one-line notice otherwise (presentation-only, refactor, rename, etc.). Open questions are captured.
+Tasks are broken down across two sections: Task Breakdown (production tasks, section 7) and Test Breakdown (test tasks, section 9). Error & edge cases are documented in GIVEN/WHEN/THEN in section 8. Test Breakdown is skipped with a one-line notice when the spec introduces no new testable behavior. Open questions are captured.
 
 ### Phase 4 — Review & Finalize
 
 The agent runs a structured self-audit and presents findings:
 
-- **Coverage matrix** — each requirement ID mapped to implementing tasks. Flags requirements with zero tasks.
-- **Test coverage completeness** — every R# appears in the Test Plan with a layer and a test, or the skip notice is present and explains why the spec introduces no new testable behavior.
-- **Orphan tasks** — tasks that don't trace to any requirement.
+- **Coverage matrix** — each requirement ID mapped to implementing production task(s) in section 7 AND verifying test task(s) in section 9. Flags requirements missing either.
+- **Test coverage completeness** — every R# appears on at least one test task in Test Breakdown, or the skip notice is present and explains why the spec introduces no new testable behavior.
+- **Orphan tasks** — production tasks in section 7 that don't trace to any requirement, and test tasks in section 9 that are neither traced to an R# nor marked as a support task.
 - **EARS compliance** — flags requirements missing WHEN/SHALL or using vague language.
-- **Test infrastructure traceability** — `msw-handler`/`fixture` tasks trace to consumer tasks rather than R#s.
+- **Test infrastructure traceability** — `msw-handler`/`fixture` tasks in section 9 must trace to a consumer test task within the same section.
 - **Boundary specificity** — flags boundary items referencing vague categories instead of file paths.
-- **Building block references** — flags blocks not found in the catalog, and flags `unit-test`/`component-story-test` incorrectly listed in the Building Blocks Diff.
+- **Building block references** — flags blocks not found in the catalog (including Test Infrastructure blocks).
 - **Line count** — reports total. If >130, surfaces a prompt to consider splitting. If >150, identifies bloated sections or recommends splitting the feature.
 
 Issues are fixed before presenting the final spec for developer sign-off.
@@ -211,7 +218,7 @@ Issues are fixed before presenting the final spec for developer sign-off.
 
 ## Building blocks
 
-Building blocks are typed, named patterns that form the project's architectural vocabulary. When a spec says `loginMutation (mutation)`, that name maps to a specific pattern with defined constraints, layer placement, and a canonical code example.
+Building blocks are typed, named patterns that form the project's architectural vocabulary. When a spec says `loginMutation (mutation-hook)`, that name maps to a specific pattern with defined constraints, layer placement, and a canonical code example.
 
 ### The catalog
 
@@ -231,6 +238,8 @@ The building blocks catalog lives in `skills/building-blocks/`. It uses progress
 | Test Infrastructure | `unit-test`, `component-story-test`, `msw-handler`, `fixture`                                                                       | Vitest unit tests, Storybook play-function tests, API mocks, test data factories |
 | Data Modeling       | `frontend-model`, `value-object`                                                                                                    | Domain types, value-based logic grouping                                         |
 
+All categories work the same way: blocks are referenced in Section 4 (Building Blocks Diff) when added, modified, or deleted, and produced by tasks in Section 7 (production) or Section 9 (tests).
+
 ### How specs reference building blocks
 
 In the spec's Section 4 (Building Blocks Diff), each entry references a block by name and type:
@@ -240,8 +249,6 @@ In the spec's Section 4 (Building Blocks Diff), each entry references a block by
 ```
 
 The agent then reads `rules/mutation-hook.md` to understand the implementation pattern — error handling conventions, cache invalidation approach, return tuple shape, etc.
-
-**Test block exception:** `unit-test` and `component-story-test` live in the catalog for authoring reference but do NOT appear in the Building Blocks Diff. They are implied by the Test Plan (section 9). `msw-handler` and `fixture` DO appear in the Diff when added or modified — they are reusable infrastructure, not per-test authoring patterns.
 
 ---
 
@@ -268,15 +275,15 @@ The spec system works within the project's feature slice architecture documented
 
 ## Test scope
 
-The spec Test Plan covers Vitest unit tests and Storybook component tests. E2E tests are handled separately outside the spec system. This keeps specs focused on feature-local test concerns.
+The Test Breakdown covers Vitest unit tests and Storybook component tests. E2E tests are handled separately outside the spec system. This keeps specs focused on feature-local test concerns.
 
 The project's testing philosophy allocates layers as follows:
 
 - **Storybook play-function tests** are the primary verification layer for feature behavior. Anything user-facing — including mutation hooks used by a component — is verified transitively via the component's play function.
 - **Vitest unit tests** are reserved for mechanics: mappers, transformers, value objects, and custom hooks with non-trivial logic.
-- **No tests** for fixtures, MSW handlers, or trivial glue.
+- **No tests** for fixtures, MSW handlers, or trivial glue — these are support infrastructure, not the thing being verified.
 
-The Test Plan governs test _authoring_ — declaring upfront which tests will exist. The "Verification Before Done" principle in `CLAUDE.md` governs test _execution_ at task-completion time. They are complementary, not duplicate.
+The Test Breakdown governs test _authoring_ — declaring upfront which tests will exist. The "Verification Before Done" principle in `CLAUDE.md` governs test _execution_ at task-completion time. They are complementary, not duplicate.
 
 ---
 
@@ -317,7 +324,7 @@ These are common failure modes the system is designed to prevent:
 
 - Specs live in `specs/NNN-feature-name/spec.md`.
 - Check the `Status` field in the Meta table.
-- The task breakdown in Section 7 shows what's done and what remains.
+- The task breakdown in Section 7 shows what production work remains; Section 9 shows what test work remains.
 - Open questions in Section 11 may block specific tasks.
 
 **Adding a new building block:**

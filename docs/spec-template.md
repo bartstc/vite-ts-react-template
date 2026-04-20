@@ -35,17 +35,16 @@
 
 ## 4. Building Blocks Diff
 
-<!-- REQUIRED. The core of the spec. List every building block that is ADDED, MODIFIED, or DELETED. Reference by name and type — do NOT define implementation internals. Implementation details live in coding standards and existing patterns. -->
+<!-- REQUIRED. The core of the spec. List every building block that is ADDED, MODIFIED, or DELETED — including test blocks (unit-test, component-story-test, msw-handler, fixture). Reference by name and type — do NOT define implementation internals. Implementation details live in coding standards and existing patterns. -->
 
-<!-- Use the building block types from the building-blocks catalog (e.g., mutation-hook, pure-component, store, page, value-object). When a change doesn't map to a typed building block, use the target file path + a short description of what changes instead. -->
-
-<!-- Test building blocks: `unit-test` and `component-story-test` are NOT listed here — they are implied by the Test Plan in section 9 and ride along with the component/module they verify. `msw-handler` and `fixture` ARE listed here when added or modified, since they are reusable infrastructure shared across multiple tests. -->
+<!-- Use the building block types from the building-blocks catalog. When a change doesn't map to a typed building block, use the target file path + a short description of what changes instead. -->
 
 ### Added
 
 <!-- Example:
 - `loginMutation` (mutation-hook) — handles POST /auth/login
 - `LoginForm` (pure-component) — form with email/password fields
+- `LoginForm` (component-story-test) — verifies submission and validation
 - `useAuthRedirect` (facade-hook) — redirects authenticated users away from login
 - `userFixture` (fixture) — deterministic user test data
 - `src/app/routes/login.tsx` — route entry for /login
@@ -106,18 +105,15 @@
 
 ## 7. Task Breakdown
 
-<!-- REQUIRED. Ordered list of independently testable tasks. Each task references one or more building blocks from section 4 and traces back to requirements via IDs. Include target file paths. -->
+<!-- REQUIRED. Ordered list of independently testable PRODUCTION tasks. Each task references one or more production building blocks from section 4 and traces back to requirements via IDs. Include target file paths. Test tasks live in section 9 (Test Breakdown), not here. -->
 
 <!-- Mark parallelizable tasks with [P]. Mark tasks requiring sequential execution with [S]. -->
-
-<!-- Tasks that produce `msw-handler` or `fixture` blocks are support infrastructure — they trace to consumer tasks rather than R#s. Mark these with "(support task for R#, R#)". -->
 
 <!-- Example:
 1. [S] Create `authStore` with `isAuthenticated` state — `src/features/auth/model/auth.store.ts` (R1, R2)
 2. [P] Create `loginMutation` — `src/features/auth/api/login.mutation.ts` (R1)
-3. [P] Create `LoginForm` component + tests — `src/features/auth/ui/LoginForm.tsx` (R1, R2)
-4. [P] Create `userFixture` — `test-lib/fixtures/user-fixture.ts` (support task for R1, R2)
-5. [S] Wire `/login` route into `AppRouter` — `src/app/router.tsx` (R1)
+3. [P] Create `LoginForm` component — `src/features/auth/ui/LoginForm.tsx` (R1, R2)
+4. [S] Wire `/login` route into `AppRouter` — `src/app/router.tsx` (R1)
 -->
 
 ## 8. Error & Edge Cases
@@ -129,29 +125,28 @@
 - GIVEN the API is unreachable, WHEN the user submits login, THEN display a network error with a retry button.
 -->
 
-## 9. Test Plan
+## 9. Test Breakdown
 
 <!-- REQUIRED when Section 2 contains any R# that describes new testable behavior.
 Skip the entire section with a one-line notice when the spec as a whole introduces
 no new testable behavior (visual-only changes, pure refactors, renames, file moves,
 or other changes that leave observable behavior identical).
 
-Maps every R# to a test. Scope: Vitest unit tests and Storybook component tests.
-E2E tests are not part of the spec. -->
+Ordered list of test tasks, same format as Task Breakdown. Each task references a
+component-story-test, unit-test, msw-handler, or fixture block from section 4,
+includes the target file path, and traces to R#s (or to consumer test tasks for
+msw-handler/fixture support tasks).
 
-<!-- Layer values (exactly one per row):
-- `storybook` — behavior verified via a story's play function. Primary layer.
-- `vitest` — mechanics verified via unit tests. For mappers, transformers, value objects, and hooks with non-trivial logic.
+Scope: Vitest unit tests and Storybook component tests. E2E tests are not part of the spec. -->
 
-Test column: bare file name of the tested module or component (e.g., `CheckoutForm`, `priceFormatter`) — not a full file path. The layer column already identifies whether the test is a `.stories.tsx` or a `.test.ts`. -->
+<!-- Edge cases (section 8 bullets) are NOT mapped as separate test tasks here. They are facets of their parent R# and are covered transitively by the test that verifies that R#. -->
 
-<!-- Edge cases (section 8 bullets) are NOT mapped here. They are facets of their parent R# and are covered transitively. -->
-
-| ID  | Layer     | Test           |
-| --- | --------- | -------------- |
-| R1  | storybook | CheckoutForm   |
-| R2  | storybook | CheckoutForm   |
-| R3  | vitest    | priceFormatter |
+<!-- Example:
+1. [P] Verify `CheckoutForm` submission and payment selection — `src/features/carts/components/CheckoutForm.stories.tsx` (R1, R2)
+2. [P] Verify `priceFormatter` rounding and currency rules — `src/features/products/models/price-formatter.test.ts` (R3)
+3. [P] Add `getCartHandler` MSW mock — `test-lib/handlers/get-cart-handler.ts` (support task for test 1)
+4. [P] Add `userFixture` — `test-lib/fixtures/user-fixture.ts` (support task for test 1)
+-->
 
 ## 10. Acceptance Criteria
 
@@ -159,7 +154,7 @@ Test column: bare file name of the tested module or component (e.g., `CheckoutFo
 
 ## 11. Open Questions
 
-<!-- OPTIONAL. Unresolved decisions that need human input before implementation can proceed. Each question should block a specific task from section 7. Remove questions as they're resolved and update the relevant sections. -->
+<!-- OPTIONAL. Unresolved decisions that need human input before implementation can proceed. Each question should block a specific task from section 7 or 9. Remove questions as they're resolved and update the relevant sections. -->
 
 <!-- Example:
 - [ ] Q1: Should we support "remember me" functionality? (blocks task 3)
