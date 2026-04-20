@@ -50,6 +50,15 @@ Read the rule file for each block you are about to implement. The summaries belo
 | `facade-hook`        | `components/`  | Private logic extraction for a single component. Defined below the component, not exported.        | `rules/facade-hook.md`        |
 | `named-effect`       | `components/`  | Named function expressions in `useEffect`. Intent visible at a glance.                             | `rules/named-effect.md`       |
 
+### Test Infrastructure
+
+| Block                  | Layer                     | Summary                                                                                                                    | File                            |
+| ---------------------- | ------------------------- | -------------------------------------------------------------------------------------------------------------------------- | ------------------------------- |
+| `unit-test`            | co-located `.test.ts(x)`  | Vitest test for mechanics — mappers, transformers, value objects, custom hooks with non-trivial logic.                     | `rules/unit-test.md`            |
+| `component-story-test` | co-located `.stories.tsx` | Storybook play-function test verifying user-facing behavior. Primary verification layer for anything component-touching.   | `rules/component-story-test.md` |
+| `msw-handler`          | `test-lib/handlers/`      | One request handler per endpoint with optional resolver for per-scenario overrides. Shared across tests and stories.       | `rules/msw-handler.md`          |
+| `fixture`              | `test-lib/fixtures/`      | Deterministic test data factory via `createFixture<T>()`. Supplies `toStructure`, `createPermutation`, `createCollection`. | `rules/fixture.md`              |
+
 ### Data Modeling
 
 | Block            | Layer          | Summary                                                                                    | File                      |

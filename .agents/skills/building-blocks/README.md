@@ -10,13 +10,14 @@ A structured catalog of typed frontend building blocks, optimized for AI agents.
 
 ## Building Block Categories
 
-| Category           | Blocks | Description                                                                           |
-| ------------------ | ------ | ------------------------------------------------------------------------------------- |
-| Data Fetching      | 4      | Query factories, mutations, keys, DTOs                                                |
-| State Management   | 2      | Zustand stores, React Context providers                                               |
-| App Orchestration  | 1      | Use case hooks composing mutations + notifications                                    |
-| Component Patterns | 7      | Pure components, compound components, forms, pages, HOCs, facade hooks, named effects |
-| Data Modeling      | 2      | Frontend models, value objects                                                        |
+| Category            | Blocks | Description                                                                           |
+| ------------------- | ------ | ------------------------------------------------------------------------------------- |
+| Data Fetching       | 4      | Query factories, mutations, keys, DTOs                                                |
+| State Management    | 2      | Zustand stores, React Context providers                                               |
+| App Orchestration   | 1      | Use case hooks composing mutations + notifications                                    |
+| Component Patterns  | 7      | Pure components, compound components, forms, pages, HOCs, facade hooks, named effects |
+| Test Infrastructure | 4      | Vitest unit tests, Storybook play-function tests, MSW handlers, test data fixtures    |
+| Data Modeling       | 2      | Frontend models, value objects                                                        |
 
 ## How It Works
 
@@ -35,8 +36,8 @@ A structured catalog of typed frontend building blocks, optimized for AI agents.
 ```markdown
 ---
 title: Block Display Name
-category: Data Fetching | State Management | App Orchestration | Component Patterns | Data Modeling
-layer: providers/ | application/ | components/ | models/ | lib/api/ | pages/
+category: Data Fetching | State Management | App Orchestration | Component Patterns | Test Infrastructure | Data Modeling
+layer: providers/ | application/ | components/ | models/ | lib/api/ | pages/ | test-lib/handlers/ | test-lib/fixtures/ | co-located
 composedWith: other-block-1, other-block-2
 ---
 

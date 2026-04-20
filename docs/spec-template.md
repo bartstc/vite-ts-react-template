@@ -124,11 +124,38 @@
 - GIVEN the API is unreachable, WHEN the user submits login, THEN display a network error with a retry button.
 -->
 
-## 9. Acceptance Criteria
+## 9. Test Plan
+
+<!-- REQUIRED only when the spec introduces new testable behavior. Skip with a one-line notice explaining why when the changes don't produce new behavior — for example:
+"No new testable behavior — visual-only changes."
+"No new testable behavior — pure refactor, no observable behavior change."
+"No new testable behavior — file/folder rename only."
+
+Maps every R# to a test layer and file. Scope: Vitest unit tests and Storybook component tests.
+E2E tests are not part of the spec. -->
+
+<!-- Layer values (exactly one per row):
+- `storybook` — user-facing behavior verified via a named story's play function. This is the primary layer; anything component-touching (including mutation hooks used by that component) belongs here.
+- `vitest` — mechanics verified via unit tests. Reserved for mappers, transformers, value objects, and custom hooks with non-trivial logic.
+-->
+
+<!-- Multiple R#s may map to the same File / Story — that's fine and self-documenting. Coverage is behavior-covered, not requirement-mapped.
+
+Multi-layer requirements are rare under the project's testing philosophy. When they occur, pick the primary layer (where the bulk of the assertion lives); add an inline EC in section 8 if the secondary aspect needs explicit documentation. -->
+
+<!-- Edge cases (section 8 bullets) are NOT mapped here. They are facets of their parent R# and are covered transitively. -->
+
+| ID  | Layer     | File / Story                                         |
+| --- | --------- | ---------------------------------------------------- |
+| R1  | storybook | CheckoutForm.stories.tsx → Purchasing                |
+| R2  | storybook | CheckoutForm.stories.tsx → Purchasing                |
+| R3  | vitest    | src/features/products/models/price-formatter.test.ts |
+
+## 10. Acceptance Criteria
 
 <!-- OPTIONAL. High-level "done" checklist. Useful for review gates. If your requirements (section 2) are precise enough, this section may be redundant — skip it. -->
 
-## 10. Open Questions
+## 11. Open Questions
 
 <!-- OPTIONAL. Unresolved decisions that need human input before implementation can proceed. Each question should block a specific task from section 7. Remove questions as they're resolved and update the relevant sections. -->
 
@@ -137,6 +164,6 @@
 - [ ] Q2: Rate limiting strategy for login attempts — server-side only or client-side throttle too? (blocks task 2)
 -->
 
-## 11. References
+## 12. References
 
 <!-- OPTIONAL. Links to related specs, architecture docs, design mockups, API documentation, or external resources. Keep it to things the agent should read before implementation. -->

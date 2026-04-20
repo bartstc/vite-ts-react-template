@@ -154,7 +154,15 @@ THEN redirect to dashboard.
 
 If you skip this section, expect the agent to guess — and guess wrong.
 
-### Sections 9–11
+### Section 9: Test Plan (required when the spec introduces new testable behavior)
+
+Required when the spec introduces new testable behavior. Skipped with a one-line notice explaining why when the changes don't produce new behavior — presentation-only specs, pure refactors, renames, file moves, or any change that leaves observable behavior identical.
+
+When present, maps every R# to a `Layer` (`storybook` or `vitest`) and a file path (or story name). Scope: Vitest unit tests and Storybook component tests. E2E tests are not part of the spec.
+
+The Test Plan enforces behavior-covered-not-requirement-mapped: multiple R#s may point at the same test file when they exercise the same code path. Duplicate File / Story entries are self-documenting; no explicit sharing note is needed. This matches the existing testing philosophy, which prohibits artificial test duplication.
+
+### Sections 10–12
 
 - **Acceptance Criteria** (optional) — high-level "done" checklist, often redundant if requirements are precise.
 - **Open Questions** (optional) — unresolved decisions blocking specific tasks.
@@ -180,18 +188,20 @@ The agent proposes a Building Blocks Diff and, for non-trivial features, two pla
 
 ### Phase 3 — Spec (Sequencing)
 
-Tasks are broken down, traced to requirements, and ordered. Error & edge cases are documented in GIVEN/WHEN/THEN. Open questions are captured.
+Tasks are broken down, traced to requirements, and ordered. Error & edge cases are documented in GIVEN/WHEN/THEN. The Test Plan is drafted when the spec introduces new testable behavior, or skipped with a one-line notice otherwise (presentation-only, refactor, rename, etc.). Open questions are captured.
 
 ### Phase 4 — Review & Finalize
 
 The agent runs a structured self-audit and presents findings:
 
 - **Coverage matrix** — each requirement ID mapped to implementing tasks. Flags requirements with zero tasks.
+- **Test coverage completeness** — every R# appears in the Test Plan with a layer + file, or the skip notice is present and explains why the spec introduces no new testable behavior.
 - **Orphan tasks** — tasks that don't trace to any requirement.
 - **EARS compliance** — flags requirements missing WHEN/SHALL or using vague language.
+- **Test infrastructure traceability** — `msw-handler`/`fixture` tasks trace to consumer tasks rather than R#s.
 - **Boundary specificity** — flags boundary items referencing vague categories instead of file paths.
-- **Building block references** — flags blocks not found in the catalog.
-- **Line count** — reports total; identifies bloated sections if >150 lines.
+- **Building block references** — flags blocks not found in the catalog (including Test Infrastructure blocks).
+- **Line count** — reports total. If >130, surfaces a prompt to consider splitting. If >150, identifies bloated sections or recommends splitting the feature.
 
 Issues are fixed before presenting the final spec for developer sign-off.
 
@@ -210,13 +220,14 @@ The building blocks catalog lives in `skills/building-blocks/`. It uses progress
 
 ### Block categories
 
-| Category           | Blocks                                                                                                                              | What they cover                                              |
-| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ |
-| Data Fetching      | `mutation-hook`, `query-options-factory`, `query-keys-factory`, `dto-model`                                                         | Server reads/writes, cache keys, API response types          |
-| State Management   | `store`, `provider`                                                                                                                 | Zustand stores, React Context dependency injection           |
-| App Orchestration  | `use-case-hook`                                                                                                                     | Feature-level operations composing mutations + notifications |
-| Component Patterns | `notification-hook`, `pure-component`, `compound-component`, `form`, `hoc`, `error-boundary`, `page`, `facade-hook`, `named-effect` | UI components, hooks, and composition patterns               |
-| Data Modeling      | `frontend-model`, `value-object`                                                                                                    | Domain types, value-based logic grouping                     |
+| Category            | Blocks                                                                                                                              | What they cover                                                                  |
+| ------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| Data Fetching       | `mutation-hook`, `query-options-factory`, `query-keys-factory`, `dto-model`                                                         | Server reads/writes, cache keys, API response types                              |
+| State Management    | `store`, `provider`                                                                                                                 | Zustand stores, React Context dependency injection                               |
+| App Orchestration   | `use-case-hook`                                                                                                                     | Feature-level operations composing mutations + notifications                     |
+| Component Patterns  | `notification-hook`, `pure-component`, `compound-component`, `form`, `hoc`, `error-boundary`, `page`, `facade-hook`, `named-effect` | UI components, hooks, and composition patterns                                   |
+| Test Infrastructure | `unit-test`, `component-story-test`, `msw-handler`, `fixture`                                                                       | Vitest unit tests, Storybook play-function tests, API mocks, test data factories |
+| Data Modeling       | `frontend-model`, `value-object`                                                                                                    | Domain types, value-based logic grouping                                         |
 
 ### How specs reference building blocks
 
@@ -248,6 +259,22 @@ The spec system works within the project's feature slice architecture documented
 | Zustand     | Complex local state (auth, modals, etc.)                             |
 | React Query | Server state and caching                                             |
 | React state | Simple component state                                               |
+
+---
+
+## Test scope
+
+The spec Test Plan covers Vitest unit tests and Storybook component tests. E2E tests are handled separately outside the spec system. This keeps specs focused on feature-local test concerns.
+
+The project's testing philosophy allocates layers as follows:
+
+- **Storybook play-function tests** are the primary verification layer for feature behavior. Anything user-facing — including mutation hooks used by a component — is verified transitively via the component's play function.
+- **Vitest unit tests** are reserved for mechanics: mappers, transformers, value objects, and custom hooks with non-trivial logic.
+- **No tests** for fixtures, MSW handlers, or trivial glue.
+
+Within this scope, coverage is behavior-covered, not requirement-mapped. Multiple requirements may share one test when they exercise the same code path.
+
+The Test Plan governs test _authoring_ — declaring upfront which tests will exist. The "Verification Before Done" principle in `CLAUDE.md` governs test _execution_ at task-completion time. They are complementary, not duplicate.
 
 ---
 
@@ -289,7 +316,7 @@ These are common failure modes the system is designed to prevent:
 - Specs live in `specs/NNN-feature-name/spec.md`.
 - Check the `Status` field in the Meta table.
 - The task breakdown in Section 7 shows what's done and what remains.
-- Open questions in Section 10 may block specific tasks.
+- Open questions in Section 11 may block specific tasks.
 
 **Adding a new building block:**
 
