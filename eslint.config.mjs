@@ -10,79 +10,7 @@ import vitest from "eslint-plugin-vitest";
 import reactRefresh from "eslint-plugin-react-refresh";
 import reactYouMightNotNeedAnEffect from "eslint-plugin-react-you-might-not-need-an-effect";
 
-// used by import/no-restricted-paths
-// AIDEV-NOTE: import/no-restricted-paths uses path.relative() for matching — glob wildcards
-// in target/from are NOT supported. All zone lists must be generated per-feature.
-const featureSlices = ["carts", "marketing", "products"];
-const allFeatureSlices = [
-  "auth",
-  "authv2",
-  "carts",
-  "demo",
-  "marketing",
-  "products",
-];
-
-// AIDEV-NOTE: `auth` and `authv2` are cross-slice primitives (identity, permissions,
-// auth state). Any feature may import from them. See docs/architecture.md
-const featureToFeatureZones = featureSlices.map((feature) => ({
-  target: `./src/features/${feature}`,
-  from: "./src/features",
-  except: [`./${feature}`, "./auth", "./authv2"],
-  message: "Avoid importing from other features.",
-}));
-
-const featureLayerZones = allFeatureSlices.flatMap((feature) => [
-  // application/ ← components/ (forbidden)
-  {
-    target: `./src/features/${feature}/application`,
-    from: `./src/features/${feature}/components`,
-    message: "application/ must not depend on components/.",
-  },
-  // providers/ ← application/ or components/ (forbidden)
-  {
-    target: `./src/features/${feature}/providers`,
-    from: `./src/features/${feature}/application`,
-    message: "providers/ must not depend on application/.",
-  },
-  {
-    target: `./src/features/${feature}/providers`,
-    from: `./src/features/${feature}/components`,
-    message: "providers/ must not depend on components/.",
-  },
-  // models/ ← any feature layer (forbidden)
-  {
-    target: `./src/features/${feature}/models`,
-    from: `./src/features/${feature}/application`,
-    message: "models/ must not depend on application/.",
-  },
-  {
-    target: `./src/features/${feature}/models`,
-    from: `./src/features/${feature}/components`,
-    message: "models/ must not depend on components/.",
-  },
-  {
-    target: `./src/features/${feature}/models`,
-    from: `./src/features/${feature}/providers`,
-    message: "models/ must not depend on providers/.",
-  },
-]);
-
-// Prevents lib/api/ from leaking beyond providers/ and models/.
-const apiLayerIsolationZones = allFeatureSlices.flatMap((feature) => [
-  {
-    target: `./src/features/${feature}/components`,
-    from: "./src/lib/api",
-    message:
-      "src/lib/api/ must not be imported in components/. Use providers/ for data queries and mutations and models/ for types.",
-  },
-  {
-    target: `./src/features/${feature}/application`,
-    from: "./src/lib/api",
-    message:
-      "src/lib/api/ must not be imported in application/. Use providers/ for data queries and mutations and models/ for types.",
-  },
-]);
+import { featureSliceConfig } from "./eslint.feature-slices.mjs";
 
 const noAnonymousUseEffectRule = [
   "error",
@@ -103,19 +31,6 @@ const baseNoRestrictedImports = {
       name: "ramda",
     },
   ],
-};
-
-const reactQueryHooksRestriction = {
-  name: "@tanstack/react-query",
-  importNames: [
-    "useQuery",
-    "useMutation",
-    "useSuspenseQuery",
-    "useQueries",
-    "useSuspenseQueries",
-    "useQueryClient",
-  ],
-  message: "React Query hooks belong in providers/, not here.",
 };
 
 const noTestsDirectoryRule = [
@@ -298,71 +213,7 @@ export default defineConfig(
       "@typescript-eslint/no-unsafe-spread": "off",
     },
   },
-  {
-    files: ["./src/features/**"],
-    rules: {
-      "import/no-restricted-paths": [
-        "error",
-        {
-          zones: [
-            ...featureToFeatureZones,
-            ...featureLayerZones,
-            ...apiLayerIsolationZones,
-          ],
-        },
-      ],
-    },
-  },
-  {
-    files: [
-      "./src/features/*/components/**",
-      "./src/features/*/application/**",
-    ],
-    rules: {
-      "no-restricted-imports": [
-        "error",
-        {
-          ...baseNoRestrictedImports,
-          paths: [...baseNoRestrictedImports.paths, reactQueryHooksRestriction],
-        },
-      ],
-    },
-  },
-  {
-    files: ["./src/pages/**"],
-    rules: {
-      "import/no-restricted-paths": [
-        "error",
-        {
-          zones: [
-            {
-              target: "./src/pages",
-              from: "./src/lib/api",
-              message:
-                "src/lib/api/ must not be imported in pages/. Use features/*/providers/ for data and features/*/models/ for types.",
-            },
-          ],
-        },
-      ],
-    },
-  },
-  {
-    files: ["./src/lib/**"],
-    rules: {
-      "import/no-restricted-paths": [
-        "error",
-        {
-          zones: [
-            {
-              target: "./src/lib",
-              from: "./src/features",
-              message: "Lib should not depend on features.",
-            },
-          ],
-        },
-      ],
-    },
-  },
+  ...featureSliceConfig({ baseNoRestrictedImports }),
   {
     files: ["src/**/__tests__/**"],
     rules: {
