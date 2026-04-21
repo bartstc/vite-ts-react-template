@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import { useAuthStore } from "@/features/auth/application/auth-store";
-import { useRateProductMutation } from "@/features/marketing/providers/use-rate-product-mutation";
+import { useRateProductMutation } from "@/features/marketing/rating/providers/use-rate-product-mutation";
 
 import { useRateProductNotifications } from "./use-rate-product-notifications";
 

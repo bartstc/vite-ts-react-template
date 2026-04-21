@@ -1,7 +1,7 @@
 import { Button } from "@chakra-ui/react";
 import { ArrowLeft } from "lucide-react";
 
-import { ProductRating } from "@/features/marketing/components/ProductRating";
+import { ProductRating } from "@/features/marketing/rating/components/ProductRating";
 import { ProductDetails } from "@/features/products/components/ProductDetails";
 import { ProductNotFoundResult } from "@/features/products/components/ProductNotFoundResult";
 import { useProductQuery } from "@/features/products/providers/product-query";

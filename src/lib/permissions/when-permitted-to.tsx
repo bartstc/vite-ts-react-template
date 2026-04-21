@@ -1,6 +1,6 @@
 import type { ComponentType } from "react";
 
-// eslint-disable-next-line import/no-restricted-paths
+// eslint-disable-next-line boundaries/dependencies
 import type { Permission } from "@/features/authv2/models/permissions";
 import { useHasPermission } from "@/lib/permissions/use-has-permission";
 

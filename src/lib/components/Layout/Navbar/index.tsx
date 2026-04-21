@@ -11,7 +11,7 @@ import {
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 
-// eslint-disable-next-line import/no-restricted-paths
+// eslint-disable-next-line boundaries/dependencies
 import { useAuthStore } from "@/features/auth/application/auth-store";
 import { useNotImplementedYetToast } from "@/lib/components/Toast/use-not-implemented-yet-toast";
 import { Link, useNavigate } from "@/lib/router";

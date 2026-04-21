@@ -1,4 +1,4 @@
-// eslint-disable-next-line import/no-restricted-paths
+// eslint-disable-next-line boundaries/dependencies
 import { useAuthStore } from "@/features/auth/application/auth-store";
 import { generatePath } from "@/lib/router";
 import { routes } from "@/lib/router/routes";

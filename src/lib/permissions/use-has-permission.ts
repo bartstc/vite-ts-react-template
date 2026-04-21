@@ -1,4 +1,4 @@
-/* eslint-disable import/no-restricted-paths */
+/* eslint-disable boundaries/dependencies */
 import { useAuthorizedContextSelector } from "@/features/authv2/application/use-authorized-context-selector";
 import type { Permission } from "@/features/authv2/models/permissions";
 
