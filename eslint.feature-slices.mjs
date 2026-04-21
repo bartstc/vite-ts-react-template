@@ -1,157 +1,172 @@
 // ESLint rules that enforce feature-slice architecture.
-// See docs/architecture.md for the architectural rules this enforces.
+// See docs/architecture.md for the rules this enforces.
 
-// AIDEV-NOTE: import/no-restricted-paths uses path.relative() for matching — glob wildcards
-// in target/from are NOT supported. All zone lists must be generated per-feature.
-const featureSlices = ["carts", "marketing", "products"];
-const allFeatureSlices = [
-  "auth",
-  "authv2",
-  "carts",
-  "demo",
-  "marketing",
-  "products",
+import boundaries from "eslint-plugin-boundaries";
+
+const featureLayers = ["components", "application", "providers", "models"];
+const subFeatureLayers = [
+  "sub-components",
+  "sub-application",
+  "sub-providers",
+  "sub-models",
 ];
 
-// AIDEV-NOTE: sub-feature slices nested under a parent feature.
-// Keys are parent feature names; values are arrays of sub-feature slice names.
-const subFeatureSlices = {
-  marketing: ["rating"],
+// AIDEV-NOTE: Path patterns map files to element types. Captures (feature, sub)
+// flow into rule selectors via {{from.feature}}/{{from.sub}} — they're what
+// prevents cross-feature and cross-sub-feature imports without enumerating
+// feature lists. Order matters: more specific patterns must come first
+// (sub-feature before feature, lib/api before lib).
+const elements = [
+  { type: "lib-api", pattern: "src/lib/api" },
+  { type: "lib", pattern: "src/lib" },
+
+  {
+    type: "sub-components",
+    pattern: "src/features/*/*/components",
+    capture: ["feature", "sub"],
+  },
+  {
+    type: "sub-application",
+    pattern: "src/features/*/*/application",
+    capture: ["feature", "sub"],
+  },
+  {
+    type: "sub-providers",
+    pattern: "src/features/*/*/providers",
+    capture: ["feature", "sub"],
+  },
+  {
+    type: "sub-models",
+    pattern: "src/features/*/*/models",
+    capture: ["feature", "sub"],
+  },
+
+  {
+    type: "components",
+    pattern: "src/features/*/components",
+    capture: ["feature"],
+  },
+  {
+    type: "application",
+    pattern: "src/features/*/application",
+    capture: ["feature"],
+  },
+  {
+    type: "providers",
+    pattern: "src/features/*/providers",
+    capture: ["feature"],
+  },
+  {
+    type: "models",
+    pattern: "src/features/*/models",
+    capture: ["feature"],
+  },
+
+  { type: "pages", pattern: "src/pages" },
+];
+
+// AIDEV-NOTE: auth/authv2 are cross-slice primitives (identity, permissions,
+// auth state). Any feature layer may import from them.
+const authCrossCut = {
+  to: {
+    type: featureLayers,
+    captured: { feature: ["auth", "authv2"] },
+  },
 };
 
-// AIDEV-NOTE: `auth` and `authv2` are cross-slice primitives (identity, permissions,
-// auth state). Any feature may import from them. See docs/architecture.md
-const featureToFeatureZones = featureSlices.map((feature) => ({
-  target: `./src/features/${feature}`,
-  from: "./src/features",
-  except: [`./${feature}`, "./auth", "./authv2"],
-  message: "Avoid importing from other features.",
-}));
+const sameFeature = (type) => ({
+  to: { type, captured: { feature: "{{from.feature}}" } },
+});
 
-const featureLayerZones = allFeatureSlices.flatMap((feature) => [
-  // application/ ← components/ (forbidden)
-  {
-    target: `./src/features/${feature}/application`,
-    from: `./src/features/${feature}/components`,
-    message: "application/ must not depend on components/.",
+const sameSub = (type) => ({
+  to: {
+    type,
+    captured: { feature: "{{from.feature}}", sub: "{{from.sub}}" },
   },
-  // providers/ ← application/ or components/ (forbidden)
-  {
-    target: `./src/features/${feature}/providers`,
-    from: `./src/features/${feature}/application`,
-    message: "providers/ must not depend on application/.",
-  },
-  {
-    target: `./src/features/${feature}/providers`,
-    from: `./src/features/${feature}/components`,
-    message: "providers/ must not depend on components/.",
-  },
-  // models/ ← any feature layer (forbidden)
-  {
-    target: `./src/features/${feature}/models`,
-    from: `./src/features/${feature}/application`,
-    message: "models/ must not depend on application/.",
-  },
-  {
-    target: `./src/features/${feature}/models`,
-    from: `./src/features/${feature}/components`,
-    message: "models/ must not depend on components/.",
-  },
-  {
-    target: `./src/features/${feature}/models`,
-    from: `./src/features/${feature}/providers`,
-    message: "models/ must not depend on providers/.",
-  },
-]);
+});
 
-// Prevents lib/api/ from leaking beyond providers/ and models/.
-const apiLayerIsolationZones = allFeatureSlices.flatMap((feature) => [
+const typeRules = [
   {
-    target: `./src/features/${feature}/components`,
-    from: "./src/lib/api",
-    message:
-      "src/lib/api/ must not be imported in components/. Use providers/ for data queries and mutations and models/ for types.",
+    from: { type: "components" },
+    allow: [
+      sameFeature(["application", "providers", "models"]),
+      authCrossCut,
+      { to: { type: "lib" } },
+    ],
   },
   {
-    target: `./src/features/${feature}/application`,
-    from: "./src/lib/api",
-    message:
-      "src/lib/api/ must not be imported in application/. Use providers/ for data queries and mutations and models/ for types.",
+    from: { type: "application" },
+    allow: [
+      sameFeature(["providers", "models"]),
+      authCrossCut,
+      { to: { type: "lib" } },
+    ],
   },
-]);
+  {
+    from: { type: "providers" },
+    allow: [
+      sameFeature("models"),
+      authCrossCut,
+      { to: { type: ["lib", "lib-api"] } },
+    ],
+  },
+  {
+    from: { type: "models" },
+    allow: [authCrossCut, { to: { type: ["lib", "lib-api"] } }],
+  },
 
-const subFeatureLayerZones = Object.entries(subFeatureSlices).flatMap(
-  ([feature, subFeatures]) =>
-    subFeatures.flatMap((sub) => [
-      {
-        target: `./src/features/${feature}/${sub}/application`,
-        from: `./src/features/${feature}/${sub}/components`,
-        message: "application/ must not depend on components/.",
-      },
-      {
-        target: `./src/features/${feature}/${sub}/providers`,
-        from: `./src/features/${feature}/${sub}/application`,
-        message: "providers/ must not depend on application/.",
-      },
-      {
-        target: `./src/features/${feature}/${sub}/providers`,
-        from: `./src/features/${feature}/${sub}/components`,
-        message: "providers/ must not depend on components/.",
-      },
-      {
-        target: `./src/features/${feature}/${sub}/models`,
-        from: `./src/features/${feature}/${sub}/application`,
-        message: "models/ must not depend on application/.",
-      },
-      {
-        target: `./src/features/${feature}/${sub}/models`,
-        from: `./src/features/${feature}/${sub}/components`,
-        message: "models/ must not depend on components/.",
-      },
-      {
-        target: `./src/features/${feature}/${sub}/models`,
-        from: `./src/features/${feature}/${sub}/providers`,
-        message: "models/ must not depend on providers/.",
-      },
-    ])
-);
+  {
+    from: { type: "sub-components" },
+    allow: [
+      sameSub(["sub-application", "sub-providers", "sub-models"]),
+      sameFeature(featureLayers),
+      authCrossCut,
+      { to: { type: "lib" } },
+    ],
+  },
+  {
+    from: { type: "sub-application" },
+    allow: [
+      sameSub(["sub-providers", "sub-models"]),
+      sameFeature(["application", "providers", "models"]),
+      authCrossCut,
+      { to: { type: "lib" } },
+    ],
+  },
+  {
+    from: { type: "sub-providers" },
+    allow: [
+      sameSub("sub-models"),
+      sameFeature(["providers", "models"]),
+      authCrossCut,
+      { to: { type: ["lib", "lib-api"] } },
+    ],
+  },
+  {
+    from: { type: "sub-models" },
+    allow: [
+      sameFeature("models"),
+      authCrossCut,
+      { to: { type: ["lib", "lib-api"] } },
+    ],
+  },
 
-// AIDEV-NOTE: each sub-feature may import from its parent's same/lower layers,
-// but must not import from sibling sub-feature slices.
-const subFeatureSiblingZones = Object.entries(subFeatureSlices).flatMap(
-  ([feature, subFeatures]) =>
-    subFeatures.map((sub) => ({
-      target: `./src/features/${feature}/${sub}`,
-      from: `./src/features/${feature}`,
-      except: [
-        `./${sub}`,
-        "./components",
-        "./application",
-        "./providers",
-        "./models",
-      ],
-      message:
-        "Sub-feature slices may not import from sibling sub-feature slices.",
-    }))
-);
+  {
+    from: { type: "pages" },
+    allow: [
+      { to: { type: [...featureLayers, ...subFeatureLayers, "lib", "pages"] } },
+    ],
+  },
 
-const subFeatureApiIsolationZones = Object.entries(subFeatureSlices).flatMap(
-  ([feature, subFeatures]) =>
-    subFeatures.flatMap((sub) => [
-      {
-        target: `./src/features/${feature}/${sub}/components`,
-        from: "./src/lib/api",
-        message:
-          "src/lib/api/ must not be imported in components/. Use providers/ for data queries and mutations and models/ for types.",
-      },
-      {
-        target: `./src/features/${feature}/${sub}/application`,
-        from: "./src/lib/api",
-        message:
-          "src/lib/api/ must not be imported in application/. Use providers/ for data queries and mutations and models/ for types.",
-      },
-    ])
-);
+  {
+    from: { type: "lib" },
+    allow: [{ to: { type: ["lib", "lib-api"] } }],
+  },
+  {
+    from: { type: "lib-api" },
+    allow: [{ to: { type: ["lib", "lib-api"] } }],
+  },
+];
 
 const reactQueryHooksRestriction = {
   name: "@tanstack/react-query",
@@ -169,20 +184,15 @@ const reactQueryHooksRestriction = {
 export function featureSliceConfig({ baseNoRestrictedImports }) {
   return [
     {
-      files: ["./src/features/**"],
+      files: ["src/**/*.{ts,tsx}"],
+      plugins: { boundaries },
+      settings: {
+        "boundaries/elements": elements,
+      },
       rules: {
-        "import/no-restricted-paths": [
+        "boundaries/dependencies": [
           "error",
-          {
-            zones: [
-              ...featureToFeatureZones,
-              ...featureLayerZones,
-              ...apiLayerIsolationZones,
-              ...subFeatureLayerZones,
-              ...subFeatureSiblingZones,
-              ...subFeatureApiIsolationZones,
-            ],
-          },
+          { default: "disallow", rules: typeRules },
         ],
       },
     },
@@ -201,41 +211,6 @@ export function featureSliceConfig({ baseNoRestrictedImports }) {
             paths: [
               ...baseNoRestrictedImports.paths,
               reactQueryHooksRestriction,
-            ],
-          },
-        ],
-      },
-    },
-    {
-      files: ["./src/pages/**"],
-      rules: {
-        "import/no-restricted-paths": [
-          "error",
-          {
-            zones: [
-              {
-                target: "./src/pages",
-                from: "./src/lib/api",
-                message:
-                  "src/lib/api/ must not be imported in pages/. Use features/*/providers/ for data and features/*/models/ for types.",
-              },
-            ],
-          },
-        ],
-      },
-    },
-    {
-      files: ["./src/lib/**"],
-      rules: {
-        "import/no-restricted-paths": [
-          "error",
-          {
-            zones: [
-              {
-                target: "./src/lib",
-                from: "./src/features",
-                message: "Lib should not depend on features.",
-              },
             ],
           },
         ],

@@ -1,4 +1,4 @@
-/* eslint-disable import/no-restricted-paths */
+/* eslint-disable boundaries/dependencies */
 import {
   Box,
   Text,
