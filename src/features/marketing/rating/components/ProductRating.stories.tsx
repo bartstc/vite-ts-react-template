@@ -5,7 +5,7 @@ import { getMarketingProductHandler } from "@/test-lib/handlers/get-marketing-pr
 import { ProductRating } from "./ProductRating";
 
 const meta = {
-  title: "modules/Marketing/ProductRating",
+  title: "modules/Marketing/Rating/ProductRating",
   component: ProductRating,
   parameters: {
     layout: "centered",
