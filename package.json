@@ -26,7 +26,9 @@
     "prepare": "husky install",
     "storybook": "storybook dev -p 6006",
     "dev:server": "pnpm --filter server dev",
-    "dev:all": "concurrently \"pnpm dev\" \"pnpm dev:server\""
+    "dev:all": "concurrently \"pnpm dev\" \"pnpm dev:server\"",
+    "usage": "npx -y ccusage@latest daily --since $(date +%Y%m%d)",
+    "usage:week": "npx -y ccusage@latest daily --since $(date -d '6 days ago' +%Y%m%d)"
   },
   "dependencies": {
     "@chakra-ui/react": "3.34.0",

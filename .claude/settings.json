@@ -21,7 +21,6 @@
       "Bash(pnpm test:unit)",
       "Bash(pnpm test:storybook)",
       "Bash(pnpm exec prettier:*)",
-      "Bash(pnpm lint:*)",
       "Bash(gh pr view:*)",
       "Bash(gh pr diff:*)",
       "WebFetch(domain:docs.anthropic.com)",
@@ -51,7 +50,7 @@
       "Bash(pnpm install:*)"
     ]
   },
-  "enabledPlugins": {
-    "claude-hud@claude-hud": true
+  "env": {
+    "CLAUDE_CODE_DISABLE_1M_CONTEXT": "1"
   }
 }
