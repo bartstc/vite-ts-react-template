@@ -2,7 +2,7 @@ import { HStack, Icon, Portal, Tooltip } from "@chakra-ui/react";
 import { Star } from "lucide-react";
 import { useState } from "react";
 
-import { useRateProduct } from "@/features/marketing/application/use-rate-product";
+import { useRateProduct } from "@/features/marketing/rating/application/use-rate-product";
 import { useTranslations } from "@/lib/i18n/use-transations";
 import { useColorModeValue } from "@/lib/theme/use-color-mode";
 

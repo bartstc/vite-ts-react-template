@@ -28,9 +28,23 @@ paths:
 └── src/
     ├── app/           # App-level configuration (App.tsx, Providers.tsx)
     ├── features/      # Feature modules using feature slice architecture
-    │   ├── auth/      # Authentication feature
+    │   ├── auth/      # Authentication feature (cross-cutting concern)
     │   ├── carts/     # Shopping cart feature
     │   ├── products/  # Product catalog feature
+    │   └── marketing/          # Feature with sub-feature slices
+    │       ├── components/     # Marketing-wide components
+    │       ├── providers/      # Marketing-wide providers
+    │       ├── models/         # Marketing-wide models
+    │       ├── rating/         # Sub-feature slice
+    │       │   ├── components/
+    │       │   ├── application/
+    │       │   ├── providers/
+    │       │   └── models/
+    │       └── reviews/        # Sub-feature slice
+    │           ├── components/
+    │           ├── application/
+    │           ├── providers/
+    │           └── models/
     ├── lib/           # Shared libraries and utilities
     │   ├── api/       # Centralized API layer (queries, mutations, DTOs)
     │   ├── components/ # Reusable UI components
@@ -44,10 +58,6 @@ paths:
 
 ## Feature Architecture
 
-Each feature follows feature slice architecture patterns with three layers:
-
-## Feature Architecture
-
 Each feature follows feature slice architecture patterns with four layers:
 
 - **components/** - UI components, presentational and decoupled from business logic (application) and router state. Data access is only through `providers/`.
@@ -56,7 +66,7 @@ Each feature follows feature slice architecture patterns with four layers:
   - files are named after their primary export or reexport: `useCartProductsQuery` → `use-cart-products-query.ts`, `useAddToCartMutation` → `use-add-to-cart-mutation.ts`
 - **models/** - Domain type definitions only. Exposes frontend models for the feature. When the DTO shape is identical to the domain model, re-export with a domain name (`export type { ProductDto as Product }`). When it diverges, define the domain type here.
 
-**Dependency rule:**
+### Dependency rule
 
 | Layer          | May import from                                  |
 | -------------- | ------------------------------------------------ |
@@ -66,6 +76,14 @@ Each feature follows feature slice architecture patterns with four layers:
 | `models/`      | `lib/api/`, `lib/*`                              |
 
 **Cross-slice primitives:** `features/auth/` and `features/authv2/` are cross-cutting concerns (identity, permissions, auth state). Any feature slice may import from them.
+
+### Sub-feature Slices
+
+When a feature grows to contain multiple distinct domain sub-areas, each sub-area becomes a **sub-feature slice** — a nested directory with its own four-layer structure (`components/`, `application/`, `providers/`, `models/`).
+
+The parent feature's layers hold code that is either reusable across sub-feature slices, or too small to warrant its own sub-feature slice.
+
+The same layer dependency rules apply within sub-feature slices. Additionally, sub-feature layers may import from the parent feature's same or lower layers. Sub-feature slices **may not import from sibling sub-feature slices**.
 
 ## API Library
 
