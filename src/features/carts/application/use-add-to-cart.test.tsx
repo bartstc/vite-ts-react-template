@@ -1,13 +1,13 @@
 import { act, renderHook } from "@testing-library/react";
-import { setupServer } from "msw/node";
 import type { PropsWithChildren } from "react";
-import { afterAll, afterEach, beforeAll, expect, it } from "vitest";
+import { afterEach, beforeEach, expect, it } from "vitest";
 
 import { initializeAuthStore } from "@/features/auth/application/auth-store";
 import { USER_CART_ID } from "@/test-lib/fixtures/user-fixture";
 import { generateUuid } from "@/test-lib/generate-uuid";
 import { errorResponse } from "@/test-lib/handlers/error-responses";
 import { putAddToCartHandler } from "@/test-lib/handlers/put-add-to-cart-handler";
+import { mswServer } from "@/test-lib/msw-server";
 import { TestAuthProvider } from "@/test-lib/TestAuthProvider";
 import { TestQueryProvider } from "@/test-lib/TestQueryProvider";
 import { spyOnToast } from "@/test-lib/toast-spy";
@@ -15,14 +15,12 @@ import { spyOnToast } from "@/test-lib/toast-spy";
 import { useAddToCart } from "./use-add-to-cart";
 import { useProductAddedDialogStore } from "./use-product-added-dialog-store";
 
-const server = setupServer(putAddToCartHandler());
-
-beforeAll(() => server.listen());
+beforeEach(() => {
+  mswServer.use(putAddToCartHandler());
+});
 afterEach(() => {
-  server.resetHandlers();
   useProductAddedDialogStore.setState({ isOpen: false, selectedItem: null });
 });
-afterAll(() => server.close());
 
 const wrapper = ({ children }: PropsWithChildren) => (
   <TestQueryProvider>
@@ -81,7 +79,9 @@ it("shows a warning toast and keeps the dialog closed when unauthenticated", asy
 });
 
 it("shows an error toast and keeps the dialog closed when the server returns Unknown product", async () => {
-  server.use(putAddToCartHandler(() => errorResponse(400, "Unknown product")));
+  mswServer.use(
+    putAddToCartHandler(() => errorResponse(400, "Unknown product"))
+  );
   const toastSpy = spyOnToast();
   const { result } = renderHook(() => useAddToCart(), { wrapper });
 
