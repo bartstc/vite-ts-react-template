@@ -1,5 +1,5 @@
-import type { Decorator } from "@storybook/react-vite";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import type { PropsWithChildren } from "react";
 
 const testQueryClient = new QueryClient({
   defaultOptions: {
@@ -15,12 +15,11 @@ const testQueryClient = new QueryClient({
   },
 });
 
-export const withReactQuery: Decorator = (story) => {
+export const TestQueryProvider = ({ children }: PropsWithChildren) => {
   testQueryClient.clear();
-
   return (
     <QueryClientProvider client={testQueryClient}>
-      {story()}
+      {children}
     </QueryClientProvider>
   );
 };
