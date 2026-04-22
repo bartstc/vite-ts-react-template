@@ -37,6 +37,13 @@ export async function addToCartHandler(
   }
 
   const { productId, quantity } = request.body;
+
+  const product = db.data.products.find((p) => p.id === productId);
+  if (!product) {
+    reply.code(400).send({ message: "Unknown product" });
+    return;
+  }
+
   const cart = db.data.carts[index];
   const productIndex = cart.products.findIndex(
     (p) => p.productId === productId

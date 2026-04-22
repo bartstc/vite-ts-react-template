@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { HttpResponse } from "msw";
 import { userEvent, screen, expect } from "storybook/test";
 
+import { errorResponse } from "@/test-lib/handlers/error-responses";
 import { patchRateProductHandler } from "@/test-lib/handlers/patch-rate-product-handler";
 import { withAuth } from "@/test-lib/storybook/with-auth";
 import { withoutAuth } from "@/test-lib/storybook/without-auth";
@@ -56,7 +56,9 @@ export const SubmitRatingFailure: Story = {
   parameters: {
     msw: {
       handlers: [
-        patchRateProductHandler(() => HttpResponse.json({}, { status: 500 })),
+        patchRateProductHandler(() =>
+          errorResponse(500, "Internal Server Error")
+        ),
       ],
     },
   },

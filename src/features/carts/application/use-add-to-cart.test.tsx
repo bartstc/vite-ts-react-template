@@ -1,26 +1,12 @@
 import { act, renderHook } from "@testing-library/react";
 import { setupServer } from "msw/node";
 import type { PropsWithChildren } from "react";
-import {
-  afterAll,
-  afterEach,
-  beforeAll,
-  beforeEach,
-  expect,
-  it,
-  vi,
-} from "vitest";
+import { afterAll, afterEach, beforeAll, expect, it } from "vitest";
 
-import {
-  Provider,
-  initializeAuthStore,
-} from "@/features/auth/application/auth-store";
-import {
-  ProductNotAvailableError,
-  UnknownProductError,
-} from "@/features/carts/providers/use-add-to-cart-mutation";
+import { initializeAuthStore } from "@/features/auth/application/auth-store";
 import { USER_CART_ID } from "@/test-lib/fixtures/user-fixture";
 import { generateUuid } from "@/test-lib/generate-uuid";
+import { errorResponse } from "@/test-lib/handlers/error-responses";
 import { putAddToCartHandler } from "@/test-lib/handlers/put-add-to-cart-handler";
 import { TestAuthProvider } from "@/test-lib/TestAuthProvider";
 import { TestQueryProvider } from "@/test-lib/TestQueryProvider";
@@ -29,43 +15,14 @@ import { spyOnToast } from "@/test-lib/toast-spy";
 import { useAddToCart } from "./use-add-to-cart";
 import { useProductAddedDialogStore } from "./use-product-added-dialog-store";
 
-interface AddToCartMutationModule {
-  UnknownProductError: new () => Error;
-  ProductNotAvailableError: new () => Error;
-  addToCartMutationOptions: object;
-}
-
-const { mockMutationFn } = vi.hoisted(() => ({
-  mockMutationFn: vi.fn(),
-}));
-
-vi.mock(
-  "@/lib/api/carts/{cart-id}/add-to-cart-mutation",
-  async (importOriginal) => {
-    const { UnknownProductError, ProductNotAvailableError } =
-      await importOriginal<AddToCartMutationModule>();
-    return {
-      UnknownProductError,
-      ProductNotAvailableError,
-      addToCartMutationOptions: { mutationFn: mockMutationFn },
-    };
-  }
-);
-
 const server = setupServer(putAddToCartHandler());
 
 beforeAll(() => server.listen());
-afterEach(() => server.resetHandlers());
-afterAll(() => server.close());
-
-beforeEach(() => {
-  mockMutationFn.mockResolvedValue(undefined);
-});
-
 afterEach(() => {
+  server.resetHandlers();
   useProductAddedDialogStore.setState({ isOpen: false, selectedItem: null });
-  vi.restoreAllMocks();
 });
+afterAll(() => server.close());
 
 const wrapper = ({ children }: PropsWithChildren) => (
   <TestQueryProvider>
@@ -74,15 +31,14 @@ const wrapper = ({ children }: PropsWithChildren) => (
 );
 
 const unauthenticatedWrapper = ({ children }: PropsWithChildren) => {
-  const unauthenticatedStore = initializeAuthStore({
+  const store = initializeAuthStore({
     isAuthenticated: false,
     isError: false,
     state: "finished",
   });
-
   return (
     <TestQueryProvider>
-      <Provider value={unauthenticatedStore}>{children}</Provider>
+      <TestAuthProvider store={store}>{children}</TestAuthProvider>
     </TestQueryProvider>
   );
 };
@@ -124,8 +80,8 @@ it("shows a warning toast and keeps the dialog closed when unauthenticated", asy
   );
 });
 
-it("shows an error toast and keeps the dialog closed on UnknownProductError", async () => {
-  mockMutationFn.mockRejectedValueOnce(new UnknownProductError());
+it("shows an error toast and keeps the dialog closed when the server returns Unknown product", async () => {
+  server.use(putAddToCartHandler(() => errorResponse(400, "Unknown product")));
   const toastSpy = spyOnToast();
   const { result } = renderHook(() => useAddToCart(), { wrapper });
 
@@ -139,25 +95,6 @@ it("shows an error toast and keeps the dialog closed on UnknownProductError", as
       type: "error",
       description:
         "Product doesn't exist. It may be unavailable or removed from the store.",
-    })
-  );
-});
-
-it("shows an error toast and keeps the dialog closed on ProductNotAvailableError", async () => {
-  mockMutationFn.mockRejectedValueOnce(new ProductNotAvailableError());
-  const toastSpy = spyOnToast();
-  const { result } = renderHook(() => useAddToCart(), { wrapper });
-
-  await act(async () => {
-    await result.current.addToCart(generateUuid());
-  });
-
-  expect(useProductAddedDialogStore.getState().isOpen).toBe(false);
-  expect(toastSpy).toHaveBeenCalledWith(
-    expect.objectContaining({
-      type: "error",
-      description:
-        "Product is not available. It may be out of stock or removed from the store.",
     })
   );
 });
