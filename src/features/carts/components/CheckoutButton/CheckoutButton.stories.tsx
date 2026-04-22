@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { userEvent, within, screen, expect } from "storybook/test";
+import { userEvent, screen, expect } from "storybook/test";
 
 import { CheckoutButton } from "@/features/carts/components/CheckoutButton/CheckoutButton";
 
@@ -20,9 +20,7 @@ export const Default: Story = {};
 
 export const Purchasing: Story = {
   play: async (context) => {
-    const { canvasElement, step } = context;
-    within(canvasElement);
-
+    const { step } = context;
     await step("Clear the cart", async () => {
       await userEvent.click(screen.getByRole("button", { name: /Checkout/ }));
 

@@ -1,12 +1,26 @@
 import type { Decorator } from "@storybook/react-vite";
-import { QueryClientProvider } from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-import { queryClient } from "@/lib/query";
+const testQueryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+      gcTime: Infinity,
+      staleTime: Infinity,
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+      refetchOnReconnect: false,
+    },
+    mutations: { retry: false },
+  },
+});
 
 export const withReactQuery: Decorator = (story) => {
-  queryClient.clear();
+  testQueryClient.clear();
 
   return (
-    <QueryClientProvider client={queryClient}>{story()}</QueryClientProvider>
+    <QueryClientProvider client={testQueryClient}>
+      {story()}
+    </QueryClientProvider>
   );
 };
