@@ -34,6 +34,7 @@
   },
   "include": [
     "test-setup.ts",
+    "test-setup-unit.ts",
     "test-globals.ts",
     "src/**/*",
     ".storybook/**/*.ts",
