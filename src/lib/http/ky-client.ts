@@ -30,7 +30,7 @@ export class KyClient implements HttpServiceClient<KyClientOptions> {
           },
         ],
         beforeError: [
-          (error) => {
+          async (error) => {
             const { response, request, options } = error;
 
             if (request?.method === "GET" && response?.status === 404) {
@@ -38,12 +38,21 @@ export class KyClient implements HttpServiceClient<KyClientOptions> {
             }
 
             if (response?.body && response?.status) {
+              let bodyMessage: string | undefined;
+              try {
+                const body = (await response.clone().json()) as {
+                  message?: string;
+                };
+                bodyMessage = body?.message;
+              } catch {
+                // non-JSON body — fall through to generic message
+              }
               return new AjaxError(
                 response.status,
                 response,
                 request,
                 options,
-                `Ajax error occurred (${response.status})`
+                bodyMessage ?? `Ajax error occurred (${response.status})`
               );
             }
 

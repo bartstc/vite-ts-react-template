@@ -25,10 +25,7 @@ export class AjaxError<
   ) {
     super(response, request, options);
     this.status = status;
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    this.message = message ?? response?.body?.message ?? "Ajax error message";
+    this.message = message ?? "Ajax error message";
     this.name = "AjaxError";
   }
 }

@@ -54,6 +54,7 @@ export default defineConfig((env) =>
             test: {
               name: "unit",
               include: ["src/**/*.test.ts", "src/**/*.test.tsx"],
+              setupFiles: ["./test-setup.ts", "./test-setup-unit.ts"],
             },
           },
           {

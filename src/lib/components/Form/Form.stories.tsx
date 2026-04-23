@@ -1,9 +1,7 @@
 import { Button, VStack } from "@chakra-ui/react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
-import { userEvent, within, screen, expect } from "storybook/test";
-
-import { sleep } from "@/test-lib/storybook/sleep";
+import { userEvent, screen, expect } from "storybook/test";
 
 import { useFieldBasedCondition } from "./conditional-rendering";
 import { MoneyInput } from "./fields/MoneyInput";
@@ -152,15 +150,12 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {};
 
 export const AllFields: Story = {
-  play: async ({ canvasElement, step }) => {
-    const canvas = within(canvasElement);
-
+  play: async ({ canvas, step }) => {
     // ── Step 1: Validate required fields ───────────────────────────────────────
     await step("Validate required fields", async () => {
       await userEvent.click(
         canvas.getByRole("button", { name: "Place Order" })
       );
-      await sleep(100);
 
       // customerName, email, product, quantity are all required
       const errors = await screen.findAllByText("Field is required");
@@ -186,10 +181,8 @@ export const AllFields: Story = {
       await userEvent.click(
         canvas.getByRole("combobox", { name: "Product Category" })
       );
-      await sleep(100);
 
       await userEvent.click(screen.getByRole("option", { name: "Books" }));
-      await sleep(100);
     });
 
     // ── Step 4: Fill quantity ──────────────────────────────────────────────────
@@ -203,18 +196,14 @@ export const AllFields: Story = {
       await userEvent.click(
         canvas.getByRole("combobox", { name: "Has Coupon?" })
       );
-      await sleep(100);
       await userEvent.click(screen.getByRole("option", { name: "Yes" }));
-      await sleep(150);
 
       await expect(screen.getByLabelText("Coupon Code")).toBeInTheDocument();
 
       await userEvent.click(
         canvas.getByRole("combobox", { name: "Has Coupon?" })
       );
-      await sleep(100);
       await userEvent.click(screen.getByRole("option", { name: "No" }));
-      await sleep(150);
 
       await expect(
         screen.queryByLabelText("Coupon Code")
@@ -227,9 +216,7 @@ export const AllFields: Story = {
       await userEvent.click(
         canvas.getByRole("combobox", { name: "Has Coupon?" })
       );
-      await sleep(100);
       await userEvent.click(screen.getByRole("option", { name: "Yes" }));
-      await sleep(150);
 
       await userEvent.type(screen.getByLabelText("Coupon Code"), "SAVE20");
       await userEvent.type(canvas.getByLabelText("Total Price"), "59.99");

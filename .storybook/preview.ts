@@ -5,7 +5,7 @@ import { DesignProvider } from "@/app/design/DesignProvider";
 import { getUserHandler } from "@/test-lib/handlers/get-user-handler";
 import { withAuth } from "@/test-lib/storybook/with-auth";
 import { withI18Next } from "@/test-lib/storybook/with-i18next";
-import { withReactQuery } from "@/test-lib/storybook/with-react-query";
+import { withQueryProvider } from "@/test-lib/storybook/with-query-provider";
 
 export const parameters = {
   controls: {
@@ -40,7 +40,7 @@ export const decorators = [
   // eslint-disable-next-line react/no-children-prop, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-explicit-any
   (story: any) => createElement(DesignProvider, { children: story() }),
   withI18Next,
-  withReactQuery,
+  withQueryProvider,
   withAuth,
 ];
 

@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
   userEvent,
-  within,
   screen,
   waitForElementToBeRemoved,
   expect,
@@ -13,7 +12,6 @@ import {
 
 import { generateUuid } from "@/test-lib/generate-uuid";
 import { putAddToCartHandler } from "@/test-lib/handlers/put-add-to-cart-handler";
-import { sleep } from "@/test-lib/storybook/sleep";
 
 import { AddToCartButton } from "./AddToCartButton";
 import { ProductAddedDialog } from "./ProductAddedDialog";
@@ -52,9 +50,7 @@ export const Default: Story = {
 
 export const AddingProductToCart: Story = {
   ...Default,
-  play: async ({ canvasElement, step }) => {
-    within(canvasElement);
-
+  play: async ({ step }) => {
     await step("Add a new product", async () => {
       await userEvent.click(
         screen.getByRole("button", { name: /Add to cart/ })
@@ -73,8 +69,6 @@ export const AddingProductToCart: Story = {
     });
 
     await step("Acknowledge and continue shopping", async () => {
-      await sleep(500);
-
       await userEvent.click(
         screen.getByRole("button", { name: /Continue shopping/ })
       );

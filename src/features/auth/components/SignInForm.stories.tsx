@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { userEvent, within, screen, expect } from "storybook/test";
+import { userEvent, screen, expect } from "storybook/test";
 
 import { postSignInHandler } from "@/test-lib/handlers/post-sign-in-handler";
-import { sleep } from "@/test-lib/storybook/sleep";
 
 import { SignInForm } from "./SignInForm";
 
@@ -30,23 +29,17 @@ export const WithCredentialsFilledByDefault: Story = {
 };
 
 export const SigningIn: Story = {
-  play: async ({ canvasElement, step }) => {
-    const canvas = within(canvasElement);
-
+  play: async ({ canvas, step }) => {
     await step("Enter credentials", async () => {
       await userEvent.type(canvas.getByLabelText(/Username/), "johndoe");
       await userEvent.type(canvas.getByLabelText(/Password/), "supersecret");
     });
 
     await step("Submit form", async () => {
-      await sleep(500);
-
       await userEvent.click(canvas.getByRole("button", { name: "Sign in" }));
-      await sleep(500);
+      await expect(
+        await screen.findByText("Successfully signed in!")
+      ).toBeInTheDocument();
     });
-
-    await expect(
-      await screen.findByText("Successfully signed in!")
-    ).toBeInTheDocument();
   },
 };

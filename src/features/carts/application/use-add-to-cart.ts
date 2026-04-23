@@ -37,6 +37,7 @@ export const useAddToCart = () => {
         return;
       }
 
+      // todo: not implemented yet on the backend
       if (e instanceof ProductNotAvailableError) {
         notifyProductNotAvailable();
         return;
