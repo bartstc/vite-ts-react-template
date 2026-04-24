@@ -144,7 +144,7 @@ importers:
         specifier: 4.4.4
         version: 4.4.4(eslint-plugin-import@2.32.0)(eslint@9.39.2)
       eslint-plugin-boundaries:
-        specifier: ^6.0.2
+        specifier: 6.0.2
         version: 6.0.2(@typescript-eslint/parser@8.52.0(eslint@9.39.2)(typescript@5.9.3))(eslint-import-resolver-typescript@4.4.4)(eslint@9.39.2)
       eslint-plugin-import:
         specifier: 2.32.0

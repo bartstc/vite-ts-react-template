@@ -22,6 +22,7 @@ One story per meaningful state or flow. The `Default` story is the pure-renderin
 - Data in `args` uses fixtures (`ProductFixture.toStructure()`, `ProductFixture.createCollection([...])`). No inline literals when a fixture exists.
 - One scenario per story. A play function with 10+ steps is almost always two stories. New story when starting props/state differ; new step within the same story when continuing a single user flow.
 - **Do not mock composed hooks** (`vi.mock('./use-products-query')`). The story exercises the real hook; mock the endpoint the hook calls via `parameters.msw.handlers`. See `rules/msw-handler.md`.
+- Use `getByRole("combobox")` not `getByLabelText` for Chakra Select triggers in play functions
 
 ### MSW in stories — meta vs story handlers
 
