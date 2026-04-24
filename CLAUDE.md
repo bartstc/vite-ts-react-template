@@ -9,6 +9,7 @@ TypeScript SPA. React 19, Vite 7, React Router 7, TanStack Query, Zustand, XStat
 ## Commands
 
 - `pnpm dev` — start dev server (port 5173)
+- `pnpm dev:all` — start both frontend (port 5173) and local API server (port 3001)
 - `pnpm typecheck` — type-check all sources (src, e2e, stories, tests)
 - `pnpm lint --fix` — lint and auto-fix
 - `pnpm test` — all tests (unit + storybook)

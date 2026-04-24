@@ -41,8 +41,13 @@
   // Use 'postCreateCommand' to run commands after the container is created.
   // For storybook-only tests
   // "postCreateCommand": "bash -c 'gh auth login --hostname github.com --web --scopes public_repo,read:org,workflow && pnpm install && pnpm exec playwright install chromium --with-deps --only-shell'",
-  // For full browser testing
-  "postCreateCommand": "bash -c 'gh auth login --hostname github.com --web --scopes public_repo,read:org,workflow && pnpm install && pnpm exec playwright install --with-deps'",
+  // For full browser testing:
+  //   gh auth login   — authenticates GitHub CLI (git push, PR workflows, gh commands)
+  //   pnpm install    — installs project dependencies
+  //   playwright install --with-deps — installs Chromium/Firefox/WebKit + OS libs for E2E tests
+  //   @playwright/mcp install-browser — installs the Chromium revision required by the Playwright MCP
+  //                                     server (ships its own playwright-core, needs a separate revision)
+  "postCreateCommand": "bash -c 'gh auth login --hostname github.com --web --scopes public_repo,read:org,workflow && pnpm install && pnpm exec playwright install --with-deps && pnpm dlx @playwright/mcp@0.0.70 install-browser chromium'",
 
   "remoteUser": "node"
 }
