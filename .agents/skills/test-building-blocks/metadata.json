@@ -1,0 +1,15 @@
+{
+  "version": "1.0.0",
+  "date": "April 2026",
+  "abstract": "Typed catalog of test-related building blocks. Contains 5 blocks across 2 categories (Tests, Support Infrastructure). Each block defines layer constraints, composition rules, and canonical implementation examples. Designed for AI agents — read the index to route, read the rule file to implement.",
+  "categories": [
+    {
+      "name": "Tests",
+      "blocks": ["component-story-test", "hook-test", "unit-test"]
+    },
+    {
+      "name": "Support Infrastructure",
+      "blocks": ["msw-handler", "fixture"]
+    }
+  ]
+}
