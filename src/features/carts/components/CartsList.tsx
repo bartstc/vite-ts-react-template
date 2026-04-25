@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { type ComponentProps, Fragment } from "react";
 
 import { CartItem } from "@/features/carts/components/CartItem";
+import { ConfirmRemoveProductDialog } from "@/features/carts/components/CartItem/ConfirmRemoveProductDialog";
 import { CheckoutButton } from "@/features/carts/components/CheckoutButton/CheckoutButton";
 import { moneyVO } from "@/lib/format/money";
 import { useTranslations } from "@/lib/i18n/use-transations";
@@ -60,6 +61,7 @@ const CartsList = ({ cartProducts }: IProps) => {
           <ArrowRight />
         </Button>
       </VStack>
+      <ConfirmRemoveProductDialog />
     </VStack>
   );
 };

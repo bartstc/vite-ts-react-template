@@ -99,10 +99,35 @@
         "continue-shopping": "Continue shopping"
       },
       "item": {
-        "quantity": "Quantity:",
         "remove": "Remove",
         "in-stock": "In stock",
         "continue-shopping": "Continue shopping"
+      },
+      "remove-product": {
+        "notifications": {
+          "title": "Cart",
+          "decrement-success": "Product quantity decreased.",
+          "remove-all-success": "Product removed from your cart.",
+          "product-not-found-error": "Product not found in your cart. It may have already been removed.",
+          "error": "Something went wrong. Please try again or contact us."
+        },
+        "quantity-controls": {
+          "decrement": "Decrease quantity",
+          "increment": "Increase quantity"
+        },
+        "dialog": {
+          "cancel": "Cancel",
+          "decrement": {
+            "title": "Remove last item",
+            "message": "This is the last unit. Are you sure you want to remove it?",
+            "confirm": "Yes, remove"
+          },
+          "remove-all": {
+            "title": "Remove product",
+            "message": "Are you sure you want to remove all units of this product?",
+            "confirm": "Yes, remove all"
+          }
+        }
       },
       "add-to-cart": {
         "button": "Add to cart",

@@ -1,5 +1,4 @@
 import { useAuthStore } from "@/features/auth/application/auth-store";
-import { useProductAddedDialogStore } from "@/features/carts/application/use-product-added-dialog-store";
 import {
   useAddToCartMutation,
   UnknownProductError,
@@ -19,31 +18,31 @@ export const useAddToCart = () => {
     notifyUnknownProduct,
     notifyProductNotAvailable,
   } = useAddToCartNotifications();
-  const onOpen = useProductAddedDialogStore((store) => store.onOpen);
 
-  const addToCart = async (productId: string) => {
+  const addToCart = async (productId: string): Promise<boolean> => {
     if (!isAuthenticated) {
       notifyNotAuthenticated();
-      return;
+      return false;
     }
 
     try {
       await mutateAsync(cartId, { productId, quantity: 1 });
       notifySuccess();
-      onOpen(cartId);
+      return true;
     } catch (e) {
       if (e instanceof UnknownProductError) {
         notifyUnknownProduct();
-        return;
+        return false;
       }
 
       // todo: not implemented yet on the backend
       if (e instanceof ProductNotAvailableError) {
         notifyProductNotAvailable();
-        return;
+        return false;
       }
 
       notifyFailure();
+      return false;
     }
   };
 
