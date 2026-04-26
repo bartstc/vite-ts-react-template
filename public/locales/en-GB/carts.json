@@ -1,0 +1,93 @@
+{
+  "list": {
+    "subtotal": "Subtotal",
+    "shipping-info": "Shipping and taxes will be calculated at checkout.",
+    "checkout": "Checkout",
+    "continue-shopping": "Continue shopping"
+  },
+  "item": {
+    "remove": "Remove",
+    "in-stock": "In stock",
+    "continue-shopping": "Continue shopping"
+  },
+  "remove-product": {
+    "notifications": {
+      "title": "Cart",
+      "decrement-success": "Product quantity decreased.",
+      "remove-all-success": "Product removed from your cart.",
+      "product-not-found-error": "Product not found in your cart. It may have already been removed.",
+      "error": "Something went wrong. Please try again or contact us."
+    },
+    "quantity-controls": {
+      "decrement": "Decrease quantity",
+      "increment": "Increase quantity"
+    },
+    "dialog": {
+      "cancel": "Cancel",
+      "decrement": {
+        "title": "Remove last item",
+        "message": "This is the last unit. Are you sure you want to remove it?",
+        "confirm": "Yes, remove"
+      },
+      "remove-all": {
+        "title": "Remove product",
+        "message": "Are you sure you want to remove all units of this product?",
+        "confirm": "Yes, remove all"
+      }
+    }
+  },
+  "add-to-cart": {
+    "button": "Add to cart",
+    "notifications": {
+      "title": "New product",
+      "success": "A product has been successfully added to your cart.",
+      "error": "Something went wrong with adding a product to a cart. Pleas try again or contact us.",
+      "unknown-product-error": "Product doesn't exist. It may be unavailable or removed from the store.",
+      "product-not-available-error": "Product is not available. It may be out of stock or removed from the store.",
+      "not-authenticated": "Please log in in order to add products."
+    },
+    "dialog": {
+      "title": "New product in the cart",
+      "message": "Wonderful! You have already added a new product to your cart.",
+      "success-message": "Success! Do you want to:",
+      "go-to-cart": "Go to cart",
+      "continue-shopping": "Continue shopping"
+    }
+  },
+  "clear-cart": {
+    "button": "Clear cart",
+    "notifications": {
+      "title": "Clear cart",
+      "success": "Your cart has been successfully cleared.",
+      "error": "Something went wrong with clearing your cart. Pleas try again or contact us."
+    },
+    "dialog": {
+      "title": "Clear cart",
+      "message": "Are you sure? You can't undo this action afterwards.",
+      "cancel": "Cancel",
+      "confirm": "Yes, clear cart"
+    }
+  },
+  "checkout": {
+    "button": "Checkout",
+    "dialog": {
+      "title": "Checkout"
+    },
+    "form": {
+      "full-name": "Full Name",
+      "address": "Address",
+      "payment-method": "Payment Method",
+      "submit": "Complete Order",
+      "payment-methods": {
+        "blik": "Blik",
+        "card": "Credit Card",
+        "paypal": "PayPal"
+      }
+    },
+    "notifications": {
+      "title": "Checkout",
+      "success": "You have successfully purchased all selected products.",
+      "error": "Something went wrong with finalizing a transaction. Pleas try again or contact us."
+    }
+  }
+}
