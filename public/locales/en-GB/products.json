@@ -1,0 +1,24 @@
+{
+  "categories": {
+    "clothing": "Clothing",
+    "jewelery": "Jewelery",
+    "electronics": "Electronics"
+  },
+  "not-found": {
+    "heading": "Product doesn't exist",
+    "description": "Probably this product is no more for a sale or you just got here by accident. If you think there is something wrong on our side, please contact us!",
+    "back-to-list": "Back to products' list"
+  },
+  "details": {
+    "collection": "A part of our {{category}} collection.",
+    "back-to-list": "Back to products' list",
+    "features": "Features",
+    "features-content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    "care": "Care",
+    "care-content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    "shipping": "Shipping",
+    "shipping-content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    "returns": "Returns",
+    "returns-content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+  }
+}

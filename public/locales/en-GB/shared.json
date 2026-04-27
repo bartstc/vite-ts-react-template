@@ -1,0 +1,37 @@
+{
+  "toast": {
+    "not-implemented": {
+      "title": "Feature not available yet",
+      "description": "We are working on it day and night :))"
+    }
+  },
+  "form": {
+    "required": "Field is required.",
+    "select": {
+      "loading": "Loading…",
+      "noResults": "No results"
+    }
+  },
+  "buttons": {
+    "contact-us": "Contact us!",
+    "reset-filters": "Reset filters"
+  },
+  "result": {
+    "empty-state": {
+      "heading": "No results found",
+      "description": "Unfortunately, there is nothing for you here yet!"
+    },
+    "not-found": {
+      "heading": "Page doesn't exist",
+      "description": "Probably you got here by accident. If you think there is something wrong on our side, please contact us!"
+    },
+    "error": {
+      "heading": "Something went wrong",
+      "description": "It sounds like something unexpected happened right now. Please, give it a try later or, if it's urgent, contact our support team."
+    },
+    "server-error": {
+      "heading": "Something went seriously wrong",
+      "description": "It sounds like something unexpected happened right now. Please, inform our support team about this issue ASAP!"
+    }
+  }
+}

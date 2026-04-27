@@ -5,7 +5,8 @@ import {
   useFieldContext,
 } from "@chakra-ui/react";
 import { useMemo, type ReactNode, type Ref } from "react";
-import { useTranslation } from "react-i18next";
+
+import { useTranslations } from "@/lib/i18n/use-transations";
 
 export interface OptionType<Value = string> {
   label: string;
@@ -33,7 +34,7 @@ export interface SelectProps<Value = string> {
 function SelectInput<Value extends string | number = string>(
   props: SelectProps<Value>
 ) {
-  const { t } = useTranslation();
+  const t = useTranslations("shared.form.select");
   const fieldContext = useFieldContext();
   const {
     options,
@@ -89,8 +90,8 @@ function SelectInput<Value extends string | number = string>(
   };
 
   const emptyContent = isLoading
-    ? (loadingMessage?.() ?? t("shared.form.select.loading", "Loading…"))
-    : (noOptionsMessage?.() ?? t("shared.form.select.noResults", "No results"));
+    ? (loadingMessage?.() ?? t("loading", "Loading…"))
+    : (noOptionsMessage?.() ?? t("noResults", "No results"));
 
   return (
     <Select.Root

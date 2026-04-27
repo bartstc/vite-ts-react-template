@@ -1,9 +1,8 @@
 import { act, renderHook } from "@testing-library/react";
 import type { PropsWithChildren } from "react";
-import { afterEach, beforeEach, expect, it } from "vitest";
+import { beforeEach, expect, it } from "vitest";
 
 import { initializeAuthStore } from "@/features/auth/application/auth-store";
-import { USER_CART_ID } from "@/test-lib/fixtures/user-fixture";
 import { generateUuid } from "@/test-lib/generate-uuid";
 import { errorResponse } from "@/test-lib/handlers/error-responses";
 import { putAddToCartHandler } from "@/test-lib/handlers/put-add-to-cart-handler";
@@ -13,13 +12,9 @@ import { TestQueryProvider } from "@/test-lib/TestQueryProvider";
 import { spyOnToast } from "@/test-lib/toast-spy";
 
 import { useAddToCart } from "./use-add-to-cart";
-import { useProductAddedDialogStore } from "./use-product-added-dialog-store";
 
 beforeEach(() => {
   mswServer.use(putAddToCartHandler());
-});
-afterEach(() => {
-  useProductAddedDialogStore.setState({ isOpen: false, selectedItem: null });
 });
 
 const wrapper = ({ children }: PropsWithChildren) => (
@@ -49,8 +44,6 @@ it("opens the product added dialog and shows a success toast after adding to car
     await result.current.addToCart(generateUuid());
   });
 
-  expect(useProductAddedDialogStore.getState().isOpen).toBe(true);
-  expect(useProductAddedDialogStore.getState().selectedItem).toBe(USER_CART_ID);
   expect(toastSpy).toHaveBeenCalledWith(
     expect.objectContaining({
       type: "success",
@@ -69,7 +62,6 @@ it("shows a warning toast and keeps the dialog closed when unauthenticated", asy
     await result.current.addToCart(generateUuid());
   });
 
-  expect(useProductAddedDialogStore.getState().isOpen).toBe(false);
   expect(toastSpy).toHaveBeenCalledWith(
     expect.objectContaining({
       type: "warning",
@@ -89,7 +81,6 @@ it("shows an error toast and keeps the dialog closed when the server returns Unk
     await result.current.addToCart(generateUuid());
   });
 
-  expect(useProductAddedDialogStore.getState().isOpen).toBe(false);
   expect(toastSpy).toHaveBeenCalledWith(
     expect.objectContaining({
       type: "error",

@@ -1,0 +1,18 @@
+{
+  "cart": {
+    "title": "List of selected products",
+    "description": "These are all products that you yet chose (updated {{time}})."
+  },
+  "products": {
+    "title": "Products list",
+    "description": "Explore what we have in the store for you.",
+    "more-filters": "More filters",
+    "load-more": {
+      "no-more": "No more products",
+      "show-more": "Show more products"
+    }
+  },
+  "product": {
+    "back-to-list": "Back to products' list"
+  }
+}

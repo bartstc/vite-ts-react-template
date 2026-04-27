@@ -11,6 +11,15 @@ type Locale = "en-GB" | "nb-NO" | "da-DK";
 export const supportedLocales: Locale[] = ["en-GB"];
 export const LOCALE_STORAGE_KEY = "i18next_locale";
 
+const namespaces = [
+  "pages",
+  "shared",
+  "marketing",
+  "products",
+  "carts",
+  "auth",
+] as const;
+
 void i18n
   .use(ChainedBackend)
   .use(initReactI18next)
@@ -20,6 +29,8 @@ void i18n
     lng: localStorage.getItem(LOCALE_STORAGE_KEY) ?? supportedLocales[0],
     fallbackLng: supportedLocales[0],
     load: "currentOnly",
+    ns: [...namespaces],
+    defaultNS: "shared",
     backend: {
       backends: [LocalStorageBackend, HttpBackend],
       backendOptions: [
@@ -48,8 +59,7 @@ if (import.meta.hot) {
   };
 
   const resetLocaleCacheOnHMRUpdate = async (file: string) => {
-    // eslint-disable-next-line no-useless-escape
-    const regex = /\/(?<lng>[^\/]+)\/(?<namespace>[^\/]+)\.json$/;
+    const regex = /\/locales\/(?<lng>[^/]+)\/(?<namespace>[^/]+)\.json$/;
     if (!regex.test(file)) return;
 
     const { lng, namespace } = regex.exec(file)?.groups ?? {};

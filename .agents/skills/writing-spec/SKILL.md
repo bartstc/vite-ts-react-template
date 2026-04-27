@@ -38,7 +38,7 @@ Collaborate on sections 4-6 of the template.
 2. For non-trivial features, propose **two plausible designs** with tradeoffs. Let the developer choose. Capture the winner and rationale in **Design Decisions**
 3. Draft the **Boundaries** section using the three-tier system:
    - ✅ **Always** — proceed without asking (e.g., create files in the feature directory)
-   - ⚠️ **Ask first** — needs approval (e.g., modify API contracts, add dependencies, change schema)
+   - ⚠️ **Ask first** — needs approval (e.g., modify API contracts, change schema, create shared utilities)
    - 🚫 **Never** — hard stops (e.g., modify core auth, remove tests, commit secrets)
 4. Present for review
 

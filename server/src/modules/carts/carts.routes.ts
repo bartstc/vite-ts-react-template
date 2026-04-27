@@ -4,6 +4,7 @@ import {
   getCartHandler,
   addToCartHandler,
   clearCartHandler,
+  removeCartProductHandler,
   type AddToCartBody,
 } from "@/modules/carts/carts.handlers.js";
 import { addToCartSchema } from "@/modules/carts/carts.schemas.js";
@@ -19,5 +20,10 @@ export async function cartRoutes(app: FastifyInstance): Promise<void> {
     "/api/carts/:id",
     { preHandler: authenticate },
     clearCartHandler
+  );
+  app.delete<{ Params: { id: string; productId: string } }>(
+    "/api/carts/:id/products/:productId",
+    { preHandler: authenticate },
+    removeCartProductHandler
   );
 }

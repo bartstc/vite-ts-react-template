@@ -12,12 +12,14 @@ import { Check } from "lucide-react";
 
 import { useCategoryLabel } from "@/features/products/components/use-category-label";
 import { type Category } from "@/features/products/models/category";
-import { useNotImplementedYetToast } from "@/lib/components/Toast/use-not-implemented-yet-toast";
 import { moneyVO } from "@/lib/format/money";
 import { useTranslations } from "@/lib/i18n/use-transations";
 import { useNavigate } from "@/lib/router";
 import { routes } from "@/lib/router/routes";
 import { useSecondaryTextColor } from "@/lib/theme/use-secondary-text-color";
+
+import { QuantityControls } from "./CartItem/QuantityControls";
+import { useConfirmRemoveProductDialogStore } from "./CartItem/use-confirm-remove-product-dialog-store";
 
 interface IProps {
   id: string;
@@ -40,7 +42,7 @@ const CartItem = ({
   const t = useTranslations("features.carts.item");
   const categoryLabel = useCategoryLabel(category);
   const categoryColor = useSecondaryTextColor();
-  const notImplemented = useNotImplementedYetToast();
+  const openRemoveDialog = useConfirmRemoveProductDialogStore((s) => s.onOpen);
 
   return (
     <Stack
@@ -88,9 +90,7 @@ const CartItem = ({
           <Text fontSize="sm" color={categoryColor}>
             {categoryLabel}
           </Text>
-          <Text fontSize="sm">
-            {t("quantity")} {quantity}
-          </Text>
+          <QuantityControls productId={id} quantity={quantity} />
           <HStack gap={2}>
             <Icon color="green.500">
               <Check />
@@ -109,7 +109,13 @@ const CartItem = ({
         <Text fontSize="lg" fontWeight="medium">
           {moneyVO.format(price.amount, price.currency)}
         </Text>
-        <Button size="sm" variant="ghost" onClick={notImplemented}>
+        <Button
+          size="sm"
+          variant="ghost"
+          onClick={() =>
+            openRemoveDialog({ productId: id, quantity, mode: "remove-all" })
+          }
+        >
           {t("remove")}
         </Button>
       </Stack>
