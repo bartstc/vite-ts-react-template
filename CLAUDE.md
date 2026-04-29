@@ -69,7 +69,3 @@ Package manager: PNPM only. Path alias: `@/*` → `src/`.
 ## Conventions
 
 - Use `AIDEV-NOTE:`, `AIDEV-TODO:`, `AIDEV-QUESTION:` anchors near non-trivial code (exception to no-comments rule)
-
-## Reference Docs
-
-- Read `docs/architecture.md` when implementing spec, adding features, modifying project structure, or making architectural decisions

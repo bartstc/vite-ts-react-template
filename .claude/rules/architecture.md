@@ -1,7 +1,6 @@
 ---
 paths:
-  - "src/**"
-  - "e2e/**"
+  - "src/features/**"
 ---
 
 # Architecture Rules
@@ -29,5 +28,3 @@ paths:
 - API logic starts in `src/lib/api/` (queryOptions factories, mutations, DTOs by resource), then gets exposed through the relevant feature's `providers/`
 - Query files expose `queryOptions` factories — hook composition belongs in `providers/`, not in API files
 - Co-locate related files: component + story + test together
-
-Read `docs/architecture.md` for full project structure, state management guide, and routing patterns.
