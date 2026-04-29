@@ -2,12 +2,12 @@ FROM mcr.microsoft.com/devcontainers/typescript-node:dev-22
 
 RUN corepack enable
 
-# Install GitHub CLI
+# Install GitHub CLI and graphviz (graphviz is required by `pnpm madge:graph` to render the dependency graph image)
 RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
     && chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
     && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
     && apt update \
-    && apt install -y gh
+    && apt install -y gh graphviz
 
 # Setup Claude Code
 

@@ -6,8 +6,7 @@ import {
   useWatch,
 } from "react-hook-form";
 
-import { useConfigurationValue } from "./configuration";
-import { useFormContextSelector } from "./form-context";
+import { useConfigurationValue, useFormContextSelector } from "./form-context";
 
 type Cache = Map<string, unknown>;
 

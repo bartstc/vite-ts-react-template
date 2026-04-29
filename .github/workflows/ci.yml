@@ -26,6 +26,12 @@ jobs:
       test-type: typecheck
       test-command: pnpm typecheck
 
+  madge-circular:
+    uses: ./.github/workflows/run-tests.yml
+    with:
+      test-type: madge-circular
+      test-command: pnpm madge:circular
+
   playwright-tests:
     uses: ./.github/workflows/playwright.yml
     with:
@@ -159,7 +165,14 @@ jobs:
 
   build:
     needs:
-      [lint-tests, typecheck, unit-tests, storybook-tests, playwright-tests]
+      [
+        lint-tests,
+        typecheck,
+        madge-circular,
+        unit-tests,
+        storybook-tests,
+        playwright-tests,
+      ]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
