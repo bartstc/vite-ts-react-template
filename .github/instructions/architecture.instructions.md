@@ -1,5 +1,5 @@
 ---
-applyTo: "{src,e2e}/**"
+applyTo: "src/features/**"
 ---
 
 # Architecture Rules
@@ -16,13 +16,22 @@ applyTo: "{src,e2e}/**"
 
 ## Feature Slice Layers
 
-- Each feature has four layers: `components/`, `application/`, `providers/`, `models/`
-- `components/` imports from `application/`, `models/`, and `providers/`
-- `application/` imports from `models/` and `providers/` — not from `components/`
-- `providers/` is the data access gateway: composes query hooks, mutations, loaders from `src/lib/api/`
-- Library-specific code (React Query, etc.) stays inside `providers/` — never leak beyond this layer
+Each feature has four layers: `components/`, `application/`, `providers/`, `models/`.
+
+### Dependency rule
+
+| Layer          | May import from                                  |
+| -------------- | ------------------------------------------------ |
+| `components/`  | `application/`, `providers/`, `models/`, `lib/*` |
+| `application/` | `providers/`, `models/`, `lib/*`                 |
+| `providers/`   | `models/`, `lib/api/`, `lib/*`                   |
+| `models/`      | `lib/api/`, `lib/*`                              |
+
+**Cross-slice primitives:** `features/auth/` and `features/authv2/` are cross-cutting concerns. Any feature slice may import from them.
+
+### Additional rules
+
+- `providers/` is the data access gateway — library-specific code (React Query, etc.) stays inside this layer and never leaks beyond it
 - API logic starts in `src/lib/api/` (queryOptions factories, mutations, DTOs by resource), then gets exposed through the relevant feature's `providers/`
 - Query files expose `queryOptions` factories — hook composition belongs in `providers/`, not in API files
 - Co-locate related files: component + story + test together
-
-Read `docs/architecture.md` for full project structure, state management guide, and routing patterns.

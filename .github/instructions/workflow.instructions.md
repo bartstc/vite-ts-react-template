@@ -15,7 +15,7 @@ Use `AIDEV-NOTE:`, `AIDEV-TODO:`, or `AIDEV-QUESTION:` for inline knowledge (≤
 
 - Grep for existing anchors before scanning files
 - Update anchors when modifying associated code
-- Never remove anchors without explicit human instruction
+- When an anchor is stale, update it instead of removing it; flag if unsure
 - Add anchors when code is complex, critical, confusing, or potentially buggy
 
 ## Implementation
