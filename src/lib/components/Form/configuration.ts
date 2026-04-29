@@ -1,7 +1,5 @@
 import { useCallback, useMemo, useState } from "react";
 
-import { useFormContextSelector } from "./form-context";
-
 export type ConfigurationSelector = (
   configuration: Configuration
 ) => Partial<Configuration>;
@@ -39,14 +37,4 @@ export const useConfiguration = (configuration?: Partial<Configuration>) => {
     () => [store, setConfiguration] as const,
     [setConfiguration, store]
   );
-};
-
-export const useConfigurationValue = <K extends keyof Configuration>(
-  name: K
-): Configuration[K] => {
-  return useFormContextSelector((state) => state.configuration[name]);
-};
-
-export const useConfigurationSetter = () => {
-  return useFormContextSelector((state) => state.setConfiguration);
 };

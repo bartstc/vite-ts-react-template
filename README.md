@@ -9,6 +9,7 @@ An opinionated, production-ready starter for **Single Page Application** develop
 - [Vite](https://vitejs.dev/) — fast dev server and build tooling
 - [TypeScript](https://www.typescriptlang.org/) — strict type safety
 - [ESLint](https://eslint.org/) (with custom rules) + [Prettier](https://prettier.io/) + [Husky](https://typicode.github.io/husky/) — consistent code style
+- [madge](https://github.com/pahen/madge) — circular dependency check + module graph visualization
 - [PNPM](https://pnpm.io/) — fast, disk-efficient package manager
 - [Devcontainer](https://code.visualstudio.com/docs/devcontainers/containers) — reproducible VS Code dev environment
 - [GitHub Actions](https://docs.github.com/en/actions) CI — tests, build, coverage reports, deploy draft
@@ -42,6 +43,7 @@ e2e/        Playwright end-to-end tests
 
 - Feature slice architecture with clean architecture principles — each feature has four layers (`components/`, `application/`, `providers/`, `models/`) with strict dependency rules
 - Strict ESLint guardrails enforce the feature-slice layer boundaries. See [`eslint.config.mjs`](eslint.config.mjs).
+- Circular dependency check and dependency graph visualization via `madge` (`pnpm madge:circular` / `pnpm madge:graph`)
 - Centralized API layer with endpoint-based organization and type consolidation
 - Spec-driven development for AI-assisted workflows — four-phase gated spec process, typed building block patterns, and a self-improvement loop
 - Formatting utilities for numbers, monetary values, and dates
@@ -75,24 +77,26 @@ It's recommended to run the dev server inside a container for consistent Node/PN
 
 ## Commands
 
-| Command                | Description                                |
-| ---------------------- | ------------------------------------------ |
-| `pnpm dev`             | Dev server with HMR on port `5173`         |
-| `pnpm dev:server`      | Local API server only on port `3001`       |
-| `pnpm dev:all`         | Frontend + API server together             |
-| `pnpm typecheck`       | Type-check all sources without emitting    |
-| `pnpm lint`            | Check for lint errors                      |
-| `pnpm build`           | Production build                           |
-| `pnpm test`            | Run all tests (unit + storybook)           |
-| `pnpm test:unit`       | Unit tests only                            |
-| `pnpm test:storybook`  | Storybook component tests only             |
-| `pnpm test:coverage`   | Tests with coverage report                 |
-| `pnpm test:e2e`        | E2E tests (headless)                       |
-| `pnpm test:e2e:ui`     | E2E in interactive web UI mode             |
-| `pnpm test:e2e:headed` | E2E with visible browser                   |
-| `pnpm test:e2e:debug`  | E2E in debug mode                          |
-| `pnpm test:e2e:report` | Open the HTML report from the last E2E run |
-| `pnpm storybook`       | Storybook on port `6006`                   |
+| Command                | Description                                                         |
+| ---------------------- | ------------------------------------------------------------------- |
+| `pnpm dev`             | Dev server with HMR on port `5173`                                  |
+| `pnpm dev:server`      | Local API server only on port `3001`                                |
+| `pnpm dev:all`         | Frontend + API server together                                      |
+| `pnpm typecheck`       | Type-check all sources without emitting                             |
+| `pnpm lint`            | Check for lint errors                                               |
+| `pnpm madge:circular`  | Check for circular module dependencies                              |
+| `pnpm madge:graph`     | Generate dependency graph image (`graph.png`) — requires `graphviz` |
+| `pnpm build`           | Production build                                                    |
+| `pnpm test`            | Run all tests (unit + storybook)                                    |
+| `pnpm test:unit`       | Unit tests only                                                     |
+| `pnpm test:storybook`  | Storybook component tests only                                      |
+| `pnpm test:coverage`   | Tests with coverage report                                          |
+| `pnpm test:e2e`        | E2E tests (headless)                                                |
+| `pnpm test:e2e:ui`     | E2E in interactive web UI mode                                      |
+| `pnpm test:e2e:headed` | E2E with visible browser                                            |
+| `pnpm test:e2e:debug`  | E2E in debug mode                                                   |
+| `pnpm test:e2e:report` | Open the HTML report from the last E2E run                          |
+| `pnpm storybook`       | Storybook on port `6006`                                            |
 
 ## Testing strategy
 

@@ -3,8 +3,7 @@ import { useController } from "react-hook-form";
 
 import { toKebabCase } from "@/lib/to-kebab-case";
 
-import { useConfigurationValue } from "../configuration";
-import { useFormContextSelector } from "../form-context";
+import { useConfigurationValue, useFormContextSelector } from "../form-context";
 import { FormField } from "../presentation/FormField";
 
 import { type TextInputProps } from "./TextInput";
