@@ -29,6 +29,21 @@ env:
   SONAR_PROJECT_KEY: "bartstc_vite-ts-react-template"
 
 jobs:
+  # Exposes workflow-level env vars as outputs so they can be referenced in
+  # job-level `if:` expressions (the `env` context is not available there).
+  config:
+    runs-on: ubuntu-latest
+    outputs:
+      snyk_enabled: ${{ steps.set.outputs.snyk_enabled }}
+      sonarcloud_enabled: ${{ steps.set.outputs.sonarcloud_enabled }}
+      static_analysis_branch: ${{ steps.set.outputs.static_analysis_branch }}
+    steps:
+      - id: set
+        run: |
+          echo "snyk_enabled=$SNYK_ENABLED" >> "$GITHUB_OUTPUT"
+          echo "sonarcloud_enabled=$SONARCLOUD_ENABLED" >> "$GITHUB_OUTPUT"
+          echo "static_analysis_branch=$STATIC_ANALYSIS_BRANCH" >> "$GITHUB_OUTPUT"
+
   lint-tests:
     uses: ./.github/workflows/run-tests.yml
     with:
@@ -179,10 +194,11 @@ jobs:
           path: coverage/**/*
 
   snyk:
+    needs: config
     if: >
-      ${{ env.SNYK_ENABLED == 'true'
-          && (github.ref_name == env.STATIC_ANALYSIS_BRANCH
-              || github.base_ref == env.STATIC_ANALYSIS_BRANCH) }}
+      ${{ needs.config.outputs.snyk_enabled == 'true'
+          && (github.ref_name == needs.config.outputs.static_analysis_branch
+              || github.base_ref == needs.config.outputs.static_analysis_branch) }}
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -232,11 +248,11 @@ jobs:
           category: snyk
 
   sonarcloud:
+    needs: [config, unit-tests, storybook-tests]
     if: >
-      ${{ env.SONARCLOUD_ENABLED == 'true'
-          && (github.ref_name == env.STATIC_ANALYSIS_BRANCH
-              || github.base_ref == env.STATIC_ANALYSIS_BRANCH) }}
-    needs: [unit-tests, storybook-tests]
+      ${{ needs.config.outputs.sonarcloud_enabled == 'true'
+          && (github.ref_name == needs.config.outputs.static_analysis_branch
+              || github.base_ref == needs.config.outputs.static_analysis_branch) }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
