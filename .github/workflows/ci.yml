@@ -4,14 +4,29 @@ on:
   push:
     branches:
       - core
-      - basic
   pull_request:
     branches:
       - core
-      - basic
 
 env:
   NODE_VERSION: "22.x"
+
+  # ----- Static analysis toggles & config -----
+  # Flip to "false" to disable a tool.
+  SNYK_ENABLED: "true"
+  SONARCLOUD_ENABLED: "true"
+
+  # The branch on which static-analysis jobs run (push or PR target).
+  # Fork users: change to your default branch (e.g. "main").
+  STATIC_ANALYSIS_BRANCH: "core"
+
+  # Fork users: replace these with your own SonarCloud org slug and project key.
+  # Find the project key in SonarCloud:
+  #   - the `id=...` value in the project page URL, OR
+  #   - Project -> Administration -> Information -> Key.
+  # GitHub-imported projects typically use "<org>_<repo>"; manually-created ones may differ.
+  SONAR_ORGANIZATION: "bartstc"
+  SONAR_PROJECT_KEY: "bartstc_vite-ts-react-template"
 
 jobs:
   lint-tests:
@@ -162,6 +177,95 @@ jobs:
         with:
           name: storybook-coverage-report
           path: coverage/**/*
+
+  snyk:
+    if: >
+      ${{ env.SNYK_ENABLED == 'true'
+          && (github.ref_name == env.STATIC_ANALYSIS_BRANCH
+              || github.base_ref == env.STATIC_ANALYSIS_BRANCH) }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Enable corepack
+        run: corepack enable
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile --ignore-scripts
+
+      - name: Install Snyk CLI
+        run: npm install -g snyk
+
+      - name: Snyk Open Source (SCA)
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        run: |
+          snyk test \
+            --all-projects \
+            --strict-out-of-sync=false \
+            --severity-threshold=high \
+            --sarif-file-output=snyk-deps.sarif
+
+      - name: Snyk Code (SAST)
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        run: |
+          snyk code test \
+            --severity-threshold=high \
+            --sarif-file-output=snyk-code.sarif
+
+      - name: Upload Snyk SARIF to GitHub Security
+        if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: .
+          category: snyk
+
+  sonarcloud:
+    if: >
+      ${{ env.SONARCLOUD_ENABLED == 'true'
+          && (github.ref_name == env.STATIC_ANALYSIS_BRANCH
+              || github.base_ref == env.STATIC_ANALYSIS_BRANCH) }}
+    needs: [unit-tests, storybook-tests]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # full history for blame & new-code detection
+
+      - name: Download coverage artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: "*-coverage-report"
+
+      - name: Rewrite LCOV source paths for Sonar
+        run: |
+          # vitest's `projectRoot: "./src"` makes SF: paths relative to src/.
+          # Sonar expects paths relative to repo root, so prepend src/.
+          sed -i 's|^SF:|SF:src/|' \
+            unit-coverage-report/lcov.info \
+            storybook-coverage-report/lcov.info
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarqube-scan-action@v4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+            -Dsonar.projectKey=${{ env.SONAR_PROJECT_KEY }}
+            -Dsonar.organization=${{ env.SONAR_ORGANIZATION }}
 
   build:
     needs:
