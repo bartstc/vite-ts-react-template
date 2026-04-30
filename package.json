@@ -118,5 +118,10 @@
   "msw": {
     "workerDirectory": "public"
   },
+  "pnpm": {
+    "overrides": {
+      "@fastify/static": "9.1.1"
+    }
+  },
   "packageManager": "pnpm@10.13.1"
 }
