@@ -4,6 +4,7 @@ import type { PropsWithChildren } from "react";
 import { useEffect } from "react";
 import { fromPromise } from "xstate";
 
+import { IS_AUTHENTICATED_STORAGE } from "@/features/auth/models/storage-keys";
 import { getUser } from "@/features/auth/providers/get-user";
 import { loginUser } from "@/features/auth/providers/login-user";
 import { AuthContext } from "@/features/authv2/application/auth-context";
@@ -15,16 +16,16 @@ import {
 import { getRoles } from "@/features/authv2/providers/get-roles";
 import { sleep } from "@/lib/sleep";
 
-const AUTH_KEY = "fake_store_is_authenticated";
-
 export const AuthProvider = ({ children }: PropsWithChildren) => {
   const checkAuthStatus = () => {
-    return Promise.resolve(localStorage.getItem(AUTH_KEY) === "true");
+    return Promise.resolve(
+      localStorage.getItem(IS_AUTHENTICATED_STORAGE) === "true"
+    );
   };
 
   const logout = async () => {
     await sleep(500);
-    localStorage.setItem(AUTH_KEY, "false");
+    localStorage.setItem(IS_AUTHENTICATED_STORAGE, "false");
   };
 
   const authActor = useActorRef(
@@ -34,7 +35,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         getUser: fromPromise(getUser),
         loginUser: fromPromise(async ({ input }) => {
           await loginUser(input);
-          localStorage.setItem(AUTH_KEY, "true");
+          localStorage.setItem(IS_AUTHENTICATED_STORAGE, "true");
         }),
         getRoles: fromPromise(getRoles),
         logout: fromPromise(logout),

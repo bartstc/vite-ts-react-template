@@ -1,6 +1,6 @@
 import { assign, fromPromise, setup } from "xstate";
 
-const AUTH_KEY = "fake_store_is_authenticated";
+import { IS_AUTHENTICATED_STORAGE } from "@/features/auth/models/storage-keys";
 
 interface StorageMachineContext {
   isAuthenticated: boolean;
@@ -13,7 +13,9 @@ type StorageMachineEvents =
 export type StorageMachineType = typeof storageMachine;
 
 const checkAuthStatus = fromPromise(() => {
-  return Promise.resolve(localStorage.getItem(AUTH_KEY) === "true");
+  return Promise.resolve(
+    localStorage.getItem(IS_AUTHENTICATED_STORAGE) === "true"
+  );
 });
 
 export const storageMachine = setup({
@@ -27,11 +29,11 @@ export const storageMachine = setup({
   actions: {
     setAuthStorage: ({ event }) => {
       if (event.type === "SET_AUTHENTICATED") {
-        localStorage.setItem(AUTH_KEY, String(event.value));
+        localStorage.setItem(IS_AUTHENTICATED_STORAGE, String(event.value));
       }
     },
     clearAuthStorage: () => {
-      localStorage.setItem(AUTH_KEY, "false");
+      localStorage.setItem(IS_AUTHENTICATED_STORAGE, "false");
     },
   },
 }).createMachine({

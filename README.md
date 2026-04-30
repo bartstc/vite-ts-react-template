@@ -13,6 +13,8 @@ An opinionated, production-ready starter for **Single Page Application** develop
 - [PNPM](https://pnpm.io/) — fast, disk-efficient package manager
 - [Devcontainer](https://code.visualstudio.com/docs/devcontainers/containers) — reproducible VS Code dev environment
 - [GitHub Actions](https://docs.github.com/en/actions) CI — tests, build, coverage reports, deploy draft
+- [Snyk](https://snyk.io/) — dependency (SCA) and source code (SAST) security scanning, with SARIF results in the GitHub Security tab
+- [SonarCloud](https://sonarcloud.io/) — code quality, maintainability, and coverage gating on pull requests
 - [GitHub Copilot](https://github.com/features/copilot) — instructions, skills, and custom prompts (`.github/instructions/`, `.github/skills/`, `.github/prompts/`)
 - [Claude Code](https://docs.anthropic.com/en/docs/claude-code/overview) — project rules (`CLAUDE.md`), skills, subagents, and custom commands (`.claude/`)
 
