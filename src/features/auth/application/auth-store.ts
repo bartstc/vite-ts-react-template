@@ -1,7 +1,7 @@
 import { createContext, useContext } from "react";
 import { createStore, useStore } from "zustand";
 
-import { AUTH_KEY } from "@/features/auth/models/storage-keys";
+import { IS_AUTHENTICATED_STORAGE } from "@/features/auth/models/storage-keys";
 import type { User } from "@/features/auth/models/user";
 import { getUser } from "@/features/auth/providers/get-user";
 import { AUTH_TOKEN_KEY } from "@/lib/http/ky-client";
@@ -9,7 +9,8 @@ import { AUTH_TOKEN_KEY } from "@/lib/http/ky-client";
 import { loginUser, type ICredentials } from "../providers/login-user";
 
 // could be also https://www.npmjs.com/package/zustand-persist lib for advanced use cases
-const isLoggedIn = () => localStorage.getItem(AUTH_KEY) === "true";
+const isLoggedIn = () =>
+  localStorage.getItem(IS_AUTHENTICATED_STORAGE) === "true";
 
 interface IStore {
   isAuthenticated: boolean;
@@ -71,7 +72,7 @@ export const initializeAuthStore = (preloadedState: Partial<IStore> = {}) => {
           localStorage.setItem(AUTH_TOKEN_KEY, token);
           const user = await getUser();
 
-          localStorage.setItem(AUTH_KEY, "true");
+          localStorage.setItem(IS_AUTHENTICATED_STORAGE, "true");
 
           set({
             isAuthenticated: true,
@@ -79,7 +80,7 @@ export const initializeAuthStore = (preloadedState: Partial<IStore> = {}) => {
             user,
           });
         } catch (e) {
-          localStorage.setItem(AUTH_KEY, "false");
+          localStorage.setItem(IS_AUTHENTICATED_STORAGE, "false");
 
           set({
             isAuthenticated: false,
@@ -96,7 +97,7 @@ export const initializeAuthStore = (preloadedState: Partial<IStore> = {}) => {
         });
 
         return new Promise((resolve) => setTimeout(resolve, 500)).then(() => {
-          localStorage.setItem(AUTH_KEY, "false");
+          localStorage.setItem(IS_AUTHENTICATED_STORAGE, "false");
           localStorage.removeItem(AUTH_TOKEN_KEY);
           set({
             isAuthenticated: false,

@@ -1,2 +1,1 @@
-// deepcode ignore HardcodedNonCryptoSecret: localStorage key name, not a secret value
-export const AUTH_KEY = "fake_store_is_authenticated";
+export const IS_AUTHENTICATED_STORAGE = "fake_store_is_authenticated";
