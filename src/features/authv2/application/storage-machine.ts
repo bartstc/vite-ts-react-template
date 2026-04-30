@@ -1,6 +1,6 @@
 import { assign, fromPromise, setup } from "xstate";
 
-const AUTH_KEY = "fake_store_is_authenticated";
+import { AUTH_KEY } from "@/features/auth/models/storage-keys";
 
 interface StorageMachineContext {
   isAuthenticated: boolean;

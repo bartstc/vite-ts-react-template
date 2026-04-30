@@ -4,6 +4,7 @@ import type { PropsWithChildren } from "react";
 import { useEffect } from "react";
 import { fromPromise } from "xstate";
 
+import { AUTH_KEY } from "@/features/auth/models/storage-keys";
 import { getUser } from "@/features/auth/providers/get-user";
 import { loginUser } from "@/features/auth/providers/login-user";
 import { AuthContext } from "@/features/authv2/application/auth-context";
@@ -14,8 +15,6 @@ import {
 } from "@/features/authv2/application/auth-machine";
 import { getRoles } from "@/features/authv2/providers/get-roles";
 import { sleep } from "@/lib/sleep";
-
-const AUTH_KEY = "fake_store_is_authenticated";
 
 export const AuthProvider = ({ children }: PropsWithChildren) => {
   const checkAuthStatus = () => {

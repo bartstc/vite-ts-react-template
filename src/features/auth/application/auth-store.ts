@@ -1,13 +1,12 @@
 import { createContext, useContext } from "react";
 import { createStore, useStore } from "zustand";
 
+import { AUTH_KEY } from "@/features/auth/models/storage-keys";
 import type { User } from "@/features/auth/models/user";
 import { getUser } from "@/features/auth/providers/get-user";
 import { AUTH_TOKEN_KEY } from "@/lib/http/ky-client";
 
 import { loginUser, type ICredentials } from "../providers/login-user";
-
-const AUTH_KEY = "fake_store_is_authenticated";
 
 // could be also https://www.npmjs.com/package/zustand-persist lib for advanced use cases
 const isLoggedIn = () => localStorage.getItem(AUTH_KEY) === "true";
