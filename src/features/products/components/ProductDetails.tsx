@@ -56,9 +56,7 @@ const ProductDetails = ({ product, children, onBack }: IProps) => {
             w="100%"
             bgSize="cover"
             bgPos="center"
-            style={{
-              backgroundImage: `url(${product.imageUrl})`,
-            }}
+            style={{ backgroundImage: `url(${product.imageUrl})` }}
           />
         </Box>
       </GridItem>
