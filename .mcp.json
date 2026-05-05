@@ -22,6 +22,15 @@
       "type": "stdio",
       "command": "pnpm",
       "args": ["dlx", "@playwright/mcp@0.0.70", "--browser=chromium"]
+    },
+    "Framelink MCP for Figma": {
+      "type": "stdio",
+      "command": "pnpm",
+      "args": ["dlx", "figma-developer-mcp"],
+      "env": {
+        "FIGMA_API_KEY": "${FIGMA_API_KEY}",
+        "DO_NOT_TRACK": 1
+      }
     }
   }
 }
