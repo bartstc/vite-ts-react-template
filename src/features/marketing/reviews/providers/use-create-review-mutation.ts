@@ -13,13 +13,15 @@ export const useCreateReviewMutation = (productId: string) => {
 
   const { mutateAsync, isPending } = useMutation({
     ...createReviewMutationOptions,
-    onSuccess: () => {
-      void queryClient.invalidateQueries({
-        queryKey: marketingQueryKeys.product(productId),
-      });
-      void queryClient.invalidateQueries({
-        queryKey: marketingQueryKeys.reviews(productId),
-      });
+    onSuccess: async () => {
+      await Promise.all([
+        queryClient.invalidateQueries({
+          queryKey: marketingQueryKeys.product(productId),
+        }),
+        queryClient.invalidateQueries({
+          queryKey: marketingQueryKeys.reviews(productId),
+        }),
+      ]);
     },
   });
 

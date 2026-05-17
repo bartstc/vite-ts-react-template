@@ -22,11 +22,13 @@ const WriteReviewButton = ({ productId, initialRating }: IProps) => {
 
   if (!isAuthenticated) return null;
 
-  const label = currentUserReview
-    ? currentUserReview.title || currentUserReview.comment
-      ? t("edit-review")
-      : t("add-review-details")
-    : t("write-review");
+  const getLabel = () => {
+    if (!currentUserReview) return t("write-review");
+    if (currentUserReview.title || currentUserReview.comment)
+      return t("edit-review");
+    return t("add-review-details");
+  };
+  const label = getLabel();
 
   return (
     <>
