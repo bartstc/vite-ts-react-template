@@ -1,4 +1,4 @@
-import type { Review } from "@/modules/reviews/reviews.types.js";
+import type { Review } from "@/modules/marketing/marketing.types.js";
 
 export const seedReviews: Review[] = [
   {
