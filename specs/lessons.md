@@ -51,3 +51,31 @@ Patterns captured after corrections. Review at session start.
 **How to apply:** First action on any prompt mentioning a skill. After the skill loads, read only the `rules/<block>.md` files for the blocks you'll implement. Existing source files are read afterward and only for integration points (imports, symbols, fixture names, handler paths) — never to learn patterns.
 
 **Source:** Correction 2026-04-25 — `test-building-blocks` not invoked when planning tests for the remove-cart-product feature.
+
+---
+
+## L004 — Detect API errors via `httpService.isError(e)` + message string
+
+**Rule:** In `mutationFn` catch blocks, translate API errors using `httpService.isError(e) && e.message === "<server message>"`. Do not import `AjaxError` or compare `e.status` / `e.response?.status` — match the existing convention used across `src/lib/api/`.
+
+**Why it failed:** Wrote `e instanceof AjaxError && e.status === 409` for a 409 handler instead of the codebase's `httpService.isError(e) && e.message === "..."` pattern. The server's body `message` is propagated to `error.message` by the ky `beforeError` hook (`src/lib/http/ky-client.ts`), so message-string matching is the supported path.
+
+**How to apply:** When adding a new mutation that maps an HTTP error to a domain exception, find the exact `reply.code(...).send({ message: "..." })` string in the server handler and match it verbatim with `e.message`. Mirror the style of `src/lib/api/carts/{cart-id}/add-to-cart-mutation.ts`.
+
+**Source:** Correction 2026-05-17 — `create-review-mutation.ts` initially used `AjaxError`/`e.status` for the 409 case.
+
+---
+
+## L005 — Never import across sub-feature slices
+
+**Rule:** Sub-feature slices under the same feature (e.g. `marketing/rating/` and `marketing/reviews/`) must not import from each other. Shared constants, anchor IDs, or cross-slice wiring belong at the page level or in a shared parent layer.
+
+**Why it failed:** `ProductRating.tsx` (inside `rating/`) imported `REVIEWS_ANCHOR_ID` and `WriteReviewButton` from `reviews/` — caught by the `boundaries/dependencies` ESLint rule. The spec design doc explicitly states: "Cross-import between `features/marketing/rating/` and `features/marketing/reviews/` sub-slices — Never (hard stops)."
+
+**How to apply:** When a component in one sub-slice needs to trigger or reference something from a sibling sub-slice, move the wiring up to the page or a parent feature layer. Use render props / slots (e.g. `writeReviewSlot`) to inject cross-slice UI, and pass callbacks (e.g. `onSeeReviews`) down from the page.
+
+**Source:** Correction 2026-05-17 — `ProductRating.tsx` imported `WriteReviewButton` and `REVIEWS_ANCHOR_ID` from `reviews/` sub-slice.
+
+To MEMORY.md was added this:
+
+- [API error detection](feedback_api_error_detection.md) — in `src/lib/api/` mutationFn catches, use `httpService.isError(e) && e.message === "..."`, never `AjaxError`/`e.status` - while I think it should be more clear in the building block

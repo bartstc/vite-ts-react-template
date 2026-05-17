@@ -2,6 +2,7 @@ import { HStack, Icon, Portal, Tooltip } from "@chakra-ui/react";
 import { Star } from "lucide-react";
 import { useState } from "react";
 
+import { useAuthStore } from "@/features/auth/application/auth-store";
 import { useRateProduct } from "@/features/marketing/rating/application/use-rate-product";
 import { useTranslations } from "@/lib/i18n/use-transations";
 import { useColorModeValue } from "@/lib/theme/use-color-mode";
@@ -9,14 +10,16 @@ import { useColorModeValue } from "@/lib/theme/use-color-mode";
 interface IProps {
   rating: number;
   productId: string;
+  hasReview?: boolean;
 }
 
-const StarRating = ({ rating, productId }: IProps) => {
+const StarRating = ({ rating, productId, hasReview }: IProps) => {
   const idleStar = useColorModeValue("gray.300", "gray.600");
   const activeStar = useColorModeValue("gray.700", "gray.300");
   const t = useTranslations("features.marketing.rating");
+  const isAuthenticated = useAuthStore((store) => store.isAuthenticated);
   const { rate, isPending, hasRated } = useRateProduct();
-  const isDisabled = isPending || hasRated;
+  const isDisabled = !isAuthenticated || isPending || hasRated || !!hasReview;
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   const starColor = (index: number) => {

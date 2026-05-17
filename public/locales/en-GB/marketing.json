@@ -8,5 +8,35 @@
       "success": "Thank you! Your rating has been submitted.",
       "error": "Something went wrong with submitting your rating. Please try again or contact us."
     }
+  },
+  "reviews": {
+    "write-review": "Write a review",
+    "add-review-details": "Add review details",
+    "edit-review": "Edit review",
+    "list": {
+      "title": "Customer reviews",
+      "empty": "No reviews yet. Be the first to share your thoughts!",
+      "error": "Failed to load reviews. Please try again later."
+    },
+    "dialog": {
+      "create-title": "Write a review",
+      "edit-title": "Edit your review"
+    },
+    "form": {
+      "rating": "Rating",
+      "title": "Title",
+      "title-placeholder": "Summarise your experience",
+      "title-too-long": "Title must be 120 characters or fewer",
+      "comment": "Comment",
+      "comment-placeholder": "Share the details of your experience",
+      "comment-too-long": "Comment must be 2000 characters or fewer",
+      "submit": "Submit review"
+    },
+    "notifications": {
+      "title": "Product review",
+      "success": "Thank you! Your review has been submitted.",
+      "conflict": "Your review was already submitted. Refreshing — you can edit it now.",
+      "error": "Something went wrong. Please try again or contact us."
+    }
   }
 }

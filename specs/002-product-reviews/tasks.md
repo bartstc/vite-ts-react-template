@@ -52,4 +52,4 @@ last_updated: 2026-05-17
 
 - Server handlers: [server/src/modules/marketing/marketing.handlers.ts](server/src/modules/marketing/marketing.handlers.ts)
 - Existing rating slice: [src/features/marketing/rating/](src/features/marketing/rating/)
-- Building blocks rules: `.claude/skills/building-blocks/rules/`
+- Before implementing each building block, read `.claude/skills/building-blocks/rules/{type}.md` for its type.

@@ -371,7 +371,7 @@
     {
       "id": "4f968992-1aab-49c9-8913-09405915c1c7",
       "addedAt": "2025-01-15T10:00:00.000Z",
-      "updatedAt": null
+      "updatedAt": "2026-05-17T15:13:25.470Z"
     },
     {
       "id": "4f968992-1aab-49c9-8913-09405915c1c8",
@@ -381,7 +381,7 @@
     {
       "id": "4f968992-1aab-49c9-8913-09405915c1c9",
       "addedAt": "2025-01-15T10:00:00.000Z",
-      "updatedAt": null
+      "updatedAt": "2026-05-17T15:11:22.807Z"
     },
     {
       "id": "4f968992-1aab-49c9-8913-09405915c1d0",
@@ -460,11 +460,11 @@
       "productId": "4f968992-1aab-49c9-8913-09405915c1c0",
       "userId": 1,
       "authorName": "Bob",
-      "rating": 5,
-      "title": "Perfect everyday pack",
-      "comment": "Holds my 15\" laptop and a change of clothes for short trips. Great value.",
+      "rating": 4,
+      "title": "Perfect everyday pack (edit)",
+      "comment": "Holds my 15\" laptop and a change of clothes for short trips. Great value. asdasdas",
       "createdAt": "2025-02-01T09:00:00.000Z",
-      "updatedAt": null
+      "updatedAt": "2026-05-17T15:08:58.713Z"
     },
     {
       "id": "r0000000-0000-0000-0000-000000000002",
@@ -586,6 +586,28 @@
       "comment": "Needed reformatting for my Mac. Otherwise fine.",
       "createdAt": "2025-02-27T09:15:00.000Z",
       "updatedAt": null
+    },
+    {
+      "id": "3ec78e30-bce9-477e-a36b-d6716e18680f",
+      "productId": "4f968992-1aab-49c9-8913-09405915c1c9",
+      "userId": 1,
+      "authorName": "Bob",
+      "rating": 5,
+      "title": "test",
+      "comment": "asdasd",
+      "createdAt": "2026-05-17T15:10:14.045Z",
+      "updatedAt": "2026-05-17T15:11:22.807Z"
+    },
+    {
+      "id": "d058069a-fead-4bbf-aab1-847514030c46",
+      "productId": "4f968992-1aab-49c9-8913-09405915c1c7",
+      "userId": 1,
+      "authorName": "Bob",
+      "rating": 3,
+      "title": "sdfsdf",
+      "comment": "sdfsdfsdf",
+      "createdAt": "2026-05-17T15:13:25.470Z",
+      "updatedAt": "2026-05-17T15:16:46.276Z"
     }
   ]
 }
