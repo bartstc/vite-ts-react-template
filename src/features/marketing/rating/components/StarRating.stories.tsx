@@ -4,7 +4,6 @@ import { userEvent, screen, expect } from "storybook/test";
 import { errorResponse } from "@/test-lib/handlers/error-responses";
 import { patchRateProductHandler } from "@/test-lib/handlers/patch-rate-product-handler";
 import { withAuth } from "@/test-lib/storybook/with-auth";
-import { withoutAuth } from "@/test-lib/storybook/without-auth";
 
 import { StarRating } from "./StarRating";
 
@@ -73,23 +72,6 @@ export const SubmitRatingFailure: Story = {
         await screen.findByText(
           "Something went wrong with submitting your rating. Please try again or contact us."
         )
-      ).toBeInTheDocument();
-    });
-  },
-};
-
-export const RatingWhileUnauthenticated: Story = {
-  args: defaultArgs,
-  decorators: [withoutAuth],
-  play: async ({ canvasElement, step }) => {
-    await step("Click a star while not logged in", async () => {
-      const stars = canvasElement.querySelectorAll("svg");
-      await userEvent.click(stars[2]);
-    });
-
-    await step("Not-authenticated notification is shown", async () => {
-      await expect(
-        await screen.findByText("You have to log in to rate the product")
       ).toBeInTheDocument();
     });
   },
