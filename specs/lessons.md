@@ -39,15 +39,3 @@ Patterns captured after corrections. Review at session start.
 **How to apply:** Before using any `src/lib/api/` type in a component or page, check `features/<feature>/models/` for a domain alias. If none exists, add one following `product.ts`.
 
 **Source:** Correction 2026-04-12 — `MarketingProductDto` leaked into `ProductDetails.tsx` component props.
-
----
-
-## L003 — Invoke skills via the Skill tool before exploring code
-
-**Rule:** Skill name in the prompt → call `Skill({ skill: "<name>" })` FIRST. No Read, Grep, or Explore subagent before the skill has loaded.
-
-**Why it failed:** When `test-building-blocks` was referenced, Explore agents scanned the codebase instead — producing reverse-engineered patterns the rule files already capture, and bleeding code examples into `specs/001-remove-cart-product/tests.md` instead of building-block names.
-
-**How to apply:** First action on any prompt mentioning a skill. After the skill loads, read only the `rules/<block>.md` files for the blocks you'll implement. Existing source files are read afterward and only for integration points (imports, symbols, fixture names, handler paths) — never to learn patterns.
-
-**Source:** Correction 2026-04-25 — `test-building-blocks` not invoked when planning tests for the remove-cart-product feature.

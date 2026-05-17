@@ -335,181 +335,101 @@
   "marketingProducts": [
     {
       "id": "4f968992-1aab-49c9-8913-09405915c1c0",
-      "rating": {
-        "rate": 3.9,
-        "count": 120
-      },
       "addedAt": "2025-01-15T10:00:00.000Z",
       "updatedAt": null
     },
     {
       "id": "4f968992-1aab-49c9-8913-09405915c1c1",
-      "rating": {
-        "rate": 4.1,
-        "count": 259
-      },
       "addedAt": "2025-01-15T10:00:00.000Z",
-      "updatedAt": null
+      "updatedAt": "2026-05-17T13:17:33.083Z"
     },
     {
       "id": "4f968992-1aab-49c9-8913-09405915c1c2",
-      "rating": {
-        "rate": 4.7,
-        "count": 500
-      },
       "addedAt": "2025-01-15T10:00:00.000Z",
       "updatedAt": null
     },
     {
       "id": "4f968992-1aab-49c9-8913-09405915c1c3",
-      "rating": {
-        "rate": 2.1,
-        "count": 431
-      },
       "addedAt": "2025-01-15T10:00:00.000Z",
-      "updatedAt": "2026-04-21T06:15:55.948Z"
+      "updatedAt": null
     },
     {
       "id": "4f968992-1aab-49c9-8913-09405915c1c4",
-      "rating": {
-        "rate": 4.6,
-        "count": 400
-      },
       "addedAt": "2025-01-15T10:00:00.000Z",
       "updatedAt": null
     },
     {
       "id": "4f968992-1aab-49c9-8913-09405915c1c5",
-      "rating": {
-        "rate": 3.9,
-        "count": 70
-      },
       "addedAt": "2025-01-15T10:00:00.000Z",
       "updatedAt": null
     },
     {
       "id": "4f968992-1aab-49c9-8913-09405915c1c6",
-      "rating": {
-        "rate": 3,
-        "count": 400
-      },
       "addedAt": "2025-01-15T10:00:00.000Z",
       "updatedAt": null
     },
     {
       "id": "4f968992-1aab-49c9-8913-09405915c1c7",
-      "rating": {
-        "rate": 1.9,
-        "count": 100
-      },
       "addedAt": "2025-01-15T10:00:00.000Z",
-      "updatedAt": null
+      "updatedAt": "2026-05-17T15:13:25.470Z"
     },
     {
       "id": "4f968992-1aab-49c9-8913-09405915c1c8",
-      "rating": {
-        "rate": 3.3,
-        "count": 203
-      },
       "addedAt": "2025-01-15T10:00:00.000Z",
       "updatedAt": null
     },
     {
       "id": "4f968992-1aab-49c9-8913-09405915c1c9",
-      "rating": {
-        "rate": 2.9,
-        "count": 470
-      },
       "addedAt": "2025-01-15T10:00:00.000Z",
-      "updatedAt": null
+      "updatedAt": "2026-05-17T15:11:22.807Z"
     },
     {
       "id": "4f968992-1aab-49c9-8913-09405915c1d0",
-      "rating": {
-        "rate": 4.8,
-        "count": 319
-      },
       "addedAt": "2025-01-15T10:00:00.000Z",
       "updatedAt": null
     },
     {
       "id": "4f968992-1aab-49c9-8913-09405915c1d1",
-      "rating": {
-        "rate": 4.8,
-        "count": 400
-      },
       "addedAt": "2025-01-15T10:00:00.000Z",
       "updatedAt": null
     },
     {
       "id": "4f968992-1aab-49c9-8913-09405915c1d2",
-      "rating": {
-        "rate": 3.7,
-        "count": 250
-      },
       "addedAt": "2025-01-15T10:00:00.000Z",
       "updatedAt": null
     },
     {
       "id": "4f968992-1aab-49c9-8913-09405915c1d3",
-      "rating": {
-        "rate": 2.2,
-        "count": 140
-      },
       "addedAt": "2025-01-15T10:00:00.000Z",
       "updatedAt": null
     },
     {
       "id": "4f968992-1aab-49c9-8913-09405915c1d4",
-      "rating": {
-        "rate": 2.6,
-        "count": 235
-      },
       "addedAt": "2025-01-15T10:00:00.000Z",
       "updatedAt": null
     },
     {
       "id": "4f968992-1aab-49c9-8913-09405915c1d5",
-      "rating": {
-        "rate": 2.9,
-        "count": 340
-      },
       "addedAt": "2025-01-15T10:00:00.000Z",
       "updatedAt": null
     },
     {
       "id": "4f968992-1aab-49c9-8913-09405915c1d6",
-      "rating": {
-        "rate": 3.8,
-        "count": 679
-      },
       "addedAt": "2025-01-15T10:00:00.000Z",
       "updatedAt": null
     },
     {
       "id": "4f968992-1aab-49c9-8913-09405915c1d7",
-      "rating": {
-        "rate": 4.7,
-        "count": 130
-      },
       "addedAt": "2025-01-15T10:00:00.000Z",
       "updatedAt": null
     },
     {
       "id": "4f968992-1aab-49c9-8913-09405915c1d8",
-      "rating": {
-        "rate": 4.5,
-        "count": 146
-      },
       "addedAt": "2025-01-15T10:00:00.000Z",
       "updatedAt": null
     },
     {
       "id": "4f968992-1aab-49c9-8913-09405915c1d9",
-      "rating": {
-        "rate": 3.6,
-        "count": 145
-      },
       "addedAt": "2025-01-15T10:00:00.000Z",
       "updatedAt": null
     }
@@ -518,21 +438,8 @@
     {
       "id": "00000000-0000-0000-0000-000000000001",
       "userId": 1,
-      "date": "2026-04-26T16:48:22.702Z",
-      "products": [
-        {
-          "productId": "4f968992-1aab-49c9-8913-09405915c1c0",
-          "quantity": 7
-        },
-        {
-          "productId": "4f968992-1aab-49c9-8913-09405915c1c1",
-          "quantity": 4
-        },
-        {
-          "productId": "4f968992-1aab-49c9-8913-09405915c1c5",
-          "quantity": 4
-        }
-      ]
+      "date": "2025-01-15T10:00:00.000Z",
+      "products": []
     },
     {
       "id": "00000000-0000-0000-0000-000000000002",
@@ -545,6 +452,162 @@
       "userId": 3,
       "date": "2025-01-15T10:00:00.000Z",
       "products": []
+    }
+  ],
+  "reviews": [
+    {
+      "id": "r0000000-0000-0000-0000-000000000001",
+      "productId": "4f968992-1aab-49c9-8913-09405915c1c0",
+      "userId": 1,
+      "authorName": "Bob",
+      "rating": 4,
+      "title": "Perfect everyday pack (edit)",
+      "comment": "Holds my 15\" laptop and a change of clothes for short trips. Great value. asdasdas",
+      "createdAt": "2025-02-01T09:00:00.000Z",
+      "updatedAt": "2026-05-17T15:08:58.713Z"
+    },
+    {
+      "id": "r0000000-0000-0000-0000-000000000002",
+      "productId": "4f968992-1aab-49c9-8913-09405915c1c0",
+      "userId": 2,
+      "authorName": "Tom",
+      "rating": 4,
+      "title": "Solid build, a bit small",
+      "comment": "Quality is great but the main compartment is tighter than I expected.",
+      "createdAt": "2025-02-03T11:30:00.000Z",
+      "updatedAt": null
+    },
+    {
+      "id": "r0000000-0000-0000-0000-000000000003",
+      "productId": "4f968992-1aab-49c9-8913-09405915c1c0",
+      "userId": 3,
+      "authorName": "Jane",
+      "rating": 5,
+      "title": "Looks fantastic",
+      "comment": "Compliments every time I wear it. Highly recommend.",
+      "createdAt": "2025-02-07T08:45:00.000Z",
+      "updatedAt": null
+    },
+    {
+      "id": "r0000000-0000-0000-0000-000000000004",
+      "productId": "4f968992-1aab-49c9-8913-09405915c1c1",
+      "userId": 1,
+      "authorName": "Bob",
+      "rating": 5,
+      "title": "Comfy tees",
+      "comment": "Soft fabric. Sizing runs slightly tight in the shoulders.",
+      "createdAt": "2025-02-10T14:00:00.000Z",
+      "updatedAt": "2026-05-17T13:17:33.083Z"
+    },
+    {
+      "id": "r0000000-0000-0000-0000-000000000005",
+      "productId": "4f968992-1aab-49c9-8913-09405915c1c1",
+      "userId": 2,
+      "authorName": "Tom",
+      "rating": 4,
+      "title": "Good value",
+      "comment": "Decent quality for the price.",
+      "createdAt": "2025-02-11T16:20:00.000Z",
+      "updatedAt": null
+    },
+    {
+      "id": "r0000000-0000-0000-0000-000000000006",
+      "productId": "4f968992-1aab-49c9-8913-09405915c1c2",
+      "userId": 3,
+      "authorName": "Jane",
+      "rating": 5,
+      "title": "Warm and stylish",
+      "comment": "Bought as a gift, my dad loves it.",
+      "createdAt": "2025-02-12T10:00:00.000Z",
+      "updatedAt": null
+    },
+    {
+      "id": "r0000000-0000-0000-0000-000000000007",
+      "productId": "4f968992-1aab-49c9-8913-09405915c1c2",
+      "userId": 1,
+      "authorName": "Bob",
+      "rating": 4,
+      "title": "Good for spring",
+      "comment": "Not quite warm enough for true winter but excellent shoulder season.",
+      "createdAt": "2025-02-15T19:00:00.000Z",
+      "updatedAt": null
+    },
+    {
+      "id": "r0000000-0000-0000-0000-000000000008",
+      "productId": "4f968992-1aab-49c9-8913-09405915c1c3",
+      "userId": 2,
+      "authorName": "Tom",
+      "rating": 2,
+      "title": "Sizing was off",
+      "comment": "Colors look different in person. Had to return.",
+      "createdAt": "2025-02-18T12:00:00.000Z",
+      "updatedAt": null
+    },
+    {
+      "id": "r0000000-0000-0000-0000-000000000009",
+      "productId": "4f968992-1aab-49c9-8913-09405915c1c4",
+      "userId": 3,
+      "authorName": "Jane",
+      "rating": 5,
+      "title": "Stunning bracelet",
+      "comment": "Even better in person. Worth every penny.",
+      "createdAt": "2025-02-20T15:30:00.000Z",
+      "updatedAt": null
+    },
+    {
+      "id": "r0000000-0000-0000-0000-000000000010",
+      "productId": "4f968992-1aab-49c9-8913-09405915c1c4",
+      "userId": 1,
+      "authorName": "Bob",
+      "rating": 4,
+      "title": "Beautiful piece",
+      "comment": "Clasp feels a bit fiddly but the dragon detail is gorgeous.",
+      "createdAt": "2025-02-22T17:00:00.000Z",
+      "updatedAt": null
+    },
+    {
+      "id": "r0000000-0000-0000-0000-000000000011",
+      "productId": "4f968992-1aab-49c9-8913-09405915c1c8",
+      "userId": 2,
+      "authorName": "Tom",
+      "rating": 4,
+      "title": "Fast and reliable",
+      "comment": "USB 3.0 transfers are quick. Works out of the box on Windows.",
+      "createdAt": "2025-02-25T13:00:00.000Z",
+      "updatedAt": null
+    },
+    {
+      "id": "r0000000-0000-0000-0000-000000000012",
+      "productId": "4f968992-1aab-49c9-8913-09405915c1c8",
+      "userId": 3,
+      "authorName": "Jane",
+      "rating": 3,
+      "title": "Does the job",
+      "comment": "Needed reformatting for my Mac. Otherwise fine.",
+      "createdAt": "2025-02-27T09:15:00.000Z",
+      "updatedAt": null
+    },
+    {
+      "id": "3ec78e30-bce9-477e-a36b-d6716e18680f",
+      "productId": "4f968992-1aab-49c9-8913-09405915c1c9",
+      "userId": 1,
+      "authorName": "Bob",
+      "rating": 5,
+      "title": "test",
+      "comment": "asdasd",
+      "createdAt": "2026-05-17T15:10:14.045Z",
+      "updatedAt": "2026-05-17T15:11:22.807Z"
+    },
+    {
+      "id": "d058069a-fead-4bbf-aab1-847514030c46",
+      "productId": "4f968992-1aab-49c9-8913-09405915c1c7",
+      "userId": 1,
+      "authorName": "Bob",
+      "rating": 3,
+      "title": "sdfsdf",
+      "comment": "sdfsdfsdf",
+      "createdAt": "2026-05-17T15:13:25.470Z",
+      "updatedAt": "2026-05-17T15:16:46.276Z"
     }
   ]
 }

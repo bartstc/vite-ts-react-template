@@ -8,7 +8,7 @@ AI coding agents are effective at writing code but unreliable at making design d
 
 The bottleneck, then, is the spec itself. Most teams write specifications for human developers — documents loose enough that a skilled engineer fills the gaps with judgment, domain knowledge, and intuition. Agents don't fill gaps; they hallucinate across them. Writing machine-readable specs means being explicit about what a human reader would simply infer: boundary conditions, failure modes, architectural constraints, and the reasoning behind decisions. The discipline isn't learning to use agents — it's learning to separate _what you know_ from _what you're assuming_.
 
-The spec is a short document (80–150 lines) that captures intent, constraints, and sequencing _before_ any code is written. It serves three purposes:
+The spec is a short set of documents (combined ~200 lines, split across `requirements.md`, `design.md`, and `tasks.md`) that captures intent, constraints, and sequencing _before_ any code is written. It serves three purposes:
 
 1. **Reduces ambiguity** — the agent works from explicit behavioral requirements instead of inferring intent from vague prompts.
 2. **Creates traceability** — every requirement has an ID, every task traces to a requirement, so nothing gets lost or invented.
@@ -20,11 +20,11 @@ The spec is a short document (80–150 lines) that captures intent, constraints,
 
 Not every change needs a spec. We use a three-tier complexity model:
 
-| Tier          | Trigger                                                                                   | Process                                                                                                        |
-| ------------- | ----------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
-| **Quick fix** | Config edits, CSS fixes, helper functions, single-file changes, presentation-only changes | No spec. Just implement.                                                                                       |
-| **Plan mode** | 3+ steps or architectural decisions, but < 5 files and < 5 unconstrained decisions        | Agent enters plan mode, outlines the approach, gets developer approval, then implements. No spec file created. |
-| **Full spec** | 5+ files, 5+ unconstrained decisions, or developer explicitly requests a spec             | Use the `writing-spec` skill to collaboratively produce a `spec.md` before any code is written.                |
+| Tier          | Trigger                                                                                   | Process                                                                                                                            |
+| ------------- | ----------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| **Quick fix** | Config edits, CSS fixes, helper functions, single-file changes, presentation-only changes | No spec. Just implement.                                                                                                           |
+| **Plan mode** | 3+ steps or architectural decisions, but < 10 files and < 5 unconstrained decisions       | Agent enters plan mode, outlines the approach, gets developer approval, then implements. No spec files created.                    |
+| **Full spec** | 10+ files, 5+ unconstrained decisions, or developer explicitly requests a spec            | Use the `writing-spec` skill to collaboratively produce `requirements.md`, `design.md`, and `tasks.md` before any code is written. |
 
 The threshold is intentionally conservative — a spec adds 15–30 minutes of upfront work but prevents hours of rework when the agent builds the wrong thing.
 
@@ -32,19 +32,25 @@ The threshold is intentionally conservative — a spec adds 15–30 minutes of u
 
 ## How the pieces fit together
 
-The SDD system consists of six interconnected files:
+The SDD system consists of several interconnected files:
 
 ```
 CLAUDE.md                          ← Agent behavior rules (plan mode, verification, self-improvement)
 docs/
   architecture.md                  ← Project structure, layers, dependency rules
-  spec-template.md                 ← Section structure for spec documents
 specs/
   NNN-feature-name/
-    spec.md                        ← Individual feature spec (produced by the workflow)
+    requirements.md                ← Intent layer (Goal, Requirements, Non-Goals)
+    design.md                      ← Approach layer (Building Blocks Diff, Decisions, Boundaries)
+    tasks.md                       ← Sequencing layer (Tasks, Edge Cases, Open Questions)
   lessons.md                       ← Accumulated learnings from past implementations
-skills/
-  writing-spec/SKILL.md            ← Four-phase gated workflow for writing specs
+.agents/skills/
+  writing-spec/
+    SKILL.md                       ← Four-phase gated workflow for writing specs
+    templates/
+      requirements-template.md     ← Section structure for requirements
+      design-template.md           ← Section structure for design
+      tasks-template.md            ← Section structure for tasks
   building-blocks/
     SKILL.md                       ← Catalog index with short summaries
     rules/                         ← One file per building block (full pattern + example)
@@ -56,7 +62,10 @@ CLAUDE.md ──────────────────► when to spec
      ▼
 writing-spec/SKILL.md ──────► four-phase gated workflow
      │
-     ├──► spec-template.md ──► section structure (Meta, R1…Rn, tasks…)
+     ├──► templates/
+     │      requirements-template.md ──► intent section structure
+     │      design-template.md       ──► approach section structure
+     │      tasks-template.md        ──► sequencing section structure
      │
      ├──► building-blocks/
      │       SKILL.md ────────► catalog index (block name + layer)
@@ -69,22 +78,22 @@ writing-spec/SKILL.md ──────► four-phase gated workflow
 
 The flow between these files:
 
-1. **CLAUDE.md** tells the agent _when_ to write a spec (5+ files or 5+ decisions) and establishes the plan-mode-first workflow.
+1. **CLAUDE.md** tells the agent _when_ to write a spec (10+ files or 5+ decisions) and establishes the plan-mode-first workflow.
 2. **writing-spec/SKILL.md** drives the _how_ — the four-phase collaborative process.
-3. **spec-template.md** provides the _structure_ — the section template that the spec fills in.
-4. **building-blocks/SKILL.md** provides the _vocabulary_ — typed building block names that the spec references in its Building Blocks Diff section.
+3. **writing-spec/templates/** provides the _structure_ — three section templates, one per spec file (requirements / design / tasks).
+4. **building-blocks/SKILL.md** provides the _vocabulary_ — typed building block names that `design.md` references in its Building Blocks Diff section.
 5. **architecture.md** provides the _context_ — project structure, layer rules, and state management patterns.
 6. **specs/lessons.md** provides _accumulated wisdom_ — patterns learned from past mistakes that feed back into future specs.
 
 ---
 
-## The spec template
+## The spec templates
 
-Every spec follows a fixed section structure defined in `docs/spec-template.md`. Here's what each section does and why:
+Every spec follows a fixed section structure split across three files. Each template lives in `.agents/skills/writing-spec/templates/` and corresponds to one of the three layers: intent, approach, sequencing.
 
-### Meta (required)
+### Meta (required, per file)
 
-Status tracking table — `draft` → `review` → `approved` → `implementing` → `done` → `archived`. Keeps the spec lifecycle visible.
+Each file has its own front-matter Meta block tracking status — `draft` → `review` → `approved` → `implementing` → `done` → `archived`. Keeps each artifact's lifecycle visible independently.
 
 ```
                   ┌─────────────────────────────────────────────────┐
@@ -113,11 +122,15 @@ Status tracking table — `draft` → `review` → `approved` → `implementing`
                   └─────────────────────────────────────────────────┘
 ```
 
-### Section 1: Goal & Context (required)
+### `requirements.md` — Intent layer
+
+The intent layer captures what the feature must do, not how. It's the smallest, most stable file (cap: ≤50 lines).
+
+#### Section 1: Goal & Context (required)
 
 2–5 sentences answering _what problem does this solve and why now_. Constrains intent, not approach. The agent reads this to understand the purpose — if it can't explain the goal, the feature isn't well enough defined.
 
-### Section 2: Requirements (required)
+#### Section 2: Requirements (required)
 
 Behavioral requirements using **EARS notation** (Easy Approach to Requirements Syntax). Each requirement follows the pattern:
 
@@ -141,11 +154,15 @@ EARS was developed by Alistair Mavin at Rolls-Royce and is documented in the pap
 
 In practice, most frontend requirements use the event-driven pattern (WHEN/SHALL).
 
-### Section 3: Non-Goals (required)
+#### Section 3: Non-Goals (required)
 
 Explicit list of what the feature will NOT do. Prevents scope creep and stops the agent from "helpfully" adding unrequested capabilities.
 
-### Section 4: Building Blocks Diff (required)
+### `design.md` — Approach layer
+
+The approach layer describes which building blocks change and the agent's lane. It's the most architecture-dense file (cap: ≤80 lines).
+
+#### Section 1: Building Blocks Diff (required)
 
 The core of the spec. Lists every building block that is **added**, **modified**, or **deleted** — referenced by name and type from the building blocks catalog. No implementation details. The agent reads the relevant building block rule file to understand the pattern.
 
@@ -163,11 +180,11 @@ Example:
 - `authStore` (store) — add `isAuthenticated` derived state
 ```
 
-### Section 5: Design Decisions (required for non-trivial features)
+#### Section 2: Design Decisions (required for non-trivial features)
 
 Key choices with brief rationale — what you chose, what you rejected, and why. Kept short (2–4 decisions max). If you need more, the feature should be split.
 
-### Section 6: Boundaries (required)
+#### Section 3: Boundaries (required)
 
 Three-tier classification controlling what the agent can do autonomously:
 
@@ -177,16 +194,20 @@ Three-tier classification controlling what the agent can do autonomously:
 
 This pattern comes from [GitHub's analysis of 2,500+ agent configuration files](https://github.blog/ai-and-ml/github-copilot/how-to-write-a-great-agents-md-lessons-from-over-2500-repositories/), where "Never commit secrets" was the single most impactful constraint.
 
-### Section 7: Task Breakdown (required)
+### `tasks.md` — Sequencing layer
+
+The sequencing layer breaks the design into ordered, traceable work units. It's where requirements meet execution (cap: ≤70 lines).
+
+#### Section 1: Task Breakdown (required)
 
 Ordered list of independently testable tasks. Each task:
 
-- References building blocks from Section 4
-- Traces to requirement IDs (R1, R2, …)
+- References building blocks from `design.md` (section 1)
+- Traces to requirement IDs (R1, R2, …) from `requirements.md`
 - Includes target file paths
 - Is marked `[P]` (parallelizable) or `[S]` (sequential)
 
-### Section 8: Error & Edge Cases (optional but recommended)
+#### Section 2: Error & Edge Cases (optional but recommended)
 
 Uses **GIVEN/WHEN/THEN** format (from BDD) for precision:
 
@@ -198,7 +219,7 @@ THEN redirect to dashboard.
 
 If you skip this section, expect the agent to guess — and guess wrong.
 
-### Sections 9–11
+#### Sections 3–5
 
 - **Acceptance Criteria** (optional) — high-level "done" checklist, often redundant if requirements are precise.
 - **Open Questions** (optional) — unresolved decisions blocking specific tasks.
@@ -212,19 +233,19 @@ The `writing-spec` skill guides the developer through a four-phase process. Each
 
 ### Phase 1 — Goal & Scope (Intent)
 
-The developer describes the feature. The agent drafts Goal & Context, Requirements (EARS), and Non-Goals. Before drafting, the agent asks 3–5 clarifying questions about scope boundaries, error scenarios, and unstated assumptions.
+The developer describes the feature. The agent drafts `requirements.md` — Goal & Context, Requirements (EARS), and Non-Goals. Before drafting, the agent asks 3–5 clarifying questions about scope boundaries, error scenarios, and unstated assumptions.
 
 **Key principle:** The agent never invents requirements. If the developer hasn't specified a behavior, the agent asks about it.
 
 ### Phase 2 — Design (Approach)
 
-The agent proposes a Building Blocks Diff and, for non-trivial features, two plausible designs with tradeoffs. The developer chooses. The winner and rationale go into Design Decisions. Boundaries are drafted.
+The agent drafts `design.md` — proposing a Building Blocks Diff and, for non-trivial features, two plausible designs with tradeoffs. The developer chooses. The winner and rationale go into Design Decisions. Boundaries are drafted.
 
 **Key principle:** Building blocks reference name + type only — no implementation details in the spec. The spec describes a _change to the status quo_, not the code itself.
 
 ### Phase 3 — Spec (Sequencing)
 
-Tasks are broken down, traced to requirements, and ordered. Error & edge cases are documented in GIVEN/WHEN/THEN. Open questions are captured.
+The agent drafts `tasks.md` — tasks are broken down, traced to requirement IDs from `requirements.md`, and ordered. Error & edge cases are documented in GIVEN/WHEN/THEN. Open questions are captured.
 
 ### Phase 4 — Review & Finalize
 
@@ -235,7 +256,7 @@ The agent runs a structured self-audit and presents findings:
 - **EARS compliance** — flags requirements missing WHEN/SHALL or using vague language.
 - **Boundary specificity** — flags boundary items referencing vague categories instead of file paths.
 - **Building block references** — flags blocks not found in the catalog.
-- **Line count** — reports total; identifies bloated sections if >150 lines.
+- **Line count** — reports each file's count and the combined total. Caps: `requirements.md` ≤50, `design.md` ≤80, `tasks.md` ≤70, combined ≤200. Identifies bloated sections to compress or extract if any cap is exceeded.
 
 Issues are fixed before presenting the final spec for developer sign-off.
 
@@ -264,7 +285,7 @@ The building blocks catalog lives in `skills/building-blocks/`. It uses progress
 
 ### How specs reference building blocks
 
-In the spec's Section 4 (Building Blocks Diff), each entry references a block by name and type:
+In `design.md` (Building Blocks Diff), each entry references a block by name and type:
 
 ```markdown
 - `addToCartMutation` (mutation-hook) — handles PUT /carts/:id
@@ -315,7 +336,7 @@ These are common failure modes the system is designed to prevent:
 
 **Auto-generated specs without human input.** LLM-generated context files have been shown to reduce task success rates. The developer drives content; the agent structures and challenges it.
 
-**Specs exceeding 150 lines.** If the review cost exceeds the value, the spec fails its purpose. Split the feature or compress the spec. If a section is long, it likely contains content that belongs in architecture docs or coding standards instead.
+**Specs exceeding their caps.** Each file has its own cap (`requirements.md` ≤50, `design.md` ≤80, `tasks.md` ≤70) and the combined spec should stay ≤200 lines. If the review cost exceeds the value, the spec fails its purpose. Split the feature or compress the spec. If a section is long, it likely contains content that belongs in architecture docs or coding standards instead.
 
 ---
 
@@ -324,16 +345,16 @@ These are common failure modes the system is designed to prevent:
 **Starting a new feature:**
 
 1. Describe the feature to the agent.
-2. If it spans 5+ files or involves 5+ design decisions, the agent will initiate the spec workflow.
+2. If it spans 10+ files or involves 5+ design decisions, the agent will initiate the spec workflow.
 3. Collaborate through four phases — review and approve each before moving on.
 4. Once the spec is approved, implementation begins task by task.
 
 **Working on an existing spec:**
 
-- Specs live in `specs/NNN-feature-name/spec.md`.
-- Check the `Status` field in the Meta table.
-- The task breakdown in Section 7 shows what's done and what remains.
-- Open questions in Section 10 may block specific tasks.
+- Specs live in `specs/NNN-feature-name/` and contain three files: `requirements.md`, `design.md`, `tasks.md`.
+- Check the `status` field in each file's front-matter Meta block.
+- The task breakdown in `tasks.md` (Section 1) shows what's done and what remains.
+- Open questions in `tasks.md` (Section 4) may block specific tasks.
 
 **Adding a new building block:**
 
@@ -349,9 +370,9 @@ These are common failure modes the system is designed to prevent:
 
 - `CLAUDE.md` — agent behavior rules and workflow principles
 - `docs/architecture.md` — project structure, layers, dependency rules
-- `docs/spec-template.md` — spec section structure with inline guidance
-- `skills/writing-spec/SKILL.md` — four-phase spec writing workflow
-- `skills/building-blocks/SKILL.md` — building block catalog index
+- `.agents/skills/writing-spec/SKILL.md` — four-phase spec writing workflow
+- `.agents/skills/writing-spec/templates/{requirements,design,tasks}-template.md` — section structure with inline guidance
+- `.agents/skills/building-blocks/SKILL.md` — building block catalog index
 - `specs/lessons.md` — accumulated learnings from past implementations
 
 ### External references

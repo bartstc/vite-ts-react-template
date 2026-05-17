@@ -1,6 +1,9 @@
 import type { User } from "@/modules/auth/auth.types.js";
 import type { Product } from "@/modules/products/products.types.js";
-import type { MarketingProduct } from "@/modules/marketing/marketing.types.js";
+import type {
+  MarketingProduct,
+  Review,
+} from "@/modules/marketing/marketing.types.js";
 import type { Cart } from "@/modules/carts/carts.types.js";
 
 export interface DatabaseSchema {
@@ -8,6 +11,7 @@ export interface DatabaseSchema {
   products: Product[];
   marketingProducts: MarketingProduct[];
   carts: Cart[];
+  reviews: Review[];
 }
 
 export const CATEGORIES = ["clothing", "jewelery", "electronics"] as const;
