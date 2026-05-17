@@ -71,6 +71,30 @@ Each feature follows feature slice architecture patterns with four layers:
 
 **Cross-slice primitives:** `features/auth/` and `features/authv2/` are cross-cutting concerns (identity, permissions, auth state). Any feature slice may import from them.
 
+```text
+┌──────────────────────────────────────────────────────────────────────┐
+│         components/  (UI, presentational, no business logic)         │
+└────────────────────────┬──────────────────────┬──────────────────────┘
+                         │                      │
+                         ▼                      ▼
+┌───────────────────────────────────┐ ┌─────────────────────────────────────────┐
+│  application/  (hooks, FSMs,      │ │  providers/  (query/mutation hooks,     │
+│  stores, form validation)         │ │  DTO → domain mapping)                  │
+└──────────────────┬────────────────┘ └───────────────┬─────────────────────────┘
+                   └──────────────┬───────────────────┘              │
+                                  ▼                                  │
+                   ┌──────────────────────────────┐                  │
+                   │ models/  (domain types only) │                  │
+                   └──────────────────────────────┘                  │
+                                                                     ▼
+                                                   ┌─────────────────────────────┐
+                                                   │  lib/api/  (queryOptions,   │
+                                                   │  mutations, DTOs)           │
+                                                   └─────────────────────────────┘
+```
+
+![Layers](./assets/layers.png)
+
 ### Sub-feature Slices
 
 When a feature grows to contain multiple distinct domain sub-areas, each sub-area becomes a **sub-feature slice** — a nested directory with its own four-layer structure (`components/`, `application/`, `providers/`, `models/`).
@@ -78,6 +102,25 @@ When a feature grows to contain multiple distinct domain sub-areas, each sub-are
 The parent feature's layers hold code that is either reusable across sub-feature slices, or too small to warrant its own sub-feature slice.
 
 The same layer dependency rules apply within sub-feature slices. Additionally, sub-feature layers may import from the parent feature's same or lower layers. Sub-feature slices **may not import from sibling sub-feature slices**.
+
+```text
+features/marketing/
+├── components/     ← shared across sub-features
+├── providers/      ←┐ parent layers accessible
+├── models/         ←┘ from sub-features (same/lower only)
+│
+├── rating/         ✗ cannot import from reviews/
+│   ├── components/
+│   ├── application/
+│   ├── providers/
+│   └── models/
+│
+└── reviews/        ✗ cannot import from rating/
+    ├── components/
+    ├── application/
+    ├── providers/
+    └── models/
+```
 
 ## API Library
 
@@ -91,6 +134,22 @@ The same layer dependency rules apply within sub-feature slices. Additionally, s
 | Mutation options | `-mutation.ts`   | `add-to-cart-mutation.ts` |
 | DTO interface    | `-dto.ts`        | `cart-product-dto.ts`     |
 | Query keys       | `-query-keys.ts` | `cart-query-keys.ts`      |
+
+```text
+src/lib/api/
+  cart-products-query.ts   (queryOptions factory)
+  add-to-cart-mutation.ts  (mutationOptions factory)
+  cart-product-dto.ts      (DTO types)
+         │
+         ▼
+features/carts/providers/
+  use-cart-products-query.ts   (composes hook + maps DTO → domain model)
+  use-add-to-cart-mutation.ts
+         │
+         ▼
+features/carts/components/
+  CartList.tsx   (consumes only through providers/)
+```
 
 ## Key Patterns
 

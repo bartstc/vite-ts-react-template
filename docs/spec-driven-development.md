@@ -50,6 +50,23 @@ skills/
     rules/                         ← One file per building block (full pattern + example)
 ```
 
+```
+CLAUDE.md ──────────────────► when to spec / plan-mode rules
+     │
+     ▼
+writing-spec/SKILL.md ──────► four-phase gated workflow
+     │
+     ├──► spec-template.md ──► section structure (Meta, R1…Rn, tasks…)
+     │
+     ├──► building-blocks/
+     │       SKILL.md ────────► catalog index (block name + layer)
+     │       rules/*.md ───────► full pattern per block (read at impl time)
+     │
+     ├──► architecture.md ────► layer rules, state mgmt, project structure
+     │
+     └──► specs/lessons.md ───► accumulated learnings (feedback loop)
+```
+
 The flow between these files:
 
 1. **CLAUDE.md** tells the agent _when_ to write a spec (5+ files or 5+ decisions) and establishes the plan-mode-first workflow.
@@ -68,6 +85,33 @@ Every spec follows a fixed section structure defined in `docs/spec-template.md`.
 ### Meta (required)
 
 Status tracking table — `draft` → `review` → `approved` → `implementing` → `done` → `archived`. Keeps the spec lifecycle visible.
+
+```
+                  ┌─────────────────────────────────────────────────┐
+                  │             Session: Spec Writing               │
+                  │   (writing-spec skill, four-phase gated flow)   │
+                  │                                                 │
+                  │   draft ──► review ──► approved                 │
+                  │     ▲           │                               │
+                  │     └───────────┘  (revisions loop back)        │
+                  └───────────────────────────┬─────────────────────┘
+                                              │
+                                              ▼
+                  ┌─────────────────────────────────────────────────┐
+                  │           Session: Implementation               │
+                  │         (building-blocks skill, task by task)   │
+                  │                                                 │
+                  │          approved ──► implementing ──► done     │
+                  └───────────────────────────┬─────────────────────┘
+                                              │
+                                              ▼
+                  ┌─────────────────────────────────────────────────┐
+                  │              Session: Tests                     │
+                  │           (test-building-blocks skill)          │
+                  │                                                 │
+                  │              done ──► testing ──► archived      │
+                  └─────────────────────────────────────────────────┘
+```
 
 ### Section 1: Goal & Context (required)
 
