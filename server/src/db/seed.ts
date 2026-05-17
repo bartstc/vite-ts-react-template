@@ -3,19 +3,22 @@ import { seedUsers } from "@/db/seed-data/users.js";
 import { seedProducts } from "@/db/seed-data/products.js";
 import { seedMarketing } from "@/db/seed-data/marketing.js";
 import { seedCarts } from "@/db/seed-data/carts.js";
+import { seedReviews } from "@/db/seed-data/reviews.js";
 
 export async function seedDatabase(): Promise<void> {
   const db = await getDb();
   const isEmpty =
     db.data.users.length === 0 &&
     db.data.products.length === 0 &&
-    db.data.marketingProducts.length === 0;
+    db.data.marketingProducts.length === 0 &&
+    db.data.reviews.length === 0;
 
   if (isEmpty) {
     db.data.users = seedUsers;
     db.data.products = seedProducts;
     db.data.marketingProducts = seedMarketing;
     db.data.carts = seedCarts;
+    db.data.reviews = seedReviews;
     await db.write();
   }
 }
@@ -26,5 +29,6 @@ export async function resetDatabase(): Promise<void> {
   db.data.products = seedProducts;
   db.data.marketingProducts = seedMarketing;
   db.data.carts = seedCarts;
+  db.data.reviews = seedReviews;
   await db.write();
 }

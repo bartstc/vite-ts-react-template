@@ -14,7 +14,7 @@ export const rateProductSchema = {
   type: "object",
   required: ["rating"],
   properties: {
-    rating: { type: "number", minimum: 0, maximum: 5 },
+    rating: { type: "integer", minimum: 1, maximum: 5 },
   },
   additionalProperties: false,
 };

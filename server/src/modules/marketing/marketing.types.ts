@@ -5,7 +5,10 @@ export interface RatingDto {
 
 export interface MarketingProduct {
   id: string;
-  rating: RatingDto;
   addedAt: string;
   updatedAt: string | null;
+}
+
+export interface MarketingProductDto extends MarketingProduct {
+  rating: RatingDto;
 }
