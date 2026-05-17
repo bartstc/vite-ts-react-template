@@ -23,6 +23,7 @@ Collaborate with the developer to fill `requirements.md`.
 
 1. Ask the developer to describe the feature in 2-5 sentences (or accept what they've already provided)
 2. Before drafting, ask 3-5 clarifying questions about scope boundaries, error scenarios, and unstated assumptions — only where the answer would change the spec. Skip obvious ones.
+   - **If the feature introduces new API calls (queries or mutations):** explicitly ask which server-side error responses each call must handle, and how the UI should react to each.
 3. Draft the **Goal & Context** section — focus on the problem, not the solution
 4. Draft **Requirements** using EARS notation: `WHEN [condition] THE SYSTEM SHALL [behavior]`. Assign stable IDs (R1, R2, …)
 5. Draft **Non-Goals** — ask: "What should this feature explicitly NOT do?"
@@ -35,12 +36,13 @@ Collaborate with the developer to fill `requirements.md`.
 Collaborate on `design.md`.
 
 1. Propose a **Building Blocks Diff** — list every block that is ADDED, MODIFIED, or DELETED. Use the project's building block taxonomy from `.agents/skills/building-blocks/SKILL.md`. Reference by **name and type only** — do not define internals. Implementation details belong in coding standards and per-type skills, not specs. For changes that don't map to a typed building block, use the target file path + a short description instead.
-2. For non-trivial features, propose **two plausible designs** with tradeoffs. Let the developer choose. Capture the winner and rationale in **Design Decisions**
-3. Draft the **Boundaries** section using the three-tier system:
+2. **Cross-slice concerns** — ask whether any new block needs to interact with another feature or sub-feature slice. If yes, decide the wiring point (parent feature or page) and injection mechanism (callback, render prop, slot) in the design — don't defer to implementation.
+3. For non-trivial features, propose **two plausible designs** with tradeoffs. Let the developer choose. Capture the winner and rationale in **Design Decisions**
+4. Draft the **Boundaries** section using the three-tier system:
    - ✅ **Always** — proceed without asking (e.g., create files in the feature directory)
    - ⚠️ **Ask first** — needs approval (e.g., modify API contracts, change schema, create shared utilities)
    - 🚫 **Never** — hard stops (e.g., modify core auth, remove tests, commit secrets)
-4. Present `design.md` for review
+5. Present `design.md` for review
 
 **Critical rule for building blocks:** Reference names and types. Do NOT define contracts, interfaces, or implementation — those live in separate coding-standards skills and existing code. The spec describes a CHANGE to the status quo. The agent reads relevant code to see the current status quo.
 
