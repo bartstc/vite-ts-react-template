@@ -18,6 +18,11 @@ last_updated: YYYY-MM-DD
 
 <!-- Use building block types from the catalog (e.g., queryOptions, mutation, component, store, machine, route, hook, service, type). For changes that don't map to a typed building block, use the target file path + a short description instead. -->
 
+<!-- A block that hit a complexity signal in Phase 2 either appends a contract link or records why a contract was skipped:
+- `checkoutFlow` (custom) — see `contracts/checkout-flow.md`
+- `fooStore` (store) — contract skipped: shape is flat
+-->
+
 ### Added
 
 <!-- Example:

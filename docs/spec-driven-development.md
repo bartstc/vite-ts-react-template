@@ -43,6 +43,7 @@ specs/
     requirements.md                ← Intent layer (Goal, Requirements, Non-Goals)
     design.md                      ← Approach layer (Building Blocks Diff, Decisions, Boundaries)
     tasks.md                       ← Sequencing layer (Tasks, Edge Cases, Open Questions)
+    contracts/                     ← Optional — design fragments for complex blocks (signal-driven)
   lessons.md                       ← Accumulated learnings from past implementations
 .agents/skills/
   writing-spec/
@@ -224,6 +225,12 @@ If you skip this section, expect the agent to guess — and guess wrong.
 - **Acceptance Criteria** (optional) — high-level "done" checklist, often redundant if requirements are precise.
 - **Open Questions** (optional) — unresolved decisions blocking specific tasks.
 - **References** (optional) — links to related specs, mockups, API docs.
+
+### `contracts/` — Design fragments for complex blocks (optional)
+
+`design.md` references building blocks by name + type only, with internals deferred to the building-blocks catalog. That breaks down for **complex blocks** — ones that move through several states, hold structured internal state, encode branching domain rules, coordinate across slices, or match no canonical pattern. Their design surfaces during spec writing and has nowhere to go without bloating `design.md`.
+
+When a block hits one of those complexity signals, the agent proposes a contract in Phase 2 and the **developer approves each one** — proposals are signal-driven, never boilerplate. An approved contract becomes `contracts/{block-slug}.md`: a ≤80-line design fragment (problem, structured shape as pseudocode, rationale, open questions) linked from the block's `design.md` entry. Most specs need no contracts; if no block hits a signal, the directory never appears. Contracts are **excluded from the combined ~200-line cap** — a high contract count instead signals the feature should be split.
 
 ---
 

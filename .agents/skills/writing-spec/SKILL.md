@@ -9,7 +9,7 @@ Guide the developer through writing a feature spec before any code is written. T
 
 ## Prerequisites
 
-- Read `./templates/requirements-template.md`, `./templates/design-template.md`, and `./templates/tasks-template.md` before starting — they define the section structure
+- Read `./templates/requirements-template.md`, `./templates/design-template.md`, `./templates/tasks-template.md`, and `./templates/contract-template.md` before starting — they define the section structure
 - Read `@docs/architecture.md` to understand current building block types and project structure
 - Determine the next available sequence number by checking both `specs/` directory listings AND `git log` for prior spec-related commits — use the higher of the two
 
@@ -37,12 +37,21 @@ Collaborate on `design.md`.
 
 1. Propose a **Building Blocks Diff** — list every block that is ADDED, MODIFIED, or DELETED. Use the project's building block taxonomy from `.agents/skills/building-blocks/SKILL.md`. Reference by **name and type only** — do not define internals. Implementation details belong in coding standards and per-type skills, not specs. For changes that don't map to a typed building block, use the target file path + a short description instead.
 2. **Cross-slice concerns** — ask whether any new block needs to interact with another feature or sub-feature slice. If yes, decide the wiring point (parent feature or page) and injection mechanism (callback, render prop, slot) in the design — don't defer to implementation.
-3. For non-trivial features, propose **two plausible designs** with tradeoffs. Let the developer choose. Capture the winner and rationale in **Design Decisions**
-4. Draft the **Boundaries** section using the three-tier system:
+3. **Identify contract candidates.** For each block in the diff, check the signal checklist below. For every block hitting ≥1 signal, present an inline proposal — one line each: `` `blockName` (type) — <signal(s) hit>; design problem: <one phrase>``. The developer approves/rejects each. For approved blocks, create `specs/NNN-feature-name/contracts/{block-slug}.md` (slug = block name kebab-cased per `code-style.md`; on a slug collision, suffix the type, e.g. `review-form-store.md`) from `./templates/contract-template.md`, and add a contract link to that block's `design.md` Building Blocks Diff entry. Contracts are **signal-driven, not type-driven** — most blocks hit zero signals and get nothing. If no block hits a signal, skip this step entirely: no `contracts/` directory, no proposals. When a block hits a signal but the developer rejects the proposal (or you judge it trivial), record the skip reason inline in that block's `design.md` entry — e.g. `` `fooStore` (store) — contract skipped: shape is flat``.
+
+   **Signals — a block warrants a contract proposal if ≥1 holds.** Signals describe properties of the design problem, not block types:
+   1. **Multiple states & transitions** — the block moves through several discrete states with conditional or guarded transitions.
+   2. **Structured internal state** — more than a couple of flat fields: derived values, interdependent fields, or normalized collections.
+   3. **Branching domain logic** — conditional rules, invariants, or multi-step computation where the rules themselves are the design.
+   4. **Cross-slice coordination** — behavior depends on wiring into another feature or sub-feature slice; the seam (callback, slot, render-prop) needs design.
+   5. **No canonical pattern** — the block matches no established pattern the agent can look up, so its shape must be designed from scratch.
+
+4. For non-trivial features, propose **two plausible designs** with tradeoffs. Let the developer choose. Capture the winner and rationale in **Design Decisions**
+5. Draft the **Boundaries** section using the three-tier system:
    - ✅ **Always** — proceed without asking (e.g., create files in the feature directory)
    - ⚠️ **Ask first** — needs approval (e.g., modify API contracts, change schema, create shared utilities)
    - 🚫 **Never** — hard stops (e.g., modify core auth, remove tests, commit secrets)
-5. Present `design.md` for review
+6. Present `design.md` for review
 
 **Critical rule for building blocks:** Reference names and types. Do NOT define contracts, interfaces, or implementation — those live in separate coding-standards skills and existing code. The spec describes a CHANGE to the status quo. The agent reads relevant code to see the current status quo.
 
@@ -66,8 +75,10 @@ Fill `tasks.md`.
    - **Orphan tasks**: flag any task that doesn't trace back to a requirement ID
    - **EARS compliance**: flag any requirement missing WHEN/THE SYSTEM SHALL or using vague language ("handle properly", "work correctly")
    - **Boundary specificity**: flag any boundary item (✅/⚠️/🚫) that references a vague category instead of a file path or module name
-   - **Building block references**: flag any block in `design.md` that doesn't exist in the building-blocks catalog
-   - **Line count**: report each file's count and the combined total. Caps: `requirements.md` ≤50, `design.md` ≤80, `tasks.md` ≤70, combined ≤200. If any cap is exceeded, identify which section to compress or extract
+   - **Building block references**: flag any block in `design.md` that doesn't exist in the building-blocks catalog — _acceptable without a catalog match if the block has a contract (signal 5, no canonical pattern); flag it only if it lacks both_
+   - **Contract coverage**: every contract file links back from a `design.md` block entry; every `design.md` block that hits a signal either has a contract or an inline skip reason in its entry
+   - **Line count**: report each file's count and the combined total. Caps: `requirements.md` ≤50, `design.md` ≤80, `tasks.md` ≤70, combined ≤200. Contracts are excluded from the combined cap — report each contract's count separately, ≤80 each. If any cap is exceeded, identify which section to compress or extract
+   - **Contract count**: no hard cap — report the count. A high count (e.g. >3) signals the feature should be split into separate specs; surface it, don't enforce it
 2. Fix any issues found in step 1 before proceeding
 3. Set status to `review` in each Meta table
 4. Present the audit results and the final spec for developer sign-off
@@ -84,14 +95,15 @@ Fill `tasks.md`.
 ### What the agent MUST NOT do
 
 - NEVER invent requirements the developer hasn't stated or confirmed — ask instead
-- NEVER define building block internals (interfaces, schemas, implementation) in the spec — reference name + type only
+- NEVER define building block internals (interfaces, schemas, implementation) in `design.md` — reference name + type only. Internals/pseudocode for complex blocks belong in `contracts/`; contracts are the one sanctioned place for block-shape detail in a spec
+- NEVER duplicate a decision across `design.md` and a contract — cross-block decisions go in `design.md` Design Decisions; intra-block shape rationale goes in the contract
 - NEVER skip a review gate — each phase needs explicit developer approval
 - NEVER conflate spec layers: requirements constrain intent, design constrains approach, tasks constrain sequencing. Keep them separate
 - NEVER add boilerplate boundaries — every item in ✅/⚠️/🚫 must be reachable during implementation of this specific feature
 
 ### Prefer
 
-- Prefer concise specs (combined ~200 lines: requirements ≤50, design ≤80, tasks ≤70) over exhaustive ones — the curse of instructions means longer specs get followed less reliably
+- Prefer concise specs (combined ~200 lines: requirements ≤50, design ≤80, tasks ≤70) over exhaustive ones — the curse of instructions means longer specs get followed less reliably. Contracts are excluded from the ~200 combined cap and capped individually at ≤80 lines
 - Prefer mechanical enforcement (lint, tests, schemas) over prose rules — if a constraint can be a linter rule, it doesn't belong in the spec
 - Prefer two design options with tradeoffs over a single "obvious" choice — this surfaces assumptions
 - Prefer specific file paths in boundaries over vague module names
@@ -158,10 +170,11 @@ The spec is ready for implementation when:
 - [ ] Boundaries use specific file paths, not vague categories
 - [ ] Open questions are either resolved or explicitly block named tasks
 - [ ] Developer has approved the final spec (status set to `approved`)
-- [ ] File sizes within caps: `requirements.md` ≤50, `design.md` ≤80, `tasks.md` ≤70, combined ≤200 lines
+- [ ] Every proposed-and-approved contract is filled and linked from `design.md`
+- [ ] File sizes within caps: `requirements.md` ≤50, `design.md` ≤80, `tasks.md` ≤70, combined ≤200 lines; each contract ≤80 lines (excluded from the combined cap)
 
 ## References
 
 - `.agents/skills/building-blocks/SKILL.md` — building block type dictionary (names, descriptions, when to use each)
-- `./templates/requirements-template.md`, `./templates/design-template.md`, `./templates/tasks-template.md` — section structure and inline guidance
+- `./templates/requirements-template.md`, `./templates/design-template.md`, `./templates/tasks-template.md`, `./templates/contract-template.md` — section structure and inline guidance
 - `@docs/architecture.md` — project structure, architectural decisions, conventions
