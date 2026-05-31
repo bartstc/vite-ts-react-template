@@ -81,6 +81,7 @@
       },
       "imageUrl": "https://placehold.co/600x400?text=Foldsack+Backpack",
       "category": "clothing",
+      "stock": 25,
       "addedAt": "2025-01-15T10:00:00.000Z",
       "updatedAt": null
     },
@@ -94,6 +95,7 @@
       },
       "imageUrl": "https://placehold.co/600x400?text=Slim+Fit+T-Shirts",
       "category": "clothing",
+      "stock": 100,
       "addedAt": "2025-01-15T10:00:00.000Z",
       "updatedAt": null
     },
@@ -107,6 +109,7 @@
       },
       "imageUrl": "https://placehold.co/600x400?text=Cotton+Jacket",
       "category": "clothing",
+      "stock": 12,
       "addedAt": "2025-01-15T10:00:00.000Z",
       "updatedAt": null
     },
@@ -120,6 +123,7 @@
       },
       "imageUrl": "https://placehold.co/600x400?text=Casual+Slim+Fit",
       "category": "clothing",
+      "stock": 8,
       "addedAt": "2025-01-15T10:00:00.000Z",
       "updatedAt": null
     },
@@ -133,6 +137,7 @@
       },
       "imageUrl": "https://placehold.co/600x400?text=Naga+Bracelet",
       "category": "jewelery",
+      "stock": 5,
       "addedAt": "2025-01-15T10:00:00.000Z",
       "updatedAt": null
     },
@@ -146,6 +151,7 @@
       },
       "imageUrl": "https://placehold.co/600x400?text=Micropave+Ring",
       "category": "jewelery",
+      "stock": 15,
       "addedAt": "2025-01-15T10:00:00.000Z",
       "updatedAt": null
     },
@@ -159,6 +165,7 @@
       },
       "imageUrl": "https://placehold.co/600x400?text=Princess+Ring",
       "category": "jewelery",
+      "stock": 50,
       "addedAt": "2025-01-15T10:00:00.000Z",
       "updatedAt": null
     },
@@ -172,6 +179,7 @@
       },
       "imageUrl": "https://placehold.co/600x400?text=Rose+Gold+Earrings",
       "category": "jewelery",
+      "stock": 30,
       "addedAt": "2025-01-15T10:00:00.000Z",
       "updatedAt": null
     },
@@ -185,6 +193,7 @@
       },
       "imageUrl": "https://placehold.co/600x400?text=WD+2TB+HDD",
       "category": "electronics",
+      "stock": 20,
       "addedAt": "2025-01-15T10:00:00.000Z",
       "updatedAt": null
     },
@@ -198,6 +207,7 @@
       },
       "imageUrl": "https://placehold.co/600x400?text=SanDisk+SSD",
       "category": "electronics",
+      "stock": 18,
       "addedAt": "2025-01-15T10:00:00.000Z",
       "updatedAt": null
     },
@@ -211,6 +221,7 @@
       },
       "imageUrl": "https://placehold.co/600x400?text=Silicon+Power+SSD",
       "category": "electronics",
+      "stock": 3,
       "addedAt": "2025-01-15T10:00:00.000Z",
       "updatedAt": null
     },
@@ -224,6 +235,7 @@
       },
       "imageUrl": "https://placehold.co/600x400?text=WD+4TB+Gaming",
       "category": "electronics",
+      "stock": 10,
       "addedAt": "2025-01-15T10:00:00.000Z",
       "updatedAt": null
     },
@@ -237,6 +249,7 @@
       },
       "imageUrl": "https://placehold.co/600x400?text=Acer+Monitor",
       "category": "electronics",
+      "stock": 7,
       "addedAt": "2025-01-15T10:00:00.000Z",
       "updatedAt": null
     },
@@ -250,6 +263,7 @@
       },
       "imageUrl": "https://placehold.co/600x400?text=Samsung+Gaming+Monitor",
       "category": "electronics",
+      "stock": 2,
       "addedAt": "2025-01-15T10:00:00.000Z",
       "updatedAt": null
     },
@@ -263,6 +277,7 @@
       },
       "imageUrl": "https://placehold.co/600x400?text=Snowboard+Jacket",
       "category": "clothing",
+      "stock": 14,
       "addedAt": "2025-01-15T10:00:00.000Z",
       "updatedAt": null
     },
@@ -276,6 +291,7 @@
       },
       "imageUrl": "https://placehold.co/600x400?text=Moto+Biker+Jacket",
       "category": "clothing",
+      "stock": 22,
       "addedAt": "2025-01-15T10:00:00.000Z",
       "updatedAt": null
     },
@@ -289,6 +305,7 @@
       },
       "imageUrl": "https://placehold.co/600x400?text=Rain+Jacket",
       "category": "clothing",
+      "stock": 40,
       "addedAt": "2025-01-15T10:00:00.000Z",
       "updatedAt": null
     },
@@ -302,6 +319,7 @@
       },
       "imageUrl": "https://placehold.co/600x400?text=Boat+Neck+Top",
       "category": "clothing",
+      "stock": 60,
       "addedAt": "2025-01-15T10:00:00.000Z",
       "updatedAt": null
     },
@@ -315,6 +333,7 @@
       },
       "imageUrl": "https://placehold.co/600x400?text=Moisture+Wicking+Top",
       "category": "clothing",
+      "stock": 35,
       "addedAt": "2025-01-15T10:00:00.000Z",
       "updatedAt": null
     },
@@ -328,6 +347,7 @@
       },
       "imageUrl": "https://placehold.co/600x400?text=Casual+Cotton+Tee",
       "category": "clothing",
+      "stock": 0,
       "addedAt": "2025-01-15T10:00:00.000Z",
       "updatedAt": null
     }
@@ -341,7 +361,7 @@
     {
       "id": "4f968992-1aab-49c9-8913-09405915c1c1",
       "addedAt": "2025-01-15T10:00:00.000Z",
-      "updatedAt": "2026-05-17T13:17:33.083Z"
+      "updatedAt": null
     },
     {
       "id": "4f968992-1aab-49c9-8913-09405915c1c2",
@@ -371,7 +391,7 @@
     {
       "id": "4f968992-1aab-49c9-8913-09405915c1c7",
       "addedAt": "2025-01-15T10:00:00.000Z",
-      "updatedAt": "2026-05-17T15:13:25.470Z"
+      "updatedAt": null
     },
     {
       "id": "4f968992-1aab-49c9-8913-09405915c1c8",
@@ -381,7 +401,7 @@
     {
       "id": "4f968992-1aab-49c9-8913-09405915c1c9",
       "addedAt": "2025-01-15T10:00:00.000Z",
-      "updatedAt": "2026-05-17T15:11:22.807Z"
+      "updatedAt": null
     },
     {
       "id": "4f968992-1aab-49c9-8913-09405915c1d0",
@@ -460,11 +480,11 @@
       "productId": "4f968992-1aab-49c9-8913-09405915c1c0",
       "userId": 1,
       "authorName": "Bob",
-      "rating": 4,
-      "title": "Perfect everyday pack (edit)",
-      "comment": "Holds my 15\" laptop and a change of clothes for short trips. Great value. asdasdas",
+      "rating": 5,
+      "title": "Perfect everyday pack",
+      "comment": "Holds my 15\" laptop and a change of clothes for short trips. Great value.",
       "createdAt": "2025-02-01T09:00:00.000Z",
-      "updatedAt": "2026-05-17T15:08:58.713Z"
+      "updatedAt": null
     },
     {
       "id": "r0000000-0000-0000-0000-000000000002",
@@ -493,11 +513,11 @@
       "productId": "4f968992-1aab-49c9-8913-09405915c1c1",
       "userId": 1,
       "authorName": "Bob",
-      "rating": 5,
+      "rating": 4,
       "title": "Comfy tees",
       "comment": "Soft fabric. Sizing runs slightly tight in the shoulders.",
       "createdAt": "2025-02-10T14:00:00.000Z",
-      "updatedAt": "2026-05-17T13:17:33.083Z"
+      "updatedAt": null
     },
     {
       "id": "r0000000-0000-0000-0000-000000000005",
@@ -586,28 +606,6 @@
       "comment": "Needed reformatting for my Mac. Otherwise fine.",
       "createdAt": "2025-02-27T09:15:00.000Z",
       "updatedAt": null
-    },
-    {
-      "id": "3ec78e30-bce9-477e-a36b-d6716e18680f",
-      "productId": "4f968992-1aab-49c9-8913-09405915c1c9",
-      "userId": 1,
-      "authorName": "Bob",
-      "rating": 5,
-      "title": "test",
-      "comment": "asdasd",
-      "createdAt": "2026-05-17T15:10:14.045Z",
-      "updatedAt": "2026-05-17T15:11:22.807Z"
-    },
-    {
-      "id": "d058069a-fead-4bbf-aab1-847514030c46",
-      "productId": "4f968992-1aab-49c9-8913-09405915c1c7",
-      "userId": 1,
-      "authorName": "Bob",
-      "rating": 3,
-      "title": "sdfsdf",
-      "comment": "sdfsdfsdf",
-      "createdAt": "2026-05-17T15:13:25.470Z",
-      "updatedAt": "2026-05-17T15:16:46.276Z"
     }
   ]
 }
