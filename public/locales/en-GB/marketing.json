@@ -16,11 +16,23 @@
     "list": {
       "title": "Customer reviews",
       "empty": "No reviews yet. Be the first to share your thoughts!",
-      "error": "Failed to load reviews. Please try again later."
+      "error": "Failed to load reviews. Please try again later.",
+      "delete": "Delete review"
     },
     "dialog": {
       "create-title": "Write a review",
       "edit-title": "Edit your review"
+    },
+    "delete-dialog": {
+      "title": "Delete review",
+      "message": "Are you sure you want to delete your review? This action cannot be undone.",
+      "cancel": "Cancel",
+      "confirm": "Delete"
+    },
+    "delete-notifications": {
+      "title": "Product review",
+      "success": "Your review has been deleted.",
+      "error": "Something went wrong while deleting your review. Please try again or contact us."
     },
     "form": {
       "rating": "Rating",
