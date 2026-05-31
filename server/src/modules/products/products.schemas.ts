@@ -18,6 +18,7 @@ export const createProductSchema = {
     },
     imageUrl: { type: "string", format: "uri" },
     category: { type: "string", enum: CATEGORIES },
+    stock: { type: "integer", minimum: 0, default: 0 },
   },
   additionalProperties: false,
 };

@@ -14,6 +14,7 @@ export interface Product {
   price: MoneyDto;
   imageUrl: string;
   category: Category;
+  stock: number;
   addedAt: string;
   updatedAt: string | null;
 }

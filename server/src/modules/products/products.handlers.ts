@@ -13,6 +13,7 @@ export interface CreateBody {
   price: { amount: number; code: Currency };
   imageUrl: string;
   category: Category;
+  stock?: number;
 }
 
 export interface UpdateBody {
@@ -66,7 +67,7 @@ export async function createProductHandler(
   request: FastifyRequest<{ Body: CreateBody }>,
   reply: FastifyReply
 ): Promise<void> {
-  const { name, description, price, imageUrl, category } = request.body;
+  const { name, description, price, imageUrl, category, stock } = request.body;
   const db = await getDb();
 
   const product = {
@@ -76,6 +77,7 @@ export async function createProductHandler(
     price: { amount: price.amount, currency: price.code },
     imageUrl,
     category,
+    stock: stock ?? 0,
     addedAt: new Date().toISOString(),
     updatedAt: null,
   };
