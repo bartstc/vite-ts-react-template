@@ -9,9 +9,11 @@ import { cartQueryKeys } from "@/lib/api/carts/cart-query-keys";
 export const useCartInvalidation = (cartId: string) => {
   const queryClient = useQueryClient();
 
-  return useCallback(() => {
-    void queryClient.invalidateQueries({
-      queryKey: cartQueryKeys.detail(cartId),
-    });
-  }, [queryClient, cartId]);
+  return useCallback(
+    () =>
+      queryClient.invalidateQueries({
+        queryKey: cartQueryKeys.detail(cartId),
+      }),
+    [queryClient, cartId]
+  );
 };

@@ -39,4 +39,4 @@ const isCheckoutErrorDto = (body: unknown): body is CheckoutErrorDto =>
   typeof body === "object" &&
   body !== null &&
   "code" in body &&
-  typeof (body as { code: unknown }).code === "string";
+  typeof body.code === "string";

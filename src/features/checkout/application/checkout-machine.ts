@@ -102,9 +102,7 @@ const requireSession = (context: CheckoutMachineContext): CheckoutSession => {
 };
 
 const toCheckoutError = (error: unknown): CheckoutError =>
-  error instanceof Error
-    ? (error as CheckoutError)
-    : (new Error("Unexpected checkout error") as CheckoutError);
+  error instanceof Error ? error : new Error("Unexpected checkout error");
 
 export type CheckoutMachineType = typeof checkoutMachine;
 

@@ -11,6 +11,7 @@ import { OutOfStockNotice } from "@/features/checkout/components/OutOfStockNotic
 import { PriceChangedNotice } from "@/features/checkout/components/PriceChangedNotice";
 import { ReviewStep } from "@/features/checkout/components/ReviewStep";
 import { SessionExpiredNotice } from "@/features/checkout/components/SessionExpiredNotice";
+import type { CheckoutMachineContext } from "@/features/checkout/application/checkout-machine";
 import {
   OutOfStockError,
   PriceChangedError,
@@ -19,6 +20,16 @@ import {
 interface Props {
   onClose: () => void;
 }
+
+const outOfStockItems = (context: CheckoutMachineContext) =>
+  context.type === "FAILED" && context.error instanceof OutOfStockError
+    ? context.error.items
+    : [];
+
+const priceChanges = (context: CheckoutMachineContext) =>
+  context.type === "FAILED" && context.error instanceof PriceChangedError
+    ? context.error.changes
+    : [];
 
 export const CheckoutFlow = ({ onClose }: Props) => {
   const send = useCheckoutSend();
@@ -39,21 +50,18 @@ export const CheckoutFlow = ({ onClose }: Props) => {
   }
 
   if (value === "outOfStock") {
-    const items =
-      context.type === "FAILED" && context.error instanceof OutOfStockError
-        ? context.error.items
-        : [];
-    return <OutOfStockNotice items={items} onBackToCart={onClose} />;
+    return (
+      <OutOfStockNotice
+        items={outOfStockItems(context)}
+        onBackToCart={onClose}
+      />
+    );
   }
 
   if (value === "priceChanged") {
-    const changes =
-      context.type === "FAILED" && context.error instanceof PriceChangedError
-        ? context.error.changes
-        : [];
     return (
       <PriceChangedNotice
-        changes={changes}
+        changes={priceChanges(context)}
         onContinue={() => send({ type: "CONTINUE" })}
       />
     );
