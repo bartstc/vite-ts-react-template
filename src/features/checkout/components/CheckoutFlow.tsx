@@ -4,6 +4,7 @@ import {
   useCheckoutSelector,
   useCheckoutSend,
 } from "@/features/checkout/application/checkout-actor-context";
+import type { CheckoutMachineContext } from "@/features/checkout/application/checkout-machine";
 import { CheckoutErrorNotice } from "@/features/checkout/components/CheckoutErrorNotice";
 import { ConfirmationStep } from "@/features/checkout/components/ConfirmationStep";
 import { EmptyCartNotice } from "@/features/checkout/components/EmptyCartNotice";
@@ -11,7 +12,6 @@ import { OutOfStockNotice } from "@/features/checkout/components/OutOfStockNotic
 import { PriceChangedNotice } from "@/features/checkout/components/PriceChangedNotice";
 import { ReviewStep } from "@/features/checkout/components/ReviewStep";
 import { SessionExpiredNotice } from "@/features/checkout/components/SessionExpiredNotice";
-import type { CheckoutMachineContext } from "@/features/checkout/application/checkout-machine";
 import {
   OutOfStockError,
   PriceChangedError,
