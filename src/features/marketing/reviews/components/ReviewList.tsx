@@ -4,6 +4,7 @@ import { useProductReviewsQuery } from "@/features/marketing/reviews/providers/u
 import { withErrorBoundary } from "@/lib/components/ErrorBoundary/with-error-boundary";
 import { useTranslations } from "@/lib/i18n/use-transations";
 
+import { ConfirmDeleteReviewDialog } from "./ConfirmDeleteReviewDialog";
 import { ReviewListEmpty } from "./ReviewListEmpty";
 import { ReviewListFallback } from "./ReviewListFallback";
 import { ReviewListItem } from "./ReviewListItem";
@@ -32,6 +33,7 @@ const ReviewListBase = ({ productId }: IProps) => {
           ))}
         </VStack>
       )}
+      <ConfirmDeleteReviewDialog productId={productId} />
     </Box>
   );
 };
