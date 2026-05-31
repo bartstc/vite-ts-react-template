@@ -1,11 +1,23 @@
-import { Box, HStack, Heading, Icon, Text, VStack } from "@chakra-ui/react";
-import { Star } from "lucide-react";
+import {
+  Box,
+  HStack,
+  Heading,
+  Icon,
+  IconButton,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
+import { Star, Trash2 } from "lucide-react";
 
+import { useAuthStore } from "@/features/auth/application/auth-store";
 import { useFormatDate } from "@/lib/date/use-format-date";
+import { useTranslations } from "@/lib/i18n/use-transations";
 import { useColorModeValue } from "@/lib/theme/use-color-mode";
 import { useSecondaryTextColor } from "@/lib/theme/use-secondary-text-color";
 
 import type { Review } from "../models/review";
+
+import { useConfirmDeleteReviewDialogStore } from "./use-confirm-delete-review-dialog-store";
 
 interface IProps {
   review: Review;
@@ -17,6 +29,13 @@ const ReviewListItem = ({ review }: IProps) => {
   const borderColor = useColorModeValue("gray.200", "gray.700");
   const secondaryColor = useSecondaryTextColor();
   const formatDate = useFormatDate();
+  const t = useTranslations("features.marketing.reviews.list");
+
+  const userId = useAuthStore((store) => store.user?.id);
+  const onOpenDelete = useConfirmDeleteReviewDialogStore(
+    (state) => state.onOpen
+  );
+  const isOwn = userId !== undefined && userId === review.userId;
 
   return (
     <Box
@@ -42,9 +61,22 @@ const ReviewListItem = ({ review }: IProps) => {
               ))}
             </HStack>
           </HStack>
-          <Text fontSize="sm" color={secondaryColor}>
-            {formatDate(review.createdAt)}
-          </Text>
+          <HStack gap={2}>
+            <Text fontSize="sm" color={secondaryColor}>
+              {formatDate(review.createdAt)}
+            </Text>
+            {isOwn && (
+              <IconButton
+                aria-label={t("delete")}
+                variant="ghost"
+                size="xs"
+                colorPalette="red"
+                onClick={() => onOpenDelete(review.id)}
+              >
+                <Trash2 />
+              </IconButton>
+            )}
+          </HStack>
         </HStack>
         {review.title && (
           <Heading as="h4" size="sm">
