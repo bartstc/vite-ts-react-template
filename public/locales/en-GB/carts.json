@@ -67,27 +67,5 @@
       "cancel": "Cancel",
       "confirm": "Yes, clear cart"
     }
-  },
-  "checkout": {
-    "button": "Checkout",
-    "dialog": {
-      "title": "Checkout"
-    },
-    "form": {
-      "full-name": "Full Name",
-      "address": "Address",
-      "payment-method": "Payment Method",
-      "submit": "Complete Order",
-      "payment-methods": {
-        "blik": "Blik",
-        "card": "Credit Card",
-        "paypal": "PayPal"
-      }
-    },
-    "notifications": {
-      "title": "Checkout",
-      "success": "You have successfully purchased all selected products.",
-      "error": "Something went wrong with finalizing a transaction. Pleas try again or contact us."
-    }
   }
 }

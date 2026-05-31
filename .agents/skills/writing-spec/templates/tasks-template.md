@@ -52,5 +52,6 @@ last_updated: YYYY-MM-DD
 
 <!-- OPTIONAL. Links to related specs, architecture docs, design mockups, API documentation, or external resources. Keep it to things the agent should read before implementation. -->
 
-<!-- REQUIRED if design.md lists building blocks. Add this line verbatim: -->
-<!-- Before implementing each building block, read `.claude/skills/building-blocks/rules/{type}.md` for its type. -->
+<!-- REQUIRED if design.md lists building blocks. Add these lines verbatim: -->
+<!-- Before implementing each building block, read `.agents/skills/building-blocks/rules/{type}.md` for its type. -->
+<!-- Before implementing a block that has a contract in `contracts/`, read that contract in addition to its rule file. -->

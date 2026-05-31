@@ -14,7 +14,7 @@
     },
     {
       "name": "State Management",
-      "blocks": ["store", "provider"]
+      "blocks": ["store", "machine", "provider"]
     },
     {
       "name": "App Orchestration",

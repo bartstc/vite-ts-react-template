@@ -1,10 +1,9 @@
 import { VStack, HStack, Button, Text, Separator } from "@chakra-ui/react";
 import { ArrowRight } from "lucide-react";
-import { type ComponentProps, Fragment } from "react";
+import { type ComponentProps, Fragment, type ReactNode } from "react";
 
 import { CartItem } from "@/features/carts/components/CartItem";
 import { ConfirmRemoveProductDialog } from "@/features/carts/components/CartItem/ConfirmRemoveProductDialog";
-import { CheckoutButton } from "@/features/carts/components/CheckoutButton/CheckoutButton";
 import { moneyVO } from "@/lib/format/money";
 import { useTranslations } from "@/lib/i18n/use-transations";
 import { useNavigate } from "@/lib/router";
@@ -13,9 +12,12 @@ import { useSecondaryTextColor } from "@/lib/theme/use-secondary-text-color";
 
 interface IProps {
   cartProducts: ComponentProps<typeof CartItem>[];
+  // AIDEV-NOTE: checkout trigger is injected as a slot so carts stays decoupled from the
+  // checkout slice (boundaries forbid carts -> checkout). The Cart page supplies it. See 003.
+  checkoutAction?: ReactNode;
 }
 
-const CartsList = ({ cartProducts }: IProps) => {
+const CartsList = ({ cartProducts, checkoutAction }: IProps) => {
   const navigate = useNavigate();
   const t = useTranslations("features.carts.list");
 
@@ -50,7 +52,7 @@ const CartsList = ({ cartProducts }: IProps) => {
         </Text>
       </VStack>
       <VStack w="100%">
-        <CheckoutButton />
+        {checkoutAction}
         <Button
           variant="plain"
           size="sm"

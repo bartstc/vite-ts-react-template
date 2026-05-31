@@ -18,6 +18,7 @@ const namespaces = [
   "products",
   "carts",
   "auth",
+  "checkout",
 ] as const;
 
 void i18n

@@ -458,7 +458,7 @@
     {
       "id": "00000000-0000-0000-0000-000000000001",
       "userId": 1,
-      "date": "2025-01-15T10:00:00.000Z",
+      "date": "2026-05-31T14:54:32.403Z",
       "products": []
     },
     {
@@ -481,10 +481,10 @@
       "userId": 1,
       "authorName": "Bob",
       "rating": 5,
-      "title": "Perfect everyday pack",
+      "title": "Perfect everyday pack dfdf",
       "comment": "Holds my 15\" laptop and a change of clothes for short trips. Great value.",
       "createdAt": "2025-02-01T09:00:00.000Z",
-      "updatedAt": null
+      "updatedAt": "2026-05-31T14:54:26.213Z"
     },
     {
       "id": "r0000000-0000-0000-0000-000000000002",

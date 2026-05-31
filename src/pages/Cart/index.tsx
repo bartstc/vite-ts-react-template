@@ -2,6 +2,7 @@ import { withRequireAuth } from "@/features/auth/application/with-require-auth";
 import { CartsList } from "@/features/carts/components/CartsList";
 import { ClearCartButton } from "@/features/carts/components/ClearCartButton/ClearCartButton";
 import { useCartProductsQuery } from "@/features/carts/providers/use-cart-products-query";
+import { CheckoutButton } from "@/features/checkout/components/CheckoutButton";
 import { assertValue } from "@/lib/assert-value";
 import { Page } from "@/lib/components/Layout/Page";
 import { PageHeader } from "@/lib/components/Layout/PageHeader";
@@ -36,6 +37,7 @@ const CartPage = () => {
           category: product.category,
           quantity: product.quantity,
         }))}
+        checkoutAction={<CheckoutButton cartId={cartId} />}
       />
     </Page>
   );

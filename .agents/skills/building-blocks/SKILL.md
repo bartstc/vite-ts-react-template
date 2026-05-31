@@ -25,10 +25,11 @@ Read the rule file for each block you are about to implement. The summaries belo
 
 ### State Management
 
-| Block      | Layer          | Summary                                                                                            | File                |
-| ---------- | -------------- | -------------------------------------------------------------------------------------------------- | ------------------- |
-| `store`    | `application/` | Zustand store — small, focused, selector-only subscriptions. Actions live inside the store.        | `rules/store.md`    |
-| `provider` | `providers/`   | Thin React Context wrapper for dependency injection. No logic — delivers state, doesn't manage it. | `rules/provider.md` |
+| Block      | Layer          | Summary                                                                                                                                                                  | File                |
+| ---------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------- |
+| `store`    | `application/` | Zustand store — small, focused, selector-only subscriptions. Actions live inside the store.                                                                              | `rules/store.md`    |
+| `machine`  | `application/` | XState machine for multi-step async flows. Discriminated-union context; actors wrap the slice's own providers; typed `ErrorActorEvent` rejections; emits events outward. | `rules/machine.md`  |
+| `provider` | `providers/`   | Thin React Context wrapper for dependency injection. No logic — delivers state, doesn't manage it.                                                                       | `rules/provider.md` |
 
 ### App Orchestration
 

@@ -1,0 +1,56 @@
+{
+  "button": {
+    "checkout": "Checkout"
+  },
+  "dialog": {
+    "title": "Checkout"
+  },
+  "review": {
+    "confirm": "Confirm order"
+  },
+  "controls": {
+    "shipping-label": "Shipping option",
+    "shipping": {
+      "standard": "Standard",
+      "express": "Express"
+    },
+    "promo-label": "Promo code",
+    "promo-placeholder": "Promo code",
+    "apply": "Apply"
+  },
+  "totals": {
+    "subtotal": "Subtotal",
+    "discount": "Discount",
+    "shipping": "Shipping",
+    "total": "Total"
+  },
+  "confirmation": {
+    "title": "Order confirmed",
+    "order-id": "Order {{id}}",
+    "done": "Done"
+  },
+  "out-of-stock": {
+    "title": "Some items are out of stock",
+    "quantities": "Requested {{requested}}, available {{available}}",
+    "back-to-cart": "Back to cart"
+  },
+  "price-changed": {
+    "title": "Some prices have changed",
+    "was-now": "Was {{was}}, now {{now}}",
+    "continue": "Continue"
+  },
+  "session-expired": {
+    "title": "Checkout session expired",
+    "message": "Your checkout session has expired. Start over to get current prices and availability.",
+    "restart": "Start over"
+  },
+  "empty-cart": {
+    "title": "Your cart is empty",
+    "message": "Add some products to your cart before checking out."
+  },
+  "error": {
+    "title": "Something went wrong",
+    "message": "We couldn't complete this step. Please try again or contact us.",
+    "retry": "Try again"
+  }
+}

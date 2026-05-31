@@ -39,11 +39,10 @@ export class KyClient implements HttpServiceClient<KyClientOptions> {
 
             if (response?.body && response?.status) {
               let bodyMessage: string | undefined;
+              let parsedBody: unknown;
               try {
-                const body = (await response.clone().json()) as {
-                  message?: string;
-                };
-                bodyMessage = body?.message;
+                parsedBody = await response.clone().json();
+                bodyMessage = (parsedBody as { message?: string })?.message;
               } catch {
                 // non-JSON body — fall through to generic message
               }
@@ -52,7 +51,8 @@ export class KyClient implements HttpServiceClient<KyClientOptions> {
                 response,
                 request,
                 options,
-                bodyMessage ?? `Ajax error occurred (${response.status})`
+                bodyMessage ?? `Ajax error occurred (${response.status})`,
+                parsedBody
               );
             }
 
