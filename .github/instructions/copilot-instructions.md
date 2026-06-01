@@ -23,7 +23,9 @@ Package manager: PNPM only. Path alias: `@/*` → `src/`.
 ## Core Principles
 
 - **Simplicity first** — make every change as simple as possible, minimize code impact, choose the boring solution
+- **Surgical changes** — touch only what the task requires; don't refactor, reformat, or "improve" adjacent code. Remove only the orphans your own changes create
 - When unsure about requirements or business logic, ask the developer — never assume
+- When multiple interpretations exist, present them — don't pick silently
 - For changes >300 LOC or >3 files, ask for confirmation before proceeding
 - Modify API contracts only with explicit approval
 - Use git commands only when explicitly requested
