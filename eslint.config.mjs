@@ -185,6 +185,23 @@ export default defineConfig(
       "@typescript-eslint/no-unsafe-enum-comparison": "error",
       "no-restricted-imports": ["error", baseNoRestrictedImports],
       "no-restricted-syntax": noAnonymousUseEffectRule,
+      "@typescript-eslint/member-ordering": [
+        "warn",
+        {
+          // Only enforce required-before-optional for object types; leave
+          // classes untouched.
+          classes: "never",
+          classExpressions: "never",
+          interfaces: {
+            memberTypes: "never",
+            optionalityOrder: "required-first",
+          },
+          typeLiterals: {
+            memberTypes: "never",
+            optionalityOrder: "required-first",
+          },
+        },
+      ],
     },
   },
   {

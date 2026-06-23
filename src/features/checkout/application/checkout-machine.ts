@@ -47,9 +47,9 @@ export type CheckoutMachineContext =
   | {
       type: "FAILED";
       cartId: string;
-      session?: CheckoutSession;
       error: CheckoutError;
       failedStep: CheckoutStep;
+      session?: CheckoutSession;
     };
 
 export type SessionReadyContext = OneOfUnion<

@@ -23,8 +23,8 @@ import { useSecondaryTextColor } from "@/lib/theme/use-secondary-text-color";
 
 interface IProps {
   product: Product;
-  children?: ReactNode;
   onBack: () => void;
+  children?: ReactNode;
 }
 
 const accordionItems = [

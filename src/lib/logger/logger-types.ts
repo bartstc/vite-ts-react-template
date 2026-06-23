@@ -14,6 +14,8 @@ export enum LogEnvironment {
 }
 
 export interface LogParams {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [index: string]: any;
   route?: string;
   stacktrace?: string;
   user?: object;
@@ -21,8 +23,6 @@ export interface LogParams {
   request?: string;
   response?: string;
   additionalInfo?: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  [index: string]: any;
 }
 
 export type Log = {

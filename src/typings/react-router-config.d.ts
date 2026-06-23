@@ -7,8 +7,8 @@ import type {
 
 declare module "react-router" {
   interface NavigateState {
-    from?: string;
     [key: string]: unknown;
+    from?: string;
   }
 
   interface LocationWithState extends Omit<RRLocation, "state"> {

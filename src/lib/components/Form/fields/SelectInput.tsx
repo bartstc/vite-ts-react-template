@@ -19,8 +19,8 @@ export type { OptionType };
 
 export interface SelectInputProps<Value = string>
   extends BasicFieldProps, Omit<FormFieldProps, "defaultValue"> {
-  placeholder?: string;
   options: OptionType<Value>[];
+  placeholder?: string;
   isMulti?: boolean;
   isClearable?: boolean;
   isLoading?: boolean;
