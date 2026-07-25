@@ -11,6 +11,19 @@ Typed catalog of building blocks used in this project. Each block has a fixed na
 
 Read the rule file for each block you are about to implement. The summaries below are for routing — the rule files contain the full pattern.
 
+## Composition ladder
+
+Composition is a ladder. Default to the bottom rung; climb only when a concrete, named pain appears. Each rung buys flexibility and costs indirection.
+
+| Rung | Block                | Reach for it when…                                                                                        |
+| ---- | -------------------- | --------------------------------------------------------------------------------------------------------- |
+| 1    | `pure-component`     | default — reusable UI is a function of its props.                                                         |
+| 2    | `compound-component` | a component grows a prop per shape, or callers need a layout the props did not anticipate.                |
+| 3    | `composer`           | one piece of UI must render data from swappable/deferred sources, or you want a fixture source for tests. |
+| 4    | `composer`           | state must cross a component boundary (callbacks drilled to a leaf) and the layout should stay pure.      |
+
+Do not climb for uniformity, for a single source with no alternative in sight, or for state that never leaves its component.
+
 ## Block Catalog
 
 ### Data Fetching
@@ -39,17 +52,18 @@ Read the rule file for each block you are about to implement. The summaries belo
 
 ### Component Patterns
 
-| Block                | Layer          | Summary                                                                                            | File                          |
-| -------------------- | -------------- | -------------------------------------------------------------------------------------------------- | ----------------------------- |
-| `notification-hook`  | `application/` | Maps operation outcomes to toast notifications. One hook per use case.                             | `rules/notification-hook.md`  |
-| `pure-component`     | `components/`  | Props in, JSX out. No side effects, no internal state beyond `useMemo`.                            | `rules/pure-component.md`     |
-| `compound-component` | `components/`  | Dot-notation sub-components. Composition over configuration — no boolean prop toggles.             | `rules/compound-component.md` |
-| `form`               | `components/`  | Context-driven form via `useForm` + `FormProvider` + field components.                             | `rules/form.md`               |
-| `hoc`                | `components/`  | Component in → enhanced component out. For render-level decisions (auth gates, suspense wrappers). | `rules/hoc.md`                |
-| `error-boundary`     | `components/`  | Scoped error handling for a feature component with its own query.                                  | `rules/error-boundary.md`     |
-| `page`               | `pages/`       | Route-level orchestrator. Only place where router coupling is acceptable.                          | `rules/page.md`               |
-| `facade-hook`        | `components/`  | Private logic extraction for a single component. Defined below the component, not exported.        | `rules/facade-hook.md`        |
-| `named-effect`       | `components/`  | Named function expressions in `useEffect`. Intent visible at a glance.                             | `rules/named-effect.md`       |
+| Block                | Layer          | Summary                                                                                                                        | File                          |
+| -------------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------ | ----------------------------- |
+| `notification-hook`  | `application/` | Maps operation outcomes to toast notifications. One hook per use case.                                                         | `rules/notification-hook.md`  |
+| `pure-component`     | `components/`  | Props in, JSX out. No side effects, no internal state beyond `useMemo`.                                                        | `rules/pure-component.md`     |
+| `compound-component` | `components/`  | Dot-notation sub-components. Composition over configuration — no boolean prop toggles.                                         | `rules/compound-component.md` |
+| `composer`           | `components/`  | Consumes a `{ state, meta }` / `{ state, actions }` contract; swappable + fixture source Providers fill it. Top of the ladder. | `rules/composer.md`           |
+| `form`               | `components/`  | Context-driven form via `useForm` + `FormProvider` + field components.                                                         | `rules/form.md`               |
+| `hoc`                | `components/`  | Component in → enhanced component out. For render-level decisions (auth gates, suspense wrappers).                             | `rules/hoc.md`                |
+| `error-boundary`     | `components/`  | Scoped error handling for a feature component with its own query.                                                              | `rules/error-boundary.md`     |
+| `page`               | `pages/`       | Route-level orchestrator. Only place where router coupling is acceptable.                                                      | `rules/page.md`               |
+| `facade-hook`        | `components/`  | Private logic extraction for a single component. Defined below the component, not exported.                                    | `rules/facade-hook.md`        |
+| `named-effect`       | `components/`  | Named function expressions in `useEffect`. Intent visible at a glance.                                                         | `rules/named-effect.md`       |
 
 ### Data Modeling
 

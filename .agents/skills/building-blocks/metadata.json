@@ -1,11 +1,12 @@
 {
-  "version": "1.0.0",
-  "date": "April 2026",
-  "abstract": "Typed catalog of frontend building blocks. Contains 15 blocks across 5 categories (Data Fetching, State Management, App Orchestration, Component Patterns, Data Modeling). Each block defines composition rules, layer constraints, and canonical implementation examples. Designed for AI agents — read the index to route, read the rule file to implement.",
+  "version": "1.1.0",
+  "date": "July 2026",
+  "abstract": "Typed catalog of frontend building blocks. Contains 21 blocks across 5 categories (Data Fetching, State Management, App Orchestration, Component Patterns, Data Modeling). Each block defines composition rules, layer constraints, and canonical implementation examples. Designed for AI agents — read the index to route, read the rule file to implement.",
   "categories": [
     {
       "name": "Data Fetching",
       "blocks": [
+        "mutation-options-factory",
         "mutation-hook",
         "query-options-factory",
         "query-keys-factory",
@@ -26,7 +27,10 @@
         "notification-hook",
         "pure-component",
         "compound-component",
+        "composer",
+        "form",
         "hoc",
+        "error-boundary",
         "page",
         "facade-hook",
         "named-effect"

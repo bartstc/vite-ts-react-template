@@ -12,7 +12,9 @@ Parent exposes dot-notation sub-components, consumers compose only the parts the
 ### Constraints
 
 - Composition over configuration. If you're adding boolean props like `showHeader`, `showFooter`, `withSearch` — stop. Let the consumer compose the parts they need instead. Structure should be visible in JSX, not buried in prop logic.
-- Context is optional. Sometimes the pattern is just about providing a clean dot-notation API and avoiding falsy props that a root component would only pass through to its internal children. Use Context when sub-components genuinely need to coordinate shared state; skip it when the sub-components are independent.
+- Context is optional. Sometimes the pattern is just about providing a clean dot-notation API and avoiding falsy props that a root component would only pass through to its internal children. Use Context when sub-components genuinely need to coordinate shared state; skip it when the sub-components are independent. Any coordination context here is an **implementation detail that never leaves the file** — distinct from the feature-level contract a `composer` consumes (`rules/composer.md`).
+- Prefer polymorphism over tag-swapping props. Let `Root` take a `render` (or `asChild`-style) prop so the same primitive can render as a `div`, an `<a>`, or a router `Link` — instead of accumulating `as` / `href` props. Genuine row state (e.g. `collapsed`) stays a plain prop on `Root`; not everything becomes a slot.
+- When the same markup must render data from **swappable or deferred sources**, don't add source props — climb to `composer` (`rules/composer.md`).
 - Warning signs you need this: multiple boolean props toggling sections, large config objects controlling internal rendering, difficulty adding variations without modifying the component.
 - Don't over-apply. Single-purpose components with no optional sections stay as single units. Compound is for when consumers need structural flexibility.
 

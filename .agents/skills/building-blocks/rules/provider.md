@@ -9,6 +9,11 @@ composedWith: store
 
 React Context providers acting as dependency injection for the component tree. Deliver feature-level state — cart contents, current workspace, active filters — without prop drilling. Keep providers thin: they deliver state, they don't manage it. State logic belongs in the store or machine; the provider just makes it available.
 
+Two things share the word "provider" — don't blur them:
+
+- This block, a **context-provider component**, lives in `application/` (or the feature's UI layer). The `providers/` **directory** is the React-Query data-access layer (query/mutation hooks) — a different concept entirely.
+- A **source Provider** is a specialization of this block that fills a Composer's contract and is interchangeable with other sources (including a fixture source). When you have a `*Composer` consuming a `{ state, meta }` or `{ state, actions }` contract, see `rules/composer.md` — that is the same context mechanism aimed at swappable sources.
+
 ### Constraints
 
 - Two files per provider: one for the context (with `createContext` + the consumer hook), one for the provider component (accepts `PropsWithChildren`). Separating them keeps the dependency graph clean — consumers import the hook, not the provider.
