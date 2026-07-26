@@ -60,7 +60,7 @@ export const useRemove = (keepValue = true) => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const value = getValues(name as any) as unknown;
 
-      if (!keepValue) unregister(name as never);
+      if (!keepValue) unregister(name);
 
       if (!value) return;
 
@@ -71,11 +71,11 @@ export const useRemove = (keepValue = true) => {
       if (defaultValue !== undefined) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         setValue(name as any, defaultValue as any);
-        unregister(name as never, { keepValue: true });
+        unregister(name, { keepValue: true });
         return;
       }
 
-      unregister(name as never);
+      unregister(name);
     },
     [cache, getValues, keepValue, setValue, unregister]
   );
@@ -126,7 +126,7 @@ export const useFieldBasedCondition = <Values extends FieldValues>(
     name: fields.name,
   });
 
-  return useCondition(name, fields.condition(value as Partial<Values>), {
+  return useCondition(name, fields.condition(value), {
     hiddenFieldValue: fields.defaultValue,
   });
 };

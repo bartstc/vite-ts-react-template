@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
 import { assign, fromPromise, setup } from "xstate";
 
 import { IS_AUTHENTICATED_STORAGE } from "@/features/auth/models/storage-keys";
@@ -7,8 +8,7 @@ interface StorageMachineContext {
 }
 
 type StorageMachineEvents =
-  | { type: "SET_AUTHENTICATED"; value: boolean }
-  | { type: "CLEAR" };
+  { type: "SET_AUTHENTICATED"; value: boolean } | { type: "CLEAR" };
 
 export type StorageMachineType = typeof storageMachine;
 

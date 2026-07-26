@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
 import { describe, expect, it, vi } from "vitest";
 import { createActor, fromPromise } from "xstate";
 

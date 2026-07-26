@@ -3,8 +3,7 @@ import { useAuthorizedContextSelector } from "@/features/authv2/application/use-
 import type { Permission } from "@/features/authv2/models/permissions";
 
 type PermissionQuery =
-  | Permission
-  | { permissions: Permission[]; match?: "all" | "oneOf" };
+  Permission | { permissions: Permission[]; match?: "all" | "oneOf" };
 
 export const useHasPermission = (query: PermissionQuery): boolean => {
   const availablePermissions = useAuthorizedContextSelector(
