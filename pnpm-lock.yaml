@@ -5,7 +5,7 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  "@fastify/static": 9.3.0
+  "@fastify/static": 10.1.2
   fast-jwt: 6.2.4
   fast-uri: 3.1.4
   unrs-resolver: 1.11.1
@@ -71,8 +71,8 @@ importers:
         specifier: 16.5.1
         version: 16.5.1(i18next@25.7.4(typescript@5.9.3))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@5.9.3)
       react-router:
-        specifier: 7.12.0
-        version: 7.12.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+        specifier: 7.18.1
+        version: 7.18.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       use-context-selector:
         specifier: 2.0.0
         version: 2.0.0(react@19.2.8)(scheduler@0.27.0)
@@ -205,7 +205,7 @@ importers:
         version: 10.5.4(@types/react@19.2.17)(prettier@3.9.6)(react@19.2.8)
       storybook-addon-remix-react-router:
         specifier: 6.1.0
-        version: 6.1.0(react-dom@19.2.8(react@19.2.8))(react-router@7.12.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react@19.2.8)(storybook@10.5.4(@types/react@19.2.17)(prettier@3.9.6)(react@19.2.8))
+        version: 6.1.0(react-dom@19.2.8(react@19.2.8))(react-router@7.18.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react@19.2.8)(storybook@10.5.4(@types/react@19.2.17)(prettier@3.9.6)(react@19.2.8))
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -947,10 +947,10 @@ packages:
         integrity: sha512-TMYeQLCBSy2TOFmV95hQWkiTYgC/SEx7vMdV+wnZVX4tt8VBLKzmH8vV9OzJehV0+XBfg+WxPMt5wp+JBUKsVw==,
       }
 
-  "@fastify/static@9.3.0":
+  "@fastify/static@10.1.2":
     resolution:
       {
-        integrity: sha512-9YMYRpCOtMBrqKYWcqiw7ykOrn4D0jogHpJrFS0KGeSuOwzKMM5/mjj7B0CFLVoQ6htqKYw//Zs7APn9DBq05w==,
+        integrity: sha512-G/g18cG9tLutT/OVyN1AIsHIl9L1UwmJ+S3dkyhVpplIx0nEMicd7RGQ+uJLyhKKF4a3tTcQydccn3Mop1fX+Q==,
       }
 
   "@fastify/swagger-ui@5.2.5":
@@ -3927,10 +3927,10 @@ packages:
     engines: { node: ">=18" }
     hasBin: true
 
-  content-disposition@1.1.0:
+  content-disposition@2.0.1:
     resolution:
       {
-        integrity: sha512-5jRCH9Z/+DRP7rkvY83B+yGIGX96OYdJmzngqnw2SBSxqCFPd0w2km3s5iawpGX8krnwSGmF0FW5Nhr0Hfai3g==,
+        integrity: sha512-e+H0ZXHSWYrENhQzw1LPuP4oF5MzVKmDU6d3hxlvaPEYLLg62MxtQNPRx4SYSuYJSBUgnQIG4HIN2tEtNv7Dog==,
       }
     engines: { node: ">=18" }
 
@@ -6870,10 +6870,10 @@ packages:
         integrity: sha512-/LLMVyas0ljjAtoYiPqYiL8VWXzUUdThrmU5+n20DZv+a+ClRoevUzw5JxU+Ieh5/c87ytoTBV9G1FiKfNJdmg==,
       }
 
-  react-router@7.12.0:
+  react-router@7.18.1:
     resolution:
       {
-        integrity: sha512-kTPDYPFzDVGIIGNLS5VJykK0HfHLY5MF3b+xj0/tTyNYL1gF1qs7u67Z9jEhQk2sQ98SUaHxlG31g1JtF7IfVw==,
+        integrity: sha512-GDLgg3i3uM0aeJO3Fm+TCS+sDQ7gu12T6x0qdTEzcwqEfleci7JwugVNIF3U//0FWKnJT7ptG+20B2jfDqnZAg==,
       }
     engines: { node: ">=20.0.0" }
     peerDependencies:
@@ -8960,18 +8960,19 @@ snapshots:
       http-errors: 2.0.1
       mime: 3.0.0
 
-  "@fastify/static@9.3.0":
+  "@fastify/static@10.1.2":
     dependencies:
       "@fastify/accept-negotiator": 2.0.1
+      "@fastify/error": 4.2.0
       "@fastify/send": 4.1.0
-      content-disposition: 1.1.0
+      content-disposition: 2.0.1
       fastify-plugin: 6.0.0
       fastq: 1.20.1
       glob: 13.0.6
 
   "@fastify/swagger-ui@5.2.5":
     dependencies:
-      "@fastify/static": 9.3.0
+      "@fastify/static": 10.1.2
       fastify-plugin: 5.1.0
       openapi-types: 12.1.3
       rfdc: 1.4.1
@@ -11020,7 +11021,7 @@ snapshots:
       tree-kill: 1.2.2
       yargs: 17.7.2
 
-  content-disposition@1.1.0: {}
+  content-disposition@2.0.1: {}
 
   convert-source-map@1.9.0: {}
 
@@ -13012,7 +13013,7 @@ snapshots:
 
   react-is@18.3.1: {}
 
-  react-router@7.12.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8):
+  react-router@7.18.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8):
     dependencies:
       cookie: 1.1.1
       react: 19.2.8
@@ -13344,12 +13345,12 @@ snapshots:
       es-errors: 1.3.0
       internal-slot: 1.1.0
 
-  storybook-addon-remix-react-router@6.1.0(react-dom@19.2.8(react@19.2.8))(react-router@7.12.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react@19.2.8)(storybook@10.5.4(@types/react@19.2.17)(prettier@3.9.6)(react@19.2.8)):
+  storybook-addon-remix-react-router@6.1.0(react-dom@19.2.8(react@19.2.8))(react-router@7.18.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react@19.2.8)(storybook@10.5.4(@types/react@19.2.17)(prettier@3.9.6)(react@19.2.8)):
     dependencies:
       "@mjackson/form-data-parser": 0.4.0
       compare-versions: 6.1.1
       react-inspector: 9.0.0(react@19.2.8)
-      react-router: 7.12.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+      react-router: 7.18.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       storybook: 10.5.4(@types/react@19.2.17)(prettier@3.9.6)(react@19.2.8)
     optionalDependencies:
       react: 19.2.8
