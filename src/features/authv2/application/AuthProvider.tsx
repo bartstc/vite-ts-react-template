@@ -48,6 +48,9 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   useEffect(
     function subscribeToAuthEvents() {
       const subscription = authActor.on("*", (event) => {
+        // AIDEV-NOTE: the "*" wildcard widens `event` to the base emitted type;
+        // the assertion is required to narrow it for the switch below.
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion -- false positive: removing it breaks pnpm typecheck
         const emittedEvent = event as AuthMachineEmittedEvents;
 
         switch (emittedEvent.type) {

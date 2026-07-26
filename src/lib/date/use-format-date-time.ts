@@ -45,7 +45,7 @@ export const useFormatDateTime = () => {
       };
 
       if (!DateVO.isValidDateFormat(date)) {
-        return options.fallback as unknown as string;
+        return options.fallback;
       }
 
       return Intl.DateTimeFormat(

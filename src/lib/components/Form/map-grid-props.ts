@@ -1,12 +1,7 @@
 import { type ConditionalValue } from "@chakra-ui/react";
 
 export type GridProp =
-  | "colSpan"
-  | "colStart"
-  | "colEnd"
-  | "rowEnd"
-  | "rowStart"
-  | "rowSpan";
+  "colSpan" | "colStart" | "colEnd" | "rowEnd" | "rowStart" | "rowSpan";
 
 type SpanValue = ConditionalValue<number | "auto">;
 

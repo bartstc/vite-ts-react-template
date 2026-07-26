@@ -45,9 +45,7 @@
       "Bash(git clean -fdx)",
       "Bash(git clean)",
       "Bash(git push origin main --force)",
-      "Bash(git reset --hard)",
-      "Bash(pnpm install)",
-      "Bash(pnpm install:*)"
+      "Bash(git reset --hard)"
     ]
   },
   "env": {

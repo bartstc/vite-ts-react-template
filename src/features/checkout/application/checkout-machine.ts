@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
 import { assign, emit, setup, type PromiseActorLogic } from "xstate";
 
 import {

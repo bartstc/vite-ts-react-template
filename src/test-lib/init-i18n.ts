@@ -1,12 +1,25 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 
-import auth from "../../public/locales/en-GB/auth.json";
-import carts from "../../public/locales/en-GB/carts.json";
-import marketing from "../../public/locales/en-GB/marketing.json";
-import pages from "../../public/locales/en-GB/pages.json";
-import products from "../../public/locales/en-GB/products.json";
-import shared from "../../public/locales/en-GB/shared.json";
+// AIDEV-NOTE: Vite 8 forbids importing public/ assets as modules, but `?raw` is
+// still allowed. The locales must live in public/ because i18next fetches them
+// over HTTP at runtime (loadPath "/locales/{{lng}}/{{ns}}.json").
+import authRaw from "../../public/locales/en-GB/auth.json?raw";
+import cartsRaw from "../../public/locales/en-GB/carts.json?raw";
+import marketingRaw from "../../public/locales/en-GB/marketing.json?raw";
+import pagesRaw from "../../public/locales/en-GB/pages.json?raw";
+import productsRaw from "../../public/locales/en-GB/products.json?raw";
+import sharedRaw from "../../public/locales/en-GB/shared.json?raw";
+
+type Resource = Record<string, unknown>;
+const parse = (raw: string) => JSON.parse(raw) as Resource;
+
+const auth = parse(authRaw);
+const carts = parse(cartsRaw);
+const marketing = parse(marketingRaw);
+const pages = parse(pagesRaw);
+const products = parse(productsRaw);
+const shared = parse(sharedRaw);
 
 export const i18nInstance = i18n;
 

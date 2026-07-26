@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
 import { assign, emit, setup, type PromiseActorLogic } from "xstate";
 
 import type { User } from "@/features/auth/models/user";
@@ -35,8 +36,7 @@ export type RolesAssignedContext = OneOfUnion<
 export type AuthorizedContext = OneOfUnion<AuthMachineContext, "AUTHORIZED">;
 
 type AuthMachineEvents =
-  | { type: "LOGGED_IN"; credentials: ICredentials }
-  | { type: "LOGGED_OUT" };
+  { type: "LOGGED_IN"; credentials: ICredentials } | { type: "LOGGED_OUT" };
 
 export type AuthMachineEmittedEvents =
   | {

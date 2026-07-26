@@ -1,3 +1,13 @@
 packages:
   - "."
   - "server"
+
+# AIDEV-NOTE: pnpm 10 blocks postinstall scripts by default. unrs-resolver needs
+# its build step to link the native binding — without it eslint-import-resolver-typescript
+# silently fails to resolve every @/* alias, producing hundreds of bogus
+# import/no-unresolved errors.
+onlyBuiltDependencies:
+  - esbuild
+  - msw
+  - storybook-addon-remix-react-router
+  - unrs-resolver
