@@ -35,7 +35,7 @@
   "dependencies": {
     "@chakra-ui/react": "3.36.1",
     "@emotion/react": "11.14.0",
-    "@fontsource/inter": "4.5.15",
+    "@fontsource/inter": "5.3.0",
     "@tanstack/react-query": "5.101.4",
     "@xstate/react": "6.1.0",
     "i18next": "25.7.4",
@@ -67,7 +67,7 @@
     "@storybook/react-vite": "10.5.4",
     "@testing-library/jest-dom": "6.9.1",
     "@testing-library/react": "16.3.2",
-    "@types/node": "25.0.6",
+    "@types/node": "26.1.1",
     "@types/ramda": "0.32.0",
     "@types/react": "19.2.17",
     "@types/react-dom": "19.2.3",
@@ -102,7 +102,7 @@
     "typescript": "5.9.3",
     "typescript-eslint": "8.65.0",
     "vite": "8.1.5",
-    "vite-plugin-checker": "0.12.0",
+    "vite-plugin-checker": "0.14.5",
     "vitest": "4.1.10"
   },
   "browserslist": {
