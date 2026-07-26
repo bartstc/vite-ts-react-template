@@ -1,4 +1,4 @@
-import { describe } from "vitest";
+import { describe, expect, it } from "vitest";
 
 import { DateVO } from "@/lib/date/date";
 import { generateDate } from "@/test-lib/date/generate-date";
