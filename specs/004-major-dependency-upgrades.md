@@ -1,7 +1,7 @@
 # Spec 004 — Major Dependency Upgrades
 
 **Date:** 2026-07-25
-**Status:** In progress — groups 1–3 landed 2026-07-26; next up group 4 (test harness)
+**Status:** In progress — groups 1–4 landed 2026-07-26; next up group 5 (app state & utils)
 **Scope:** 26 packages with major version bumps available (root + `server/`)
 
 Patch/minor updates are handled separately by a single command (see README of this spec, bottom). This document covers only **major** bumps, each with a codebase impact estimate.
@@ -72,7 +72,7 @@ v9 removes the shebang + `husky.sh` sourcing convention and changes `husky insta
 
 **Estimated work:** 2 small edits. Verify with a test commit.
 
-### B4. `jsdom` 21.1.2 → 29.1.1
+### B4. `jsdom` 21.1.2 → 29.1.1 — ✅ done (group 4, `db3f6cd`)
 
 **Files:** 0 — referenced only as `environment: "jsdom"` in [vitest.config.ts:26](vitest.config.ts#L26)
 
@@ -80,7 +80,7 @@ An 8-major jump, but the surface is Vitest's environment adapter, not our code. 
 
 **Estimated work:** bump + full `pnpm test:unit` run; fix fallout only if it appears.
 
-### B5. `@testing-library/jest-dom` 6.9.1 → 7.0.0 (+ remove `@types/testing-library__jest-dom`)
+### B5. `@testing-library/jest-dom` 6.9.1 → 7.0.0 (+ remove `@types/testing-library__jest-dom`) — ✅ done (group 4, `db3f6cd`)
 
 **Files:** 1 — [test-setup.ts:1](test-setup.ts#L1), plus package.json
 
@@ -221,21 +221,21 @@ TypeScript 7 is the native (Go) compiler rewrite. It is a major behavioral and e
 
 Grouped by **dominant verification signal** rather than by risk tier — each group has one gate that does the real proving, so a red build points at one cause instead of a mixed bag. Each group is one commit. The full gate (`pnpm typecheck && pnpm lint && pnpm test && pnpm test:e2e`) still runs on every group; the "primary gate" column is what actually catches breakage for that group, and what to run first when iterating.
 
-| #   | Group                      | Packages                                                                                               | Primary gate                          | Rollback unit            |
-| --- | -------------------------- | ------------------------------------------------------------------------------------------------------ | ------------------------------------- | ------------------------ |
-| 0   | ~~**Baseline**~~ ✅        | all patch + minor (appendix command) — already landed before this spec                                 | full suite                            | one revert               |
-| 1   | ~~**Silent deps**~~ ✅     | `ramda` + `@types/ramda`, `next-themes`, `@storybook/addon-mcp` — `2984391`                            | `pnpm typecheck`                      | one revert               |
-| 2   | ~~**Build & tooling**~~ ✅ | `@fontsource/inter`, `vite-plugin-checker`, `@types/node` (root + `server/`) — `f48d1f8`               | `pnpm build` + dev server boot        | per package              |
-| 3   | ~~**Repo infra**~~ ✅      | `husky`, `concurrently`, `@fastify/swagger-ui` — `c87a7c8`                                             | test commit + `pnpm dev:all`          | per package              |
-| 4   | **Test harness** ← next    | `jsdom`, `@testing-library/jest-dom` (− `@types/testing-library__jest-dom`)                            | `pnpm test:unit` + storybook suite    | per package              |
-| 5   | **App state & utils**      | `zustand`, `query-string`                                                                              | unit suite (store + `buildUrl` tests) | per package              |
-| 6   | **Icons**                  | `lucide-react`                                                                                         | `pnpm typecheck`                      | one revert               |
-| 7   | **HTTP layer**             | `ky`                                                                                                   | MSW-backed `src/lib/http` unit suite  | one revert               |
-| 8   | **i18n**                   | `i18next`, `react-i18next`, `i18next-chained-backend`, `i18next-http-backend`                          | `pnpm typecheck` + Storybook visual   | all four (locked peers)  |
-| 9   | **Routing**                | `react-router`, `storybook-addon-remix-react-router`                                                   | `pnpm test:e2e` + Storybook           | both (gated on OQ1)      |
-| 10  | **Storybook mocking**      | `msw-storybook-addon`                                                                                  | storybook suite                       | one revert               |
-| 11  | **Lint stack**             | `eslint` 10, `@eslint/js`, `eslint-plugin-react-hooks` 7, B6 plugins, `eslint-plugin-vitest` migration | `pnpm lint`                           | config revert; see below |
-| 12  | **Deferred**               | `typescript` 5→7                                                                                       | —                                     | separate spec            |
+| #   | Group                        | Packages                                                                                               | Primary gate                          | Rollback unit            |
+| --- | ---------------------------- | ------------------------------------------------------------------------------------------------------ | ------------------------------------- | ------------------------ |
+| 0   | ~~**Baseline**~~ ✅          | all patch + minor (appendix command) — already landed before this spec                                 | full suite                            | one revert               |
+| 1   | ~~**Silent deps**~~ ✅       | `ramda` + `@types/ramda`, `next-themes`, `@storybook/addon-mcp` — `2984391`                            | `pnpm typecheck`                      | one revert               |
+| 2   | ~~**Build & tooling**~~ ✅   | `@fontsource/inter`, `vite-plugin-checker`, `@types/node` (root + `server/`) — `f48d1f8`               | `pnpm build` + dev server boot        | per package              |
+| 3   | ~~**Repo infra**~~ ✅        | `husky`, `concurrently`, `@fastify/swagger-ui` — `c87a7c8`                                             | test commit + `pnpm dev:all`          | per package              |
+| 4   | ~~**Test harness**~~ ✅      | `jsdom`, `@testing-library/jest-dom` (− `@types/testing-library__jest-dom`) — `db3f6cd`                | `pnpm test:unit` + storybook suite    | per package              |
+| 5   | **App state & utils** ← next | `zustand`, `query-string`                                                                              | unit suite (store + `buildUrl` tests) | per package              |
+| 6   | **Icons**                    | `lucide-react`                                                                                         | `pnpm typecheck`                      | one revert               |
+| 7   | **HTTP layer**               | `ky`                                                                                                   | MSW-backed `src/lib/http` unit suite  | one revert               |
+| 8   | **i18n**                     | `i18next`, `react-i18next`, `i18next-chained-backend`, `i18next-http-backend`                          | `pnpm typecheck` + Storybook visual   | all four (locked peers)  |
+| 9   | **Routing**                  | `react-router`, `storybook-addon-remix-react-router`                                                   | `pnpm test:e2e` + Storybook           | both (gated on OQ1)      |
+| 10  | **Storybook mocking**        | `msw-storybook-addon`                                                                                  | storybook suite                       | one revert               |
+| 11  | **Lint stack**               | `eslint` 10, `@eslint/js`, `eslint-plugin-react-hooks` 7, B6 plugins, `eslint-plugin-vitest` migration | `pnpm lint`                           | config revert; see below |
+| 12  | **Deferred**                 | `typescript` 5→7                                                                                       | —                                     | separate spec            |
 
 ### Execution log
 
@@ -244,7 +244,21 @@ Grouped by **dominant verification signal** rather than by risk tier — each gr
 Two findings that carry forward:
 
 - ⚠️ **New unmet peer:** `vite-plugin-checker@0.14.5` requires `eslint >=9.39.4`; repo is on 9.39.2. Non-fatal — the checker runs and reports `Found 0 errors` in both build and dev. **Group 11 resolves it.** Do not chase it before then.
-- ⚠️ **`pnpm test` (both projects together) is unreliable locally.** The combined run ends with a `[birpc] rpc is closed` browser-teardown error and ~7 of 45 files marked failed, while every individual test passes (132/132). This is a local concurrency flake, not a regression — storybook tests may need isolation to pass. **Consequence: `pnpm test:unit` was the trustworthy gate for groups 1–3, and the storybook suite is unverified for them.** Confirm in CI. This matters most for groups 4, 9 and 10, whose primary gate _is_ the storybook suite — run those isolated or lean on CI.
+- ✅ **Storybook suite failures are `/dev/shm` exhaustion — root-caused during group 4, not a flake.** This container's `/dev/shm` is 64 MB (the Docker default). Chromium exhausts it when Vitest runs story files in parallel; the page dies and the run reports `Browser connection was closed while running tests` / `[birpc] rpc is closed`, sometimes as partial failures and sometimes as `Tests no tests`. Unrelated to any dependency bump — storybook tests run in a real browser and never touch jsdom.
+
+  **Workaround — use this for every storybook run:**
+
+  ```bash
+  pnpm test:storybook --run --fileParallelism=false
+  ```
+
+  With that flag the suite is fully green: **27 files / 49 tests passed.** This also retroactively clears groups 1–3, whose storybook status had been listed as unverified. The durable fix is raising the container's shm (`--shm-size=1g`, or mounting a larger `/dev/shm`) in the devcontainer config, so local and CI agree — worth doing as its own task.
+
+- ℹ️ **Pre-existing, unrelated to this spec:** `ProductsPage` reads `data.meta.total` unguarded at [src/pages/Products/index.tsx:23](src/pages/Products/index.tsx#L23), which throws `Cannot read properties of undefined (reading 'meta')` in the "Without Products" story. React Router's ErrorBoundary catches it, so the story still passes — the error is console noise only. Verified present on the group-3 baseline before any group-4 change. Not fixed here (out of scope for a dependency spec); worth its own ticket.
+
+**Group 4 — landed 2026-07-26 (`db3f6cd`).** jsdom's 8-major jump caused zero unit-test fallout, and jest-dom v7's tightened matchers broke nothing. One real finding:
+
+- 🐛 **Removing `@types/testing-library__jest-dom` exposed a latent bug.** Two test files used `it` / `expect` / `beforeEach` / `afterEach` without importing them, relying on ambient Jest globals that leaked in through that package's transitive `@types/jest`. Tests passed the whole time (Vitest injects the globals at runtime via `globals: true`); only `tsc` saw the gap, and only once the stale package was gone. Fixed by importing from `vitest` explicitly in [date.test.ts](src/lib/date/date.test.ts) and [use-relative-time.test.ts](src/lib/date/use-relative-time.test.ts) — test bodies untouched. **Lesson for later groups: a green test run does not imply a green typecheck when ambient types are in play.**
 
 Also worth noting: pulling `@fontsource/inter` and `vite-plugin-checker` out of Tier A was load-bearing. Neither is provable by typecheck — fonts needed a served-asset check (woff2 200 in dev, 42 font files emitted to `dist/`) and the checker needed a real build to confirm its config shape. In the original tier ordering both would have ridden along in a typecheck-only commit.
 
