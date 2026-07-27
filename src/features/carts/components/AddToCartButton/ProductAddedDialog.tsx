@@ -18,11 +18,9 @@ const ProductAddedDialog = () => {
   const navigate = useNavigate();
   const t = useTranslations("features.carts.add-to-cart.dialog");
 
-  const { isOpen, onClose, cartId } = useProductAddedDialogStore((state) => ({
-    isOpen: state.isOpen,
-    onClose: state.onClose,
-    cartId: state.selectedItem,
-  }));
+  const isOpen = useProductAddedDialogStore((state) => state.isOpen);
+  const onClose = useProductAddedDialogStore((state) => state.onClose);
+  const cartId = useProductAddedDialogStore((state) => state.selectedItem);
 
   return (
     <Dialog.Root

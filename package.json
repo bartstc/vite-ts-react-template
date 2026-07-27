@@ -45,7 +45,7 @@
     "ky": "0.33.3",
     "lucide-react": "0.511.0",
     "next-themes": "0.4.6",
-    "query-string": "8.2.0",
+    "query-string": "9.4.1",
     "ramda": "0.32.0",
     "react": "19.2.8",
     "react-dom": "19.2.8",
@@ -55,7 +55,7 @@
     "react-router": "7.18.1",
     "use-context-selector": "2.0.0",
     "xstate": "5.32.5",
-    "zustand": "4.5.4"
+    "zustand": "5.0.14"
   },
   "devDependencies": {
     "@eslint/js": "9.39.2",

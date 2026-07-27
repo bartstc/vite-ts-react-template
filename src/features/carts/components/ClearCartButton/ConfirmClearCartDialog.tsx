@@ -15,10 +15,8 @@ const ConfirmClearCartDialog = () => {
   const { clearCart, isPending } = useClearCart();
   const t = useTranslations("features.carts.clear-cart.dialog");
 
-  const { isOpen, onClose } = useConfirmClearCartDialogStore((state) => ({
-    isOpen: state.isOpen,
-    onClose: state.onClose,
-  }));
+  const isOpen = useConfirmClearCartDialogStore((state) => state.isOpen);
+  const onClose = useConfirmClearCartDialogStore((state) => state.onClose);
 
   return (
     <Dialog.Root

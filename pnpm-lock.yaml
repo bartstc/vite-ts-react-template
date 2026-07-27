@@ -50,8 +50,8 @@ importers:
         specifier: 0.4.6
         version: 0.4.6(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       query-string:
-        specifier: 8.2.0
-        version: 8.2.0
+        specifier: 9.4.1
+        version: 9.4.1
       ramda:
         specifier: 0.32.0
         version: 0.32.0
@@ -80,8 +80,8 @@ importers:
         specifier: 5.32.5
         version: 5.32.5
       zustand:
-        specifier: 4.5.4
-        version: 4.5.4(@types/react@19.2.17)(react@19.2.8)
+        specifier: 5.0.14
+        version: 5.0.14(@types/react@19.2.17)(react@19.2.8)(use-sync-external-store@1.6.0(react@19.2.8))
     devDependencies:
       "@eslint/js":
         specifier: 9.39.2
@@ -6611,12 +6611,12 @@ packages:
       }
     engines: { node: ">=6" }
 
-  query-string@8.2.0:
+  query-string@9.4.1:
     resolution:
       {
-        integrity: sha512-tUZIw8J0CawM5wyGBiDOAp7ObdRQh4uBor/fUR9ZjmbZVvw95OD9If4w3MQxr99rg0DJZ/9CIORcpEqU5hQG7g==,
+        integrity: sha512-lSyJeN3RuaG7DZGWThtYRhk96+kEyZ/+doZpERuWbjeFL+Ok3vEat/swU498rAI0NcVt5/RJp8UDuLz7FckxrA==,
       }
-    engines: { node: ">=14.16" }
+    engines: { node: ">=18" }
 
   queue-microtask@1.2.3:
     resolution:
@@ -7830,14 +7830,6 @@ packages:
       "@types/react":
         optional: true
 
-  use-sync-external-store@1.2.0:
-    resolution:
-      {
-        integrity: sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==,
-      }
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0
-
   use-sync-external-store@1.6.0:
     resolution:
       {
@@ -8235,22 +8227,25 @@ packages:
       }
     engines: { node: ">=10" }
 
-  zustand@4.5.4:
+  zustand@5.0.14:
     resolution:
       {
-        integrity: sha512-/BPMyLKJPtFEvVL0E9E9BTUM63MNyhPGlvxk1XjrfWTUlV+BR8jufjsovHzrtR6YNcBEcL7cMHovL1n9xHawEg==,
+        integrity: sha512-/8tAspM5LMPr28b3fwLYrtdj77ECpfZviaP75CMTnwO8ISyaE4GDIG/9rDDYq/cH9D2Xw2A2RXglLInmVBQB/g==,
       }
-    engines: { node: ">=12.7.0" }
+    engines: { node: ">=12.20.0" }
     peerDependencies:
-      "@types/react": ">=16.8"
+      "@types/react": ">=18.0.0"
       immer: ">=9.0.6"
-      react: ">=16.8"
+      react: ">=18.0.0"
+      use-sync-external-store: ">=1.2.0"
     peerDependenciesMeta:
       "@types/react":
         optional: true
       immer:
         optional: true
       react:
+        optional: true
+      use-sync-external-store:
         optional: true
 
 snapshots:
@@ -12638,7 +12633,7 @@ snapshots:
 
   punycode@2.3.1: {}
 
-  query-string@8.2.0:
+  query-string@9.4.1:
     dependencies:
       decode-uri-component: 0.4.1
       filter-obj: 5.1.0
@@ -13423,10 +13418,6 @@ snapshots:
     optionalDependencies:
       "@types/react": 19.2.17
 
-  use-sync-external-store@1.2.0(react@19.2.8):
-    dependencies:
-      react: 19.2.8
-
   use-sync-external-store@1.6.0(react@19.2.8):
     dependencies:
       react: 19.2.8
@@ -13642,9 +13633,8 @@ snapshots:
 
   yocto-queue@0.1.0: {}
 
-  zustand@4.5.4(@types/react@19.2.17)(react@19.2.8):
-    dependencies:
-      use-sync-external-store: 1.2.0(react@19.2.8)
+  zustand@5.0.14(@types/react@19.2.17)(react@19.2.8)(use-sync-external-store@1.6.0(react@19.2.8)):
     optionalDependencies:
       "@types/react": 19.2.17
       react: 19.2.8
+      use-sync-external-store: 1.6.0(react@19.2.8)

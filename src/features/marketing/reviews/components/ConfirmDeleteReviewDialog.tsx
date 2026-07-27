@@ -21,12 +21,10 @@ const ConfirmDeleteReviewDialog = ({ productId }: IProps) => {
   const t = useTranslations("features.marketing.reviews.delete-dialog");
   const { deleteReview, isPending } = useDeleteReview(productId);
 
-  const { isOpen, onClose, reviewId } = useConfirmDeleteReviewDialogStore(
-    (state) => ({
-      isOpen: state.isOpen,
-      onClose: state.onClose,
-      reviewId: state.selectedItem,
-    })
+  const isOpen = useConfirmDeleteReviewDialogStore((state) => state.isOpen);
+  const onClose = useConfirmDeleteReviewDialogStore((state) => state.onClose);
+  const reviewId = useConfirmDeleteReviewDialogStore(
+    (state) => state.selectedItem
   );
 
   return (

@@ -16,10 +16,8 @@ interface Props {
 const CheckoutDialog = ({ cartId }: Props) => {
   const t = useTranslations("features.checkout.dialog");
 
-  const { isOpen, onClose } = useCheckoutDialogStore((state) => ({
-    isOpen: state.isOpen,
-    onClose: state.onClose,
-  }));
+  const isOpen = useCheckoutDialogStore((state) => state.isOpen);
+  const onClose = useCheckoutDialogStore((state) => state.onClose);
 
   const onConfirmed = useCartInvalidation(cartId);
 
