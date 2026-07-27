@@ -92,7 +92,7 @@
     "jsdom": "29.1.1",
     "madge": "8.0.0",
     "msw": "2.15.0",
-    "msw-storybook-addon": "2.0.7",
+    "msw-storybook-addon": "3.0.0",
     "playwright": "1.62.0",
     "prettier": "3.9.6",
     "pretty-quick": "4.2.2",
