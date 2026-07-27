@@ -14,7 +14,7 @@ import { mswServer } from "@/test-lib/msw-server";
 
 const host = "http://localhost:3001/api";
 
-const createClient = () => new KyClient({ prefixUrl: host });
+const createClient = () => new KyClient({ baseUrl: `${host}/` });
 
 afterEach(() => {
   localStorage.clear();

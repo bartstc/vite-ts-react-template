@@ -1,4 +1,4 @@
-import { HTTPError } from "ky";
+import { KyError, type NormalizedOptions } from "ky";
 import { describe, expect, it } from "vitest";
 
 import { AjaxError } from "@/lib/http/ajax-error";
@@ -12,16 +12,16 @@ import { ResourceNotFoundException } from "@/lib/http/exceptions/resource-not-fo
 const createArgs = (status: number) => {
   const response = new Response(null, { status });
   const request = new Request("http://localhost:3001/api/products");
-  return [response, request, {} as HTTPError["options"]] as const;
+  return [response, request, {} as NormalizedOptions] as const;
 };
 
 describe("AjaxError", () => {
-  it("is both an Error and an HTTPError", () => {
+  it("is both an Error and a KyError", () => {
     const [response, request, options] = createArgs(400);
     const error = new AjaxError(400, response, request, options);
 
     expect(error).toBeInstanceOf(Error);
-    expect(error).toBeInstanceOf(HTTPError);
+    expect(error).toBeInstanceOf(KyError);
     expect(error).toBeInstanceOf(AjaxError);
   });
 

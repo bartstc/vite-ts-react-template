@@ -41,8 +41,8 @@ importers:
         specifier: 4.3.1
         version: 4.3.1
       ky:
-        specifier: 0.33.3
-        version: 0.33.3
+        specifier: 2.0.2
+        version: 2.0.2
       lucide-react:
         specifier: 1.27.0
         version: 1.27.0(react@19.2.8)
@@ -5699,12 +5699,12 @@ packages:
         integrity: sha512-oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw==,
       }
 
-  ky@0.33.3:
+  ky@2.0.2:
     resolution:
       {
-        integrity: sha512-CasD9OCEQSFIam2U8efFK81Yeg8vNMTBUqtMOHlrcWQHqUX3HeCl9Dr31u4toV7emlH8Mymk5+9p0lL6mKb/Xw==,
+        integrity: sha512-/GmXpo9F9W+f8n4Ivr2iH+7h7wL7jLbLKWkMlpflcCRb6kGjBfTlASEXaZ9qUgNTn4VgS0P2pwxxzQ4EM6Ulgg==,
       }
-    engines: { node: ">=14.16" }
+    engines: { node: ">=22" }
 
   levn@0.4.1:
     resolution:
@@ -12067,7 +12067,7 @@ snapshots:
     dependencies:
       json-buffer: 3.0.1
 
-  ky@0.33.3: {}
+  ky@2.0.2: {}
 
   levn@0.4.1:
     dependencies:
