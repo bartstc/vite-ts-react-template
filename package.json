@@ -52,7 +52,7 @@
     "react-error-boundary": "6.1.2",
     "react-hook-form": "7.83.0",
     "react-i18next": "17.0.11",
-    "react-router": "7.18.1",
+    "react-router": "8.3.0",
     "use-context-selector": "2.0.0",
     "xstate": "5.32.5",
     "zustand": "5.0.14"
@@ -123,6 +123,11 @@
       "fast-jwt": "6.2.4",
       "fast-uri": "3.1.4",
       "unrs-resolver": "1.11.1"
+    },
+    "peerDependencyRules": {
+      "allowedVersions": {
+        "storybook-addon-remix-react-router>react-router": "8"
+      }
     }
   },
   "packageManager": "pnpm@10.13.1"
