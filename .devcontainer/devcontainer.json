@@ -5,6 +5,10 @@
   // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
   // "image": "mcr.microsoft.com/devcontainers/typescript-node:0-18",
   "build": { "dockerfile": "Dockerfile" },
+  // Chromium needs shared memory well above Docker's 64MB default; at 64MB the
+  // browser page crashes when Vitest runs Storybook story files in parallel
+  // ("Browser connection was closed while running tests").
+  "runArgs": ["--shm-size=1g"],
   "containerEnv": {
     "CLAUDE_CONFIG_DIR": "/home/node/.claude"
   },

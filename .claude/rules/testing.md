@@ -19,6 +19,10 @@ paths:
 | API mocking | `test-lib/handlers/`                | MSW        |
 | Fixtures    | `test-lib/fixtures/`                | Custom     |
 
+## Running Tests
+
+- Storybook suite needs `/dev/shm` >= 1g (devcontainer sets it). On an older container, browser-crash errors mean serial runs: `pnpm test:storybook --run --fileParallelism=false`
+
 ## AI Boundaries
 
 - Generate new test files and business logic freely
