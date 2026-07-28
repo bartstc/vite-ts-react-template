@@ -58,7 +58,7 @@
     "zustand": "5.0.14"
   },
   "devDependencies": {
-    "@eslint/js": "9.39.2",
+    "@eslint/js": "10.0.1",
     "@playwright/test": "1.62.0",
     "@storybook/addon-docs": "10.5.4",
     "@storybook/addon-links": "10.5.4",
@@ -74,9 +74,10 @@
     "@vitejs/plugin-react": "6.0.4",
     "@vitest/browser-playwright": "4.1.10",
     "@vitest/coverage-istanbul": "4.1.10",
+    "@vitest/eslint-plugin": "1.6.24",
     "concurrently": "10.0.4",
     "dotenv": "17.4.2",
-    "eslint": "9.39.2",
+    "eslint": "10.8.0",
     "eslint-config-prettier": "10.1.8",
     "eslint-import-resolver-typescript": "4.4.5",
     "eslint-plugin-boundaries": "6.0.2",
@@ -87,7 +88,6 @@
     "eslint-plugin-react-refresh": "0.4.26",
     "eslint-plugin-react-you-might-not-need-an-effect": "0.8.5",
     "eslint-plugin-storybook": "10.5.4",
-    "eslint-plugin-vitest": "0.5.4",
     "husky": "9.1.7",
     "jsdom": "29.1.1",
     "madge": "8.0.0",
@@ -126,7 +126,9 @@
     },
     "peerDependencyRules": {
       "allowedVersions": {
-        "storybook-addon-remix-react-router>react-router": "8"
+        "storybook-addon-remix-react-router>react-router": "8",
+        "eslint-plugin-import>eslint": "10",
+        "eslint-plugin-react>eslint": "10"
       }
     }
   },

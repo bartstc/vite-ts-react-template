@@ -6,7 +6,7 @@ import reactPlugin from "eslint-plugin-react";
 import prettierPluginRecommended from "eslint-plugin-prettier/recommended";
 import importPlugin from "eslint-plugin-import";
 import storybookPlugin from "eslint-plugin-storybook";
-import vitest from "eslint-plugin-vitest";
+import vitest from "@vitest/eslint-plugin";
 import reactRefresh from "eslint-plugin-react-refresh";
 import reactYouMightNotNeedAnEffect from "eslint-plugin-react-you-might-not-need-an-effect";
 
@@ -81,7 +81,12 @@ export default defineConfig(
     },
     settings: {
       react: {
-        version: "detect",
+        // AIDEV-NOTE: Pinned, not "detect". eslint-plugin-react 7.37.5's
+        // version detection calls the ESLint 9 `context.getFilename()` API,
+        // removed in ESLint 10 — "detect" crashes the whole run. Keep in sync
+        // with the `react` version in package.json until the plugin ships an
+        // ESLint 10-compatible release.
+        version: "19.2",
       },
     },
   },
