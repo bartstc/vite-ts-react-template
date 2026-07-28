@@ -51,6 +51,11 @@ const NumberInput = ({
       errorMessage={error}
       {...props}
     >
+      {/* AIDEV-NOTE: react-hooks/refs false positive. Passing field.ref — a
+          react-hook-form callback ref registrar, not a useRef object — to a
+          ref prop makes the rule treat all of `field` as a ref, so every
+          field.* read below is flagged. Suppressed for the whole element. */}
+      {/* eslint-disable react-hooks/refs */}
       <NumberInputPresentation
         value={(field.value as number | string | null | undefined) ?? ""}
         id={String(toKebabCase(props.name))}
@@ -60,6 +65,7 @@ const NumberInput = ({
         disabled={isDisabled}
         placeholder={placeholder}
       />
+      {/* eslint-enable react-hooks/refs */}
     </FormField>
   );
 };

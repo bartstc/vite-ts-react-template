@@ -17,13 +17,11 @@ const ConfirmRemoveProductDialog = () => {
     useRemoveCartProduct();
   const t = useTranslations("features.carts.remove-product.dialog");
 
-  const { isOpen, selectedItem, onClose } = useConfirmRemoveProductDialogStore(
-    (state) => ({
-      isOpen: state.isOpen,
-      selectedItem: state.selectedItem,
-      onClose: state.onClose,
-    })
+  const isOpen = useConfirmRemoveProductDialogStore((state) => state.isOpen);
+  const selectedItem = useConfirmRemoveProductDialogStore(
+    (state) => state.selectedItem
   );
+  const onClose = useConfirmRemoveProductDialogStore((state) => state.onClose);
 
   const isDecrement = selectedItem?.mode === "decrement";
 

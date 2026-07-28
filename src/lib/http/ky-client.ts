@@ -1,4 +1,4 @@
-import ky, { type Options } from "ky";
+import ky, { isHTTPError, type Options } from "ky";
 
 import { InternalServerException } from "@/lib/http/exceptions/internal-server-exception";
 import { ResourceNotFoundException } from "@/lib/http/exceptions/resource-not-found-exception";
@@ -21,7 +21,7 @@ export class KyClient implements HttpServiceClient<KyClientOptions> {
       retry: 0,
       hooks: {
         beforeRequest: [
-          (request) => {
+          ({ request }) => {
             const token = localStorage.getItem(AUTH_TOKEN_KEY);
             if (!token) return;
             const headers = new Headers(request.headers);
@@ -30,29 +30,34 @@ export class KyClient implements HttpServiceClient<KyClientOptions> {
           },
         ],
         beforeError: [
-          async (error) => {
-            const { response, request, options } = error;
+          // AIDEV-NOTE: ky 2 pre-consumes the response body into `error.data` before this
+          // hook runs, so `response.json()` here would hang/throw — read `data` instead.
+          // Non-HTTPError failures (network, timeout) carry no response at all.
+          ({ error, request, options }) => {
+            if (!isHTTPError(error)) {
+              return error;
+            }
 
-            if (request?.method === "GET" && response?.status === 404) {
+            const { response, data } = error;
+
+            if (request.method === "GET" && response.status === 404) {
               return new ResourceNotFoundException(response, request, options);
             }
 
-            if (response?.body && response?.status) {
-              let bodyMessage: string | undefined;
-              let parsedBody: unknown;
-              try {
-                parsedBody = await response.clone().json();
-                bodyMessage = (parsedBody as { message?: string })?.message;
-              } catch {
-                // non-JSON body — fall through to generic message
-              }
+            if (data !== undefined && response.status) {
+              const bodyMessage =
+                typeof data === "object" && data !== null && "message" in data
+                  ? (data as { message?: string }).message
+                  : undefined;
+
               return new AjaxError(
                 response.status,
                 response,
                 request,
                 options,
                 bodyMessage ?? `Ajax error occurred (${response.status})`,
-                parsedBody
+                // a non-JSON body arrives as plain text; only structured bodies are useful
+                typeof data === "object" ? data : undefined
               );
             }
 

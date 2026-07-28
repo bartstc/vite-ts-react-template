@@ -36,3 +36,6 @@ reports
 /playwright/.cache/
 /playwright/.auth/
 /.playwright-mcp
+
+# Claude
+.claude/settings.local.json

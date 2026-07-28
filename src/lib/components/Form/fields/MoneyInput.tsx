@@ -51,6 +51,8 @@ const MoneyInput = ({
       errorMessage={error}
       {...props}
     >
+      {/* AIDEV-NOTE: react-hooks/refs false positive — see NumberInput.tsx. */}
+      {/* eslint-disable react-hooks/refs */}
       <CurrencyInputPresentation
         value={(field.value as number | string | null | undefined) ?? ""}
         id={String(toKebabCase(props.name))}
@@ -60,6 +62,7 @@ const MoneyInput = ({
         disabled={isDisabled}
         symbol={symbol}
       />
+      {/* eslint-enable react-hooks/refs */}
     </FormField>
   );
 };

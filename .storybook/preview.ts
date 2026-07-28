@@ -1,4 +1,5 @@
-import { initialize, mswLoader } from "msw-storybook-addon";
+import { setupWorker } from "msw/browser";
+import { mswLoader } from "msw-storybook-addon/csf3";
 import { createElement } from "react";
 
 import { DesignProvider } from "@/app/design/DesignProvider";
@@ -23,8 +24,11 @@ export const parameters = {
   },
 };
 
-initialize(
-  {
+// AIDEV-NOTE: v3 dropped `initialize()`; the worker is now created and started here.
+const setupMswWorker = async () => {
+  const worker = setupWorker(getUserHandler());
+
+  await worker.start({
     onUnhandledRequest: (req, print) => {
       if (!req.url.includes("api")) {
         return;
@@ -32,9 +36,10 @@ initialize(
 
       print.warning();
     },
-  },
-  [getUserHandler()]
-);
+  });
+
+  return worker;
+};
 
 export const decorators = [
   // eslint-disable-next-line react/no-children-prop, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-explicit-any
@@ -44,4 +49,4 @@ export const decorators = [
   withAuth,
 ];
 
-export const loaders = [mswLoader];
+export const loaders = [mswLoader(setupMswWorker)];

@@ -5,4 +5,9 @@ import { KyClient } from "./ky-client";
 // AIDEV-NOTE: No global Content-Type header — ky sets it automatically via the `json:` option
 export const host = import.meta.env.VITE_API as string;
 
-export const httpService = new HttpService(new KyClient({ prefixUrl: host }));
+// AIDEV-NOTE: ky 2 replaced `prefixUrl` with `baseUrl`, which resolves per URL semantics: without
+// a trailing slash the last path segment is replaced, so `.../api` + `products` would drop `/api`.
+// `host` itself stays unslashed — MSW handlers build their URL patterns from it.
+export const httpService = new HttpService(
+  new KyClient({ baseUrl: `${host}/` })
+);

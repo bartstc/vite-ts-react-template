@@ -1,12 +1,12 @@
 import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
 import js from "@eslint/js";
-import { configs } from "eslint-plugin-react-hooks";
+import reactHooks from "eslint-plugin-react-hooks";
 import reactPlugin from "eslint-plugin-react";
 import prettierPluginRecommended from "eslint-plugin-prettier/recommended";
 import importPlugin from "eslint-plugin-import";
 import storybookPlugin from "eslint-plugin-storybook";
-import vitest from "eslint-plugin-vitest";
+import vitest from "@vitest/eslint-plugin";
 import reactRefresh from "eslint-plugin-react-refresh";
 import reactYouMightNotNeedAnEffect from "eslint-plugin-react-you-might-not-need-an-effect";
 
@@ -21,6 +21,16 @@ const noAnonymousUseEffectRule = [
       "Name your useEffect callback: useEffect(function syncSomething() { ... })",
   },
 ];
+
+// AIDEV-NOTE: Built by hand rather than spreading a shipped preset. In
+// eslint-plugin-react-hooks 7.1.1 every exported config — including
+// configs.flat["recommended-latest"] — still declares `plugins` as a string
+// array, the eslintrc shape that flat config rejects outright. Rules mirror
+// that preset; re-check it when the plugin is next bumped.
+const reactHooksRecommended = {
+  plugins: { "react-hooks": reactHooks },
+  rules: reactHooks.configs.flat["recommended-latest"].rules,
+};
 
 const baseNoRestrictedImports = {
   patterns: ["react-router"],
@@ -57,7 +67,7 @@ export default defineConfig(
   js.configs.recommended,
   tseslint.configs.recommendedTypeChecked,
   tseslint.configs.stylisticTypeChecked,
-  configs["recommended-latest"],
+  reactHooksRecommended,
   reactPlugin.configs.flat.recommended,
   reactPlugin.configs.flat["jsx-runtime"],
   prettierPluginRecommended,
@@ -81,7 +91,12 @@ export default defineConfig(
     },
     settings: {
       react: {
-        version: "detect",
+        // AIDEV-NOTE: Pinned, not "detect". eslint-plugin-react 7.37.5's
+        // version detection calls the ESLint 9 `context.getFilename()` API,
+        // removed in ESLint 10 — "detect" crashes the whole run. Keep in sync
+        // with the `react` version in package.json until the plugin ships an
+        // ESLint 10-compatible release.
+        version: "19.2",
       },
     },
   },

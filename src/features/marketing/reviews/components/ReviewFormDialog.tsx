@@ -16,10 +16,8 @@ const ReviewFormDialog = ({ productId, initialRating }: IProps) => {
   const t = useTranslations("features.marketing.reviews.dialog");
   const currentUserReview = useCurrentUserReview(productId);
 
-  const { isOpen, onClose } = useReviewFormDialogStore((state) => ({
-    isOpen: state.isOpen,
-    onClose: state.onClose,
-  }));
+  const isOpen = useReviewFormDialogStore((state) => state.isOpen);
+  const onClose = useReviewFormDialogStore((state) => state.onClose);
 
   const defaultValues: ReviewFormValues = currentUserReview
     ? {

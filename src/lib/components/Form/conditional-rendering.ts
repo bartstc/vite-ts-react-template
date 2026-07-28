@@ -98,7 +98,6 @@ export const useCondition = (
   useEffect(
     function syncFieldVisibility() {
       if (!visibleWhen) {
-        // eslint-disable-next-line react-you-might-not-need-an-effect/no-pass-data-to-parent
         remove(name, hiddenFieldValue);
       } else {
         insert(name);

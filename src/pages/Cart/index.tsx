@@ -43,6 +43,10 @@ const CartPage = () => {
   );
 };
 
+// AIDEV-NOTE: react-refresh 0.5 can't see that an HOC call returns a
+// component, so it reads this route export as a non-component. Sibling routes
+// that assign a plain identifier (see pages/Products) are not flagged.
+// eslint-disable-next-line react-refresh/only-export-components
 export const Component = withRequireAuth(CartPage, { to: "/sign-in" });
 
 export const ErrorBoundary = ErrorPageStrategy;
