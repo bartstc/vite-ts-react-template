@@ -8,7 +8,7 @@ React SPA built with Vite using feature slice architecture with clean architectu
 
 ## Stack
 
-TypeScript SPA. React 19, Vite 7, React Router 7, TanStack Query, Zustand, XState, Chakra UI, i18next. Testing: Vitest, Storybook, Playwright, MSW.
+TypeScript SPA. React 19, Vite 8, React Router 8, TanStack Query, Zustand, XState, Chakra UI, i18next. Testing: Vitest, Storybook, Playwright, MSW.
 
 ## Commands
 

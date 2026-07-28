@@ -27,8 +27,8 @@ An opinionated, production-ready starter for **Single Page Application** develop
 ### Libraries
 
 - [Chakra UI](https://chakra-ui.com/) — accessible, modular component library
-- [React Router 7](https://reactrouter.com/home) — routing with strong path typing
-- [React Query](https://tanstack.com/query/v4/) — data fetching and server state synchronization
+- [React Router 8](https://reactrouter.com/home) — routing with strong path typing
+- [React Query](https://tanstack.com/query/latest) — data fetching and server state synchronization
 - [Zustand](https://docs.pmnd.rs/zustand/getting-started/introduction) — lightweight state management
 - [i18next](https://www.i18next.com/) — internationalization
 - [XState](https://stately.ai/docs/xstate) — state orchestration (example usage)

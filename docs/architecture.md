@@ -3,9 +3,9 @@
 ## Core Technologies
 
 - **React 19** with TypeScript
-- **Vite 7** for build tooling
+- **Vite 8** for build tooling
 - **React Query (TanStack Query)** for data fetching
-- **React Router 7** for routing
+- **React Router 8** for routing
 - **i18next** for internationalization
 - **MSW 2** for API mocking
 - **Vitest 4** for unit and component testing
