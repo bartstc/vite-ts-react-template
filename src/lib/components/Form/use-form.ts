@@ -46,6 +46,11 @@ export const useForm = <
   );
 
   return {
+    // AIDEV-NOTE: Lazy ref init holding an immutable generated id — safe to
+    // read during render, but react-hooks/refs flags any render-time .current.
+    // AIDEV-TODO: useId() is the modern idiom here; swapping it changes the
+    // generated id format, so it belongs in its own change, not a dep bump.
+    // eslint-disable-next-line react-hooks/refs
     id: id.current,
     ...form,
     configuration,

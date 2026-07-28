@@ -7,6 +7,10 @@ const AuthProvider = ({ children, ...props }: PropsWithChildren) => {
 
   storeRef.current ??= initializeAuthStore(props);
 
+  // AIDEV-NOTE: Lazy ref init — React's documented way to build an expensive
+  // store exactly once. Reading it during render is the point of the pattern;
+  // react-hooks/refs cannot distinguish it from a mutable render-time read.
+  // eslint-disable-next-line react-hooks/refs
   return <Provider value={storeRef.current}>{children}</Provider>;
 };
 

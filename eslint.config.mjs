@@ -1,7 +1,7 @@
 import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
 import js from "@eslint/js";
-import { configs } from "eslint-plugin-react-hooks";
+import reactHooks from "eslint-plugin-react-hooks";
 import reactPlugin from "eslint-plugin-react";
 import prettierPluginRecommended from "eslint-plugin-prettier/recommended";
 import importPlugin from "eslint-plugin-import";
@@ -21,6 +21,16 @@ const noAnonymousUseEffectRule = [
       "Name your useEffect callback: useEffect(function syncSomething() { ... })",
   },
 ];
+
+// AIDEV-NOTE: Built by hand rather than spreading a shipped preset. In
+// eslint-plugin-react-hooks 7.1.1 every exported config — including
+// configs.flat["recommended-latest"] — still declares `plugins` as a string
+// array, the eslintrc shape that flat config rejects outright. Rules mirror
+// that preset; re-check it when the plugin is next bumped.
+const reactHooksRecommended = {
+  plugins: { "react-hooks": reactHooks },
+  rules: reactHooks.configs.flat["recommended-latest"].rules,
+};
 
 const baseNoRestrictedImports = {
   patterns: ["react-router"],
@@ -57,7 +67,7 @@ export default defineConfig(
   js.configs.recommended,
   tseslint.configs.recommendedTypeChecked,
   tseslint.configs.stylisticTypeChecked,
-  configs["recommended-latest"],
+  reactHooksRecommended,
   reactPlugin.configs.flat.recommended,
   reactPlugin.configs.flat["jsx-runtime"],
   prettierPluginRecommended,

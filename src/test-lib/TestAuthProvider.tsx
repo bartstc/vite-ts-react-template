@@ -22,5 +22,7 @@ export const TestAuthProvider = ({
       user: UserFixture.toStructure(),
     });
 
+  // AIDEV-NOTE: Lazy ref init — see AuthProvider.tsx for why this is suppressed.
+  // eslint-disable-next-line react-hooks/refs
   return <Provider value={storeRef.current}>{children}</Provider>;
 };
