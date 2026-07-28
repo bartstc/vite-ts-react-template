@@ -150,8 +150,8 @@ importers:
         specifier: 4.4.5
         version: 4.4.5(eslint-plugin-import@2.32.0)(eslint@10.8.0)
       eslint-plugin-boundaries:
-        specifier: 6.0.2
-        version: 6.0.2(@typescript-eslint/parser@8.65.0(eslint@10.8.0)(typescript@5.9.3))(eslint-import-resolver-typescript@4.4.5)(eslint@10.8.0)
+        specifier: 7.1.0
+        version: 7.1.0(@typescript-eslint/parser@8.65.0(eslint@10.8.0)(typescript@5.9.3))(eslint-import-resolver-typescript@4.4.5)(eslint@10.8.0)
       eslint-plugin-import:
         specifier: 2.32.0
         version: 2.32.0(@typescript-eslint/parser@8.65.0(eslint@10.8.0)(typescript@5.9.3))(eslint-import-resolver-typescript@4.4.5)(eslint@10.8.0)
@@ -165,11 +165,11 @@ importers:
         specifier: 7.1.1
         version: 7.1.1(eslint@10.8.0)
       eslint-plugin-react-refresh:
-        specifier: 0.4.26
-        version: 0.4.26(eslint@10.8.0)
+        specifier: 0.5.3
+        version: 0.5.3(eslint@10.8.0)
       eslint-plugin-react-you-might-not-need-an-effect:
-        specifier: 0.8.5
-        version: 0.8.5(eslint@10.8.0)
+        specifier: 1.0.1
+        version: 1.0.1(eslint@10.8.0)
       eslint-plugin-storybook:
         specifier: 10.5.4
         version: 10.5.4(eslint@10.8.0)(storybook@10.5.4(@types/react@19.2.17)(prettier@3.9.6)(react@19.2.8))(typescript@5.9.3)
@@ -428,10 +428,10 @@ packages:
         integrity: sha512-ehg3jIkYKulZh+8om/O25vkvSsXXwC+skXmyA87FFx6A/45eqOkZsBltMw/TVteb0mloiGT8oGRTcjRAz66zaA==,
       }
 
-  "@boundaries/elements@2.0.1":
+  "@boundaries/elements@3.1.0":
     resolution:
       {
-        integrity: sha512-sAWO3D8PFP6pBXdxxW93SQi/KQqqhE2AAHo3AgWfdtJXwO6bfK6/wUN81XnOZk0qRC6vHzUEKhjwVD9dtDWvxg==,
+        integrity: sha512-9YtjJG2sSHssCcmU4dCeqHHwHF5Il0Gc1C8AywksbZyvQ9CFvpNURFuJbT21OpMdp0KHWJB14clMy85oiGwX9w==,
       }
     engines: { node: ">=18.18" }
 
@@ -4384,10 +4384,10 @@ packages:
       eslint-import-resolver-webpack:
         optional: true
 
-  eslint-plugin-boundaries@6.0.2:
+  eslint-plugin-boundaries@7.1.0:
     resolution:
       {
-        integrity: sha512-wSHgiYeMEbziP91lH0UQ9oslgF2djG1x+LV9z/qO19ggMKZaCB8pKIGePHAY91eLF4EAgpsxQk8MRSFGRPfPzw==,
+        integrity: sha512-IrWk4KzygcfYUkrDdFM+1bjtQmZl7MVghgidCVVSKKKRwLHYsZthoS0AusUJG/n01k3i4Ih2wykoiGs+OD4g4w==,
       }
     engines: { node: ">=18.18" }
     peerDependencies:
@@ -4432,18 +4432,18 @@ packages:
     peerDependencies:
       eslint: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0 || ^9.0.0 || ^10.0.0
 
-  eslint-plugin-react-refresh@0.4.26:
+  eslint-plugin-react-refresh@0.5.3:
     resolution:
       {
-        integrity: sha512-1RETEylht2O6FM/MvgnyvT+8K21wLqDNg4qD51Zj3guhjt433XbnnkVttHMyaVyAFD03QSV4LPS5iE3VQmO7XQ==,
+        integrity: sha512-5EMmLCV98Pi4o/f/3DP/v/tNqLHMIc9I8LKClNDWhZ9JTho89/kQcitCXQBMG7sAfVRK0Ie3T2EDOzp1YXYiVA==,
       }
     peerDependencies:
-      eslint: ">=8.40"
+      eslint: ^9 || ^10
 
-  eslint-plugin-react-you-might-not-need-an-effect@0.8.5:
+  eslint-plugin-react-you-might-not-need-an-effect@1.0.1:
     resolution:
       {
-        integrity: sha512-U5t99XQhDZUs1HE2ipQsLP5i26b4TQ9bPIui931gz2UAO0o0MKS8Wz/gIfPS+THbCQ80AhJ8T9SJz4Bh5k1iQg==,
+        integrity: sha512-oOhQTYhor88Xp8RVytq25tvBfiAjU0r9SCDC51Qop+3Wg5BR1xGMAkM+/dV4MZbcMhdaU1L9bkv6LC95JmiTig==,
       }
     engines: { node: ">=14.0.0" }
     peerDependencies:
@@ -8230,7 +8230,7 @@ snapshots:
 
   "@blazediff/core@1.9.1": {}
 
-  "@boundaries/elements@2.0.1(@typescript-eslint/parser@8.65.0(eslint@10.8.0)(typescript@5.9.3))(eslint-import-resolver-typescript@4.4.5)(eslint@10.8.0)":
+  "@boundaries/elements@3.1.0(@typescript-eslint/parser@8.65.0(eslint@10.8.0)(typescript@5.9.3))(eslint-import-resolver-typescript@4.4.5)(eslint@10.8.0)":
     dependencies:
       eslint-import-resolver-node: 0.3.9
       eslint-module-utils: 2.12.1(@typescript-eslint/parser@8.65.0(eslint@10.8.0)(typescript@5.9.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@4.4.5)(eslint@10.8.0)
@@ -10986,9 +10986,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-boundaries@6.0.2(@typescript-eslint/parser@8.65.0(eslint@10.8.0)(typescript@5.9.3))(eslint-import-resolver-typescript@4.4.5)(eslint@10.8.0):
+  eslint-plugin-boundaries@7.1.0(@typescript-eslint/parser@8.65.0(eslint@10.8.0)(typescript@5.9.3))(eslint-import-resolver-typescript@4.4.5)(eslint@10.8.0):
     dependencies:
-      "@boundaries/elements": 2.0.1(@typescript-eslint/parser@8.65.0(eslint@10.8.0)(typescript@5.9.3))(eslint-import-resolver-typescript@4.4.5)(eslint@10.8.0)
+      "@boundaries/elements": 3.1.0(@typescript-eslint/parser@8.65.0(eslint@10.8.0)(typescript@5.9.3))(eslint-import-resolver-typescript@4.4.5)(eslint@10.8.0)
       chalk: 4.1.2
       eslint: 10.8.0
       eslint-import-resolver-node: 0.3.9
@@ -11050,11 +11050,11 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-react-refresh@0.4.26(eslint@10.8.0):
+  eslint-plugin-react-refresh@0.5.3(eslint@10.8.0):
     dependencies:
       eslint: 10.8.0
 
-  eslint-plugin-react-you-might-not-need-an-effect@0.8.5(eslint@10.8.0):
+  eslint-plugin-react-you-might-not-need-an-effect@1.0.1(eslint@10.8.0):
     dependencies:
       eslint: 10.8.0
       globals: 16.5.0

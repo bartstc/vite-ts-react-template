@@ -190,9 +190,13 @@ export function featureSliceConfig({ baseNoRestrictedImports }) {
         "boundaries/elements": elements,
       },
       rules: {
+        // AIDEV-NOTE: v7 renamed the `rules` option to `policies`. The legacy
+        // string selector syntax inside typeRules is still accepted (v7 warns
+        // but honours it); migrating those to object selectors is a separate
+        // change from this dependency bump.
         "boundaries/dependencies": [
           "error",
-          { default: "disallow", rules: typeRules },
+          { default: "disallow", policies: typeRules },
         ],
       },
     },
