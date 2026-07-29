@@ -117,20 +117,8 @@
   "msw": {
     "workerDirectory": "public"
   },
-  "pnpm": {
-    "overrides": {
-      "@fastify/static": "10.1.2",
-      "fast-jwt": "6.2.4",
-      "fast-uri": "3.1.4",
-      "unrs-resolver": "1.11.1"
-    },
-    "peerDependencyRules": {
-      "allowedVersions": {
-        "storybook-addon-remix-react-router>react-router": "8",
-        "eslint-plugin-import>eslint": "10",
-        "eslint-plugin-react>eslint": "10"
-      }
-    }
+  "engines": {
+    "node": ">=24"
   },
-  "packageManager": "pnpm@10.34.5"
+  "packageManager": "pnpm@11.18.0"
 }

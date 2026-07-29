@@ -9,7 +9,7 @@ on:
       - core
 
 env:
-  NODE_VERSION: "22.x"
+  NODE_VERSION: "24.x"
 
   # ----- Static analysis toggles & config -----
   # Flip to "false" to disable a tool.
@@ -65,7 +65,7 @@ jobs:
   playwright-tests:
     uses: ./.github/workflows/playwright.yml
     with:
-      node-version: "22.x"
+      node-version: "24.x"
 
   unit-tests:
     runs-on: ubuntu-latest

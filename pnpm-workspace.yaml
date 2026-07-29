@@ -2,12 +2,29 @@ packages:
   - "."
   - "server"
 
-# AIDEV-NOTE: pnpm 10 blocks postinstall scripts by default. unrs-resolver needs
+# AIDEV-NOTE: pnpm blocks postinstall scripts by default. unrs-resolver needs
 # its build step to link the native binding — without it eslint-import-resolver-typescript
 # silently fails to resolve every @/* alias, producing hundreds of bogus
 # import/no-unresolved errors.
-onlyBuiltDependencies:
-  - esbuild
-  - msw
-  - storybook-addon-remix-react-router
-  - unrs-resolver
+# pnpm 11 renamed `onlyBuiltDependencies` (a list) to `allowBuilds` (a map).
+allowBuilds:
+  esbuild: true
+  msw: true
+  storybook-addon-remix-react-router: true
+  unrs-resolver: true
+
+# AIDEV-NOTE: Moved here from the `pnpm` field in package.json. pnpm 11 no
+# longer reads `pnpm.overrides` / `pnpm.peerDependencyRules` from package.json
+# and silently ignores them — a stale copy there would drop these pins without
+# failing the install. See https://pnpm.io/settings.
+overrides:
+  "@fastify/static": "10.1.2"
+  fast-jwt: "6.2.4"
+  fast-uri: "3.1.4"
+  unrs-resolver: "1.11.1"
+
+peerDependencyRules:
+  allowedVersions:
+    storybook-addon-remix-react-router>react-router: "8"
+    eslint-plugin-import>eslint: "10"
+    eslint-plugin-react>eslint: "10"
