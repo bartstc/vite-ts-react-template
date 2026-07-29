@@ -4,12 +4,12 @@ on:
     inputs:
       node-version:
         type: string
-        default: "22.x"
+        default: "24.x"
   workflow_dispatch: # Allow manual trigger
     inputs:
       node-version:
         type: string
-        default: "22.x"
+        default: "24.x"
         description: "Node.js version to use"
 jobs:
   test:

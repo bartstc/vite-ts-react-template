@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/devcontainers/typescript-node:dev-22
+FROM mcr.microsoft.com/devcontainers/typescript-node:dev-24
 
 RUN corepack enable
 
@@ -16,8 +16,11 @@ RUN mkdir -p /usr/local/share/pnpm-global && \
   chown -R node:node /usr/local/share/pnpm-global
 
 ARG USERNAME=node
+# AIDEV-NOTE: pnpm installs global bins into $PNPM_HOME/bin, so that — not
+# $PNPM_HOME itself — is what belongs on PATH. Without it `pnpm add -g` aborts
+# with "The configured global bin directory ... is not in PATH".
 ENV PNPM_HOME="/usr/local/share/pnpm-global"
-ENV PATH="$PNPM_HOME:$PATH"
+ENV PATH="$PNPM_HOME/bin:$PATH"
 
 ## Persist bash history
 RUN SNIPPET="export PROMPT_COMMAND='history -a' && export HISTFILE=/commandhistory/.bash_history" \
@@ -43,4 +46,7 @@ USER node
 ## Install @anthropic-ai/claude-code globally
 ARG CLAUDE_CODE_VERSION=latest
 ENV SHELL="/bin/bash"
-RUN pnpm setup && pnpm add -g @anthropic-ai/claude-code@${CLAUDE_CODE_VERSION}
+# AIDEV-NOTE: No `pnpm setup` here — it writes PNPM_HOME into .bashrc, which this
+# RUN layer never sources, so `add -g` would still abort on "global bin directory
+# not in PATH". The ENV above covers both build and runtime.
+RUN pnpm add -g @anthropic-ai/claude-code@${CLAUDE_CODE_VERSION}
