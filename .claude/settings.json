@@ -48,7 +48,27 @@
       "Bash(git reset --hard)"
     ]
   },
+  "plansDirectory": "./.claude/plans",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Agent",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PROJECT_DIR}/.claude/hooks/explore-agent.sh",
+            "args": []
+          }
+        ]
+      }
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "jq -r '\"$\" + ((.cost.total_cost_usd // 0)*100|round/100|tostring)'"
+  },
   "env": {
-    "CLAUDE_CODE_DISABLE_1M_CONTEXT": "1"
+    "CLAUDE_CODE_DISABLE_1M_CONTEXT": "1",
+    "EXPLORE_HAIKU": "1"
   }
 }
