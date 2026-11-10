@@ -31,8 +31,7 @@ await page.goto("/products");
 await expect(productListPage.heading).toBeVisible();
 ```
 
-When no UI reflects the result, wait in the test, not the page object: see "waiting when the UI shows nothing" in
-`journey-test.md`.
+When no UI reflects the result, wait in the test, not the page object: see `waiting-and-assertions.md`.
 
 ## 3. Value getters on page objects
 
@@ -68,10 +67,7 @@ await page
   .click();
 
 // ✅ scope to the item the path is about
-await productListPage
-  .card(product.title)
-  .getByRole("button", { name: /add to cart/i })
-  .click();
+await productListPage.card(product.title).addToCart();
 ```
 
 `nth`, `first` and `last` only when order itself is the behaviour.
@@ -148,6 +144,22 @@ async click(locator: Locator) {
 
 Transient UI is asserted in the test: `await expect(page.getByRole("status")).toHaveText(/added/i)`.
 
+## 13. All members public
+
+```ts
+// ❌ tests can reach internals and start depending on them
+class OrdersPage {
+  loadingIndicator: Locator;
+  retryCount: number;
+}
+
+// ✅ public surface is what tests need; the rest is private
+class OrdersPage {
+  readonly table: Locator;
+  private readonly loadingIndicator: Locator;
+}
+```
+
 ## Summary
 
 | Anti-pattern                  | Fix                                       |
@@ -164,3 +176,4 @@ Transient UI is asserted in the test: `await expect(page.getByRole("status")).to
 | CSS / XPath / test-id strings | Role-based locators                       |
 | Wrapping Playwright           | Call Playwright directly                  |
 | Toasts in POMs                | Assert in the test                        |
+| All members public            | `private` for internals                   |

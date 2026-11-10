@@ -8,22 +8,8 @@ The `e2e-testing` skill says how to write a journey test and the pieces it uses 
 gives the reasoning, so a rule can be applied to a case it does not mention. When the two disagree, fix whichever is
 wrong.
 
-Audience: developers and AI agents writing or reviewing E2E tests in this repo.
-
-## 0. Rules for AI agents
-
-1. **Classify first** (§1). If the behaviour is a branch, a validation rule, an empty/error state or a variant of one
-   screen, do not write an E2E test — propose a story or unit test instead.
-2. **Import `test` and `expect` from the fixtures module** (`e2e/fixtures`), never from `@playwright/test` in a spec.
-   Page objects come from fixtures, never `new` in a test.
-3. **Never write** `waitForTimeout`, `networkidle`, `waitForSelector`, `page.$`/`page.$$`, one-shot assertions
-   (`expect(await locator.isVisible())`, `expect(page.url())`) or `.first()` to silence strict mode. Use `force: true`
-   only with a comment naming why.
-4. **Never `page.route` our own API** (§2.3).
-5. **Do not run the suite unless asked.** When asked, run `pnpm test:e2e` alone — Playwright starts the app and the
-   local API itself. Never run `--ui`, `--headed` or `--debug` variants.
-6. **Report, don't paper over.** If a test only passes with a sleep, a retry, `force` or a routed own-API call, stop and
-   report the cause (§6).
+Audience: developers writing or reviewing E2E tests, and anyone changing the `e2e-testing` skill. An agent writing a
+test needs only the skill; it reads this document when a case is not covered there.
 
 ## 1. What E2E owns
 
@@ -102,32 +88,20 @@ Every double has a one-line comment naming which case it falls under. Routed bod
 never justified**: if reaching a state needs a specific API response, seed that state (§2.1) or move the test to a
 story with MSW. Neither is stubbing app modules or adding test-only flags to production code.
 
-### 2.4 Wait for what the user sees
+### 2.4 Wait for and assert what the user sees
 
-Locator actions auto-wait for actionability; web-first assertions retry until they pass or time out. Together they are
-the only waiting mechanism.
+The user waits for the screen, not for the network, so the test does too. Locator actions wait until an element can be
+used, and web-first assertions retry until they pass or time out; they are the only waiting mechanism. A sleep is slow
+and still flaky, `networkidle` never settles in an app that polls, and a value read once (`isVisible()`,
+`textContent()`) passes or fails on timing luck.
 
-| Instead of                                | Use                                               | Why                                        |
-| ----------------------------------------- | ------------------------------------------------- | ------------------------------------------ |
-| `page.waitForTimeout(n)`                  | A web-first assertion on what the next step needs | Sleeps are slow and still flaky            |
-| `waitForLoadState("networkidle")`         | `await expect(heading).toBeVisible()`             | An SPA that polls never idles              |
-| `expect(await el.isVisible()).toBe(true)` | `await expect(el).toBeVisible()`                  | A one-shot check passes on timing luck     |
-| `expect(await el.textContent()).toBe(x)`  | `await expect(el).toHaveText(x)`                  | Same                                       |
-| `expect(await rows.count()).toBe(n)`      | `await expect(rows).toHaveCount(n)`               | Same                                       |
-| `expect(page.url()).toContain(x)`         | `await expect(page).toHaveURL(re)`                | Same                                       |
-| A loop polling a non-DOM value            | `await expect.poll(() => getStatus(id)).toBe(x)`  | Retries with a timeout and a clear failure |
+Assertions check what the user sees first: text, roles, visibility, URL. A backend effect the UI does not show is
+checked through the API. Every test ends with an assertion that fails if the path broke, and a negative assertion
+needs a positive control, or it passes when the page never loaded.
 
-When nothing in the UI reflects a result the next step depends on (a silent save before a reload), wait in the test:
-`page.waitForResponse` with the promise created **before** the action, or `expect.poll` on the API. Never inside a page
-object — it describes the UI, and an API URL there is hidden coupling every caller pays for. A save the user cannot see
-complete is also a UX gap worth reporting.
-
-### 2.5 Assert what the user sees
-
-- The DOM first: text, roles, visibility, URL.
-- A backend effect the UI does not show is checked through the API in the test, with `expect.poll`.
-- Every test ends with an assertion that fails if the path broke. A test without one is a script.
-- A negative assertion needs a positive control in the same test, or it passes when the page never loaded.
+Waiting on the network is a last resort, for a result no UI reflects. It lives in the test, never in a page object:
+the page object describes the UI, and an API URL there is hidden coupling every caller pays for. A save the user cannot
+see complete is also a UX gap worth reporting.
 
 ## 3. Page objects
 

@@ -108,6 +108,78 @@ export class AddedToCartDialog {
 }
 ```
 
+## Example — component object for a collection item
+
+When the same UI repeats (cards, rows), the page passes the item's root locator to the component and returns it by
+content.
+
+```ts
+export class ProductCardComponent {
+  readonly title: Locator;
+  readonly price: Locator;
+  private readonly addToCartButton: Locator;
+
+  constructor(readonly root: Locator) {
+    this.title = root.getByRole("heading");
+    this.price = root.getByText(/£\d/);
+    this.addToCartButton = root.getByRole("button", { name: /add to cart/i });
+  }
+
+  async open(): Promise<void> {
+    await this.title.click();
+  }
+
+  async addToCart(): Promise<void> {
+    await this.addToCartButton.click();
+  }
+}
+
+export class ProductListPage {
+  readonly heading: Locator;
+  private readonly cards: Locator;
+
+  constructor(private readonly page: Page) {
+    this.heading = page.getByRole("heading", { name: /products/i, level: 1 });
+    this.cards = page.getByRole("article");
+  }
+
+  card(title: string): ProductCardComponent {
+    return new ProductCardComponent(
+      this.cards.filter({
+        has: this.page.getByRole("heading", { name: title }),
+      })
+    );
+  }
+
+  async openProduct(title: string): Promise<ProductDetailsPage> {
+    await this.card(title).open();
+    const details = new ProductDetailsPage(this.page);
+    await expect(details.heading).toBeVisible(); // readiness check on the target page
+    return details;
+  }
+}
+```
+
+## Example — readiness check on a loading page
+
+```ts
+async goto(): Promise<void> {
+  await this.page.goto("/orders");
+  await expect(this.loadingIndicator).toBeHidden(); // private locator
+  await expect(this.table).toBeVisible();
+}
+```
+
+## Locator filtering and chaining
+
+```ts
+page.getByRole("listitem").filter({ hasText: /headphones/i }); // by text
+page.getByRole("article").filter({ has: page.getByRole("heading", { name }) }); // by child
+page.getByRole("article").filter({ hasNot: page.getByText(/sold out/i) }); // by absence
+dialog.getByRole("button", { name: /^save$/i }); // scoped to a container, anchored name
+page.getByRole("row").nth(0); // only when order is the behaviour
+```
+
 ## Example — test usage
 
 ```ts

@@ -68,22 +68,7 @@ test.describe("Sign in", () => {
 });
 ```
 
-## Example — waiting when the UI shows nothing
-
-Prefer a UI signal. When the next step depends on server state and nothing on screen reflects it, wait in the test:
-
-```ts
-await test.step("change the quantity and reload", async () => {
-  // no UI signal for the save — wait for the response before reloading
-  const saved = page.waitForResponse(
-    (r) => r.url().includes("/api/carts") && r.request().method() === "PUT"
-  ); // created before the action
-  await cartPage.setQuantity(product.title, 2);
-  await saved;
-  await page.reload();
-  await expect(cartPage.quantity(product.title)).toHaveValue("2");
-});
-```
+How each step waits and what it asserts: [waiting-and-assertions.md](waiting-and-assertions.md).
 
 ## Anti-patterns
 

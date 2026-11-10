@@ -3,15 +3,25 @@
 Playwright fixtures provide everything a test needs: page objects, seeded data, auth state. Each test gets fresh
 instances, only the fixtures it asks for are built, and teardown runs even when the test fails.
 
+Why fixtures instead of a page manager or `new` in tests:
+
+| Aspect             | Fixtures                          | Page manager / `new` in tests   |
+| ------------------ | --------------------------------- | ------------------------------- |
+| Isolation          | Fresh instances per test          | Shared instances risk pollution |
+| Cost               | Only requested fixtures are built | Often builds every page object  |
+| Typing             | Inferred from `extend<…>`         | Typed by hand                   |
+| Setup and teardown | Encapsulated in the fixture       | Spread across hooks             |
+
 ## Constraints
 
 - One entry point, `e2e/fixtures/index.ts`, merges the fixture modules with `mergeTests` and re-exports `expect`. Specs
   import only from it. It is the only barrel in `e2e/`.
 - **Page fixtures** construct a page object from `page`. Nothing else.
 - **Data fixtures** seed through the `request` fixture and the typed helpers in `e2e/api/`; they never touch `page`.
-- Under an **own-your-data** strategy, cleanup goes after `await use(...)`, and names are unique per test.
-  Under **reset-to-seed**, an automatic fixture resets the database and data fixtures need no cleanup
-  (`docs/e2e-testing.md` §2.2).
+- Follow the suite's data-isolation strategy — check the config for it. **Reset-to-seed**: an automatic fixture resets
+  the shared database before each test, the suite runs on one worker, and data fixtures need no cleanup.
+  **Own-your-data**: names are unique per test (worker index plus timestamp) and cleanup goes after `await use(...)`.
+  Never add a global reset to a suite that runs on several workers.
 - Test scope by default. `{ scope: "worker" }` only for expensive, read-only data.
 - Flows several specs drive through the UI on purpose may be a fixture that depends on page fixtures. Setup flows
   (sign in, create an entity) are data or auth fixtures, not UI flows.
@@ -112,6 +122,67 @@ export const test = base.extend<{ resetDb: void }>({
   ],
 });
 ```
+
+## Example — flow fixture
+
+A UI flow several specs drive on purpose. It composes page fixtures; it is not a setup shortcut.
+
+```ts
+// e2e/fixtures/flows-fixture.ts
+import { test as pages } from "@e2e/fixtures/pages-fixture";
+
+export interface CheckoutFlow {
+  checkout(shipping: ShippingInfo): Promise<void>;
+}
+
+export const test = pages.extend<{ checkoutFlow: CheckoutFlow }>({
+  checkoutFlow: async ({ cartPage, checkoutPage }, use) => {
+    await use({
+      async checkout(shipping) {
+        await cartPage.proceedToCheckout();
+        await checkoutPage.fillShipping(shipping);
+        await checkoutPage.continueToPayment();
+        await checkoutPage.placeOrder();
+      },
+    });
+  },
+});
+```
+
+## Example — auth setup project
+
+Sign in once, save the session, and load it in every test. One-time configuration, not a fixture per spec.
+
+```ts
+// e2e/auth.setup.ts
+import { expect, test as setup } from "@playwright/test";
+
+const authFile = "playwright/.auth/user.json";
+
+setup("authenticate", async ({ page }) => {
+  await page.goto("/sign-in");
+  await page.getByLabel(/username/i).fill(process.env.E2E_USERNAME ?? "");
+  await page.getByLabel(/password/i).fill(process.env.E2E_PASSWORD ?? "");
+  await page.getByRole("button", { name: /sign in/i }).click();
+  await expect(page).toHaveURL(/\/products$/);
+  await page.context().storageState({ path: authFile });
+});
+```
+
+```ts
+// playwright.config.ts (excerpt)
+projects: [
+  { name: "setup", testMatch: /.*\.setup\.ts/ },
+  {
+    name: "chromium",
+    use: { ...devices["Desktop Chrome"], storageState: "playwright/.auth/user.json" },
+    dependencies: ["setup"],
+  },
+],
+```
+
+Add `playwright/.auth/` to `.gitignore` — the file holds live session tokens. A spec that tests signing in starts
+signed out with `test.use({ storageState: { cookies: [], origins: [] } })`.
 
 ## Example — entry point
 
