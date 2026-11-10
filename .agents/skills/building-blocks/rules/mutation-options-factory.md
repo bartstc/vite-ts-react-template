@@ -14,6 +14,7 @@ Reusable `mutationOptions()` factory for a single API write operation. Contains 
 - NEVER use `use` prefix — these are factories, not hooks. Name: `xxxMutationOptions`. File: `xxx-mutation.ts`
 - One factory per API endpoint. Co-locate with related query options in the same resource directory
 - Co-locate mutation types (payload & dto) and error classes with the factory. Map API errors exhaustively in `mutationFn` — translate, log, fall back to `UnknownError`
+- Only this layer reads transport errors (status, body, message). Consumers branch on the domain error class
 
 ### Example
 

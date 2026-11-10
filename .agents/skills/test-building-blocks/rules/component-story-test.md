@@ -23,6 +23,11 @@ One story per meaningful state or flow. The `Default` story is the pure-renderin
 - One scenario per story. A play function with 10+ steps is almost always two stories. New story when starting props/state differ; new step within the same story when continuing a single user flow.
 - **Do not mock composed hooks** (`vi.mock('./use-products-query')`). The story exercises the real hook; mock the endpoint the hook calls via `parameters.msw.handlers`. See `rules/msw-handler.md`.
 - Use `getByRole("combobox")` not `getByLabelText` for Chakra Select triggers in play functions
+- **Cover the branches, not the props**: one story per distinct render (empty, loaded, error, disabled), each callback the user can fire, and the absence of an element when its handler arg is omitted.
+- **Assert visibility, not presence**: `toBeVisible()` for what should be there; `queryBy*` + `not.toBeInTheDocument()` for what should not — paired with a story where it _is_ there (positive control).
+- **Callback assertions carry arguments** where the component computes them (`toHaveBeenCalledWith(...)`), and `toHaveBeenCalledOnce()` where a double fire would be a bug.
+- **Context comes from decorators** in `src/test-lib/storybook/` (`withAuth`, `withoutAuth`, `withQueryProvider`). Where the context _is_ the scenario (signed in vs out), switch the decorator per story so the negative case differs by one line.
+- Error stories assert the message for one or two domain errors the component treats differently; the full error mapping matrix lives in `api-test`.
 
 ### MSW in stories — meta vs story handlers
 
@@ -158,9 +163,32 @@ export const ServerError: Story = {
 };
 ```
 
+### Anti-patterns
+
+❌ `vi.mock` of a hook, store or child component to make a state easier to reach — use MSW, args, or a decorator.
+
+❌ A stub child that renders whatever the stub was given — the real gate and the request never run:
+
+```tsx
+vi.mock("./AddToCartButton", () => ({
+  AddToCartButton: () => <button>Add</button>,
+})); // ❌
+```
+
+❌ `sleep(ms)` or `setTimeout` in a play function — every sleep is a missing `findBy*`.
+
+❌ `getByTestId` where a role query exists — the test id hides the accessibility gap.
+
+❌ A `waitFor` wrapping a `getBy*` where `findBy*` says the same thing more directly.
+
+❌ Asserting a spy was called when the rendered output already proves it.
+
+❌ Querying portaled content (Menu, Dialog, Select listbox, toast) through `canvas` — use `screen`.
+
 ### References
 
 - `rules/msw-handler.md` — handler factories, resolver overrides
 - `rules/fixture.md` — deterministic data for `args`
 - `rules/hook-test.md` — for hook edge cases that are awkward to reproduce through UI
+- `rules/api-test.md` — the full error mapping of the `lib/api/` factory beneath
 - `rules/unit-test.md` — for pure-logic units (mappers, transformers, value objects)

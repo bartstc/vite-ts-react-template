@@ -32,7 +32,7 @@ Do not climb for uniformity, for a single source with no alternative in sight, o
 | -------------------------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- |
 | `mutation-options-factory` | `lib/api/`   | Reusable `mutationOptions()` factories with domain error translation. Composed by `mutation-hook` in `providers/`.                | `rules/mutation-options-factory.md` |
 | `mutation-hook`            | `providers/` | Server write via `useMutation` composed from `mutation-options-factory`, with cache invalidation. Returns `[handler, isPending]`. | `rules/mutation-hook.md`            |
-| `query-options-factory`    | `lib/api/`   | Reusable `queryOptions()` factories — no hooks, no `useQuery`. Hook composition belongs in `providers/`.                          | `rules/query-options-factory.md`    |
+| `query-options-factory`    | `lib/api/`   | Reusable `queryOptions()` factories with domain error translation — no hooks, no `useQuery`.                                      | `rules/query-options-factory.md`    |
 | `query-keys-factory`       | `lib/api/`   | Hierarchical `as const` key tuples per resource. Single source of truth for cache invalidation.                                   | `rules/query-keys-factory.md`       |
 | `dto-model`                | `lib/api/`   | TypeScript interfaces mirroring the raw API wire format. No transformations.                                                      | `rules/dto-model.md`                |
 

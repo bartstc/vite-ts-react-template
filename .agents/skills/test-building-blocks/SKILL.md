@@ -1,81 +1,116 @@
 ---
 name: test-building-blocks
-description: Test building block catalog — typed patterns for Storybook play-function tests, Vitest hook tests, Vitest unit tests, MSW handlers, and test data fixtures. Read the relevant rule file before writing or modifying any test, handler, or fixture. Covers: deciding which kind of test to write, authoring a new test from scratch, adding MSW mocks or fixtures, and reviewing existing tests for conformance.
+description: Test building block catalog — Storybook play-function tests, Vitest hook tests, lib/api factory tests, Vitest unit tests, MSW handlers, and test data fixtures. ALWAYS read the relevant rule file before writing or modifying any test, story play function, handler, or fixture. Use it when writing new tests, filling a coverage gap, reviewing a spec, or deciding which tier a behaviour belongs at. Not for Playwright E2E (playwright-page-objects).
 ---
 
 # Test Building Blocks
 
-Typed catalog of test-related building blocks used in this project. Each block has a fixed name, layer, composition rules, and canonical example.
+Catalog of the test building blocks used in this project. Block names are stable identifiers, so plans and reviews can
+refer to them as `` `name` (block-type) ``.
 
-## How to Use
+The rationale — tiers, why MSW is the mocking seam, when a stub is justified, design-smell signals — is in
+[`docs/testing.md`](../../../docs/testing.md). When the doc, this file and a rule file disagree, fix whichever is wrong.
 
-Read the rule file for each block you are about to implement. The summaries below are for routing — the rule files contain the full pattern.
+## How to use
 
-Typical flow:
+Read the rule file of each block you are about to write or change. The summaries below are for routing only; the rule
+files hold the constraints, examples and anti-patterns.
 
-1. Read this file to route to the right block.
-2. Read `rules/{block-name}.md` for the full pattern and canonical example.
-3. Read the implementation code (component, hook, module) you are testing.
-4. Write the test following the rule file's constraints.
+- **Writing a test**: route with the steps below, read that rule file, read the code under test, write the test.
+- **Filling a gap**: name the block and the behaviour, e.g.
+  `` `useAddToCart` (hook-test) — missing the product-not-available case ``.
+- **Reviewing**: check each test against its block's rule file and against the mocking boundary below.
 
-## Testing Philosophy
+Production code that cannot be tested cleanly is a finding about the production code, not a licence to loosen the
+test. Say so and name what is missing — usually a seam in `lib/` or a provider in `test-lib/`. When nothing here fits,
+say so and write the plainest Vitest test that covers the behaviour; do not force a near match.
 
-The project's testing philosophy allocates verification across three layers:
-
-- **Storybook play-function tests** are the primary verification layer for feature behavior. Focus on happy paths and the main user-observable states. Anything user-facing — components composing hooks, stores, providers — is verified here.
-- **Vitest hook tests** (`renderHook`) cover custom hooks that need dedicated verification — edge cases, error paths, loading states, and hooks with logic not tied to a single component. Use independently of `component-story-test`; the two do not need to cover the same ground.
-- **Vitest unit tests** are reserved for non-hook mechanics: mappers, transformers, value objects, selectors, and other pure logic.
-- **No tests** for fixtures, MSW handlers, or trivial glue — these are support infrastructure, not the thing being verified.
-
-Coverage is behavior-covered, not file-mapped. Every user-observable state has a story or a hook-test scenario; not every file has a test.
-
-## Mocking Boundary
-
-Mock at the **network boundary**, not the module boundary. MSW is the default for anything HTTP-backed. Do **not** mock `lib/api/` exports, React Query, or Zustand stores — let the real code run and intercept at the wire.
-
-Module-level mocking (`vi.mock`, `vi.stubGlobal`) is reserved for:
-
-- Non-determinism sources: `Date.now`, `crypto.randomUUID`, `Math.random`, timers.
-- Write-only side-effect sinks: analytics, logging, toasts — centralized as project-owned spies in `test-lib/`.
-- Pure utilities when unit-testing their direct caller.
-- XState actors/actions via `machine.provide({ actors, actions })`.
-
-Rationale: mocking `lib/api/` wrappers hides the bugs most likely to ship (wrong query key, wrong `select`, stale-time issues, cache collisions). MSW keeps the real wiring under test and only fakes the external world.
-
-## Block Catalog
+## Catalog
 
 ### Tests
 
-| Block                  | Layer                     | Summary                                                                                                          | File                            |
-| ---------------------- | ------------------------- | ---------------------------------------------------------------------------------------------------------------- | ------------------------------- |
-| `component-story-test` | co-located `.stories.tsx` | Storybook play-function test verifying user-facing behavior. Primary verification layer for rendered components. | `rules/component-story-test.md` |
-| `hook-test`            | co-located `.test.tsx`    | Vitest test using `renderHook` for custom hooks — edge cases, error/loading paths, cross-component hooks.        | `rules/hook-test.md`            |
-| `unit-test`            | co-located `.test.ts(x)`  | Vitest test for non-hook mechanics — mappers, transformers, value objects, selectors, pure functions.            | `rules/unit-test.md`            |
+| Block                  | Subject                                                                                                          | Rule                            |
+| ---------------------- | ---------------------------------------------------------------------------------------------------------------- | ------------------------------- |
+| `component-story-test` | A component or composition in a real browser: its states per args/handlers, and what the user's actions do.      | `rules/component-story-test.md` |
+| `hook-test`            | A hook with a contract of its own, via `renderHook`.                                                             | `rules/hook-test.md`            |
+| `api-test`             | A `lib/api/` factory's `mutationFn` / `queryFn`: the request it sends and the domain error each failure maps to. | `rules/api-test.md`             |
+| `unit-test`            | Pure logic and XState machines — mappers, value objects, selectors, date math.                                   | `rules/unit-test.md`            |
 
-### Support Infrastructure
+### Support infrastructure
 
-| Block         | Layer                | Summary                                                                                                                    | File                   |
-| ------------- | -------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------- |
-| `msw-handler` | `test-lib/handlers/` | One request handler per endpoint with optional resolver for per-scenario overrides. Shared across tests and stories.       | `rules/msw-handler.md` |
-| `fixture`     | `test-lib/fixtures/` | Deterministic test data factory via `createFixture<T>()`. Supplies `toStructure`, `createPermutation`, `createCollection`. | `rules/fixture.md`     |
+| Block         | Subject                                                                                | Rule                   |
+| ------------- | -------------------------------------------------------------------------------------- | ---------------------- |
+| `msw-handler` | One handler factory per endpoint in `test-lib/handlers/`, shared by tests and stories. | `rules/msw-handler.md` |
+| `fixture`     | `createFixture<T>` test-data factory in `test-lib/fixtures/`.                          | `rules/fixture.md`     |
 
-## Deciding Which Block to Use
+### Routing
 
-Decide in this order:
+1. **Pure and deterministic, or an XState machine?** → `unit-test`.
+2. **A `lib/api/` factory whose error mapping has branches?** → `api-test`. A factory with no mapping is covered
+   transitively by the hook or story that uses it.
+3. **A hook?** Prefer covering it through the component that uses it (`component-story-test`). `hook-test` only when
+   the hook has a contract of its own — several consumers, or a scenario awkward to stage through UI (error branches,
+   unauthenticated paths).
+4. **Rendered UI?** → `component-story-test`. One story per meaningful state; a multi-step journey inside a feature is
+   one story with `step`s.
+5. **Across pages, against the real local API?** Not here — Playwright E2E (`playwright-page-objects` skill).
 
-1. **Is the code under test user-facing (rendered, interactive)?** → `component-story-test`. Covers the happy path and main user-observable states. Mutation hooks, Zustand stores, XState machines, context providers composed by the component are exercised transitively.
-2. **Is the code under test a custom hook that needs dedicated verification?** → `hook-test`. Use for hooks whose edge cases, error branches, or loading states are awkward to reproduce through component UI, or for hooks used by multiple components where duplicating scenarios per component is wasteful.
-3. **Is the code under test pure, non-hook mechanics?** → `unit-test`. Mappers, transformers, value objects, selectors, date math, query-keys factories.
+**Do not test:** fixtures, MSW handlers, test providers and decorators, constants, `providers/` re-exports, pass-through
+hooks, DTO and type declarations.
 
-For support code:
+## The mocking boundary
 
-- **Need to mock an HTTP endpoint?** → `msw-handler`. One factory per endpoint; resolver at call site for per-scenario overrides.
-- **Need deterministic test data?** → `fixture`. Domain type in, factory out. No randomness, no `Date.now()`.
+The one rule that governs every block: **mock only at the edge of the app — the network — and provide context with a
+provider rather than a mock.**
 
-**Do not write tests for:** fixtures, MSW handler factories, trivial glue (re-exports, constants, pass-through hooks).
+| Mock this                                                                        | Not this                                                         |
+| -------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| HTTP via MSW handlers (`mswServer.use(...)`, `parameters.msw.handlers`)          | `lib/api/` exports, the HTTP client, `@tanstack/react-query`     |
+| Non-determinism: `Date.now`, `crypto.randomUUID`, `Math.random`, timers          | Any app hook — `providers/` hooks, use-case hooks, context hooks |
+| Write-only sinks: toasts (`spyOnToast`), logging, analytics                      | Child components, unless they cannot run (state why)             |
+| Platform gaps behind an owned `lib/` wrapper: clipboard, download, non-HTTP SDKs | Zustand stores — set real state, reset in `afterEach`            |
+| XState actors/actions via `machine.provide({ actors, actions })`                 | Domain logic, mappers, parsers — let them run                    |
+
+Everything between that edge and the subject runs for real: `lib/api/` factories, TanStack Query, provider hooks,
+stores, machines, child components. A hook mock goes red on a harmless refactor and stays green on a real regression;
+an MSW handler survives both.
+
+**Context comes from a test provider**, never from a mock of the hook that reads it: `TestQueryProvider`,
+`TestAuthProvider` in `src/test-lib/`, and decorators in `src/test-lib/storybook/`. Read those folders for what exists.
+Compose the ones a test needs into one wrapper; if the context you need has no provider, add one.
+
+## Conventions
+
+Shared by every block; the rule files only state what is specific to them.
+
+- **Location and name**: co-located with the subject. `use-add-to-cart.ts` → `use-add-to-cart.test.tsx`;
+  `ProductsList.tsx` → `ProductsList.stories.tsx`. `.tsx` only when the file has JSX.
+- **Structure** (Vitest): `describe("<subject>")` → optional nested `describe` per method or state → `it("...")`
+  naming the behaviour, not the implementation. Blank line between arrange/act and the `expect`s.
+- **One behaviour per test.** A genuine matrix — same rule, several inputs — goes in `it.each`; one `it` each when the
+  cases have different reasons. Skip cases the type system already prevents.
+- **Queries**: by role and accessible name first, then label, then text, `getByTestId` last. Anchor the name
+  (`/^next$/i`) where another control's name contains this one. A role query you cannot write is an accessibility bug
+  in the component.
+- **Interactions**: awaited `userEvent`, always. Never `fireEvent`, never an un-awaited call.
+- **Async**: `findBy*` to wait for an element, `waitFor` to wait for one assertion, `getBy*` only for what is already
+  there. Never `sleep`. No fake timers unless a debounce forces it, scoped to one `it`.
+- **Assertions**: what the user sees first, then the arguments a spy received — `toHaveBeenCalledWith`, not just
+  `toHaveBeenCalled`. A negative assertion needs a positive control in the same suite. Nothing on implementation
+  details: render counts, internal state, class names, query keys, `queryClient.getQueryData`.
+- **Cleanup**: `afterEach(() => vi.restoreAllMocks())` in any test that installs spies. Reset module-level stores and
+  caches the subject touches — they leak between tests.
+- **Data**: fixtures, not inline literals. Values crossing from arrange to assert are module constants, so both sides
+  share one symbol.
+- **No DOM snapshots** for logic.
+- **Timezone** is `Europe/London` (`test-globals.ts`); MSW handlers reset after each test and unhandled requests fail the test (`test-setup-unit.ts`).
+- **Console noise** from a deliberate failure is silenced per test, not globally:
+  `vi.spyOn(console, "error").mockImplementation(() => undefined)`.
 
 ## Rules
 
-- Block files live in `rules/` — one file per block.
-- Each file contains: description, constraints, and a canonical code example.
-- Block names are stable identifiers. If referenced from a spec or documentation, use the exact name from the catalog.
+- One rule file per block in `rules/`. Each has its constraints, examples and anti-patterns.
+- **The constraints are the rule; the examples only illustrate them.** Examples are modelled on this repo but drift as
+  code changes. When an example and a constraint disagree, follow the constraint.
+- Block names are stable. Renaming one means updating everything that references it.
+- Not every existing test conforms — many predate these rules.

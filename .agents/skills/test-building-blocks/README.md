@@ -10,14 +10,14 @@ A structured catalog of typed test-related building blocks, optimized for AI age
 
 ## Building Block Categories
 
-| Category               | Blocks | Description                                                         |
-| ---------------------- | ------ | ------------------------------------------------------------------- |
-| Tests                  | 3      | Storybook play-function tests, Vitest hook tests, Vitest unit tests |
-| Support Infrastructure | 2      | MSW handler factories, deterministic test data fixtures             |
+| Category               | Blocks | Description                                                                                |
+| ---------------------- | ------ | ------------------------------------------------------------------------------------------ |
+| Tests                  | 4      | Storybook play-function tests, Vitest hook tests, lib/api factory tests, Vitest unit tests |
+| Support Infrastructure | 2      | MSW handler factories, deterministic test data fixtures                                    |
 
 ## How It Works
 
-1. Agent reads `SKILL.md` — gets the catalog index with short summaries, testing philosophy, and the mocking boundary rule
+1. Agent reads `SKILL.md` — gets the catalog index, routing, the mocking boundary rule, and shared conventions (rationale lives in `docs/testing.md`)
 2. When implementing a specific block, agent reads `rules/{block-name}.md`
 
 ## Creating a New Building Block
@@ -36,13 +36,17 @@ Description of what this block does, when to use it, and why.
 
 ### Constraints
 
-- Hard rules for this block type
+- Hard rules for this block type (shared conventions stay in `SKILL.md`)
 
 ### Example
 
 \`\`\`tsx
 // Canonical implementation example
 \`\`\`
+
+### Anti-patterns
+
+- ❌ What reviewers should reject, with the reason
 
 ### References
 

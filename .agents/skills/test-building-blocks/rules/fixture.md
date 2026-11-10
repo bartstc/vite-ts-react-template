@@ -10,11 +10,14 @@ Used in unit tests, hook tests, and Storybook story args.
 
 ### Constraints
 
+- Typed with the real type (domain model, or DTO for mappers and handlers).
+- The template is the realistic happy path; each test overrides only the field it is about.
 - One file per domain type. Filename mirrors the type: `product-fixture.ts` exports `ProductFixture`.
 - Templates are **deterministic**: no `Math.random()`, no `Date.now()`, no `faker` in defaults. Use fixed strings, `generateUuid()` from `@/test-lib/generate-uuid` for UUIDs, and `DateVO` (e.g. `DateVO.past()`) for dates. Non-determinism in defaults is the #1 source of flaky tests.
 - Uniqueness across a collection is the caller's responsibility — pass `{ id: generateUuid() }` per item when unique IDs matter.
 - Export **factory methods, not pre-built constants**. A shared `const defaultProduct = { ... }` is a trap — one test mutating it poisons the next.
-- Fixtures live in `test-lib/fixtures/` — never in `src/features/`.
+- Shared fixtures live in `test-lib/fixtures/` — never in `src/features/`. A single-test fixture may stay in that test file; promote it on second use.
+- For intentionally invalid input, spread the structure and break the field.
 - Prefer **named trait functions** over magic-string preset enums when a preset touches ≥ 3 fields and repeats across files. Traits preserve autocomplete and types; enums don't.
 
 ### Example — template definition

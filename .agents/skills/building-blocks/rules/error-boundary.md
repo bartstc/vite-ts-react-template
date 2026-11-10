@@ -15,6 +15,7 @@ Scoped runtime error handling for a feature component that runs its own query. C
 - `ErrorBoundary` and `withErrorBoundary` live in `src/lib/components/ErrorBoundary/`. Use `withErrorBoundary` by default — do not hand-roll.
 - Add `throwOnError: true` on the query's `useQuery` call in `providers/`.
 - No retry for ErrorBoundary by default.
+- A fallback that differs per failure branches on the domain error class, never on the HTTP status.
 
 ### Example
 

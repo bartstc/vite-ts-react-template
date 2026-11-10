@@ -7,6 +7,7 @@ One request handler per API endpoint. Returns a sensible default response when i
 - One file per endpoint. Filename mirrors HTTP verb + resource + action: `put-add-to-cart-handler.ts`, `get-products-handler.ts`.
 - Export a **single named factory function** — not multiple outcome-specific exports. Per-scenario variation is passed as a resolver at the call site.
 - URL uses the shared `host` constant from `@/lib/http`. For endpoints with query params, use the shared `buildUrl` helper — never hand-concatenate.
+- Response bodies are typed with the DTO; error bodies match what the server actually sends.
 - Default response body is the minimum valid shape. For collection endpoints, populate via fixtures with `generateUuid()` IDs — no inline literal arrays.
 - Query params go in the resolver via `new URL(request.url).searchParams`, not in the path predicate — MSW silently strips query strings from the predicate.
 - Inline `mswServer.use(http.get(URL, resolver))` is acceptable for one-off test-local overrides. The factory pattern is for endpoints touched by ≥ 2 test files or by Storybook.
@@ -117,6 +118,16 @@ HttpResponse.error(); // network error
 await delay("infinite"); // hung request (loading state)
 await delay(500); // realistic latency
 ```
+
+### Anti-patterns
+
+❌ An untyped literal body (`HttpResponse.json({ id: 1, name: "x" })`) — drifts silently from the DTO.
+
+❌ Outcome-specific exports (`getProductsErrorHandler`, `getProductsEmptyHandler`) — pass a resolver instead.
+
+❌ A story-level `handlers` array that drops the meta baseline it still needs.
+
+❌ Testing a handler factory.
 
 ### References
 

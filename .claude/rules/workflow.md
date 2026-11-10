@@ -22,6 +22,5 @@ Use `AIDEV-NOTE:`, `AIDEV-TODO:`, or `AIDEV-QUESTION:` for inline knowledge (≤
 
 ## Implementation
 
-- Run `pnpm lint --fix` after making changes
 - Stay within current task context — inform dev if a fresh start is needed
-- When a task is done, verify it works before reporting completion
+- Typecheck, lint and tests run only when the dev asks — see CLAUDE.md "Verification On Demand"

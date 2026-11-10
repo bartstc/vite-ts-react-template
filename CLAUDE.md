@@ -23,12 +23,20 @@ Package manager: PNPM only. Path alias: `@/*` → `src/`.
 - **Simplicity first** — make every change as simple as possible, minimize code impact, choose the boring solution
 - **Surgical changes** — touch only what the task requires; don't refactor, reformat, or "improve" adjacent code. Remove only the orphans your own changes create
 - When unsure about requirements or business logic, ask the developer — never assume
-- When multiple interpretations exist, present them — don't pick silently
 - For changes >300 LOC or >3 files, ask for confirmation before proceeding
 - Stay within current task context; inform dev if fresh start needed
 - Modify API contracts only with explicit approval
 - Use git commands only when explicitly requested
-- Keep reports, options, and summaries extremely concise — prioritize information density
+
+## Communication
+
+- Work silently between tool calls. Your first text in a turn is a result or a question.
+- Stop and report when: different readings of the requirements or code lead to different code; 3+ places checked
+  without resolving the same thing; or your approach failed twice. Report one line on what's unclear, the options, and
+  what you need from me, then wait. Never pick an interpretation silently.
+- Keep reports, options, and summaries extremely concise — prioritize information density.
+- Final reply: outcome first, then assumptions, risks and commands to run, only if any.
+- Always report in full: errors, failing tests, security or data-loss risks, and confirmations before destructive actions.
 
 ## Workflow
 
@@ -37,7 +45,6 @@ Package manager: PNPM only. Path alias: `@/*` → `src/`.
 - Enter plan mode for any non-trivial task (3+ steps or architectural decisions)
 - If something goes wrong, STOP and re-plan immediately — do not keep pushing
 - For complex features, write or request a spec before implementation
-- Use plan mode for verification steps, not just building
 
 **2. Self-Improvement Loop**
 
@@ -45,10 +52,10 @@ Package manager: PNPM only. Path alias: `@/*` → `src/`.
 - Review `specs/lessons.md` at the start of each session
 - Ruthlessly iterate on lessons until the mistake rate drops
 
-**3. Verification Before Done**
+**3. Verification On Demand**
 
-- Never mark a task complete without proving it works
-- Run tests, check logs, and demonstrate correctness
+- Do not run typecheck, lint or tests, and do not add verification steps to plans, unless the dev asks
+- Report real output: a step you did not run is `SKIPPED`, never `PASS`
 
 **4. Demand Elegance (Balanced)**
 
