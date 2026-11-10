@@ -35,3 +35,8 @@ paths:
 - Prioritize: happy path with realistic data, user-facing error conditions, edge cases affecting business logic
 - Each test verifies distinct behavior — avoid multiple variations triggering the same code path
 - Skip redundant cases: empty arrays when "not found" is covered, `undefined` when types prevent it
+
+## Where the rules live
+
+- How to write each kind of test: `test-building-blocks` skill — read the block's rule file before writing a test
+- Why (tiers, MSW as the mocking seam, when a stub is justified, design-smell signals): `docs/testing.md`

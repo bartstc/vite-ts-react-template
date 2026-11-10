@@ -39,3 +39,27 @@ Patterns captured after corrections. Review at session start.
 **How to apply:** Before using any `src/lib/api/` type in a component or page, check `features/<feature>/models/` for a domain alias. If none exists, add one following `product.ts`.
 
 **Source:** Correction 2026-04-12 — `MarketingProductDto` leaked into `ProductDetails.tsx` component props.
+
+---
+
+## L003 — Verification runs on demand only
+
+**Rule:** Do not run `pnpm typecheck`, `pnpm lint`, or tests after a change, and do not add verification steps to plans, unless the dev asks. Report unrun steps as `SKIPPED`.
+
+**Why it failed:** The old "Verification Before Done" rule made every task end in long typecheck/lint/test runs the dev had not asked for.
+
+**How to apply:** Finish the edit, report the outcome, and list the commands the dev may want to run. Run them only on request.
+
+**Source:** Decision 2026-11-10 — CLAUDE.md Workflow §3 replaced with "Verification On Demand".
+
+---
+
+## L004 — Skills and docs stay portable
+
+**Rule:** Constraints in skills and docs are generic and short. Production symbols, file paths and implementation details appear only inside code examples. Shared test utilities (`src/test-lib/`) may be named.
+
+**Why it failed:** Error-handling rules named `parse-checkout-error.ts`, `AjaxError`, `ErrorPageStrategy` and library internals (`ramda.mergeDeepRight`), and presented one feature's helper as a standard.
+
+**How to apply:** Before adding a constraint, ask whether it would make sense if copied into another codebase. If not, move the specifics into the example or drop them. Add as little as possible.
+
+**Source:** Correction 2026-11-10 — trimmed building-blocks error rules, architecture.md Error Handling, fixture/msw-handler/api-test rules.

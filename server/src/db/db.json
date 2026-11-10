@@ -458,11 +458,15 @@
     {
       "id": "00000000-0000-0000-0000-000000000001",
       "userId": 1,
-      "date": "2026-07-26T05:34:02.641Z",
+      "date": "2026-07-28T20:55:20.536Z",
       "products": [
         {
           "productId": "4f968992-1aab-49c9-8913-09405915c1c0",
-          "quantity": 2
+          "quantity": 1
+        },
+        {
+          "productId": "4f968992-1aab-49c9-8913-09405915c1d1",
+          "quantity": 1
         }
       ]
     },
@@ -520,9 +524,9 @@
       "authorName": "Bob",
       "rating": 4,
       "title": "Comfy tees",
-      "comment": "Soft fabric. Sizing runs slightly tight in the shoulders.",
+      "comment": "Soft fabric. Sizing runs slightly tight in the shoulders. test",
       "createdAt": "2025-02-10T14:00:00.000Z",
-      "updatedAt": null
+      "updatedAt": "2026-07-28T20:55:37.314Z"
     },
     {
       "id": "r0000000-0000-0000-0000-000000000005",
