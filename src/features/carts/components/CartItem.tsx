@@ -52,6 +52,8 @@ const CartItem = ({
       justify="space-between"
       rounded="lg"
       w="100%"
+      as="article"
+      aria-labelledby={`cart-item-name-${id}`}
     >
       <Stack
         direction={{ base: "column", md: "row" }}
@@ -79,6 +81,7 @@ const CartItem = ({
         />
         <VStack gap={1} align="flex-start" justify="flex-start">
           <Text
+            id={`cart-item-name-${id}`}
             fontSize="lg"
             fontWeight="medium"
             onClick={() => navigate(`/products/${id}`)}
