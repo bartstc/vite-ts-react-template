@@ -1,25 +1,15 @@
-import type { Page, Locator } from "@playwright/test";
+import type { Locator, Page } from "@playwright/test";
 
-import { BasePage } from "@e2e/pages/base/BasePage";
+export class CartPage {
+  readonly heading: Locator;
 
-export class CartPage extends BasePage {
-  readonly checkoutButton: Locator;
-  readonly checkoutDialog: Locator;
-
-  constructor(page: Page) {
-    super(page);
-
-    this.checkoutButton = page.getByRole("button", { name: /checkout/i });
-    this.checkoutDialog = page.getByRole("alertdialog");
+  constructor(private readonly page: Page) {
+    this.heading = page.getByRole("heading", {
+      name: /list of selected products/i,
+    });
   }
 
-  async goto(cartId: string): Promise<this> {
-    await this.page.goto(`/cart/${cartId}`, { waitUntil: "networkidle" });
-    return this;
-  }
-
-  async openCheckoutDialog(): Promise<this> {
-    await this.checkoutButton.click();
-    return this;
+  item(name: string): Locator {
+    return this.page.getByRole("article", { name, exact: true });
   }
 }

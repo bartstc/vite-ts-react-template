@@ -83,5 +83,3 @@ strict mode, `page.route` on our own API, `force: true` without a reason comment
 - Report, don't paper over. If a test only passes with a sleep, a retry, `force` or a routed own-API call, stop and
   report the cause instead of writing it.
 - A role or accessible name you cannot select is an accessibility finding in the component — report it.
-
-Not every existing test conforms; many predate these rules.

@@ -20,6 +20,8 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
   retries: process.env.CI ? 2 : 0,
+  /* A pass on retry is a flaky test — fail the CI build instead of hiding it */
+  failOnFlakyTests: !!process.env.CI,
   /* AIDEV-NOTE: Single worker — the auto `resetDb` fixture resets the shared DB before every test; parallel workers would wipe each other's data (docs/e2e-testing.md §2.2) */
   workers: 1,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
@@ -34,16 +36,19 @@ export default defineConfig({
 
     /* Run headless in containers without display server. UI mode still works via web interface. */
     // headless: true,
-
-    /* AIDEV-NOTE: Isolate storage state between tests to prevent auth state leakage */
-    storageState: { cookies: [], origins: [] },
   },
 
   /* Configure projects for major browsers */
   projects: [
+    /* AIDEV-NOTE: signs in once and saves the session; signed-out specs opt out with test.use({ storageState }) */
+    { name: "setup", testMatch: /.*\.setup\.ts/ },
     {
       name: "chromium",
-      use: { ...devices["Desktop Chrome"] },
+      use: {
+        ...devices["Desktop Chrome"],
+        storageState: "playwright/.auth/user.json",
+      },
+      dependencies: ["setup"],
     },
     // {
     //   name: "firefox",

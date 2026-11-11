@@ -1,45 +1,29 @@
-import type { Page, Locator } from "@playwright/test";
+import { expect, type Locator, type Page } from "@playwright/test";
 
-import { BasePage } from "@e2e/pages/base/BasePage";
+import { AddedToCartDialog } from "@e2e/pages/components/AddedToCartDialog";
 import { HeaderComponent } from "@e2e/pages/components/HeaderComponent";
 
-export class ProductDetailsPage extends BasePage {
+export class ProductDetailsPage {
   readonly header: HeaderComponent;
-  private readonly productDetailsSection: Locator;
+  readonly addedDialog: AddedToCartDialog;
   private readonly addToCartButton: Locator;
-  private readonly backToListButton: Locator;
 
-  constructor(page: Page) {
-    super(page);
+  constructor(private readonly page: Page) {
     this.header = new HeaderComponent(page);
-
-    this.productDetailsSection = page.locator(
-      'section[data-testid="product-details"]'
-    );
-
-    this.addToCartButton = this.productDetailsSection.getByRole("button", {
-      name: /add to cart/i,
-    });
-
-    this.backToListButton = this.productDetailsSection.getByRole("button", {
-      name: /back to products.*list/i,
-    });
+    this.addedDialog = new AddedToCartDialog(page);
+    this.addToCartButton = page.getByRole("button", { name: /add to cart/i });
   }
 
-  async gotoFirstProduct(): Promise<this> {
-    // AIDEV-NOTE: Navigate via products list to avoid hardcoding ID format
-    await this.page.goto("/products", { waitUntil: "networkidle" });
-    await this.page.getByRole("article").first().getByRole("img").click();
-    await this.page.waitForURL(/\/products\/.+/, { waitUntil: "networkidle" });
-    return this;
+  heading(name: string): Locator {
+    return this.page.getByRole("heading", { name, exact: true });
   }
 
-  async addToCart(): Promise<this> {
+  async goto(id: string): Promise<void> {
+    await this.page.goto(`/products/${id}`);
+    await expect(this.addToCartButton).toBeVisible();
+  }
+
+  async addToCart(): Promise<void> {
     await this.addToCartButton.click();
-    return this;
-  }
-
-  async navigateBackToList(): Promise<void> {
-    await this.backToListButton.click();
   }
 }

@@ -1,17 +1,16 @@
-import type { Page, Locator } from "@playwright/test";
+import type { Locator } from "@playwright/test";
 
 export class ProductCardComponent {
+  private readonly image: Locator;
   private readonly addToCartButton: Locator;
 
-  constructor(
-    _page: Page,
-    private root: Locator
-  ) {
+  constructor(readonly root: Locator) {
+    this.image = root.getByRole("img");
     this.addToCartButton = root.getByRole("button", { name: /add to cart/i });
   }
 
-  async click(): Promise<void> {
-    await this.root.getByRole("img").click();
+  async open(): Promise<void> {
+    await this.image.click();
   }
 
   async addToCart(): Promise<void> {
