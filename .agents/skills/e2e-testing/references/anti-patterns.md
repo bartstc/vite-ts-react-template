@@ -105,21 +105,7 @@ test("shows an error for a short password", …);
 
 Keep one path through the screen in E2E; the matrix belongs in stories.
 
-## 9. Inheritance and fat page objects
-
-```ts
-// ❌
-class BasePage { async waitForPageLoad() { … } }
-class ProductListPage extends BasePage { /* 40 locators */ }
-
-// ✅ compose
-class ProductListPage {
-  readonly header: HeaderComponent;
-  readonly filters: ProductFiltersComponent;
-}
-```
-
-## 10. CSS, XPath and test-id strings
+## 9. CSS, XPath and test-id strings
 
 ```ts
 // ❌
@@ -131,7 +117,7 @@ page.getByRole("button", { name: /add to cart/i });
 page.getByTestId("cart-badge"); // badge has no accessible name yet — AIDEV-TODO: add aria-label
 ```
 
-## 11. Wrapping Playwright
+## 10. Wrapping Playwright
 
 ```ts
 // ❌ adds nothing
@@ -140,11 +126,11 @@ async click(locator: Locator) {
 }
 ```
 
-## 12. Toasts as page-object properties
+## 11. Toasts as page-object properties
 
 Transient UI is asserted in the test: `await expect(page.getByRole("status")).toHaveText(/added/i)`.
 
-## 13. All members public
+## 12. All members public
 
 ```ts
 // ❌ tests can reach internals and start depending on them
@@ -172,7 +158,6 @@ class OrdersPage {
 | Routing our own API           | Seed via API, or a story with MSW         |
 | UI setup in `beforeEach`      | `storageState` and data fixtures          |
 | Field/state matrices          | Stories                                   |
-| Inheritance, fat POMs         | Component objects                         |
 | CSS / XPath / test-id strings | Role-based locators                       |
 | Wrapping Playwright           | Call Playwright directly                  |
 | Toasts in POMs                | Assert in the test                        |

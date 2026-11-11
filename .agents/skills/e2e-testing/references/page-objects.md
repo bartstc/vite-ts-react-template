@@ -12,13 +12,13 @@ Page objects hide _how_ to find and drive the UI. The test decides _what_ to che
   return the target page object when the page changes. Plain actions return `Promise<void>`.
 - No other assertions, no value getters (`textContent()`, `isVisible()`, `count()`), no API URLs, no
   `waitForResponse`.
-- No `BasePage` and no inheritance. Compose component objects as properties.
 - Component objects take a root `Locator` (or build one by role and accessible name) and scope every child to it.
 - Containers are found by `getByRole("dialog" | "form" | "region" | "navigation" | "article", { name })`. If one has no
   accessible name, add it in the component.
 - Items in a collection are found by content (`filter({ has: … })`), not by index.
 - Helpers and sub-locators tests should not use are `private`.
-- Split when a class passes ~15 locators or ~10 methods.
+- Size is a signal, not a limit. When a class keeps growing, check whether it mixes workflows or repeats UI that could
+  be a component object. A large class covering one coherent, complex piece of UI is fine.
 
 ## Example — page object
 

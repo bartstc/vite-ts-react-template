@@ -53,11 +53,12 @@ cover. When the doc, this file and a reference disagree, fix whichever is wrong.
    `toHaveText`, `toHaveURL`, …. No value getters (`isVisible()`, `textContent()`) feeding `expect`.
 2. **Readiness checks only.** The one assertion a page object may contain ends a navigation method.
 3. **Navigation returns the target page object**; plain actions return `Promise<void>`.
-4. **Composition over inheritance.** No `BasePage`; shared UI is a component object scoped by a root locator.
+4. **Shared UI is a component object** scoped by a root locator and composed into pages.
 5. **Separate pages by workflow.** List and details are different page objects.
 6. **Private internals.** Helpers and sub-locators tests should not use are `private`.
 7. **No transport details.** No API URLs, status codes or `waitForResponse`.
-8. **Small.** Split at ~15 locators or ~10 methods.
+8. **Cohesive, not small.** One page object per coherent piece of UI. A growing class is a signal to check whether it
+   mixes workflows, not a limit — a complex screen may justify a large page object.
 
 ## Locator priority
 

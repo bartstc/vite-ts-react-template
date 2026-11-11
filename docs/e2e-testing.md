@@ -111,7 +111,7 @@ Page objects hide _how_ to find and drive the UI; the test decides _what_ to che
   `expect` is in the test — not that the page object returns snapshot values.
 - Multi-control actions (fill and submit) are methods. Navigation methods end with a readiness check and return the
   target page object — the only assertion a page object may contain.
-- No transport details (URLs of API calls, status codes, `waitForResponse`), no CSS/XPath, no inheritance. Shared UI is
+- No transport details (URLs of API calls, status codes, `waitForResponse`), no CSS/XPath. Shared UI is
   a component object scoped by a root locator, composed into pages.
 - Transient UI (toasts) is asserted in the test, not kept as a page-object property.
 

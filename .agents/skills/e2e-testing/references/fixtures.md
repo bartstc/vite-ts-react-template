@@ -149,40 +149,14 @@ export const test = pages.extend<{ checkoutFlow: CheckoutFlow }>({
 });
 ```
 
-## Example — auth setup project
+## Signed-in state
 
-Sign in once, save the session, and load it in every test. One-time configuration, not a fixture per spec.
-
-```ts
-// e2e/auth.setup.ts
-import { expect, test as setup } from "@playwright/test";
-
-const authFile = "playwright/.auth/user.json";
-
-setup("authenticate", async ({ page }) => {
-  await page.goto("/sign-in");
-  await page.getByLabel(/username/i).fill(process.env.E2E_USERNAME ?? "");
-  await page.getByLabel(/password/i).fill(process.env.E2E_PASSWORD ?? "");
-  await page.getByRole("button", { name: /sign in/i }).click();
-  await expect(page).toHaveURL(/\/products$/);
-  await page.context().storageState({ path: authFile });
-});
-```
+Tests start signed in: the suite's auth setup signs in once and saves `storageState`, which every test loads. Never
+sign in through the UI in a test or `beforeEach`. A spec about signing in, or about guest behaviour, starts signed out:
 
 ```ts
-// playwright.config.ts (excerpt)
-projects: [
-  { name: "setup", testMatch: /.*\.setup\.ts/ },
-  {
-    name: "chromium",
-    use: { ...devices["Desktop Chrome"], storageState: "playwright/.auth/user.json" },
-    dependencies: ["setup"],
-  },
-],
+test.use({ storageState: { cookies: [], origins: [] } });
 ```
-
-Add `playwright/.auth/` to `.gitignore` — the file holds live session tokens. A spec that tests signing in starts
-signed out with `test.use({ storageState: { cookies: [], origins: [] } })`.
 
 ## Example — entry point
 
