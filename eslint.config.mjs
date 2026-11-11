@@ -4,7 +4,8 @@ import js from "@eslint/js";
 import reactHooks from "eslint-plugin-react-hooks";
 import reactPlugin from "eslint-plugin-react";
 import prettierPluginRecommended from "eslint-plugin-prettier/recommended";
-import importPlugin from "eslint-plugin-import";
+import { createTypeScriptImportResolver } from "eslint-import-resolver-typescript";
+import importX from "eslint-plugin-import-x";
 import storybookPlugin from "eslint-plugin-storybook";
 import vitest from "@vitest/eslint-plugin";
 import reactRefresh from "eslint-plugin-react-refresh";
@@ -102,27 +103,33 @@ export default defineConfig(
   },
   {
     files: ["**/*.{ts,tsx}"],
-    plugins: { import: importPlugin, "react-refresh": reactRefresh },
+    plugins: { "import-x": importX, "react-refresh": reactRefresh },
     settings: {
+      ...importX.flatConfigs.typescript.settings,
+      "import-x/resolver-next": [
+        createTypeScriptImportResolver({ alwaysTryTypes: true }),
+      ],
+      // AIDEV-NOTE: kept for eslint-plugin-boundaries — it resolves @/ aliases
+      // via eslint-module-utils, which only reads `import/resolver`. Keep the
+      // options in sync with `import-x/resolver-next` above.
       "import/resolver": { typescript: { alwaysTryTypes: true } },
-      "import/ignore": [
+      "import-x/ignore": [
         "node_modules",
         ".json$",
         ".(css|scss)$",
         ".(jpg|png|gif|svg|html|txt|md|woff|woff2|ttf|eot)$",
       ],
-      "import/external-module-folders": ["node_modules", ".pnpm-store"],
     },
     rules: {
-      ...importPlugin.configs.recommended.rules,
-      ...importPlugin.configs.typescript.rules,
-      "import/no-dynamic-require": "error",
-      "import/no-useless-path-segments": "error",
-      "import/no-extraneous-dependencies": "error",
-      "import/newline-after-import": "error",
-      "import/no-commonjs": "error",
-      "import/no-amd": "error",
-      "import/order": [
+      ...importX.flatConfigs.recommended.rules,
+      ...importX.flatConfigs.typescript.rules,
+      "import-x/no-dynamic-require": "error",
+      "import-x/no-useless-path-segments": "error",
+      "import-x/no-extraneous-dependencies": "error",
+      "import-x/newline-after-import": "error",
+      "import-x/no-commonjs": "error",
+      "import-x/no-amd": "error",
+      "import-x/order": [
         "error",
         {
           alphabetize: { caseInsensitive: true, order: "asc" },
@@ -238,7 +245,7 @@ export default defineConfig(
     files: ["**/*.?(m|c)js", "**/vite.config.ts", "**/vitest.config.ts"],
     rules: {
       strict: "off",
-      "import/no-commonjs": "off",
+      "import-x/no-commonjs": "off",
       "@typescript-eslint/prefer-nullish-coalescing": "off",
       "@typescript-eslint/no-unsafe-assignment": "off",
       "@typescript-eslint/no-unsafe-member-access": "off",

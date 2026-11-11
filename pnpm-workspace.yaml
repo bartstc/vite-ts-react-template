@@ -26,5 +26,4 @@ overrides:
 peerDependencyRules:
   allowedVersions:
     storybook-addon-remix-react-router>react-router: "8"
-    eslint-plugin-import>eslint: "10"
     eslint-plugin-react>eslint: "10"
