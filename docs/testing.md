@@ -13,7 +13,8 @@ Audience: developers and AI agents writing or reviewing tests in this repo.
 - **Component (Storybook play functions, real browser via Vitest browser mode):** a component or a composition of
   components with its real hooks, stores and providers, and the business paths through it. Anything that depends on
   the browser engine (layout, focus, overlays, portals) belongs here too.
-- **E2E (Playwright):** a few critical journeys across pages against the local API server.
+- **E2E (Playwright):** a few critical journeys across pages against the local API server. See
+  [e2e-testing.md](./e2e-testing.md).
 
 Each behaviour has one owning tier. Unit tests cover branches and edge cases that are awkward to reach through UI;
 stories cover the main user-observable states and the paths through them. Multi-step journeys inside one feature are

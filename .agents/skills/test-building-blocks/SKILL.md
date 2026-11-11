@@ -1,6 +1,6 @@
 ---
 name: test-building-blocks
-description: Test building block catalog — Storybook play-function tests, Vitest hook tests, lib/api factory tests, Vitest unit tests, MSW handlers, and test data fixtures. ALWAYS read the relevant rule file before writing or modifying any test, story play function, handler, or fixture. Use it when writing new tests, filling a coverage gap, reviewing a spec, or deciding which tier a behaviour belongs at. Not for Playwright E2E (playwright-page-objects).
+description: Test building block catalog — Storybook play-function tests, Vitest hook tests, lib/api factory tests, Vitest unit tests, MSW handlers, and test data fixtures. ALWAYS read the relevant rule file before writing or modifying any test, story play function, handler, or fixture. Use it when writing new tests, filling a coverage gap, reviewing a spec, or deciding which tier a behaviour belongs at. Not for Playwright E2E (e2e-testing).
 ---
 
 # Test Building Blocks
@@ -53,7 +53,7 @@ say so and write the plainest Vitest test that covers the behaviour; do not forc
    unauthenticated paths).
 4. **Rendered UI?** → `component-story-test`. One story per meaningful state; a multi-step journey inside a feature is
    one story with `step`s.
-5. **Across pages, against the real local API?** Not here — Playwright E2E (`playwright-page-objects` skill).
+5. **Across pages, against the real local API?** Not here — Playwright E2E (`e2e-testing` skill).
 
 **Do not test:** fixtures, MSW handlers, test providers and decorators, constants, `providers/` re-exports, pass-through
 hooks, DTO and type declarations.
