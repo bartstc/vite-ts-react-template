@@ -40,5 +40,5 @@ paths:
 ## Where the rules live
 
 - How to write each kind of test: `test-building-blocks` skill — read the block's rule file before writing a test
-- Visual regression (which stories, determinism, baselines): `docs/visual-testing.md`
+- Visual regression (which stories, determinism, baselines): `docs/visual-testing.md`. Screenshots only in stories tagged `visual`, never in E2E
 - Why (tiers, MSW as the mocking seam, when a stub is justified, design-smell signals): `docs/testing.md`

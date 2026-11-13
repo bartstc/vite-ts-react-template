@@ -15,10 +15,9 @@ the wrong component. Behaviour tests cannot see these.
 They belong to the component tier because a story already renders one state in isolation, with MSW fixtures and real
 providers. That is the most deterministic input we have, and a diff points at one component instead of a whole page.
 
-| Tier                         | Proves for appearance                           | Tool                                    |
-| ---------------------------- | ----------------------------------------------- | --------------------------------------- |
-| **Component (`visual` tag)** | Each opted-in story state looks as reviewed     | Vitest browser mode `toMatchScreenshot` |
-| E2E (optional, deferred)     | The app shell composes: navigation, layout grid | Playwright `toHaveScreenshot`, masked   |
+| Tier                         | Proves for appearance                       | Tool                                    |
+| ---------------------------- | ------------------------------------------- | --------------------------------------- |
+| **Component (`visual` tag)** | Each opted-in story state looks as reviewed | Vitest browser mode `toMatchScreenshot` |
 
 **Pixels are evidence, not assertions.** A screenshot says that something rendered differently, not why, and not
 whether it still works. Visual tests complement play-function assertions and never replace them.
@@ -43,8 +42,8 @@ people approve without looking — which is worse than no suite, because it crea
 | Review capacity      | Someone opens and judges image diffs                          | Diffs would be approved blindly                     |
 | Content              | Static, fixture-driven                                        | Live data, maps, canvas, video, animation           |
 
-This template has a Chakra-based `lib/components/` library, a theme, stories with MSW and a Linux CI — the strongest
-"favours" signals. Verdict: worth it, small and opt-in. A project forked from the template re-runs §3 for its own UI
+This template has a shared component library, a theme, stories with MSW fixtures and a Linux CI — the strongest
+"favours" signals. Verdict: worth it, small and opt-in. A project built from the template re-runs §3 for its own UI
 before expanding the set, and may drop the `storybook-visual` project entirely.
 
 ## 3. Which stories are visual
@@ -62,6 +61,8 @@ Good candidates, in order of priority:
 
 - `lib/components/` primitives and their variants — one regression there affects every page.
 - A few compositions whose layout is the risk: a form, a table, an empty or error state, an open dialog.
+- Precise output the business relies on, where one wrong character or misplaced line matters: code snippets, rendered
+  templates with variables, formatted documents, invoices or price breakdowns.
 
 Not visual:
 
@@ -80,7 +81,7 @@ A visual story renders the same pixels on every run. The `storybook-visual` proj
 - One browser (Chromium) in one environment: the pinned `mcr.microsoft.com/playwright` image whose version equals the
   installed `playwright` package.
 - Fixed viewport (1280×800), device scale factor 1, locale and timezone matching the other tiers.
-- Motion disabled by a test-only stylesheet. Chakra's enter/exit animations ignore `prefers-reduced-motion`, so
+- Motion disabled by a test-only stylesheet. UI-library enter/exit animations often ignore `prefers-reduced-motion`, so
   emulating reduced motion is not enough on its own.
 - `Date` frozen to a fixed time; only `Date`, so promises, MSW and TanStack Query still run.
 - Fonts loaded (`document.fonts.ready`) before the shot.
@@ -114,13 +115,7 @@ CI uploads the reference, actual and diff images as the `visual-diffs` artifact.
 Speckles around text usually mean the environment: check the image version and fonts before touching anything else. A
 visual test that passes on retry is a determinism bug.
 
-## 8. Optional E2E visual layer
-
-Deferred. Added only if page-level layout regressions slip past the story snapshots: at most 3–5 full-page screenshots
-of the app shell at the end of existing journeys, Chromium only, every data-bearing region masked, fixed clock. See
-[e2e-testing.md](./e2e-testing.md).
-
-## 9. Design-smell signals
+## 8. Design-smell signals
 
 | Signal                                                     | Likely cause                                 | Fix                                                      |
 | ---------------------------------------------------------- | -------------------------------------------- | -------------------------------------------------------- |
@@ -131,10 +126,10 @@ of the app shell at the end of existing journeys, Chromium only, every data-bear
 | PR updates dozens of baselines as "update snapshots"       | Update-to-green; reviewers cannot see intent | One intended change per PR, baselines with the code      |
 | Same component at many viewports or themes                 | Review cost without new signal               | One viewport; more only where the layout changes         |
 | Needs a sleep before the shot                              | No stable rendered state                     | Make the state deterministic, or do not make it visual   |
-| Dynamic data masked in a story                             | Fixture is not deterministic                 | Fix the fixture; masks are for E2E                       |
+| Dynamic data masked in a story                             | Fixture is not deterministic                 | Fix the fixture; never mask in a story                   |
 | Developers avoid touching shared components                | Baseline churn outweighs the signal          | Shrink the tagged set                                    |
 
-## 10. Review checklist
+## 9. Review checklist
 
 - [ ] Every added or changed PNG was opened (GitHub image diff: swipe or onion skin); the change is intended and the PR
       says why.
@@ -145,10 +140,9 @@ of the app shell at the end of existing journeys, Chromium only, every data-bear
 - [ ] Stale PNGs removed; no extra viewports or themes without a reason.
 - [ ] On a CI failure, the `visual-diffs` artifact was inspected, not just re-run.
 
-## 11. References
+## 10. References
 
 - Vitest: [Visual regression testing](https://vitest.dev/guide/browser/visual-regression-testing.html),
   [Browser assertions](https://vitest.dev/api/browser/assertions).
 - Storybook: [Vitest addon](https://storybook.js.org/docs/writing-tests/integrations/vitest-addon).
 - Playwright: [Visual comparisons](https://playwright.dev/docs/test-snapshots), [Docker](https://playwright.dev/docs/docker).
-- Chakra UI: [Animation, reduced motion](https://chakra-ui.com/docs/components/concepts/animation).

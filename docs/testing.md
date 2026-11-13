@@ -17,7 +17,7 @@ Audience: developers and AI agents writing or reviewing tests in this repo.
   [e2e-testing.md](./e2e-testing.md).
 - **Visual (stories tagged `visual`, Vitest browser mode `toMatchScreenshot`):** the appearance of shared components and
   a few key compositions: layout, spacing, colour, typography, theme. It complements play-function assertions and never
-  replaces them. See [visual-testing.md](./visual-testing.md).
+  replaces them. Screenshots are taken only here, never in E2E. See [visual-testing.md](./visual-testing.md).
 
 Each behaviour has one owning tier. Unit tests cover branches and edge cases that are awkward to reach through UI;
 stories cover the main user-observable states and the paths through them. Multi-step journeys inside one feature are
