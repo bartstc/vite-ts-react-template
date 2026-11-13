@@ -5,6 +5,7 @@ import { NotFoundResult } from "./NotFoundResult";
 
 const meta = {
   component: NotFoundResult,
+  tags: ["visual"],
   parameters: {
     layout: "centered",
   },

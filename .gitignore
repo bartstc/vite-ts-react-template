@@ -37,5 +37,8 @@ reports
 /playwright/.auth/
 /.playwright-mcp
 
+# Visual regression (only reference PNGs in __screenshots__/ are committed)
+.vitest/
+
 # Claude
 .claude/settings.local.json

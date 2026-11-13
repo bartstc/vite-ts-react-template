@@ -4,6 +4,7 @@ import { Footer } from "./index";
 
 const meta = {
   component: Footer,
+  tags: ["visual"],
   parameters: {
     layout: "fullscreen",
   },

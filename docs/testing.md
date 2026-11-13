@@ -15,6 +15,9 @@ Audience: developers and AI agents writing or reviewing tests in this repo.
   the browser engine (layout, focus, overlays, portals) belongs here too.
 - **E2E (Playwright):** a few critical journeys across pages against the local API server. See
   [e2e-testing.md](./e2e-testing.md).
+- **Visual (stories tagged `visual`, Vitest browser mode `toMatchScreenshot`):** the appearance of shared components and
+  a few key compositions: layout, spacing, colour, typography, theme. It complements play-function assertions and never
+  replaces them. Screenshots are taken only here, never in E2E. See [visual-testing.md](./visual-testing.md).
 
 Each behaviour has one owning tier. Unit tests cover branches and edge cases that are awkward to reach through UI;
 stories cover the main user-observable states and the paths through them. Multi-step journeys inside one feature are
@@ -81,16 +84,18 @@ Add a one-line comment next to the mock saying why.
 Mock pain is feedback about the design: mocks amplify weak design such as tight coupling and misplaced
 responsibilities. Change the production code, not the test.
 
-| Signal in the test                                   | Likely cause                                       | Fix                                                  |
-| ---------------------------------------------------- | -------------------------------------------------- | ---------------------------------------------------- |
-| Need to `vi.mock` an app hook or a `lib/api/` export | Hook reads context or does I/O directly            | Make inputs parameters; move I/O into `lib/api/`     |
-| More than two MSW overrides to reach one state       | Component orchestrates too much, or API too chatty | Move orchestration into a use-case hook or machine   |
-| Fixture override longer than the test body           | Template misses the common case                    | Fix the template, or narrow the subject's input type |
-| Heavy setup to reach one behaviour                   | Subject too large, or a missing abstraction        | Split the subject or introduce a hook/machine        |
-| Test needs `getByTestId`                             | Missing role or accessible name                    | Fix the component                                    |
-| Pure logic reachable only through the DOM            | Logic lives in a component                         | Extract it to a plain function and test it directly  |
-| Test branches on an error message string             | Consumer reads transport errors                    | Map to a domain error class in `lib/api/`            |
-| Test still passes after deleting the code it covers  | Vacuous assertion, or a mock supplies the answer   | Strengthen the assertion; remove the mock            |
+| Signal in the test                                         | Likely cause                                       | Fix                                                      |
+| ---------------------------------------------------------- | -------------------------------------------------- | -------------------------------------------------------- |
+| Need to `vi.mock` an app hook or a `lib/api/` export       | Hook reads context or does I/O directly            | Make inputs parameters; move I/O into `lib/api/`         |
+| More than two MSW overrides to reach one state             | Component orchestrates too much, or API too chatty | Move orchestration into a use-case hook or machine       |
+| Fixture override longer than the test body                 | Template misses the common case                    | Fix the template, or narrow the subject's input type     |
+| Heavy setup to reach one behaviour                         | Subject too large, or a missing abstraction        | Split the subject or introduce a hook/machine            |
+| Test needs `getByTestId`                                   | Missing role or accessible name                    | Fix the component                                        |
+| Pure logic reachable only through the DOM                  | Logic lives in a component                         | Extract it to a plain function and test it directly      |
+| Test branches on an error message string                   | Consumer reads transport errors                    | Map to a domain error class in `lib/api/`                |
+| Test still passes after deleting the code it covers        | Vacuous assertion, or a mock supplies the answer   | Strengthen the assertion; remove the mock                |
+| A screenshot is the only assertion on an interactive story | Behaviour untested; diffs get waved through        | Add play assertions; keep the screenshot as a complement |
+| A visual threshold was raised to make CI green             | Real regression or nondeterminism hidden           | Find the source (motion, clock, data, fonts); fix it     |
 
 ## 6. References
 

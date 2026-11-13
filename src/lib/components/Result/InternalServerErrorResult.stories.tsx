@@ -5,6 +5,7 @@ import { InternalServerErrorResult } from "./InternalServerErrorResult";
 
 const meta = {
   component: InternalServerErrorResult,
+  tags: ["visual"],
   parameters: {
     layout: "centered",
   },

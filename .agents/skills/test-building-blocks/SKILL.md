@@ -35,6 +35,7 @@ say so and write the plainest Vitest test that covers the behaviour; do not forc
 | `hook-test`            | A hook with a contract of its own, via `renderHook`.                                                             | `rules/hook-test.md`            |
 | `api-test`             | A `lib/api/` factory's `mutationFn` / `queryFn`: the request it sends and the domain error each failure maps to. | `rules/api-test.md`             |
 | `unit-test`            | Pure logic and XState machines — mappers, value objects, selectors, date math.                                   | `rules/unit-test.md`            |
+| `visual-story`         | A story state opted into screenshot comparison with the `visual` tag.                                            | `rules/visual-story.md`         |
 
 ### Support infrastructure
 

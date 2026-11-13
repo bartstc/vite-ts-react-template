@@ -6,7 +6,11 @@ import { fileURLToPath } from "node:url";
 import { storybookTest } from "@storybook/addon-vitest/vitest-plugin";
 import { playwright } from "@vitest/browser-playwright";
 import { mergeConfig } from "vite";
-import { coverageConfigDefaults, defineConfig } from "vitest/config";
+import {
+  coverageConfigDefaults,
+  defineConfig,
+  type TestProjectInlineConfiguration,
+} from "vitest/config";
 
 const dirname =
   typeof __dirname !== "undefined"
@@ -15,6 +19,19 @@ const dirname =
 
 import viteConfig from "./vite.config";
 
+// AIDEV-NOTE: visual regression project. Registered only when VITEST_VISUAL=1 (set by the
+// `test:visual*` scripts), so `pnpm test` keeps running unit + storybook only.
+// Baselines are valid only from the pinned Playwright container (docs/visual-testing.md §4),
+// so `--update` is refused anywhere else.
+const isVisualRun = process.env.VITEST_VISUAL === "1";
+const isUpdate = process.argv.some((arg) => arg === "-u" || arg === "--update");
+
+if (isVisualRun && isUpdate && process.env.VISUAL_CONTAINER !== "1") {
+  throw new Error(
+    "Visual baselines are generated only in the pinned container: run `pnpm test:visual:update`."
+  );
+}
+
 export default defineConfig((env) =>
   mergeConfig(
     viteConfig(env),
@@ -22,8 +39,8 @@ export default defineConfig((env) =>
       test: {
         globals: true,
         environment: "jsdom",
-        setupFiles: "./test-setup.ts",
         globalSetup: "./test-globals.ts",
+        attachmentsDir: ".vitest/attachments",
         coverage: {
           provider: "istanbul",
           reporter: [
@@ -76,8 +93,70 @@ export default defineConfig((env) =>
               setupFiles: [".storybook/vitest.setup.ts"],
             },
           },
+          ...(isVisualRun ? [visualProject] : []),
         ],
       },
     })
   )
 );
+
+const visualProject: TestProjectInlineConfiguration = {
+  extends: true,
+  plugins: [
+    storybookTest({
+      configDir: path.join(dirname, ".storybook"),
+      tags: { include: ["visual"], exclude: [], skip: [] },
+    }),
+  ],
+  test: {
+    name: "storybook-visual",
+    // One file at a time: parallel browsers crash on low-memory machines and fail as false diffs.
+    fileParallelism: false,
+    setupFiles: [".storybook/vitest.setup.ts", ".storybook/visual.setup.ts"],
+    browser: {
+      enabled: true,
+      headless: true,
+      provider: playwright({
+        contextOptions: {
+          locale: "en-GB",
+          timezoneId: "Europe/London",
+          colorScheme: "light",
+          reducedMotion: "reduce",
+          deviceScaleFactor: 1,
+        },
+      }),
+      instances: [
+        {
+          browser: "chromium",
+          viewport: { width: 1280, height: 800 },
+        },
+      ],
+      expect: {
+        toMatchScreenshot: {
+          comparatorName: "pixelmatch",
+          comparatorOptions: {
+            threshold: 0.2,
+            allowedMismatchedPixelRatio: 0.001,
+          },
+          // No platform in the name: valid only because every comparison runs in the container.
+          resolveScreenshotPath: ({
+            root,
+            testFileDirectory,
+            screenshotDirectory,
+            testFileName,
+            arg,
+            browserName,
+            ext,
+          }) =>
+            path.join(
+              root,
+              testFileDirectory,
+              screenshotDirectory,
+              testFileName,
+              `${arg}-${browserName}${ext}`
+            ),
+        },
+      },
+    },
+  },
+};

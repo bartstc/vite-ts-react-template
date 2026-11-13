@@ -4,6 +4,7 @@ import { EmptyStateResult } from "./EmptyStateResult";
 
 const meta = {
   component: EmptyStateResult,
+  tags: ["visual"],
   parameters: {
     layout: "centered",
   },

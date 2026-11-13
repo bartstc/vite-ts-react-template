@@ -7,6 +7,7 @@ import { Navbar } from "./index";
 
 const meta = {
   component: Navbar,
+  tags: ["visual"],
   decorators: [withRouter],
   parameters: {
     layout: "fullscreen",

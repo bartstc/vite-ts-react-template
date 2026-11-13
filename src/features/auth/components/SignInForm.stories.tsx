@@ -19,7 +19,9 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const EmptyForm: Story = {};
+export const EmptyForm: Story = {
+  tags: ["visual"],
+};
 
 export const WithCredentialsFilledByDefault: Story = {
   args: {

@@ -27,6 +27,8 @@ E2E proves what no lower tier can:
   belief meets the real server — the payload the UI sends is accepted, the response it gets renders.
 - State survives navigation and reload: created entities appear in lists, edits persist.
 
+E2E tests take no screenshots; visual regression is owned by the component tier.
+
 **Overlap with stories is expected.** A business path walks through screens that stories already cover. That is fine:
 the path is a different behaviour from its steps. What E2E does not do is re-enumerate them. A story owns _every_
 validation message and _every_ state of a screen; the E2E path goes through the screen once, on the route the business
