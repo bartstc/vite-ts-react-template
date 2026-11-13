@@ -4,7 +4,7 @@ React SPA built with Vite using feature slice architecture with clean architectu
 
 ## Stack
 
-TypeScript SPA. React 19, Vite 8, React Router 8, TanStack Query, Zustand, XState, Chakra UI, i18next. Testing: Vitest, Storybook, Playwright, MSW.
+TypeScript SPA. React 19, Vite 8, React Router 8, TanStack Query, Zustand, XState, Chakra UI, i18next. Testing: Vitest, Storybook, Playwright, MSW — strategy in `docs/testing.md`.
 
 ## Commands
 
@@ -14,6 +14,7 @@ TypeScript SPA. React 19, Vite 8, React Router 8, TanStack Query, Zustand, XStat
 - `pnpm lint --fix` — lint and auto-fix
 - `pnpm test` — all tests (unit + storybook)
 - `pnpm test:e2e` — Playwright E2E (headless)
+- `pnpm test:visual:docker` — visual regression tests in the pinned container
 - `pnpm storybook` — component dev (port 6006)
 
 Package manager: PNPM only. Path alias: `@/*` → `src/`.

@@ -79,26 +79,28 @@ It's recommended to run the dev server inside a container for consistent Node/PN
 
 ## Commands
 
-| Command                | Description                                                         |
-| ---------------------- | ------------------------------------------------------------------- |
-| `pnpm dev`             | Dev server with HMR on port `5173`                                  |
-| `pnpm dev:server`      | Local API server only on port `3001`                                |
-| `pnpm dev:all`         | Frontend + API server together                                      |
-| `pnpm typecheck`       | Type-check all sources without emitting                             |
-| `pnpm lint`            | Check for lint errors                                               |
-| `pnpm madge:circular`  | Check for circular module dependencies                              |
-| `pnpm madge:graph`     | Generate dependency graph image (`graph.png`) — requires `graphviz` |
-| `pnpm build`           | Production build                                                    |
-| `pnpm test`            | Run all tests (unit + storybook)                                    |
-| `pnpm test:unit`       | Unit tests only                                                     |
-| `pnpm test:storybook`  | Storybook component tests only                                      |
-| `pnpm test:coverage`   | Tests with coverage report                                          |
-| `pnpm test:e2e`        | E2E tests (headless)                                                |
-| `pnpm test:e2e:ui`     | E2E in interactive web UI mode                                      |
-| `pnpm test:e2e:headed` | E2E with visible browser                                            |
-| `pnpm test:e2e:debug`  | E2E in debug mode                                                   |
-| `pnpm test:e2e:report` | Open the HTML report from the last E2E run                          |
-| `pnpm storybook`       | Storybook on port `6006`                                            |
+| Command                   | Description                                                         |
+| ------------------------- | ------------------------------------------------------------------- |
+| `pnpm dev`                | Dev server with HMR on port `5173`                                  |
+| `pnpm dev:server`         | Local API server only on port `3001`                                |
+| `pnpm dev:all`            | Frontend + API server together                                      |
+| `pnpm typecheck`          | Type-check all sources without emitting                             |
+| `pnpm lint`               | Check for lint errors                                               |
+| `pnpm madge:circular`     | Check for circular module dependencies                              |
+| `pnpm madge:graph`        | Generate dependency graph image (`graph.png`) — requires `graphviz` |
+| `pnpm build`              | Production build                                                    |
+| `pnpm test`               | Run all tests (unit + storybook)                                    |
+| `pnpm test:unit`          | Unit tests only                                                     |
+| `pnpm test:storybook`     | Storybook component tests only                                      |
+| `pnpm test:coverage`      | Tests with coverage report                                          |
+| `pnpm test:visual:docker` | Visual regression tests in the pinned Playwright container          |
+| `pnpm test:visual:update` | Regenerate visual baselines (container only)                        |
+| `pnpm test:e2e`           | E2E tests (headless)                                                |
+| `pnpm test:e2e:ui`        | E2E in interactive web UI mode                                      |
+| `pnpm test:e2e:headed`    | E2E with visible browser                                            |
+| `pnpm test:e2e:debug`     | E2E in debug mode                                                   |
+| `pnpm test:e2e:report`    | Open the HTML report from the last E2E run                          |
+| `pnpm storybook`          | Storybook on port `6006`                                            |
 
 ## Testing strategy
 
@@ -107,18 +109,22 @@ It's recommended to run the dev server inside a container for consistent Node/PN
 - **Environment**: jsdom
 - **Location**: Co-located with source files in `src/`
 - **Run with**: `pnpm test:unit`
+- **Why**: [`docs/testing.md`](docs/testing.md)
 
 ### Component tests (`*.stories.tsx`)
 
 - **Environment**: Real browser (Chromium) via @vitest/browser-playwright
 - **Location**: Co-located with components in `src/`
 - **Run with**: `pnpm test:storybook`
+- **Visual**: opt-in stories tagged `visual`, run with `pnpm test:visual:docker` — [`docs/visual-testing.md`](docs/visual-testing.md)
+- **Why**: [`docs/testing.md`](docs/testing.md)
 
 ### E2E tests (`*.spec.ts`)
 
-- **Environment**: Chromium, Firefox, and WebKit via @playwright/test
+- **Environment**: Chromium via @playwright/test (Firefox and WebKit projects available in `playwright.config.ts`)
 - **Location**: `e2e/`
 - **Run with**: `pnpm test:e2e`
+- **Why**: [`docs/e2e-testing.md`](docs/e2e-testing.md)
 
 ## Removing libraries you don't need
 
