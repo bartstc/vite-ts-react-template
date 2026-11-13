@@ -1,0 +1,38 @@
+name: Visual regression
+
+on:
+  pull_request:
+
+jobs:
+  visual:
+    runs-on: ubuntu-latest
+    # Same image as `pnpm test:visual:update`; bump together with the `playwright` package.
+    container:
+      image: mcr.microsoft.com/playwright:v1.62.0-noble
+      options: --ipc=host
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Enable corepack
+        run: corepack enable
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24.x"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile --ignore-scripts
+
+      - name: Run visual tests
+        run: pnpm test:visual
+
+      - name: Upload visual diffs
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-diffs
+          path: .vitest/attachments/**
+          retention-days: 14

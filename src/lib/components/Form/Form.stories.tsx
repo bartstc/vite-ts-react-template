@@ -147,7 +147,9 @@ type Story = StoryObj<typeof meta>;
 
 // ─── Stories ───────────────────────────────────────────────────────────────────
 
-export const Default: Story = {};
+export const Default: Story = {
+  tags: ["visual"],
+};
 
 export const AllFields: Story = {
   play: async ({ canvas, step }) => {

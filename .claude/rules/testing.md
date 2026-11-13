@@ -11,13 +11,14 @@ paths:
 
 ## Tools
 
-| Type        | Location                            | Tool       |
-| ----------- | ----------------------------------- | ---------- |
-| Unit        | `.test.ts` / `.test.tsx` beside src | Vitest     |
-| Storybook   | `.stories.tsx` beside components    | Storybook  |
-| E2E         | `e2e/` directory                    | Playwright |
-| API mocking | `test-lib/handlers/`                | MSW        |
-| Fixtures    | `test-lib/fixtures/`                | Custom     |
+| Type        | Location                            | Tool                                            |
+| ----------- | ----------------------------------- | ----------------------------------------------- |
+| Unit        | `.test.ts` / `.test.tsx` beside src | Vitest                                          |
+| Storybook   | `.stories.tsx` beside components    | Storybook                                       |
+| Visual      | `.stories.tsx` tagged `visual`      | Vitest `toMatchScreenshot` (`pnpm test:visual`) |
+| E2E         | `e2e/` directory                    | Playwright                                      |
+| API mocking | `test-lib/handlers/`                | MSW                                             |
+| Fixtures    | `test-lib/fixtures/`                | Custom                                          |
 
 ## Running Tests
 
@@ -39,4 +40,5 @@ paths:
 ## Where the rules live
 
 - How to write each kind of test: `test-building-blocks` skill — read the block's rule file before writing a test
+- Visual regression (which stories, determinism, baselines): `docs/visual-testing.md`
 - Why (tiers, MSW as the mocking seam, when a stub is justified, design-smell signals): `docs/testing.md`
