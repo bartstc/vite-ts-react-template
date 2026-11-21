@@ -49,9 +49,9 @@ Package manager: PNPM only. Path alias: `@/*` → `src/`.
 
 **2. Self-Improvement Loop**
 
-- After any correction, capture the pattern in `specs/lessons.md` and write a rule to prevent recurrence
-- Review `specs/lessons.md` at the start of each session
-- Ruthlessly iterate on lessons until the mistake rate drops
+- After any correction, append a candidate lesson to the `## Inbox` of `specs/lessons.md` (`Status: new`, template in the file)
+- End that reply with one line: `Lesson captured: L<NNN> — <title> (untriaged)`
+- Never edit rules, skills or docs from a lesson — the dev promotes lessons via `/triage-lessons`
 
 **3. Verification On Demand**
 

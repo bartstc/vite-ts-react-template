@@ -75,4 +75,4 @@ if (import.meta.hot) {
   import.meta.hot.on("locales-update", resetLocaleCacheOnHMRUpdate);
 }
 
-export default i18n;
+export { i18n };

@@ -1,4 +1,4 @@
-import i18n, { supportedLocales } from "@/lib/i18n/i18n";
+import { i18n, supportedLocales } from "@/lib/i18n/i18n";
 
 interface IMoneyVO {
   format(value: string | number, currency?: string): string;
