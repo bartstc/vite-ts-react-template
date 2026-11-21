@@ -1,4 +1,4 @@
-import i18n, { supportedLocales } from "@/lib/i18n/i18n";
+import { i18n, supportedLocales } from "@/lib/i18n/i18n";
 
 interface INumberVO {
   format(value: number | string, options?: Intl.NumberFormatOptions): string;

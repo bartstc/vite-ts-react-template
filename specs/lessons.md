@@ -1,24 +1,32 @@
-# Lessons Learned
+# Lessons
 
-Patterns captured after corrections. Review at session start.
+Inbox of corrections waiting for triage. Not loaded at session start — promoted lessons live in the harness
+(sensors, playbooks, principles, workflow rules). See `docs/coding-harness.md` → Learning loop.
+
+- **Agent:** after a correction, append an entry with `Status: new`. Never edit rules, skills or docs from a lesson.
+- **Dev:** run `/triage-lessons` to promote or discard. Promoted entries collapse to one line in the archive.
 
 ## Template
 
 ```markdown
 ## L<NNN> — <short title>
 
+**Status:** new
+
 **Rule:** <the rule to follow going forward>
 
 **Why it failed:** <what caused the mistake>
 
-**How to apply:** <concrete guidance for when/where this kicks in>
-
-**Source:** <context — spec, PR, correction date>
+**Evidence:** <file, diff, PR or correction date>
 ```
 
 ---
 
+## Inbox
+
 ## L001 — Translation keys ship with user-facing values
+
+**Status:** new
 
 **Rule:** New user-facing value (enum, status, domain constant) → add its key to `public/locales/en-GB/translation.json` in the same task. Remove stale keys when values go away.
 
@@ -32,6 +40,8 @@ Patterns captured after corrections. Review at session start.
 
 ## L002 — Never import DTO types outside `providers/` and `models/`
 
+**Status:** new
+
 **Rule:** `Dto`-suffixed types (from `src/lib/api/`) must not be imported by `components/`, `application/`, or `pages/`. Use a domain model from `features/<feature>/models/`, or re-export with `export type { XxxDto as Xxx } from "@/lib/api/..."` when the domain shape matches the DTO.
 
 **Why it failed:** Lifting a fetch from a component to a page, `MarketingProductDto` was imported directly into `ProductDetails.tsx`. Per `docs/architecture.md`, `providers/` is the data-access gateway — DTOs must not leak past it.
@@ -42,24 +52,7 @@ Patterns captured after corrections. Review at session start.
 
 ---
 
-## L003 — Verification runs on demand only
+## Archive
 
-**Rule:** Do not run `pnpm typecheck`, `pnpm lint`, or tests after a change, and do not add verification steps to plans, unless the dev asks. Report unrun steps as `SKIPPED`.
-
-**Why it failed:** The old "Verification Before Done" rule made every task end in long typecheck/lint/test runs the dev had not asked for.
-
-**How to apply:** Finish the edit, report the outcome, and list the commands the dev may want to run. Run them only on request.
-
-**Source:** Decision 2026-11-10 — CLAUDE.md Workflow §3 replaced with "Verification On Demand".
-
----
-
-## L004 — Skills and docs stay portable
-
-**Rule:** Constraints in skills and docs are generic and short. Production symbols, file paths and implementation details appear only inside code examples. Shared test utilities (`src/test-lib/`) may be named.
-
-**Why it failed:** Error-handling rules named `parse-checkout-error.ts`, `AjaxError`, `ErrorPageStrategy` and library internals (`ramda.mergeDeepRight`), and presented one feature's helper as a standard.
-
-**How to apply:** Before adding a constraint, ask whether it would make sense if copied into another codebase. If not, move the specifics into the example or drop them. Add as little as possible.
-
-**Source:** Correction 2026-11-10 — trimmed building-blocks error rules, architecture.md Error Handling, fixture/msw-handler/api-test rules.
+- L003 — Verification runs on demand only → promoted: `CLAUDE.md` Workflow §3
+- L004 — Skills and docs stay portable → promoted: auto-memory `feedback_portable_skill_rules.md` (AIDEV-TODO: move into a skill-authoring playbook so it is shared)

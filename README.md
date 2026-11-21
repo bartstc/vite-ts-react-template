@@ -57,10 +57,11 @@ e2e/        Playwright end-to-end tests
 
 This project uses spec-driven development for non-trivial features. Instead of prompting an AI agent to "build X," you collaboratively write a short spec (80–150 lines) that constrains intent, design, and sequencing before any code is written.
 
-- **Spec workflow** — four-phase gated process: Goal & Scope → Design → Sequencing → Review. Each phase requires developer approval before proceeding.
+- **Spec workflow** — four-phase gated process: Goal & Scope → Design → Sequencing → Review. Each phase requires developer approval before proceeding. Read more: [`docs/spec-driven-development.md`](docs/spec-driven-development.md)
 - **Building blocks catalog** — typed patterns (mutations, queries, stores, components, hooks, models) that specs reference by name. The agent reads the pattern before implementing.
+- **Testing playbooks** — `test-building-blocks` (unit tests, component and visual stories, MSW handlers, fixtures) and `e2e-testing` (Playwright page objects, test data, waiting) skills give the same pattern-first approach to tests.
 - **Self-improvement loop** — lessons from past implementations accumulate in `specs/lessons.md` and feed back into future sessions.
-- Read more: [`docs/spec-development-docs.md`](docs/spec-development-docs.md)
+- **Coding harness** — principles (`docs/`), playbooks (skills) and sensors (ESLint, tsc, tests, `/check`, `/check-tests`, `/review-blocks`) that steer AI agents toward the codebase's conventions. Read more: [`docs/coding-harness.md`](docs/coding-harness.md)
 
 ## Getting started
 

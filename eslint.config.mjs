@@ -129,6 +129,7 @@ export default defineConfig(
       "import-x/newline-after-import": "error",
       "import-x/no-commonjs": "error",
       "import-x/no-amd": "error",
+      "import-x/no-default-export": "error",
       "import-x/order": [
         "error",
         {
@@ -240,6 +241,12 @@ export default defineConfig(
         ...vitest.environments.env.globals,
       },
     },
+  },
+  {
+    // AIDEV-NOTE: Tooling (Storybook CSF, Vite/Vitest/Playwright configs)
+    // requires default exports; everything else uses named exports.
+    files: ["**/*.stories.tsx", "**/*.config.ts", ".storybook/**"],
+    rules: { "import-x/no-default-export": "off" },
   },
   {
     files: ["**/*.?(m|c)js", "**/vite.config.ts", "**/vitest.config.ts"],
