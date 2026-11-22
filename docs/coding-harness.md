@@ -89,11 +89,19 @@ agent to list `src/lib/` before writing generic code, and `/review-blocks` flags
 2. Otherwise add or update the playbook rule file, and put the reasoning in a principles doc.
 3. Corrections go through the learning loop below. They are never written straight into the harness.
 
-## Learning loop
+## Learning loop — a self-improving codebase
+
+The harness lives in the codebase. Principles, playbooks, sensors and commands are files in this repo. Improving the
+harness is therefore an ordinary code change, made and reviewed the same way as product code. That is what lets the
+codebase improve itself: a mistake the agent made once becomes a change that prevents it in all future code.
 
 The learning loop is not a fourth layer. It is how the three layers change over time: each correction becomes a change
-to a sensor, a playbook or a principle. Agent-written rules are the riskiest input to a harness, because agents follow
-them reliably even when they are wrong. So a human decides every promotion.
+to a sensor, a playbook or a principle. Improvements compound most when they become sensors, because a sensor checks
+every future change, not just the next one.
+
+The loop is self-improving but human-gated. Agent-written rules are the riskiest input to a harness, because agents
+follow them reliably even when they are wrong. So the agent proposes and applies changes, and the dev decides every
+promotion.
 
 1. **Capture.** After a correction, the agent appends a lesson with `Status: new` to the `## Inbox` of
    [`specs/lessons.md`](../specs/lessons.md). It ends its reply with `Lesson captured: L<NNN> — <title> (untriaged)`.
@@ -105,3 +113,9 @@ them reliably even when they are wrong. So a human decides every promotion.
 
 `lessons.md` is not loaded at session start. Once a lesson is promoted, the knowledge lives where the agent already
 looks, and the inbox holds only unprocessed items.
+
+**Next steps.** Two things would make the loop stronger:
+
+- **Evals:** a small set of past tasks, re-run after a harness change, to show whether the change actually helped.
+- **Signals from real use:** in product repos, error tracking or analytics as a second source of lessons besides dev
+  corrections.
