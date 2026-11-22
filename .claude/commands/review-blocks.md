@@ -8,7 +8,8 @@ Dev-triggered only. Read-only review — do not edit files.
 2. For each changed file, identify which building block it implements (see `.claude/skills/building-blocks/SKILL.md` for the catalogue).
 3. Read the matching rule file(s) in `.claude/skills/building-blocks/rules/<block>.md`. Read only the blocks present in the diff.
 4. Check each file against its rule file: placement, naming, shape, responsibilities, forbidden patterns. Flag code that should be a block but isn't (e.g. inline query keys, mutation logic in a component, business logic in a pure component).
-5. Skip anything lint or typecheck already catches — focus on what they cannot.
+5. Flag new helpers, hooks or components in the diff that duplicate something already in `src/lib/` — name the existing module to reuse.
+6. Skip anything lint or typecheck already catches — focus on what they cannot.
 
 ## Output
 

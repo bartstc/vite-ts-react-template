@@ -325,9 +325,7 @@ The spec system works within the project's feature slice architecture documented
 
 ## Self-improvement loop
 
-After every implementation, the agent captures lessons learned in `specs/lessons.md` — patterns that caused rework, misunderstandings, or repeated mistakes. This file is reviewed at the start of each session so the same mistake doesn't happen twice.
-
-This creates a feedback loop: specs improve over time as lessons accumulate, and the agent's behavior becomes more aligned with the team's expectations.
+After a correction, the agent captures a lesson in the inbox at `specs/lessons.md`. The dev triages lessons with `/triage-lessons` and promotes each one into a sensor, playbook or principle, so specs and implementations improve over time. See [coding-harness.md → Learning loop](./coding-harness.md#learning-loop--a-self-improving-codebase).
 
 ---
 

@@ -72,7 +72,12 @@ agent remembers it.
 | `/review-blocks`  | read-only LLM review of the diff against building-block rules |
 | `/triage-lessons` | promote or discard inbox lessons (see Learning loop)          |
 
-`/review-blocks` covers what lint cannot express, such as choosing the wrong block or putting logic in the wrong layer.
+`/review-blocks` covers what lint cannot express, such as choosing the wrong block, putting logic in the wrong layer,
+or duplicating a helper or component that already exists in `src/lib/`.
+
+**Reuse before create.** Agents tend to duplicate code instead of finding what exists. `src/lib/` has no hand-written
+index (it would go stale, and the file names describe themselves). Instead, `.claude/rules/architecture.md` tells the
+agent to list `src/lib/` before writing generic code, and `/review-blocks` flags duplicates afterwards.
 
 **Writing a good sensor:** the error message tells the agent what to do instead and names the rule file, e.g.
 `"React Query hooks belong in providers/, not here."` Then the lint output points back to the playbook.
@@ -84,11 +89,19 @@ agent remembers it.
 2. Otherwise add or update the playbook rule file, and put the reasoning in a principles doc.
 3. Corrections go through the learning loop below. They are never written straight into the harness.
 
-## Learning loop
+## Learning loop — a self-improving codebase
+
+The harness lives in the codebase. Principles, playbooks, sensors and commands are files in this repo. Improving the
+harness is therefore an ordinary code change, made and reviewed the same way as product code. That is what lets the
+codebase improve itself: a mistake the agent made once becomes a change that prevents it in all future code.
 
 The learning loop is not a fourth layer. It is how the three layers change over time: each correction becomes a change
-to a sensor, a playbook or a principle. Agent-written rules are the riskiest input to a harness, because agents follow
-them reliably even when they are wrong. So a human decides every promotion.
+to a sensor, a playbook or a principle. Improvements compound most when they become sensors, because a sensor checks
+every future change, not just the next one.
+
+The loop is self-improving but human-gated. Agent-written rules are the riskiest input to a harness, because agents
+follow them reliably even when they are wrong. So the agent proposes and applies changes, and the dev decides every
+promotion.
 
 1. **Capture.** After a correction, the agent appends a lesson with `Status: new` to the `## Inbox` of
    [`specs/lessons.md`](../specs/lessons.md). It ends its reply with `Lesson captured: L<NNN> — <title> (untriaged)`.
@@ -100,3 +113,9 @@ them reliably even when they are wrong. So a human decides every promotion.
 
 `lessons.md` is not loaded at session start. Once a lesson is promoted, the knowledge lives where the agent already
 looks, and the inbox holds only unprocessed items.
+
+**Next steps.** Two things would make the loop stronger:
+
+- **Evals:** a small set of past tasks, re-run after a harness change, to show whether the change actually helped.
+- **Signals from real use:** in product repos, error tracking or analytics as a second source of lessons besides dev
+  corrections.

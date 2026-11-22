@@ -60,7 +60,7 @@ This project uses spec-driven development for non-trivial features. Instead of p
 - **Spec workflow** — four-phase gated process: Goal & Scope → Design → Sequencing → Review. Each phase requires developer approval before proceeding. Read more: [`docs/spec-driven-development.md`](docs/spec-driven-development.md)
 - **Building blocks catalog** — typed patterns (mutations, queries, stores, components, hooks, models) that specs reference by name. The agent reads the pattern before implementing.
 - **Testing playbooks** — `test-building-blocks` (unit tests, component and visual stories, MSW handlers, fixtures) and `e2e-testing` (Playwright page objects, test data, waiting) skills give the same pattern-first approach to tests.
-- **Self-improvement loop** — lessons from past implementations accumulate in `specs/lessons.md` and feed back into future sessions.
+- **Self-improvement loop** — lessons are captured in a `specs/lessons.md` inbox and promoted by the dev into sensors, playbooks or principles. Read more: [`docs/coding-harness.md`](docs/coding-harness.md#learning-loop--a-self-improving-codebase)
 - **Coding harness** — principles (`docs/`), playbooks (skills) and sensors (ESLint, tsc, tests, `/check`, `/check-tests`, `/review-blocks`) that steer AI agents toward the codebase's conventions. Read more: [`docs/coding-harness.md`](docs/coding-harness.md)
 
 ## Getting started
