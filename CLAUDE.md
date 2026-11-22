@@ -49,7 +49,7 @@ Package manager: PNPM only. Path alias: `@/*` → `src/`.
 
 **2. Self-Improvement Loop**
 
-- After any correction, append a candidate lesson to the `## Inbox` of `specs/lessons.md` (`Status: new`, template in the file)
+- When a correction shows a mistake that is likely to recur — you repeated it, or did it despite a rule, doc or warning — append a lesson to the `## Inbox` of `specs/lessons.md` (`Status: new`, template in the file). If unsure, ask: `Record as lesson? <one-line summary>`
 - End that reply with one line: `Lesson captured: L<NNN> — <title> (untriaged)`
 - Never edit rules, skills or docs from a lesson — the dev promotes lessons via `/triage-lessons`
 

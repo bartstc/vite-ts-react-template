@@ -103,8 +103,10 @@ The loop is self-improving but human-gated. Agent-written rules are the riskiest
 follow them reliably even when they are wrong. So the agent proposes and applies changes, and the dev decides every
 promotion.
 
-1. **Capture.** After a correction, the agent appends a lesson with `Status: new` to the `## Inbox` of
+1. **Capture.** When a correction shows a mistake likely to recur (the agent repeated it, or made it despite a rule,
+   doc or warning), the agent appends a lesson with `Status: new` to the `## Inbox` of
    [`specs/lessons.md`](../specs/lessons.md). It ends its reply with `Lesson captured: L<NNN> — <title> (untriaged)`.
+   If unsure, it asks `Record as lesson? <one-line summary>`. One-off corrections are not recorded.
 2. **Remind.** A `SessionStart` hook ([`.claude/hooks/lessons-reminder.sh`](../.claude/hooks/lessons-reminder.sh))
    prints the number of untriaged lessons. It prints nothing when the inbox is empty.
 3. **Triage.** The dev runs `/triage-lessons`. The agent proposes one target per lesson, strongest first:

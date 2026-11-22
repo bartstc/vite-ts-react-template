@@ -38,21 +38,8 @@ Inbox of corrections waiting for triage. Not loaded at session start — promote
 
 ---
 
-## L002 — Never import DTO types outside `providers/` and `models/`
-
-**Status:** new
-
-**Rule:** `Dto`-suffixed types (from `src/lib/api/`) must not be imported by `components/`, `application/`, or `pages/`. Use a domain model from `features/<feature>/models/`, or re-export with `export type { XxxDto as Xxx } from "@/lib/api/..."` when the domain shape matches the DTO.
-
-**Why it failed:** Lifting a fetch from a component to a page, `MarketingProductDto` was imported directly into `ProductDetails.tsx`. Per `docs/architecture.md`, `providers/` is the data-access gateway — DTOs must not leak past it.
-
-**How to apply:** Before using any `src/lib/api/` type in a component or page, check `features/<feature>/models/` for a domain alias. If none exists, add one following `product.ts`.
-
-**Source:** Correction 2026-04-12 — `MarketingProductDto` leaked into `ProductDetails.tsx` component props.
-
----
-
 ## Archive
 
+- L002 — Never import DTO types outside `providers/` and `models/` → discarded: covered by `lib-api` boundary rules in `eslint.feature-slices.mjs`; Dto-named re-export gap not seen in practice
 - L003 — Verification runs on demand only → promoted: `CLAUDE.md` Workflow §3
 - L004 — Skills and docs stay portable → promoted: auto-memory `feedback_portable_skill_rules.md` (AIDEV-TODO: move into a skill-authoring playbook so it is shared)
