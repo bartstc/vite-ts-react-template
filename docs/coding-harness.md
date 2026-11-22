@@ -72,7 +72,12 @@ agent remembers it.
 | `/review-blocks`  | read-only LLM review of the diff against building-block rules |
 | `/triage-lessons` | promote or discard inbox lessons (see Learning loop)          |
 
-`/review-blocks` covers what lint cannot express, such as choosing the wrong block or putting logic in the wrong layer.
+`/review-blocks` covers what lint cannot express, such as choosing the wrong block, putting logic in the wrong layer,
+or duplicating a helper or component that already exists in `src/lib/`.
+
+**Reuse before create.** Agents tend to duplicate code instead of finding what exists. `src/lib/` has no hand-written
+index (it would go stale, and the file names describe themselves). Instead, `.claude/rules/architecture.md` tells the
+agent to list `src/lib/` before writing generic code, and `/review-blocks` flags duplicates afterwards.
 
 **Writing a good sensor:** the error message tells the agent what to do instead and names the rule file, e.g.
 `"React Query hooks belong in providers/, not here."` Then the lint output points back to the playbook.
