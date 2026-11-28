@@ -49,6 +49,7 @@
     ]
   },
   "plansDirectory": "./.claude/plans",
+  "outputStyle": "ste",
   "hooks": {
     "PreToolUse": [
       {
