@@ -60,7 +60,7 @@ This project uses spec-driven development for non-trivial features. Instead of p
 - **Spec workflow** — four-phase gated process: Goal & Scope → Design → Sequencing → Review. Each phase requires developer approval before proceeding. Read more: [`docs/spec-driven-development.md`](docs/spec-driven-development.md)
 - **Building blocks catalog** — typed patterns (mutations, queries, stores, components, hooks, models) that specs reference by name. The agent reads the pattern before implementing.
 - **Testing playbooks** — `test-building-blocks` (unit tests, component and visual stories, MSW handlers, fixtures) and `e2e-testing` (Playwright page objects, test data, waiting) skills give the same pattern-first approach to tests.
-- **Self-improvement loop** — lessons are captured in a `specs/lessons.md` inbox and promoted by the dev into sensors, playbooks or principles. Read more: [`docs/coding-harness.md`](docs/coding-harness.md#learning-loop--a-self-improving-codebase)
+- **Self-improvement loop** — lessons are captured in a `specs/lessons.md` inbox and promoted by the dev into sensors, playbooks or principles. Read more: [`docs/coding-harness.md`](docs/coding-harness.md#learning-loop--a-codebase-that-improves-itself)
 - **Coding harness** — principles (`docs/`), playbooks (skills) and sensors (ESLint, tsc, tests, `/check`, `/check-tests`, `/review-blocks`) that steer AI agents toward the codebase's conventions. Read more: [`docs/coding-harness.md`](docs/coding-harness.md)
 
 ## Getting started
@@ -110,22 +110,22 @@ It's recommended to run the dev server inside a container for consistent Node/PN
 - **Environment**: jsdom
 - **Location**: Co-located with source files in `src/`
 - **Run with**: `pnpm test:unit`
-- **Why**: [`docs/testing.md`](docs/testing.md)
+- **Why**: [`docs/tests/README.md`](docs/tests/README.md)
 
 ### Component tests (`*.stories.tsx`)
 
 - **Environment**: Real browser (Chromium) via @vitest/browser-playwright
 - **Location**: Co-located with components in `src/`
 - **Run with**: `pnpm test:storybook`
-- **Visual**: opt-in stories tagged `visual`, run with `pnpm test:visual:docker` — [`docs/visual-testing.md`](docs/visual-testing.md)
-- **Why**: [`docs/testing.md`](docs/testing.md)
+- **Visual**: opt-in stories tagged `visual`, run with `pnpm test:visual:docker` — [`docs/tests/visual-testing.md`](docs/tests/visual-testing.md)
+- **Why**: [`docs/tests/README.md`](docs/tests/README.md)
 
 ### E2E tests (`*.spec.ts`)
 
 - **Environment**: Chromium via @playwright/test (Firefox and WebKit projects available in `playwright.config.ts`)
 - **Location**: `e2e/`
 - **Run with**: `pnpm test:e2e`
-- **Why**: [`docs/e2e-testing.md`](docs/e2e-testing.md)
+- **Why**: [`docs/tests/e2e-testing.md`](docs/tests/e2e-testing.md)
 
 ## Removing libraries you don't need
 

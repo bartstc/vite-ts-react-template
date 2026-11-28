@@ -2,11 +2,11 @@
 
 An existing story opted into screenshot comparison with the `visual` tag. The `storybook-visual` Vitest project renders
 it, runs its play function, then captures the page with `toMatchScreenshot` and compares it with the committed baseline.
-The reasoning (which stories, determinism, review) is in `docs/visual-testing.md`.
+The reasoning (which stories, determinism, review) is in `docs/tests/visual-testing.md`.
 
 ### Constraints
 
-- Tag only stories that pass the questions in `docs/visual-testing.md` §3. Never tag every story.
+- Tag only stories that pass the questions in `docs/tests/visual-testing.md` §3. Never tag every story.
 - Tag the meta when every story in the file qualifies: `tags: ["visual"]`. Otherwise tag single stories. Opt one story
   out of a tagged meta with `tags: ["!visual"]`.
 - No screenshot code in stories. Capture is automatic (`.storybook/visual.setup.ts`), named after the story, after

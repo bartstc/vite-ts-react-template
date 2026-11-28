@@ -22,7 +22,7 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   /* A pass on retry is a flaky test — fail the CI build instead of hiding it */
   failOnFlakyTests: !!process.env.CI,
-  /* AIDEV-NOTE: Single worker — the auto `resetDb` fixture resets the shared DB before every test; parallel workers would wipe each other's data (docs/e2e-testing.md §2.2) */
+  /* AIDEV-NOTE: Single worker — the auto `resetDb` fixture resets the shared DB before every test; parallel workers would wipe each other's data (docs/tests/e2e-testing.md §2.2) */
   workers: 1,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: "html",

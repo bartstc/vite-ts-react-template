@@ -42,6 +42,6 @@ paths:
 ## Where the rules live
 
 - How to write each kind of test: `test-building-blocks` skill — read the block's rule file before writing a test
-- Why (tiers, MSW as the mocking seam, when a stub is justified, design-smell signals): `docs/testing.md`
-- Visual regression (which stories, determinism, baselines): `docs/visual-testing.md`. Screenshots only in stories tagged `visual`, never in E2E
-- E2E (which paths, API seeding, data isolation, what may be mocked): `docs/e2e-testing.md`; how to write one: `e2e-testing` skill
+- Why (tiers, MSW as the mocking seam, when a stub is justified, design-smell signals): `docs/tests/README.md`
+- Visual regression (which stories, determinism, baselines): `docs/tests/visual-testing.md`. Screenshots only in stories tagged `visual`, never in E2E
+- E2E (which paths, API seeding, data isolation, what may be mocked): `docs/tests/e2e-testing.md`; how to write one: `e2e-testing` skill

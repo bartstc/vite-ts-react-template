@@ -1,4 +1,4 @@
-// AIDEV-NOTE: loaded only by the `storybook-visual` Vitest project (docs/visual-testing.md).
+// AIDEV-NOTE: loaded only by the `storybook-visual` Vitest project (docs/tests/visual-testing.md).
 // Uses Vitest's `expect` on purpose: `storybook/test` exports a Chai `expect` without
 // `toMatchScreenshot`. Stories never import this file.
 import { afterEach, beforeAll, expect, vi } from "vitest";

@@ -1,6 +1,6 @@
 # Anti-Patterns
 
-Common mistakes in E2E tests and page objects, and what to do instead. The reasons are in `docs/e2e-testing.md`.
+Common mistakes in E2E tests and page objects, and what to do instead. The reasons are in `docs/tests/e2e-testing.md`.
 
 ## 1. One-shot assertions
 

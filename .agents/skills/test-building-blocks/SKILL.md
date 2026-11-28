@@ -9,7 +9,7 @@ Catalog of the test building blocks used in this project. Block names are stable
 refer to them as `` `name` (block-type) ``.
 
 The rationale — tiers, why MSW is the mocking seam, when a stub is justified, design-smell signals — is in
-[`docs/testing.md`](../../../docs/testing.md). When the doc, this file and a rule file disagree, fix whichever is wrong.
+[`docs/tests/README.md`](../../../docs/tests/README.md). When the doc, this file and a rule file disagree, fix whichever is wrong.
 
 ## How to use
 

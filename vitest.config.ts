@@ -21,7 +21,7 @@ import viteConfig from "./vite.config";
 
 // AIDEV-NOTE: visual regression project. Registered only when VITEST_VISUAL=1 (set by the
 // `test:visual*` scripts), so `pnpm test` keeps running unit + storybook only.
-// Baselines are valid only from the pinned Playwright container (docs/visual-testing.md §4),
+// Baselines are valid only from the pinned Playwright container (docs/tests/visual-testing.md §4),
 // so `--update` is refused anywhere else.
 const isVisualRun = process.env.VITEST_VISUAL === "1";
 const isUpdate = process.argv.some((arg) => arg === "-u" || arg === "--update");

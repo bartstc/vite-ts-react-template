@@ -12,7 +12,7 @@ allowed-tools:
 
 How to write a Playwright E2E test in this repo: the journey test, and the pieces it is built from. This skill is
 self-sufficient for writing and reviewing tests. The reasoning behind it (tier ownership, data isolation, mocking,
-flakiness) is in [`docs/e2e-testing.md`](../../../docs/e2e-testing.md) — read it only for a case this skill does not
+flakiness) is in [`docs/tests/e2e-testing.md`](../../../docs/tests/e2e-testing.md) — read it only for a case this skill does not
 cover. When the doc, this file and a reference disagree, fix whichever is wrong.
 
 ## How to use

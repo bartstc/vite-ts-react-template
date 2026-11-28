@@ -17,7 +17,7 @@ A structured catalog of typed test-related building blocks, optimized for AI age
 
 ## How It Works
 
-1. Agent reads `SKILL.md` — gets the catalog index, routing, the mocking boundary rule, and shared conventions (rationale lives in `docs/testing.md`)
+1. Agent reads `SKILL.md` — gets the catalog index, routing, the mocking boundary rule, and shared conventions (rationale lives in `docs/tests/README.md`)
 2. When implementing a specific block, agent reads `rules/{block-name}.md`
 
 ## Creating a New Building Block
