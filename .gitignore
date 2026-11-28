@@ -42,3 +42,6 @@ reports
 
 # Claude
 .claude/settings.local.json
+# Claude Code plans
+.claude/plans/*
+!.claude/plans/.gitkeep
