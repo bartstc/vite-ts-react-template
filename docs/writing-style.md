@@ -1,6 +1,6 @@
-# Test Docs Style: Simplified Technical English (STE)
+# Writing Style: Simplified Technical English (STE)
 
-Those guidelines come from the writing rules of ASD-STE100, adapted for software test docs. We do not use the STE dictionary. Use plain, common English words instead.
+Those guidelines come from the writing rules of ASD-STE100, adapted for software docs and agent replies. We do not use the STE dictionary. Use plain, common English words instead.
 
 ## Words
 

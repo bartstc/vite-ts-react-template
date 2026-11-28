@@ -1,81 +1,83 @@
 # Project
 
-React SPA built with Vite using feature slice architecture with clean architecture principles.
+This project is a React SPA, built with Vite. It uses the feature slice architecture with clean architecture principles.
 
 ## Stack
 
-TypeScript SPA. React 19, Vite 8, React Router 8, TanStack Query, Zustand, XState, Chakra UI, i18next. Testing: Vitest, Storybook, Playwright, MSW — strategy in `docs/tests/README.md`.
+TypeScript SPA. React 19, Vite 8, React Router 8, TanStack Query, Zustand, XState, Chakra UI, i18next. Testing: Vitest, Storybook, Playwright, MSW. The test strategy is in `docs/tests/README.md`.
 
 ## Commands
 
-- `pnpm dev` — start dev server (port 5173)
-- `pnpm dev:all` — start both frontend (port 5173) and local API server (port 3001)
-- `pnpm typecheck` — type-check all sources (src, e2e, stories, tests)
-- `pnpm lint --fix` — lint and auto-fix
-- `pnpm test` — all tests (unit + storybook)
-- `pnpm test:e2e` — Playwright E2E (headless)
-- `pnpm test:visual:docker` — visual regression tests in the pinned container
-- `pnpm storybook` — component dev (port 6006)
+- `pnpm dev` — start the dev server (port 5173)
+- `pnpm dev:all` — start the frontend (port 5173) and the local API server (port 3001)
+- `pnpm typecheck` — do a type check of all sources (src, e2e, stories, tests)
+- `pnpm lint --fix` — run lint and fix automatically
+- `pnpm test` — run all tests (unit and Storybook)
+- `pnpm test:e2e` — run Playwright E2E (headless)
+- `pnpm test:visual:docker` — run visual regression tests in the pinned container
+- `pnpm storybook` — start component development (port 6006)
 
-Package manager: PNPM only. Path alias: `@/*` → `src/`.
+Package manager: only PNPM. Path alias: `@/*` → `src/`.
 
 ## Core Principles
 
-- **Simplicity first** — make every change as simple as possible, minimize code impact, choose the boring solution
-- **Surgical changes** — touch only what the task requires; don't refactor, reformat, or "improve" adjacent code. Remove only the orphans your own changes create
-- When unsure about requirements or business logic, ask the developer — never assume
-- For changes >300 LOC or >3 files, ask for confirmation before proceeding
-- Stay within current task context; inform dev if fresh start needed
-- Modify API contracts only with explicit approval
-- Use git commands only when explicitly requested
+- **Simplicity first** — make each change as simple as possible. Change as little code as possible. Choose the boring solution.
+- **Surgical changes** — change only what the task needs. Do not refactor, reformat or "improve" the code near your change. Remove only the orphans that your own changes make.
+- If you are not sure about requirements or business logic, ask the developer. Never assume.
+- For changes of more than 300 LOC or more than 3 files, ask for confirmation before you continue.
+- Stay in the context of the current task. If a fresh start is necessary, tell the dev.
+- Change API contracts only with explicit approval.
+- Use git commands only when the dev explicitly asks.
 
 ## Communication
 
 - Work silently between tool calls. Your first text in a turn is a result or a question.
-- Stop and report when: different readings of the requirements or code lead to different code; 3+ places checked
-  without resolving the same thing; or your approach failed twice. Report one line on what's unclear, the options, and
-  what you need from me, then wait. Never pick an interpretation silently.
-- Keep reports, options, and summaries extremely concise — prioritize information density.
-- Final reply: outcome first, then assumptions, risks and commands to run, only if any.
-- Always report in full: errors, failing tests, security or data-loss risks, and confirmations before destructive actions.
+- Stop and report in these cases:
+  - Different readings of the requirements or code give different code.
+  - You checked 3 or more places and did not find the answer to the same question.
+  - Your approach failed two times.
+- In the report, write one line about what is not clear, the options, and what you need from me. Then wait. Never choose an interpretation silently.
+- Keep reports, options and summaries very concise, with high information density. But write full sentences in Simplified Technical English (`docs/writing-style.md`).
+- Final reply: the outcome first. Then the assumptions, risks and commands to run, if there are any.
+- Always report these items in full: errors, failed tests, security or data-loss risks, and confirmations before destructive actions.
 
 ## Workflow
 
 **1. Plan Mode Default**
 
-- Enter plan mode for any non-trivial task (3+ steps or architectural decisions)
-- If something goes wrong, STOP and re-plan immediately — do not keep pushing
-- For complex features, write or request a spec before implementation
+- Enter plan mode for each task that is not trivial (3 or more steps, or architectural decisions).
+- If something goes wrong, STOP and make a new plan immediately. Do not continue.
+- For complex features, write or ask for a spec before implementation.
 
 **2. Self-Improvement Loop**
 
-- When a correction shows a mistake that is likely to recur — you repeated it, or did it despite a rule, doc or warning — append a lesson to the `## Inbox` of `specs/lessons.md` (`Status: new`, template in the file). If unsure, ask: `Record as lesson? <one-line summary>`
+- A correction can show an error that will probably occur again: you made it again, or you made it although a rule, doc or warning exists. Then add a lesson to the end of the `## Inbox` of `specs/lessons.md` (`Status: new`, the template is in the file). If you are not sure, ask: `Record as lesson? <one-line summary>`
 - End that reply with one line: `Lesson captured: L<NNN> — <title> (untriaged)`
-- Never edit rules, skills or docs from a lesson — the dev promotes lessons via `/triage-lessons`
+- Never edit rules, skills or docs because of a lesson. The dev promotes lessons with `/triage-lessons`.
 
 **3. Verification On Demand**
 
-- Do not run typecheck, lint or tests, and do not add verification steps to plans, unless the dev asks
-- Report real output: a step you did not run is `SKIPPED`, never `PASS`
+- Do not run typecheck, lint or tests, and do not add verification steps to plans, unless the dev asks.
+- Report the real output. A step that you did not run is `SKIPPED`, never `PASS`.
 
 **4. Demand Elegance (Balanced)**
 
-- For non-trivial changes, ask: "Is there a more elegant solution?"
-- If a fix feels hacky: "Knowing everything I know now, implement the elegant solution"
-- Skip this for simple fixes — do not over-engineer
+- For changes that are not trivial, ask: "Is there a more elegant solution?"
+- If a fix seems like a hack, ask: "With all that I know now, what is the elegant solution?" Then implement it.
+- Do not do this for simple fixes. Do not over-engineer.
 
 **5. Autonomous Bug Fixing**
 
-- When given a bug report: just fix it
-- Use logs, errors, and failing tests to diagnose — require zero context switching from the developer
+- When you get a bug report, fix it. Do not ask for help.
+- Use logs, errors and failed tests to find the cause. The developer must not need to change context.
 
 **6. Spec-Driven Development**
 
-- For features spanning 5+ files or 5+ unconstrained decisions, write a spec first using writing-spec skill
-- When implementing a spec, read the building-blocks skill rule file for each block in the Building Blocks Diff before writing code. That is the canonical pattern — do not explore existing files to reverse-engineer patterns. Only read existing files for integration points (imports, symbols, types)
-- If a rule file is missing or ambiguous, raise the gap — do not substitute with codebase exploration
-- Skip when the developer opts out
+- For features that touch 5 or more files, or have 5 or more open decisions, first write a spec with the `writing-spec` skill.
+- When you implement a spec, read the `building-blocks` rule file for each block in the Building Blocks Diff before you write code. That rule file is the canonical pattern. Do not examine existing files to find patterns. Read existing files only for integration points (imports, symbols, types).
+- If a rule file is missing or not clear, report the gap. Do not examine the codebase instead.
+- Do not do this when the developer opts out.
 
 ## Conventions
 
-- Use `AIDEV-NOTE:`, `AIDEV-TODO:`, `AIDEV-QUESTION:` anchors near non-trivial code (exception to no-comments rule)
+- Use `AIDEV-NOTE:`, `AIDEV-TODO:` and `AIDEV-QUESTION:` anchors near code that is not trivial. This is an exception to the rule of no comments.
